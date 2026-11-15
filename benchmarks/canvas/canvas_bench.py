@@ -58,6 +58,38 @@ except Exception:
     pass
 
 
+# ------------------------------------------------------------------ curve rule
+# The most common model mistake: a curve needs exactly 1+3n points
+# (4, 7, 10, ... 31): one start point plus triples of cubic control/endpoint.
+# Models obey machine-validated constraints far better than prose in the system
+# prompt, so this constraint exists in two forms below.
+CURVE_RULE_PROSE = (
+    "CURVE POINT RULE (strict): a curve's points array must hold exactly "
+    "1 + 3n points -- one of 4, 7, 10, 13, 16, 19, 22, 25, 28 or 31. The "
+    "FIRST point is the start; every following triple is control1, control2, "
+    "endpoint. Never emit 3, 5, 6, 9, 12 or 15 points."
+)
+
+CURVE_POINT_COUNTS = [4, 7, 10, 13, 16, 19, 22, 25, 28, 31]
+
+
+def build_tool(schema_hint=False):
+    """canvas_draw tool. With schema_hint the curve point constraint is made
+    machine-visible (minItems + explicit allowed counts) instead of prose-only."""
+    tool = json.loads(json.dumps(DRAW_TOOL))
+    if schema_hint:
+        points = tool["function"]["parameters"]["properties"][
+            "actions"]["items"]["properties"]["points"]
+        points["minItems"] = 4
+        points["description"] = (
+            "Curve: start followed by control1, control2, endpoint for each "
+            "cubic segment. The count must be exactly one of "
+            f"{', '.join(map(str, CURVE_POINT_COUNTS))} points (start + "
+            "triples of control/endpoint). Other paths: connected points. "
+            "Max 31 points per pass."
+        )
+    return tool
+
 # ------------------------------------------------------------------ model ---
 def chat(base_url, model, messages, tools=None, temperature=0.0, max_tokens=3072,
          timeout=900):
@@ -84,7 +116,8 @@ def urllib_request(base_url, body, timeout):
     return data
 
 
-def draw_actions(base_url, model, system, user, images=None, temperature=0.0):
+def draw_actions(base_url, model, system, user, images=None, temperature=0.0,
+                 schema_hint=False):
     """One canvas_draw turn. Returns (actions, meta)."""
     content = [{"type": "text", "text": user}]
     for image in images or []:
@@ -92,7 +125,8 @@ def draw_actions(base_url, model, system, user, images=None, temperature=0.0):
                            "image_url": {"url": "data:image/png;base64," + image}})
     messages = [{"role": "system", "content": system},
                 {"role": "user", "content": content}]
-    data = chat(base_url, model, messages, tools=[DRAW_TOOL], temperature=temperature)
+    data = chat(base_url, model, messages, tools=[build_tool(schema_hint)],
+                temperature=temperature)
     choice = (data.get("choices") or [{}])[0]
     message = choice.get("message") or {}
     usage = data.get("usage") or {}
@@ -223,6 +257,7 @@ def run_task(task, args):
         user = f"Current canvas state:\n{state}\n\n{user}"
 
     actions, meta = draw_actions(args.base_url, args.model, system, user,
+                                 schema_hint=args.schema_hint,
                                  temperature=args.temperature)
     validated, valid, error, clamped = validate_and_measure(actions)
     scene = build_scene(validated)
@@ -277,7 +312,9 @@ def run_task(task, args):
                     f"The request was: {task['brief']}\n\n"
                     f"Current canvas state:\n{state}")
         edit_actions, edit_meta = draw_actions(
-            args.base_url, args.model, system, critique, images=[base64.b64encode(png).decode()],
+            args.base_url, args.model, system, critique,
+            images=[base64.b64encode(png).decode()],
+            schema_hint=args.schema_hint,
             temperature=args.temperature)
         edit_validated, edit_valid, edit_error, edit_clamped = validate_and_measure(edit_actions)
         edit_scene = build_scene(edit_validated)
@@ -316,6 +353,9 @@ def main():
     parser.add_argument("--temperature", type=float, default=0.0)
     parser.add_argument("--judge-base-url", default=None)
     parser.add_argument("--judge-model", default=None)
+    parser.add_argument("--schema-hint", action="store_true", default=False,
+                        help="put the curve point-count rule in the tool schema "
+                             "(machine-validated) instead of prose-only")
     parser.add_argument("--out", default=None)
     parser.add_argument("--out-dir", default=None)
     args = parser.parse_args()
@@ -345,7 +385,8 @@ def main():
                   r.get("checks_passed") == r.get("checks_total"))
     deltas = [r["critique_delta"] for r in results if "critique_delta" in r]
     summary = {
-        "label": args.label, "model": args.model, "base_url": args.base_url,
+        "label": args.label, "model": args.model, "schema_hint": args.schema_hint,
+        "base_url": args.base_url,
         "tasks": len(results),
         "check_score": round(passed_checks / max(1, total_checks), 4),
         "tasks_fully_satisfied": perfect,
