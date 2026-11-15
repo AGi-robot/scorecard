@@ -1,4 +1,4 @@
-"""CanvasBench-style task set for Grace's vector canvas.
+"""Grace Canvas Eval task set for the vector canvas.
 
 Each task is a brief a user could actually send Grace, plus per-task checks
 that run against the resulting scene graph (the list of normalised objects the

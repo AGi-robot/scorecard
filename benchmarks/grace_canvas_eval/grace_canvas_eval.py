@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""CanvasBench for Grace: score a model on Grace's own vector canvas.
+"""Grace Canvas Eval: score a model on Grace's own vector canvas.
 
 Runs the drawing tasks in tasks.py against any OpenAI-compatible endpoint that
 speaks the canvas_draw tool, then scores the resulting scene graph with the
@@ -7,7 +7,7 @@ automatic checks. Everything is scored from the canvas engine's own state, so
 no reference images or human labels are needed.
 
 Usage:
-    python canvas_bench.py --base-url http://127.0.0.1:8080/v1 \\
+    python grace_canvas_eval.py --base-url http://127.0.0.1:8080/v1 \\
         --model ministral-3-14b-instruct-2512 --label ministral
 
 Options:
@@ -364,7 +364,7 @@ def main():
     if args.limit:
         selected = selected[:args.limit]
 
-    print(f"CanvasBench: {args.label} ({len(selected)} tasks)", flush=True)
+    print(f"Grace Canvas Eval: {args.label} ({len(selected)} tasks)", flush=True)
     results = []
     for task in selected:
         started = time.time()

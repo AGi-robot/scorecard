@@ -1,10 +1,10 @@
-# CanvasBench for Grace
+# Grace Canvas Eval
 
-A benchmark for the thing Grace actually does that no standard benchmark
+A custom evaluation for the thing Grace actually does that no standard benchmark
 measures: emit a structured sequence of canvas actions that renders into
 something that matches the brief.
 
-It is modelled on [Framer's CanvasBench](https://www.framer.com/canvasbench/)
+It borrows ideas from [Framer's CanvasBench](https://www.framer.com/canvasbench/)
 (completion / steps / time / cost, with "good" and "great" tiers) and borrows
 scene-graph metrics from Graphic Design Bench, but runs against Grace's own
 `grace_canvas` library instead of a design tool.
@@ -27,11 +27,11 @@ images and no human labels are needed.
 
 ```bash
 # one-off environment (does not touch the AIVA venv)
-uv venv /tmp/canvas-bench-venv
-uv pip install --python /tmp/canvas-bench-venv/bin/python cairosvg pillow
+uv venv /tmp/grace-canvas-eval-venv
+uv pip install --python /tmp/grace-canvas-eval-venv/bin/python cairosvg pillow
 
 # a model must be served with the canvas_draw tool available
-AGI_REPO=/path/to/AGi /tmp/canvas-bench-venv/bin/python benchmarks/canvas/canvas_bench.py \
+AGI_REPO=/path/to/AGi /tmp/grace-canvas-eval-venv/bin/python benchmarks/grace_canvas_eval/grace_canvas_eval.py \
     --base-url http://127.0.0.1:8080/v1 \
     --model ministral-3-14b-instruct-2512 \
     --label ministral3-14b \
