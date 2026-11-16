@@ -1,11 +1,18 @@
-# BFCL for Grace (single-turn AST categories)
+# BFCL: function calling, memory, and search
 
 Tool-calling accuracy on the official Berkeley Function Calling Leaderboard
 data, scored with AST matching that follows the official checker's semantics.
 
-## Scope (deliberate)
+The V3 runner uses bundled single-turn tasks and a local AST scorer. The V4
+commands below use the pinned official harness for memory and search; the AIVA
+adapter measures a separate recent-history track. They share this folder, but
+currently require separate commands. A memory/search run alone does not provide
+a complete official V4 leaderboard score. Historical V3 scores cannot be reused
+as V4 results without rerunning the applicable official protocol.
 
-Only the five single-turn, AST-checkable categories are run here:
+## V3 scope
+
+The local V3 runner covers five single-turn, AST-checkable categories:
 
 | Category | n | What it probes |
 |---|---|---|
@@ -55,7 +62,7 @@ four answer-bearing categories, empty predictions score 0, wrong names score 0.
 ## Running it
 
 ```bash
-python bfcl_run.py http://127.0.0.1:8080/v1 ministral-3-14b-instruct-2512 ministral3-14b --think-off
+python benchmarks/bfcl/bfcl_run.py http://127.0.0.1:8080/v1 ministral-3-14b-instruct-2512 ministral3-14b --think-off
 # --categories "simple parallel"  to subset
 # --limit N                       to smoke-test
 ```
@@ -64,16 +71,7 @@ Resumable: completed answers append to `results/responses_<label>.jsonl`
 (keyed on prompt id, like the IFEval runner). Score file lands at
 `results/bfcl_<label>.json`.
 
-## BFCL V4 memory and web search
-
-The BFCL V4 setup, SearXNG adapter, Docker configuration, run commands, and
-AIVA memory limitations are documented in the [BFCL V4 guide](v4/README.md).
-This V3 runner remains the local single-turn AST baseline.
-
-
----
-
-# BFCL V4: memory and web search
+## BFCL V4: memory and web search
 
 This guide adds BFCL V4's official `memory` and `web_search` categories to the
 scorecard workflow. It uses the official BFCL task set and evaluator, with a
@@ -140,8 +138,8 @@ network.
 Use the official repository at the revision both local patches target:
 
 - Upstream commit: `6ea57973c7a6097fd7c5915698c54c17c5b1b6c8`
-- Patches: [`searxng.patch`](searxng.patch) and
-  [`aiva-model.patch`](aiva-model.patch), applied from the Gorilla repository root.
+- Patches: [`searxng-v4.patch`](searxng-v4.patch) and
+  [`aiva-model-v4.patch`](aiva-model-v4.patch), applied from the Gorilla repository root.
   The model patch registers AIVA's local Ministral alias in BFCL's model map
   using its prompt-mode quick-test handler.
 
@@ -155,8 +153,8 @@ git checkout 6ea57973c7a6097fd7c5915698c54c17c5b1b6c8
 cd berkeley-function-call-leaderboard
 python -m pip install -e .
 cd ..
-git apply /path/to/AGi-scorecard/benchmarks/bfcl/searxng.patch
-git apply /path/to/AGi-scorecard/benchmarks/bfcl/aiva-model.patch
+git apply /path/to/AGi-scorecard/benchmarks/bfcl/searxng-v4.patch
+git apply /path/to/AGi-scorecard/benchmarks/bfcl/aiva-model-v4.patch
 ```
 
 The patch reads `SEARXNG_BASE_URL` (default `http://127.0.0.1:8888`) and
@@ -232,7 +230,7 @@ python benchmarks/bfcl/aiva_memory_run.py \
 ```
 
 The runner writes per-question results and a summary under
-`benchmarks/bfcl/results/`. A limited question run still replays the full
+`benchmarks/bfcl/results/v4/`. A limited question run still replays the full
 prerequisite history for the selected scenario so it measures the configured
 memory window. It reports a BFCL-answer-checker accuracy for this AIVA-specific
 track; do not present it as the official BFCL `memory` category score.

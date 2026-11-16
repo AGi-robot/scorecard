@@ -9,7 +9,6 @@ arguments, outputs, protocol, and scoring.
 
 ### Model and capability baselines
 
-- [BFCL V3](benchmarks/bfcl/README.md): single-turn function calling.
 - [BFCL](benchmarks/bfcl/README.md): V3 function calling and V4 memory/web-search tracks,
   plus the separate AIVA recent-window memory run.
 - [IFEval](benchmarks/ifeval/README.md): strict and loose instruction following.
@@ -29,6 +28,8 @@ arguments, outputs, protocol, and scoring.
   AICompanionBench readiness.
 - [Agent and self-coding](benchmarks/agentic/README.md): recommendations for
   memory/search agents, repository repair, and terminal use.
+
+See the [future roadmap](benchmarks/agentic/README.md#future-evaluation-roadmap) for capability triggers and deferred suites.
 
 ## Run and compare
 

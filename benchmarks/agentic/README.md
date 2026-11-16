@@ -99,3 +99,37 @@ need the specified evaluator. “No Grace harness” is achievable; “no harnes
 evaluation code at all” is not a reproducible benchmark run. Preserve raw
 predictions and per-task outcomes so a later Grace run can be scored on the same
 revision and subset.
+
+## Future evaluation roadmap
+
+These are candidates to investigate, not installed integrations or claims of
+compatibility. Before adopting one, confirm its canonical repository, license,
+maintained task release, required tools, and evaluator/judge configuration.
+Keep model-only baselines and complete Grace agent runs labeled separately.
+
+| Capability or decision | Candidates | Adoption condition |
+|---|---|---|
+| Agent plumbing and domain workflows | τ-bench 2.0 | Defer until Grace has a working tool loop and a relevant domain. A mock domain can check plumbing if supported by the pinned release; it is not a product capability score. |
+| External canvas comparison | CANVAS | Optional adapter after identifying the intended official benchmark and mapping its actions/scoring to Grace. Keep the existing custom Canvas Eval. |
+| Real companion memory and persona | RealCompanion | Verify dataset provenance, license, privacy terms, task definition, and scorer before use. |
+| Grace's actual goals | Goal-replay set | Curate representative goals with expected outcomes, clarification needs, and approval boundaries; establish human-reviewed rubrics. |
+| Search and browsing | GAIA, BrowseComp, XBench, SEAL-0 | Search/browser tools available; verify each intended benchmark and task set. |
+| Personal task execution | AutomationBench-AA, VitaBench, ClawBench | Relevant tool executor/browser available and portable tasks confirmed. |
+| Shell and repository editing | SWE-bench Verified, Terminal-Bench | Disposable execution environment and functioning edit/test loop. |
+| Self-coding and improvement | DeepSWE, ProgramBench, WorkBuddy Bench, MLE-Bench Lite | Confirm these names identify usable evaluation suites; audit tasks and match them to Grace's capabilities. |
+| Memory implementation | MemoryBench | Identify the intended canonical suite and test the actual retrieval/storage design. LongMemEval full-history remains a different baseline. |
+| Tool safety | AgentHarm | Evaluate before granting consequential real-world tool access. |
+| Desktop control | OSWorld | Working computer-use interface in a controlled environment. |
+| Professional tasks | GDPval, JobBench | Inspect task access, licensing, domain fit, and judge validity first. |
+| Optional agent references | PinchBench, QwenClawBench | Check runtime portability, access restrictions, dependencies, and judge costs. |
+| Long-document reasoning | LongBench v2 | Optional when long documents are a regular workload. |
+| Scientific work | SciCode, FrontierScience-Research | Match research fields; establish required search tools and a fixed evaluation configuration. |
+| Speech and vision | FLEURS, MM-Vet | Voice-input or camera pipeline implemented, including its adapter. |
+| Image editing and design | PaintBench, GDB | Identify the intended official suites and adopt only when editing/design is a core deliverable. |
+| Interactive reasoning | ARC-AGI-3 | Consider when selecting a reasoning model with a compatible interaction harness. |
+
+LiveCodeBench and EvalPlus provide different task distributions; keep the
+existing EvalPlus guide as optional coverage rather than treating its results
+as interchangeable. Companion benchmark names also need source verification:
+INTIMA, CompanionBench, and AICompanionBench must not be assumed to evaluate
+the same target or use the same judge protocol.

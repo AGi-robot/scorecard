@@ -185,9 +185,8 @@ consumes local GPU.
 2. **Multi-model coverage is uneven** — only `swift`, `ministral3-14b` and
    `neohorse-1-4b` have EQ-Bench numbers, and only `swift` and `ministral3-14b`
    have persona numbers.
-3. **No multi-turn instruction retention** — `allenai/IFBench_multi-turn` is
-   available and judge-free, and would cover conversation, which is Grace's
-   only interface.
+3. **Multi-turn scores pending** — the IFBench fixed-history multi-turn runner
+   is integrated; a configured model endpoint and completed run are still needed.
 4. **No persistent-memory retrieval measurement** — LongMemEval full-history
    is a useful baseline, but Grace needs a retrieval adapter to evaluate her
    PostgreSQL-backed memory with the same questions.

@@ -3,10 +3,12 @@
 Choose benchmarks that exercise a feature Grace actually has. Keep benchmark
 scores separate when their input conditions or evaluators differ.
 
-- [BFCL](bfcl/README.md): function calling; current local runner covers BFCL V3
-  single-turn AST categories.
 - [BFCL V3/V4](bfcl/README.md): single-turn function calling, memory, and web-search categories,
   plus a separate adapter that measures AIVA's real recent-turn memory.
+- [IFEval](ifeval/README.md): strict/loose instruction following.
+- [EQ-Bench v2](eqbench/README.md): emotion-rating accuracy.
+- [Grace Canvas Eval](grace_canvas_eval/README.md): canvas tool tasks.
+- [Grace Chatbot Eval](grace_chatbot_eval/README.md): human conversation preference.
 - [LongMemEval](longmemeval/README.md): long-term conversational memory. The
   included runner is a full-history baseline, not persistent-memory retrieval.
 - [EvalPlus](evalplus/README.md): HumanEval+ and MBPP+ code-generation

@@ -27,8 +27,12 @@ def prepare_nltk():
     nltk.data.path.insert(0, str(root))
 
 
-def run(multiturn=False):
-    args = parser("IFBench multi-turn (released fixed history)" if multiturn else "IFBench single-turn").parse_args()
+def run(multiturn=None):
+    cli = parser("IFBench single-turn and released fixed-history multi-turn")
+    cli.add_argument("--suite", choices=["single", "multiturn"], default="single")
+    args = cli.parse_args()
+    if multiturn is None:
+        multiturn = args.suite == "multiturn"
     if args.n != 1 or args.temperature != 0:
         raise ValueError("IFBench baseline requires n=1 and temperature=0")
     official = checkout("https://github.com/allenai/IFBench.git", REVISION,

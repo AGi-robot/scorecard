@@ -144,7 +144,7 @@ def main():
                 calls, el = ask(messages, tools)
             except Exception as e:
                 print(f"  [{n}] {qid} error: {str(e)[:100]}", flush=True)
-                calls, el = [], 0.0
+                raise RuntimeError(f"Request failed for {qid}; no answer checkpointed") from e
             # irrelevance: ground truth empty -> pass iff no calls
             if cat == "irrelevance":
                 ok = len(calls) == 0
