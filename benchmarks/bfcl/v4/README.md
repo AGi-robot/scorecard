@@ -80,8 +80,8 @@ git checkout 6ea57973c7a6097fd7c5915698c54c17c5b1b6c8
 cd berkeley-function-call-leaderboard
 python -m pip install -e .
 cd ..
-git apply /path/to/AGi-scorecard/benchmarks/bfcl_v4/searxng.patch
-git apply /path/to/AGi-scorecard/benchmarks/bfcl_v4/aiva-model.patch
+git apply /path/to/AGi-scorecard/benchmarks/bfcl/v4/searxng.patch
+git apply /path/to/AGi-scorecard/benchmarks/bfcl/v4/aiva-model.patch
 ```
 
 The patch reads `SEARXNG_BASE_URL` (default `http://127.0.0.1:8888`) and
@@ -146,7 +146,7 @@ The pinned Gorilla checkout and AIVA checkout are required. Start the local AIVA
 LLM endpoint, then from the scorecard root run:
 
 ```bash
-python benchmarks/bfcl_v4/aiva_memory_run.py \
+python benchmarks/bfcl/v4/aiva_memory_run.py \
   --aiva-root /path/to/AGi-Robot/AIVA \
   --bfcl-root /tmp/gorilla-bfcl/berkeley-function-call-leaderboard \
   --base-url http://127.0.0.1:8080/v1 \
@@ -157,7 +157,7 @@ python benchmarks/bfcl_v4/aiva_memory_run.py \
 ```
 
 The runner writes per-question results and a summary under
-`benchmarks/bfcl_v4/results/`. A limited question run still replays the full
+`benchmarks/bfcl/v4/results/`. A limited question run still replays the full
 prerequisite history for the selected scenario so it measures the configured
 memory window. It reports a BFCL-answer-checker accuracy for this AIVA-specific
 track; do not present it as the official BFCL `memory` category score.
