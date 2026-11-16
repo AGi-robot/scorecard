@@ -5,3 +5,4 @@ swift: 171 questions
   [80/171] running mean: 55.6 (parse fails so far: 0)
     retry 1/6 in 16.0s (HTTP Error 429: Too Many Requests)
   [100/171] running mean: 56.5 (parse fails so far: 0)
+    retry 1/6 in 15.2s (HTTP Error 429: Too Many Requests)

@@ -263,7 +263,8 @@ def run_task(task, args):
 
     actions, meta = draw_actions(args.base_url, args.model, system, user,
                                  schema_hint=args.schema_hint,
-                                 temperature=args.temperature)
+                                 temperature=args.temperature,
+                                 think_off=args.think_off)
     validated, valid, error, clamped = validate_and_measure(actions)
     scene = build_scene(validated)
     png, render_error = render_png(validated)
@@ -320,7 +321,8 @@ def run_task(task, args):
             args.base_url, args.model, system, critique,
             images=[base64.b64encode(png).decode()],
             schema_hint=args.schema_hint,
-            temperature=args.temperature)
+            temperature=args.temperature,
+            think_off=args.think_off)
         edit_validated, edit_valid, edit_error, edit_clamped = validate_and_measure(edit_actions)
         edit_scene = build_scene(edit_validated)
         edit_png, _ = render_png(edit_validated)
@@ -363,6 +365,9 @@ def main():
                              "(machine-validated) instead of prose-only")
     parser.add_argument("--out", default=None)
     parser.add_argument("--out-dir", default=None)
+    parser.add_argument("--think-off", action="store_true", default=False,
+                        help="disable the model's reasoning mode for parity "
+                             "with models that have no thinking mode")
     args = parser.parse_args()
 
     selected = [t for t in T.TASKS if args.tier is None or t["tier"] in args.tier]
