@@ -15,11 +15,18 @@ harness simulates those memory APIs itself. Therefore:
 
 - Running BFCL `memory_kv`, `memory_vector`, or `memory_rec_sum` measures the
   model/agent against BFCL's own memory tools and simulator; it does **not**
-  exercise AIVA's `GraceMemory` database.
-- This is still useful as a model/agent baseline. To measure AIVA's existing
-  memory accurately, add a separate adapter that replays benchmark history
-  through AIVA's chat path and records answers from its configured 8-exchange
-  window. Do not label the simulated BFCL memory score as an AIVA memory score.
+  exercise AIVA's `GraceMemory` implementation. The AIVA-specific runner
+  below provides that separate measurement.
+- Use [`aiva_memory_run.py`](aiva_memory_run.py) for the separate AIVA
+  recent-window track. It imports AIVA's actual `GraceMemory` class, replays
+  BFCL's prerequisite dialogue by calling the configured LLM and saving each
+  exchange through `add_exchange()`, then answers each BFCL memory question
+  using `recent()` and the official BFCL answer checker. It defaults to AIVA's
+  current 8-exchange window. It does not change or access the user's live
+  `~/.agi` database; each scenario uses a temporary SQLite file.
+- This adapter measures AIVA's conversation-history window, not the official
+  BFCL memory-tool benchmark. Keep its score separate from `memory_kv`,
+  `memory_vector`, and `memory_rec_sum` results.
 - In the current AIVA `aiva_chat` node, the WebUI `web_search` flag only prefixes
   the prompt with `/web`; the node does not yet call SearXNG. BFCL's SearXNG
   integration below tests the official BFCL web-search tool path, not AIVA's
@@ -125,6 +132,35 @@ For a first short run, use the upstream CLI's `--run-ids` workflow and a
 model alias, endpoint/model revision, upstream BFCL commit, SearXNG image
 revision/settings, and raw outputs together. Do not combine these results with
 BFCL V3 AST accuracy or upstream SerpAPI scores into one number.
+
+## Run the AIVA recent-window memory track
+
+The AIVA runner reuses the actual `GraceMemory` source file, the AIVA `SOUL.md`,
+and the official BFCL V4 memory questions and answer checker. It uses a
+separate temporary SQLite file for each scenario. Seed replies are generated
+by the same configured model and cached under `results/seed_cache/`; this makes
+restarts resumable without repeating completed prerequisite turns. Use a new
+`--label` when the model, endpoint, system prompt, or memory window changes.
+
+The pinned Gorilla checkout and AIVA checkout are required. Start the local AIVA
+LLM endpoint, then from the scorecard root run:
+
+```bash
+python benchmarks/bfcl_v4/aiva_memory_run.py \
+  --aiva-root /path/to/AGi-Robot/AIVA \
+  --bfcl-root /tmp/gorilla-bfcl/berkeley-function-call-leaderboard \
+  --base-url http://127.0.0.1:8080/v1 \
+  --model ministral-3-14b-instruct-2512 \
+  --memory-turns 8 \
+  --label ministral3-14b-memory8 \
+  --limit 5
+```
+
+The runner writes per-question results and a summary under
+`benchmarks/bfcl_v4/results/`. A limited question run still replays the full
+prerequisite history for the selected scenario so it measures the configured
+memory window. It reports a BFCL-answer-checker accuracy for this AIVA-specific
+track; do not present it as the official BFCL `memory` category score.
 
 ## Baseline sequence for Grace
 
