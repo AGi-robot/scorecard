@@ -4,9 +4,9 @@ Shared model benchmark suites for AGi projects.
 
 ## Benchmarks
 
-See the [benchmark index](benchmarks/README.md) for current coverage and the
-[agent and self-coding roadmap](benchmarks/agentic/README.md) for recommended
-next evaluations.
+See the [benchmark index](benchmarks/README.md) for current coverage, the
+[agent and self-coding roadmap](benchmarks/agentic/README.md), and the
+[companion behavior benchmark status](benchmarks/companion_safety/README.md).
 
 - [Grace Canvas Eval](benchmarks/grace_canvas_eval/README.md) evaluates structured
   canvas drawing actions against Grace's canvas task set.

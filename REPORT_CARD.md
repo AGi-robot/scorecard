@@ -190,5 +190,7 @@ consumes local GPU.
    properties (object count, palette, rhythm, coverage), not whether the
    drawing resembles the subject. The harness supports an optional VLM judge
    (`--judge-base-url`/`--judge-model`) that would cover that axis.
+7. **No standard code-generation score** — EvalPlus is documented for
+   HumanEval+/MBPP+ evaluation, but no model results have been collected yet.
 
 
