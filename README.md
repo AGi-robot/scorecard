@@ -14,7 +14,9 @@ arguments, outputs, protocol, and scoring.
 - [IFEval](benchmarks/ifeval/README.md): strict and loose instruction following.
 - [IFBench](benchmarks/ifbench/README.md): single-turn and fixed-history
   multi-turn instruction following, with separate suites and scores.
-- [EQ-Bench v2](benchmarks/eqbench/README.md): emotional understanding.
+- [EQ-Bench v4 and Creative Writing v3](benchmarks/eqbench/README.md):
+  official judged emotional/social and writing evaluations, pending fresh runs;
+  historical v2 results remain available.
 - [EvalPlus](benchmarks/evalplus/README.md): HumanEval+ and MBPP+ code generation.
 - [LiveCodeBench](benchmarks/livecodebench/README.md): pinned release_v6 code generation.
 - [LongMemEval](benchmarks/longmemeval/README.md): full-history memory baseline.

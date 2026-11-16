@@ -60,7 +60,7 @@ def rows():
             "extra": f"{d.get('elapsed_s', 0) / 60:.0f} min",
         })
 
-    # --- EQ-Bench v2: final score ------------------------------------
+    # --- Historical EQ-Bench v2: final score ------------------------------------
     for p in sorted(glob.glob(str(HERE / "eqbench" / "results" / "eqbench_v2_*.json"))):
         d = load_json(p)
         if not d:
