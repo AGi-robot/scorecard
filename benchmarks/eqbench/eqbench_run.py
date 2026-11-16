@@ -23,8 +23,11 @@ right tool. Revisit v4 if a judged active-EQ signal is ever needed
 (and budget a judge at least as strong as the models under test).
 """
 import json
+import os
+import random
 import sys
 import time
+import urllib.error
 import urllib.request
 from pathlib import Path
 
@@ -36,6 +39,14 @@ BASE_URL = sys.argv[1].rstrip("/")
 MODEL = sys.argv[2]
 LABEL = sys.argv[3] if len(sys.argv) > 3 else MODEL
 THINK_OFF = "--think-off" in sys.argv
+
+# Hosted endpoints rate-limit hard; a local llama-server never trips these.
+# DELAY paces the request stream and RETRIES turn a 429/5xx into a backoff
+# instead of a parse failure that silently costs a question.
+DELAY = float(os.environ.get("EQBENCH_DELAY", "0"))
+RETRIES = int(os.environ.get("EQBENCH_RETRIES", "5"))
+BACKOFF = float(os.environ.get("EQBENCH_BACKOFF", "5"))
+RETRYABLE = (429, 500, 502, 503, 504)
 
 # Keep v2 outputs separate from earlier runs that used legacy normalized (v1) scoring.
 OUT = HERE / "results" / f"eqbench_v2_{LABEL}.json"
@@ -68,9 +79,25 @@ def ask(prompt, timeout=300):
         BASE_URL + "/chat/completions", data=json.dumps(body).encode(),
         headers={"Content-Type": "application/json"})
     t0 = time.time()
-    with urllib.request.urlopen(req, timeout=timeout) as r:
-        data = json.loads(r.read().decode())
-    return (data["choices"][0].get("message") or {}).get("content", ""), time.time() - t0
+    last = None
+    for attempt in range(RETRIES + 1):
+        try:
+            with urllib.request.urlopen(req, timeout=timeout) as r:
+                data = json.loads(r.read().decode())
+            return (data["choices"][0].get("message") or {}).get("content", ""), time.time() - t0
+        except urllib.error.HTTPError as e:
+            if e.code not in RETRYABLE or attempt == RETRIES:
+                raise
+            last = e
+        except Exception as e:
+            last = e
+            if attempt == RETRIES:
+                raise
+        wait = BACKOFF * (2 ** attempt) + random.uniform(0, 1)
+        print(f"    retry {attempt + 1}/{RETRIES} in {wait:.1f}s "
+              f"({str(last)[:60]})", flush=True)
+        time.sleep(wait)
+    raise last
 
 
 def main():
@@ -112,6 +139,8 @@ def main():
             print(f"  [{i+1}/{len(ids)}] running mean: "
                   f"{100*sum(done)/len(done)/10:.1f} (parse fails so far: {fails})",
                   flush=True)
+        if DELAY:
+            time.sleep(DELAY)
 
     results = {"eqbench": {
         "run_metadata": {"total_iterations": 1, "model": MODEL,
