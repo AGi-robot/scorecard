@@ -12,71 +12,9 @@ converted into V4 scores. Replace the displayed V3 score only after a complete
 V4 run is available. The AIVA recent-window adapter remains a separate custom
 track; it is not part of the official BFCL overall score.
 
-## Historical V3 runner (legacy)
+## Historical V3 results
 
-The local V3 runner covers five single-turn, AST-checkable categories:
-
-| Category | n | What it probes |
-|---|---|---|
-| `simple` | 400 | one function, correct name + arguments |
-| `multiple` | 200 | pick the right function among several, correct args |
-| `parallel` | ~130 | several calls in one turn (order-insensitive) |
-| `parallel_multiple` | ~200 | several calls, chosen among distractors |
-| `irrelevance` | 240 | must NOT call any function |
-
-Excluded on purpose: `live_*` (needs user-contributed execution), `multi_turn_*`
-(needs the state simulators), `memory_*` / `web_search_*` (need live backends —
-tracked separately, see below), `executable` / `REST` / `SQL` / `java` /
-`javascript` (language runtimes Grace never calls).
-
-Data: `gorilla-llm/Berkeley-Function-Calling-Leaderboard`, branch `main`
-(Apache-2.0). Questions from `BFCL_v3_<cat>.json`, answers from
-`possible_answer/BFCL_v3_<cat>.json`, copied into `data/`.
-
-## Legacy V3 protocol
-
-The following settings apply only to the retained historical V3 runner.
-
-- temperature 0.0, `max_tokens` 1024, raw user message (no system prompt).
-- Tools passed as OpenAI `tools` (converted from BFCL's `dict`-style schemas).
-- Prediction read from `message.tool_calls[].function.{name,arguments}`.
-- Think-off for thinking models, matching every other bench in this repo.
-
-## Scorer semantics (`bfcl_scoring.py`)
-
-Dependency-free reimplementation of the official AST checker
-(`bfcl_eval/eval_checker/ast_eval/ast_checker.py`, Apache-2.0 — vendoring the
-full file was skipped because it drags in the whole `bfcl_eval` package tree;
-the semantics below were ported instead):
-
-- Function name must match exactly.
-- Every ground-truth argument with a non-empty allowed list must be present,
-  unless `""` is in its allowed list (optional argument — may be omitted, and
-  an explicit `""` is accepted as omitted).
-- Each provided value must equal one of the allowed values, type-leniently
-  (`10 == 10.0`, `"true"` accepted for booleans, nested structures compared
-  normalized). Numeric tolerance 1e-6.
-- `parallel` / `parallel_multiple` are order-insensitive; call count must match.
-- `irrelevance` passes only with zero tool calls.
-
-Validated by `bfcl_scoring.py` self-test plus a ground-truth round-trip:
-feeding the first allowed answer back as the prediction scores 20/20 on all
-four answer-bearing categories, empty predictions score 0, wrong names score 0.
-
-## Reproducing a historical V3 run
-
-This command is retained for old-result reproduction only. Use the official
-V4 commands below for current evaluations.
-
-```bash
-python benchmarks/bfcl/bfcl_run.py http://127.0.0.1:8080/v1 ministral-3-14b-instruct-2512 ministral3-14b --think-off
-# --categories "simple parallel"  to subset
-# --limit N                       to smoke-test
-```
-
-Resumable: completed answers append to `results/responses_<label>.jsonl`
-(keyed on prompt id, like the IFEval runner). Score file lands at
-`results/bfcl_<label>.json`.
+The V3 runner, local scorer, and bundled V3 task data have been removed. Existing V3 response and score artifacts are retained as historical results until a complete V4 result is available. They are not inputs to the active V4 evaluation and cannot be relabeled as V4.
 
 ## Official BFCL V4 run
 
