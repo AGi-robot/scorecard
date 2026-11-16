@@ -14,8 +14,8 @@ from PIL import Image, ImageDraw, ImageFont
 
 # Display order: think-off arms first, then the think-on / forced arms.
 DEFAULT_ORDER = [
-    "swift", "ministral3-14b", "neohorse-1-4b", "agents-a1-4b", "minicpm5-2b",
-    "swift-force", "swift-thinkon", "neohorse-1-4b-thinkon",
+    "swift1.5-qwen3.8-27B", "ministral3-14b", "neohorse-1-4b", "agents-a1-4b", "minicpm5-2b",
+    "swift1.5-qwen3.8-27B-force", "swift1.5-qwen3.8-27B-thinkon", "neohorse-1-4b-thinkon",
     "agents-a1-4b-thinkon", "minicpm5-2b-thinkon",
 ]
 

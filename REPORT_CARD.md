@@ -22,12 +22,12 @@ side. Per-benchmark raw data and the exact protocol live in each suite's
 | Label | Model / build | Size | Intended role |
 |---|---|---:|---|
 | `ministral3-14b` | Ministral 3 14B Instruct 2512 UD-Q4KXL | 14B | Front-end chatbot for conversation and persona |
-| `swift` | Swift 1.5 Qwen 3.8 27B GSQ-RCO IQ3_S MTP | 27B | Back-end agent for reasoning, tool calling, and vision |
+| `swift1.5-qwen3.8-27B` | Swift 1.5 Qwen 3.8 27B GSQ-RCO IQ3_S MTP | 27B | Back-end agent for reasoning, tool calling, and vision |
 | `minicpm5-2b` | MiniCPM 5 | 2B | Cheap helper or robot-side model |
 | `agents-a1-4b` | Agents A1 | 4B | Cheap helper or robot-side model |
 | `neohorse-1-4b` | NeoHorse | 4B | Cheap helper or robot-side model |
 
-In this planned split, visual inputs can be routed to Swift, so Ministral vision
+In this planned split, visual inputs can be routed to `swift1.5-qwen3.8-27B`, so Ministral vision
 is not needed unless the front-end must process images directly. Scores for the
 two component models do not predict the routed Grace system; evaluate that
 system end to end when it is available.
@@ -95,7 +95,7 @@ against one another or compared with BFCL V4 leaderboard scores.
 |---|---:|---:|---:|
 | neohorse-1-4b | 171 | **57.0** | 171/171 |
 | agents-a1-4b | 171 | 56.7 | 171/171 |
-| swift | 171 | 56.8 | 171/171 |
+| swift1.5-qwen3.8-27B | 171 | 56.8 | 171/171 |
 | ministral3-14b | 171 | 54.8 | 171/171 |
 | minicpm5-2b | 171 | 40.4 | 171/171 |
 
@@ -108,14 +108,14 @@ images, no judge. `check_score` is the fraction of per-task checks passed
 
 | Run | Arm | Drew | Actions | check_score | valid_rate |
 |---|---|---:|---:|---:|---:|
-| swift | think-off | 8/8 | 3691 | **0.690** | 0.500 |
-| swift | think-off, forced tool | 8/8 | 6662 | **0.690** | 0.375 |
+| swift1.5-qwen3.8-27B | think-off | 8/8 | 3691 | **0.690** | 0.500 |
+| swift1.5-qwen3.8-27B | think-off, forced tool | 8/8 | 6662 | **0.690** | 0.375 |
 | neohorse-1-4b | think-off | 8/8 | 73 | 0.595 | 0.750 |
 | ministral3-14b | think-off | 8/8 | 36 | 0.595 | 0.375 |
 | minicpm5-2b | think-on, budget-capped | 8/8 | 49 | 0.595 | 0.250 |
 | agents-a1-4b | think-on, budget-capped | 8/8 | 27 | 0.595 | 0.375 |
 | neohorse-1-4b | think-on, budget-capped | 8/8 | 45 | 0.571 | 0.625 |
-| swift | think-on | 5/8 | 1404 | 0.500 | 0.125 |
+| swift1.5-qwen3.8-27B | think-on | 5/8 | 1404 | 0.500 | 0.125 |
 | agents-a1-4b | think-off | 8/8 | 18 | 0.405 | **1.000** |
 | minicpm5-2b | think-off | 8/8 | 22 | 0.310 | 0.375 |
 
@@ -132,7 +132,7 @@ the model:
 1. **Unbounded thinking starved the tool call** — the trace consumed all
    3072 tokens, 0 actions emitted. Fixed by `--reasoning-budget 1024` on the
    serving config (think-on arms rerun under the cap).
-2. **One poison action voided the scene** — e.g. Swift's lighthouse action 11
+2. **One poison action voided the scene** — e.g. the `swift1.5-qwen3.8-27B` lighthouse action 11
    (`x: [58, 175]`, a list where a number belongs). The old repair only
    handled three slip types; anything else failed revalidation and the
    harness fell back to an empty list. Fixed in the engine:
@@ -149,7 +149,7 @@ the model:
 | Model | Votes | Elo | Win rate | Per-dimension wins |
 |---|---:|---:|---:|---|
 | ministral | 16 | **1539** | 31% | coherence 3/3, overall 5/5, persona 3/3, warmth 5/5 |
-| swift | 11 | 1461 | 18% | coherence 3/3, overall 2/2, persona 4/4, warmth 2/2 |
+| swift1.5-qwen3.8-27B | 11 | 1461 | 18% | coherence 3/3, overall 2/2, persona 4/4, warmth 2/2 |
 
 Small n — single rater, six scripts. Treat as a directional signal only.
 
@@ -166,22 +166,22 @@ constraints, and "warmest" does not mean "follows the contract".
 **The smaller models show different profiles across tests.** `minicpm5-2b`
 tops the completed IFEval results (85.6) but has the lowest historical EQ-Bench
 v2 score (40.4). These separate model-only scores do not validate a model-role
-split or the planned Ministral-front-end/Swift-back-end system. The smaller
+split or the planned Ministral-front-end/`swift1.5-qwen3.8-27B`-back-end system. The smaller
 models have not been evaluated as helpers in that routed system.
 
 **Standard function calling still needs a full run.** BFCL V4 is the active
 tool-calling evaluation and has not yet been run. Grace Canvas Eval is a
-separate custom test: the current Swift think-off runs have the highest
+separate custom test: the current `swift1.5-qwen3.8-27B` think-off runs have the highest
 recorded `check_score` (0.690), while prompts, reasoning modes, and action
 counts vary across runs. These canvas results do not measure the combined
-Ministral/Swift system.
+Ministral/`swift1.5-qwen3.8-27B` system.
 
 **`valid_rate` and `check_score` measure different things.** A call can be
 well-formed without producing a complete scene, and a strong scene score can
 include repaired actions. Read both metrics together; neither alone measures
 the quality of the routed agent system.
 
-**Forcing the tool did not improve Swift's canvas score in this run.** The
+**Forcing the tool did not improve the `swift1.5-qwen3.8-27B` canvas score in this run.** The
 think-off forced and unforced runs both scored 0.690, while the forced run
 used 6,662 actions versus 3,691. It increased output without improving the
 scene-graph score.
@@ -192,7 +192,7 @@ scene-graph score.
 
 | Run | State |
 |---|---|
-| `swift` IFEval | ~174/541, upstream API capped at 5 prompts/min |
+| `swift1.5-qwen3.8-27B` IFEval | ~174/541, upstream API capped at 5 prompts/min |
 | `neohorse-1-4b` canvas think-on | last local run, ~4/8 tasks |
 
 Both are throttled by the upstream API's 5-prompts-per-minute limit; neither
@@ -206,7 +206,7 @@ consumes local GPU.
    retained V3 responses above are incomplete historical samples.
 2. **Coverage differs by suite** — all five listed models have historical
    EQ-Bench v2 results; the blind persona preference results cover only
-   `swift` and `ministral3-14b`.
+   `swift1.5-qwen3.8-27B` and `ministral3-14b`.
 3. **Multi-turn scores pending** — the IFBench fixed-history multi-turn runner
    is integrated; a configured model endpoint and completed run are still needed.
 4. **No persistent-memory retrieval measurement** — LongMemEval full-history

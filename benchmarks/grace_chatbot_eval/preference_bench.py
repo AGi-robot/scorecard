@@ -11,7 +11,10 @@ Phase 3 --score: win rates per dimension plus Elo standings.
 Contestants are OpenAI-compatible endpoints, e.g.:
     python preference_bench.py --generate \\
         --contestant ministral=http://127.0.0.1:8080/v1/ministral-3-14b-instruct-2512 \\
-        --contestant swift=http://127.0.0.1:8081/v1/swift
+        --contestant swift1.5-qwen3.8-27B=http://127.0.0.1:8081/v1/swift
+
+The configured contestant label should identify the exact model build; an
+endpoint may continue to use a shorter API model ID.
 
 The system prompt defaults to Grace's SOUL.md plus the current timestamp --
 the same context aiva_chat/node.py builds -- so this tests the deployment,

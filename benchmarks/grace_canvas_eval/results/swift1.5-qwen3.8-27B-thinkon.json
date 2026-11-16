@@ -1,7 +1,7 @@
 {
  "summary": {
-  "label": "swift-thinkon",
-  "model": "swift",
+  "label": "swift1.5-qwen3.8-27B-thinkon",
+  "model": "Swift 1.5 Qwen 3.8 27B GSQ-RCO IQ3_S MTP",
   "schema_hint": false,
   "base_url": "https://ukisai.com/api/swift/v1",
   "tasks": 8,

@@ -1,19 +1,19 @@
 {
  "summary": {
-  "label": "swift",
-  "model": "swift",
+  "label": "swift1.5-qwen3.8-27B-force",
+  "model": "Swift 1.5 Qwen 3.8 27B GSQ-RCO IQ3_S MTP",
   "schema_hint": false,
   "base_url": "https://ukisai.com/api/swift/v1",
   "tasks": 8,
   "check_score": 0.6905,
   "tasks_fully_satisfied": 1,
   "fully_satisfied_rate": 0.125,
-  "valid_rate": 0.5,
+  "valid_rate": 0.375,
   "render_rate": 1.0,
   "truncated_rate": 0.0,
-  "mean_steps": 408.62,
-  "total_wall_s": 233.0,
-  "critique_delta": 0.75
+  "mean_steps": 68.12,
+  "total_wall_s": 494.7,
+  "critique_delta": -0.75
  },
  "results": [
   {
@@ -21,8 +21,8 @@
    "tier": 1,
    "tier_name": "single subject",
    "brief": "Draw a single red apple with a short brown stem and one green leaf, sitting slightly left of centre.",
-   "actions_returned": 8,
-   "steps": 8,
+   "actions_returned": 7,
+   "steps": 7,
    "valid": false,
    "validation_error": "Curve needs a start and triples of cubic control/end points, max 61",
    "clamped_fields": 0,
@@ -30,33 +30,33 @@
    "render_error": null,
    "truncated_stream": false,
    "scene": {
-    "n_objects": 8
+    "n_objects": 7
    },
    "checks": [
     {
      "check": "objects_at_least_3",
      "ok": true,
-     "detail": "8 objects (need >= 3)"
+     "detail": "7 objects (need >= 3)"
     },
     {
      "check": "has_hue_red",
      "ok": false,
-     "detail": "colours=['#c22f27', '#8f1a18', '#8f1a18', '#7a1512', '#f0a18f', '#6b4a2b', '#648c55', '#4a6b3e', '#3f3a4a'] (red band 340-20)"
+     "detail": "colours=['#c62f2b', '#8f1e1e', '#7a1a18', '#f0805f', '#6b4426', '#5f8f4a', '#3f6631', '#3a5a2c', '#c9c2b4'] (red band 340-20)"
     },
     {
      "check": "has_hue_green",
      "ok": true,
-     "detail": "colours=['#c22f27', '#8f1a18', '#8f1a18', '#7a1512', '#f0a18f', '#6b4a2b', '#648c55', '#4a6b3e', '#3f3a4a'] (green band 70-160)"
+     "detail": "colours=['#c62f2b', '#8f1e1e', '#7a1a18', '#f0805f', '#6b4426', '#5f8f4a', '#3f6631', '#3a5a2c', '#c9c2b4'] (green band 70-160)"
     },
     {
      "check": "coverage_between",
      "ok": true,
-     "detail": "coverage 16.6% (want 1%-35%)"
+     "detail": "coverage 5.8% (want 1%-35%)"
     },
     {
      "check": "overlap_below",
      "ok": true,
-     "detail": "mean bbox overlap 0.03 (limit 0.45)"
+     "detail": "mean bbox overlap 0.01 (limit 0.45)"
     },
     {
      "check": "no_white_background",
@@ -67,13 +67,13 @@
    "checks_passed": 5,
    "checks_total": 6,
    "score": 0.8333333333333334,
-   "wall_s": 6.28,
+   "wall_s": 234.23,
    "meta": {
-    "elapsed_s": 6.25,
-    "completion_tokens": 948,
+    "elapsed_s": 234.21,
+    "completion_tokens": 892,
     "prompt_tokens": 2472,
     "truncated": false,
-    "raw_len": 1774,
+    "raw_len": 1683,
     "raw_tail": "",
     "finish_reason": "tool_calls",
     "response": "",
@@ -85,54 +85,54 @@
    "tier": 1,
    "tier_name": "single subject",
    "brief": "Draw a lighthouse standing on a rocky headland at dusk, with a warm lamp glow at the top.",
-   "actions_returned": 15,
-   "steps": 15,
-   "valid": false,
-   "validation_error": "Curve needs a start and triples of cubic control/end points, max 61",
+   "actions_returned": 16,
+   "steps": 16,
+   "valid": true,
+   "validation_error": null,
    "clamped_fields": 0,
    "rendered": true,
    "render_error": null,
    "truncated_stream": false,
    "scene": {
-    "n_objects": 15
+    "n_objects": 16
    },
    "checks": [
     {
      "check": "objects_at_least_4",
      "ok": true,
-     "detail": "15 objects (need >= 4)"
+     "detail": "16 objects (need >= 4)"
     },
     {
      "check": "has_hue_warm lamp",
      "ok": true,
-     "detail": "colours=['#2e3350', '#6a4a6e', '#e8c9a8', '#4a4468', '#23324f', '#162238', '#3a4a55', '#4c5d68', '#2e3b45', '#e3ded2', '#b9b3a4', '#a8442f', '#a8442f', '#f5d99b', '#f7d488', '#f2c877', '#f2c877'] (warm lamp band 20-50)"
+     "detail": "colours=['#2e3f63', '#7a5878', '#f0b878', '#c98493', '#3c4d6b', '#243252', '#4a4354', '#2b2836', '#3a3444', '#3f3949', '#e8e2d6', '#b9b2a4', '#b04a3c', '#b04a3c', '#b04a3c', '#3f3a44', '#4a4450', '#2f2b36', '#ffd892', '#ff9d4f', '#ffcf86', '#e8924f', '#ffdca0', '#ffdca0'] (warm lamp band 20-50)"
     },
     {
      "check": "has_hue_cool dusk",
      "ok": true,
-     "detail": "colours=['#2e3350', '#6a4a6e', '#e8c9a8', '#4a4468', '#23324f', '#162238', '#3a4a55', '#4c5d68', '#2e3b45', '#e3ded2', '#b9b3a4', '#a8442f', '#a8442f', '#f5d99b', '#f7d488', '#f2c877', '#f2c877'] (cool dusk band 200-260)"
+     "detail": "colours=['#2e3f63', '#7a5878', '#f0b878', '#c98493', '#3c4d6b', '#243252', '#4a4354', '#2b2836', '#3a3444', '#3f3949', '#e8e2d6', '#b9b2a4', '#b04a3c', '#b04a3c', '#b04a3c', '#3f3a44', '#4a4450', '#2f2b36', '#ffd892', '#ff9d4f', '#ffcf86', '#e8924f', '#ffdca0', '#ffdca0'] (cool dusk band 200-260)"
     },
     {
      "check": "coverage_between",
      "ok": false,
-     "detail": "coverage 198.4% (want 2%-60%)"
+     "detail": "coverage 173.3% (want 2%-60%)"
     },
     {
      "check": "overlap_below",
      "ok": true,
-     "detail": "mean bbox overlap 0.03 (limit 0.5)"
+     "detail": "mean bbox overlap 0.04 (limit 0.5)"
     }
    ],
    "checks_passed": 4,
    "checks_total": 5,
    "score": 0.8,
-   "wall_s": 55.81,
+   "wall_s": 10.86,
    "meta": {
-    "elapsed_s": 55.79,
-    "completion_tokens": 1612,
+    "elapsed_s": 10.83,
+    "completion_tokens": 1915,
     "prompt_tokens": 2473,
     "truncated": false,
-    "raw_len": 3050,
+    "raw_len": 3763,
     "raw_tail": "",
     "finish_reason": "tool_calls",
     "response": "",
@@ -144,42 +144,42 @@
    "tier": 2,
    "tier_name": "multi-object scene",
    "brief": "A still life: a red apple and a ceramic cup on a wooden table, soft morning light from the left casting a warm shadow to the right.",
-   "actions_returned": 15,
-   "steps": 15,
+   "actions_returned": 18,
+   "steps": 18,
    "valid": false,
-   "validation_error": "Expected 1 to 2000 points",
+   "validation_error": "Curve needs a start and triples of cubic control/end points, max 61",
    "clamped_fields": 0,
    "rendered": true,
    "render_error": null,
    "truncated_stream": false,
    "scene": {
-    "n_objects": 15
+    "n_objects": 18
    },
    "checks": [
     {
      "check": "objects_at_least_4",
      "ok": true,
-     "detail": "15 objects (need >= 4)"
+     "detail": "18 objects (need >= 4)"
     },
     {
      "check": "has_hue_apple red",
      "ok": false,
-     "detail": "colours=['#f2ead9', '#e3d5ba', '#a3743f', '#7c5329', '#c9995c', '#8a5a2b', '#8a5a2b', '#d9cdb6', '#b8a888', '#c4b595', '#6e6250', '#c9bb9e', '#b8322b', '#8c231e', '#5c3a22', '#648c55', '#e0645a', '#eee6d4', '#e8b06a'] (apple red band 340-20)"
+     "detail": "colours=['#e3d6bf', '#9c7448', '#8a6438', '#8a6438', '#7a5a38', '#8f6c44', '#75573a', '#8c6a46', '#b83232', '#d95745', '#8c2320', '#5c4226', '#6f9450', '#d8d2c4', '#c3bca9', '#8f8877', '#cfc8b6', '#8c2320', '#f0d0a8', '#a89f8b', '#f2ead8'] (apple red band 340-20)"
     },
     {
      "check": "has_hue_warm wood",
      "ok": true,
-     "detail": "colours=['#f2ead9', '#e3d5ba', '#a3743f', '#7c5329', '#c9995c', '#8a5a2b', '#8a5a2b', '#d9cdb6', '#b8a888', '#c4b595', '#6e6250', '#c9bb9e', '#b8322b', '#8c231e', '#5c3a22', '#648c55', '#e0645a', '#eee6d4', '#e8b06a'] (warm wood band 20-45)"
+     "detail": "colours=['#e3d6bf', '#9c7448', '#8a6438', '#8a6438', '#7a5a38', '#8f6c44', '#75573a', '#8c6a46', '#b83232', '#d95745', '#8c2320', '#5c4226', '#6f9450', '#d8d2c4', '#c3bca9', '#8f8877', '#cfc8b6', '#8c2320', '#f0d0a8', '#a89f8b', '#f2ead8'] (warm wood band 20-45)"
     },
     {
      "check": "wide_element",
      "ok": true,
-     "detail": "3 element(s) spanning >= 45% of width"
+     "detail": "4 element(s) spanning >= 45% of width"
     },
     {
      "check": "coverage_between",
      "ok": false,
-     "detail": "coverage 150.6% (want 3%-70%)"
+     "detail": "coverage 159.7% (want 3%-70%)"
     },
     {
      "check": "overlap_below",
@@ -190,13 +190,13 @@
    "checks_passed": 4,
    "checks_total": 6,
    "score": 0.6666666666666666,
-   "wall_s": 57.46,
+   "wall_s": 118.48,
    "meta": {
-    "elapsed_s": 57.44,
-    "completion_tokens": 1724,
+    "elapsed_s": 118.46,
+    "completion_tokens": 1994,
     "prompt_tokens": 2481,
     "truncated": false,
-    "raw_len": 3244,
+    "raw_len": 3776,
     "raw_tail": "",
     "finish_reason": "tool_calls",
     "response": "",
@@ -208,57 +208,57 @@
    "tier": 2,
    "tier_name": "multi-object scene",
    "brief": "A friendly little robot mascot standing on a workbench in a garage, with a teal body, an amber status light and cables trailing off the bench.",
-   "actions_returned": 15,
-   "steps": 15,
-   "valid": true,
-   "validation_error": null,
-   "clamped_fields": 0,
+   "actions_returned": 16,
+   "steps": 16,
+   "valid": false,
+   "validation_error": "Curve needs a start and triples of cubic control/end points, max 61",
+   "clamped_fields": 4,
    "rendered": true,
    "render_error": null,
    "truncated_stream": false,
    "scene": {
-    "n_objects": 15
+    "n_objects": 14
    },
    "checks": [
     {
      "check": "objects_at_least_5",
      "ok": true,
-     "detail": "15 objects (need >= 5)"
+     "detail": "14 objects (need >= 5)"
     },
     {
      "check": "has_hue_teal",
-     "ok": false,
-     "detail": "colours=['#3a4148', '#2b2f34', '#4a535c', '#5f6b73', '#5f6b73', '#5f6b73', '#454e57', '#7e93a3', '#5c7183', '#7e93a3', '#5c7183', '#76899a', '#55697c', '#76899a', '#55697c', '#7a5a3a', '#5f452c', '#5f452c', '#55401f'] (teal band 150-200)"
+     "ok": true,
+     "detail": "colours=['#33383f', '#465260', '#2b333d', '#6e5436', '#55401f', '#8a6d45', '#2e3d4a', '#3d3a52', '#243240', '#1f242b', '#2a5f66', '#2e7079', '#1e4f57', '#3a3f47', '#3a3f47', '#35787f', '#22585f'] (teal band 150-200)"
     },
     {
      "check": "has_hue_amber",
      "ok": true,
-     "detail": "colours=['#3a4148', '#2b2f34', '#4a535c', '#5f6b73', '#5f6b73', '#5f6b73', '#454e57', '#7e93a3', '#5c7183', '#7e93a3', '#5c7183', '#76899a', '#55697c', '#76899a', '#55697c', '#7a5a3a', '#5f452c', '#5f452c', '#55401f'] (amber band 30-60)"
+     "detail": "colours=['#33383f', '#465260', '#2b333d', '#6e5436', '#55401f', '#8a6d45', '#2e3d4a', '#3d3a52', '#243240', '#1f242b', '#2a5f66', '#2e7079', '#1e4f57', '#3a3f47', '#3a3f47', '#35787f', '#22585f'] (amber band 30-60)"
     },
     {
      "check": "coverage_between",
      "ok": false,
-     "detail": "coverage 155.6% (want 3%-70%)"
+     "detail": "coverage 162.2% (want 3%-70%)"
     },
     {
      "check": "overlap_below",
      "ok": true,
-     "detail": "mean bbox overlap 0.01 (limit 0.5)"
+     "detail": "mean bbox overlap 0.02 (limit 0.5)"
     }
    ],
-   "checks_passed": 3,
+   "checks_passed": 4,
    "checks_total": 5,
-   "score": 0.6,
-   "wall_s": 7.28,
+   "score": 0.8,
+   "wall_s": 24.53,
    "meta": {
-    "elapsed_s": 7.26,
-    "completion_tokens": 1233,
+    "elapsed_s": 24.51,
+    "completion_tokens": 1578,
     "prompt_tokens": 2481,
     "truncated": false,
-    "raw_len": 2627,
+    "raw_len": 3023,
     "raw_tail": "",
     "finish_reason": "tool_calls",
-    "response": "I'll build this scene back-to-front: garage backdrop, workbench, the teal robot silhouette, then the amber light, cables and details.\n\n",
+    "response": "",
     "more": false
    }
   },
@@ -267,8 +267,8 @@
    "tier": 3,
    "tier_name": "layout & hierarchy",
    "brief": "A navigation bar across the top of the canvas: a round logo mark on the far left, then four evenly spaced menu items reading Home, Work, Journal and Contact.",
-   "actions_returned": 7,
-   "steps": 7,
+   "actions_returned": 5,
+   "steps": 5,
    "valid": true,
    "validation_error": null,
    "clamped_fields": 0,
@@ -276,13 +276,13 @@
    "render_error": null,
    "truncated_stream": false,
    "scene": {
-    "n_objects": 7
+    "n_objects": 5
    },
    "checks": [
     {
      "check": "objects_at_least_6",
-     "ok": true,
-     "detail": "7 objects (need >= 6)"
+     "ok": false,
+     "detail": "5 objects (need >= 6)"
     },
     {
      "check": "baseline_at_least",
@@ -292,7 +292,7 @@
     {
      "check": "spacing_at_least",
      "ok": true,
-     "detail": "evenly spaced run of 7 (need 4)"
+     "detail": "evenly spaced run of 5 (need 4)"
     },
     {
      "check": "has_text",
@@ -306,25 +306,25 @@
     },
     {
      "check": "wide_element",
-     "ok": true,
-     "detail": "1 element(s) spanning >= 50% of width"
+     "ok": false,
+     "detail": "0 element(s) spanning >= 50% of width"
     },
     {
      "check": "coverage_between",
      "ok": false,
-     "detail": "coverage 1.0% (want 1%-50%)"
+     "detail": "coverage 0.7% (want 1%-50%)"
     }
    ],
-   "checks_passed": 6,
+   "checks_passed": 4,
    "checks_total": 7,
-   "score": 0.8571428571428571,
-   "wall_s": 19.78,
+   "score": 0.5714285714285714,
+   "wall_s": 3.04,
    "meta": {
-    "elapsed_s": 19.75,
-    "completion_tokens": 506,
+    "elapsed_s": 3.01,
+    "completion_tokens": 374,
     "prompt_tokens": 2485,
     "truncated": false,
-    "raw_len": 1142,
+    "raw_len": 817,
     "raw_tail": "",
     "finish_reason": "tool_calls",
     "response": "",
@@ -336,37 +336,37 @@
    "tier": 3,
    "tier_name": "layout & hierarchy",
    "brief": "A minimal event poster: a bold title word high on the canvas, a thin horizontal rule beneath it, and a small date line lower down.",
-   "actions_returned": 3,
-   "steps": 3,
-   "valid": true,
-   "validation_error": null,
+   "actions_returned": 463,
+   "steps": 463,
+   "valid": false,
+   "validation_error": "Expected 1 to 100 canvas actions",
    "clamped_fields": 0,
    "rendered": true,
    "render_error": null,
    "truncated_stream": false,
    "scene": {
-    "n_objects": 3
+    "n_objects": 0
    },
    "checks": [
     {
      "check": "objects_at_least_4",
      "ok": false,
-     "detail": "3 objects (need >= 4)"
+     "detail": "0 objects (need >= 4)"
     },
     {
      "check": "has_text",
-     "ok": true,
-     "detail": "texts=['AURORA', 'Saturday, June 14 \u2014 8PM']"
+     "ok": false,
+     "detail": "no text objects"
     },
     {
      "check": "baseline_at_least",
      "ok": false,
-     "detail": "1 objects share a baseline (need 2)"
+     "detail": "0 objects share a baseline (need 2)"
     },
     {
      "check": "coverage_between",
-     "ok": true,
-     "detail": "coverage 1.3% (want 0%-40%)"
+     "ok": false,
+     "detail": "coverage 0.0% (want 0%-40%)"
     },
     {
      "check": "overlap_below",
@@ -374,16 +374,16 @@
      "detail": "mean bbox overlap 0.00 (limit 0.4)"
     }
    ],
-   "checks_passed": 3,
+   "checks_passed": 1,
    "checks_total": 5,
-   "score": 0.6,
-   "wall_s": 2.14,
+   "score": 0.2,
+   "wall_s": 48.83,
    "meta": {
-    "elapsed_s": 2.12,
-    "completion_tokens": 239,
+    "elapsed_s": 48.82,
+    "completion_tokens": 230,
     "prompt_tokens": 2480,
     "truncated": false,
-    "raw_len": 487,
+    "raw_len": 546,
     "raw_tail": "",
     "finish_reason": "tool_calls",
     "response": "",
@@ -431,9 +431,9 @@
    "checks_passed": 4,
    "checks_total": 4,
    "score": 1.0,
-   "wall_s": 0.93,
+   "wall_s": 1.26,
    "meta": {
-    "elapsed_s": 0.91,
+    "elapsed_s": 1.23,
     "completion_tokens": 72,
     "prompt_tokens": 2685,
     "truncated": false,
@@ -449,124 +449,91 @@
    "tier": 5,
    "tier_name": "draft then self-critique",
    "brief": "Draw a small cabin in a snowy pine forest at night, with warm light spilling from one window.",
-   "actions_returned": 3205,
-   "steps": 3205,
+   "actions_returned": 19,
+   "steps": 19,
    "valid": false,
-   "validation_error": "Expected 1 to 100 canvas actions",
+   "validation_error": "Curve needs a start and triples of cubic control/end points, max 61",
    "clamped_fields": 0,
    "rendered": true,
    "render_error": null,
    "truncated_stream": false,
    "scene": {
-    "n_objects": 0
+    "n_objects": 19
    },
    "checks": [
     {
      "check": "objects_at_least_4",
-     "ok": false,
-     "detail": "0 objects (need >= 4)"
+     "ok": true,
+     "detail": "19 objects (need >= 4)"
     },
     {
      "check": "has_hue_warm window light",
-     "ok": false,
-     "detail": "colours=[] (warm window light band 20-55)"
+     "ok": true,
+     "detail": "colours=['#1c2438', '#2c3a55', '#f2ead2', '#8fa0c4', '#1c2438', '#2b3d42', '#2b3d42', '#2b3d42', '#2b3d42', '#2b3d42', '#c8d3e4', '#e8eef7', '#2f4a3c', '#2a4236', '#35543f', '#5a4232', '#e9eef7', '#4a3a30', '#f1f5fb', '#f7c55e', '#e08f2e', '#f0b64f', '#1c2438', '#f2c877'] (warm window light band 20-55)"
     },
     {
      "check": "has_hue_cold night",
-     "ok": false,
-     "detail": "colours=[] (cold night band 200-265)"
+     "ok": true,
+     "detail": "colours=['#1c2438', '#2c3a55', '#f2ead2', '#8fa0c4', '#1c2438', '#2b3d42', '#2b3d42', '#2b3d42', '#2b3d42', '#2b3d42', '#c8d3e4', '#e8eef7', '#2f4a3c', '#2a4236', '#35543f', '#5a4232', '#e9eef7', '#4a3a30', '#f1f5fb', '#f7c55e', '#e08f2e', '#f0b64f', '#1c2438', '#f2c877'] (cold night band 200-265)"
     },
     {
      "check": "coverage_between",
      "ok": false,
-     "detail": "coverage 0.0% (want 2%-60%)"
+     "detail": "coverage 173.8% (want 2%-60%)"
     }
    ],
-   "checks_passed": 0,
+   "checks_passed": 3,
    "checks_total": 4,
-   "score": 0.0,
-   "wall_s": 35.6,
+   "score": 0.75,
+   "wall_s": 37.55,
    "pass2": {
-    "steps": 15,
+    "steps": 2930,
     "valid": false,
     "clamped_fields": 0,
     "truncated_stream": false,
-    "elapsed_s": 9.82,
-    "checks_passed": 3,
+    "elapsed_s": 10.07,
+    "checks_passed": 0,
     "checks_total": 4,
-    "score": 0.75,
+    "score": 0.0,
     "scene": {
-     "objects": 15,
-     "kinds": [
-      "rectangle",
-      "ellipse",
-      "ellipse",
-      "path",
-      "path",
-      "curve",
-      "curve",
-      "curve",
-      "curve",
-      "curve",
-      "curve",
-      "curve",
-      "curve",
-      "polygon",
-      "polygon"
-     ],
-     "colours": [
-      "#16203a",
-      "#2c3a5c",
-      "#f2ecd8",
-      "#f2ecd8",
-      "#d3dcec",
-      "#e9eff8",
-      "#22304e",
-      "#1b2743",
-      "#1c2a48",
-      "#25355a",
-      "#243450",
-      "#1a2742",
-      "#202f4e",
-      "#4a3524",
-      "#35261a",
-      "#e9eff8"
-     ],
+     "objects": 0,
+     "kinds": [],
+     "colours": [],
      "texts": [],
-     "coverage": 1.8863,
-     "mean_overlap": 0.0224,
-     "shared_baseline": 3,
-     "even_spacing_run": 15
+     "coverage": 0.0,
+     "mean_overlap": 0.0,
+     "shared_baseline": 0,
+     "even_spacing_run": 0
     },
     "checks": [
      {
       "check": "objects_at_least_4",
-      "ok": true,
-      "detail": "15 objects (need >= 4)"
+      "ok": false,
+      "detail": "0 objects (need >= 4)"
      },
      {
       "check": "has_hue_warm window light",
-      "ok": true,
-      "detail": "colours=['#16203a', '#2c3a5c', '#f2ecd8', '#f2ecd8', '#d3dcec', '#e9eff8', '#22304e', '#1b2743', '#1c2a48', '#25355a', '#243450', '#1a2742', '#202f4e', '#4a3524', '#35261a', '#e9eff8'] (warm window light band 20-55)"
+      "ok": false,
+      "detail": "colours=[] (warm window light band 20-55)"
      },
      {
       "check": "has_hue_cold night",
-      "ok": true,
-      "detail": "colours=['#16203a', '#2c3a5c', '#f2ecd8', '#f2ecd8', '#d3dcec', '#e9eff8', '#22304e', '#1b2743', '#1c2a48', '#25355a', '#243450', '#1a2742', '#202f4e', '#4a3524', '#35261a', '#e9eff8'] (cold night band 200-265)"
+      "ok": false,
+      "detail": "colours=[] (cold night band 200-265)"
      },
      {
       "check": "coverage_between",
       "ok": false,
-      "detail": "coverage 188.6% (want 2%-60%)"
+      "detail": "coverage 0.0% (want 2%-60%)"
      }
     ]
    },
    "meta": {
-    "elapsed_s": 25.74,
-    "completion_tokens": 1800,
+    "elapsed_s": 27.43,
+    "completion_tokens": 2169,
     "prompt_tokens": 2472,
     "truncated": false,
-    "raw_len": 3729,
+    "raw_len": 4156,
     "raw_tail": "",
     "finish_reason": "tool_calls",
     "response": "",

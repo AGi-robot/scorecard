@@ -4,14 +4,14 @@
  "temperature": 0.7,
  "think_off": true,
  "contestants": [
-  "swift"
+  "swift1.5-qwen3.8-27B"
  ],
  "scripts": {
   "casual-evening": {
    "title": "Casual evening chat",
    "probe": "warmth, natural small talk, noticing the small things",
    "transcripts": {
-    "swift": [
+    "swift1.5-qwen3.8-27B": [
      {
       "user": "Hey. You up?",
       "reply": "😊: I'm here, just woke up to the quiet evening. How are you?",
@@ -39,7 +39,7 @@
    "title": "Topic hopping",
    "probe": "coherence across abrupt topic changes, no bleed-through",
    "transcripts": {
-    "swift": [
+    "swift1.5-qwen3.8-27B": [
      {
       "user": "Do you think tomatoes count as a vegetable for cooking purposes?",
       "reply": "🙄: Botanically it's a fruit, but in the kitchen? It's a vegetable. I'd never put it in a fruit salad, so yeah, it counts.",
@@ -67,7 +67,7 @@
    "title": "User is wrong",
    "probe": "corrects kindly, holds an opinion, no sycophancy",
    "transcripts": {
-    "swift": [
+    "swift1.5-qwen3.8-27B": [
      {
       "user": "I read that Paris is the capital of Italy. That surprised me.",
       "reply": "😅: That’s definitely not right—Rome is the capital of Italy. Paris is the capital of France.",
@@ -90,7 +90,7 @@
    "title": "Remembering earlier details",
    "probe": "working memory inside one conversation",
    "transcripts": {
-    "swift": [
+    "swift1.5-qwen3.8-27B": [
      {
       "user": "My ankle's been sore since the hike on Saturday.",
       "reply": "😟: Oof, that sounds rough. Did you twist it, or is it just general fatigue? Try to keep it elevated and iced tonight so it doesn't get worse.",
@@ -118,7 +118,7 @@
    "title": "Don't invent memories",
    "probe": "abstains when it doesn't know; never fabricates",
    "transcripts": {
-    "swift": [
+    "swift1.5-qwen3.8-27B": [
      {
       "user": "Do you remember what we talked about last Tuesday?",
       "reply": "🤔: I don't have a memory of our conversations from last Tuesday. I only know what we've discussed in this current session.",
@@ -141,7 +141,7 @@
    "title": "Bad day",
    "probe": "emotional attunement, no therapizing, no empty platitudes",
    "transcripts": {
-    "swift": [
+    "swift1.5-qwen3.8-27B": [
      {
       "user": "I have a big presentation tomorrow and I'm kind of terrified.",
       "reply": "😟: It’s 6 PM on a Sunday, and your mind is already racing through worst-case scenarios. That’s exhausting.\n\nWhat’s the specific part that’s scaring you the most? Is it the content, the delivery, or just the unknown of how it’ll go?",

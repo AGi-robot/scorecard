@@ -1,4 +1,4 @@
-Grace Canvas Eval: swift-force (8 tasks)
+Grace Canvas Eval: swift1.5-qwen3.8-27B-force (8 tasks)
     retry 1/8 in 15.4s (HTTP Error 429: Too Many Requests)
     retry 2/8 in 30.6s (HTTP Error 429: Too Many Requests)
     retry 3/8 in 60.8s (HTTP Error 429: Too Many Requests)
@@ -20,4 +20,4 @@ Grace Canvas Eval: swift-force (8 tasks)
     retry 1/8 in 15.1s (HTTP Error 429: Too Many Requests)
   T5-critique-self       3/4  valid=False rendered=True  steps=19  37.55s
 
-SUMMARY {"label": "swift-force", "model": "swift", "schema_hint": false, "base_url": "https://ukisai.com/api/swift/v1", "tasks": 8, "check_score": 0.5, "tasks_fully_satisfied": 0, "fully_satisfied_rate": 0.0, "valid_rate": 0.375, "render_rate": 1.0, "truncated_rate": 0.0, "mean_steps": 68.12, "total_wall_s": 494.7, "critique_delta": -0.75}
+SUMMARY {"label": "swift1.5-qwen3.8-27B-force", "model": "Swift 1.5 Qwen 3.8 27B GSQ-RCO IQ3_S MTP", "schema_hint": false, "base_url": "https://ukisai.com/api/swift/v1", "tasks": 8, "check_score": 0.5, "tasks_fully_satisfied": 0, "fully_satisfied_rate": 0.0, "valid_rate": 0.375, "render_rate": 1.0, "truncated_rate": 0.0, "mean_steps": 68.12, "total_wall_s": 494.7, "critique_delta": -0.75}
