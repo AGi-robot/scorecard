@@ -1,8 +1,8 @@
 # AGi Scorecard
 
-Model benchmark results for the Grace project. Every number here is produced by a
-harness in this repo and scored with the benchmark's own official code — no
-hand-tuned numbers, no LLM judges unless the benchmark specifies one.
+Model benchmark results for the Grace project. Each section identifies its
+scorer and protocol; custom harness checks and partial historical runs are
+labeled separately from official benchmark scores.
 
 ## Regenerating
 
@@ -35,14 +35,15 @@ side. Per-benchmark raw data and the exact protocol live in each suite's
 | EQ-Bench v2 | Emotion recognition — rating 4 emotions per scenario | 171 | temp 0.01, max_tokens 60, up to 3 attempts to parse | yes (official full-scale) |
 | Grace Chatbot Eval | Persona fit — warmth, coherence, persona, overall | 6 scripts | SOUL.md + current timestamp, temp 0.7, blind pairwise | single human rater, Elo K=32 |
 | Grace Canvas Eval | `canvas_draw` tool-call validity and drawing quality | 8 tasks | production DRAW_INSTRUCTIONS, temp 0.0, max_tokens 3072 | scene-graph checks, no judge |
-| BFCL V3 | Single-turn function calling: simple, multiple, parallel, and irrelevance | 1,170 | temp 0.0, max_tokens 1024, think-off | yes (AST semantics ported from official checker) |
+| BFCL V4 | Official full function-calling and agentic evaluation: single-turn, multi-turn, live, memory/search, hallucination, and format sensitivity | category-specific | pinned official harness; use the complete V4 protocol for an overall score | official BFCL evaluator |
 | [IFBench single-turn](benchmarks/ifbench/README.md) | Precise instruction following | 300 | pinned test data, temp 0, one response, prompt loose primary | yes (pinned official library) |
 | [IFBench multi-turn](benchmarks/ifbench/README.md) | Constraint isolation in released fixed conversation history | 1,387 | pinned ifbench_constraints/test, temp 0, final response only | yes (pinned official library) |
 | [LiveCodeBench](benchmarks/livecodebench/README.md) | Code generation | 1,055 | pinned cumulative release_v6 lite, n=10, temp 0.2, top_p 0.95, pass@1/pass@5 | yes (pinned official checker and estimator) |
 
-These three baseline integrations have no model scores recorded yet: this
-environment had no configured model endpoint. Synthetic scorer fixtures and
-subset smoke tests are not benchmark results and never enter scorecard tables.
+IFBench and LiveCodeBench have no model scores yet. BFCL V4 has not been run.
+The retained BFCL V3 artifacts below are incomplete historical samples, not full
+benchmark scores. Synthetic scorer fixtures and smoke tests are not benchmark
+results.
 
 **Thinking mode.** All EQ-Bench and IFEval numbers are taken with thinking
 **off**, so every model is scored under one protocol. `ministral3-14b` has no
@@ -61,6 +62,22 @@ because the arms disagree by more than any other benchmark here.
 | neohorse-1-4b | 541 | 79.1 | 83.0 | 113 min |
 | agents-a1-4b | 541 | 76.3 | 81.2 | 117 min |
 | ministral3-14b | 541 | 65.1 | 71.5 | 219 min |
+
+### Historical BFCL V3 responses — incomplete samples
+
+The V3 runner has been removed. These retained response files cover different
+fractions of the old 1,240-task local run and are **not official full BFCL
+scores**. They are kept temporarily until a complete V4 evaluation is run.
+
+| Model | Correct responses | Coverage | Accuracy on saved subset |
+|---|---:|---:|---:|
+| minicpm5-2b | 826/1,071 | 86% | 77.1% |
+| neohorse-1-4b | 602/745 | 60% | 80.8% |
+| ministral3-14b | 664/852 | 69% | 77.9% |
+| agents-a1-4b | 278/423 | 34% | 65.7% |
+
+Coverage and category mix differ, so these subset rates should not be ranked
+against one another or compared with BFCL V4 leaderboard scores.
 
 ### EQ-Bench v2 — emotion recognition
 
@@ -177,11 +194,10 @@ consumes local GPU.
 
 ## Gaps
 
-1. **BFCL V4 agent loop** — BFCL V3 covers single-turn function calls; V4
-   memory and web-search are documented in `benchmarks/bfcl/`. The current
-   AIVA history store does not implement BFCL memory tools, and its `/web`
-   prefix does not call SearXNG, so those remain separate from end-to-end AIVA
-   evaluation.
+1. **BFCL V4 run pending** — the active test is the official full V4
+   protocol. Its memory and web-search tasks use benchmark tools/backends; they
+   do not directly measure AIVA's SQLite history or its `/web` path. The
+   retained V3 responses above are incomplete historical samples.
 2. **Multi-model coverage is uneven** — only `swift`, `ministral3-14b` and
    `neohorse-1-4b` have EQ-Bench numbers, and only `swift` and `ministral3-14b`
    have persona numbers.
