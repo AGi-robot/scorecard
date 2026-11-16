@@ -9,5 +9,9 @@ scores separate when their input conditions or evaluators differ.
   plus a separate adapter that measures AIVA's real recent-turn memory.
 - [LongMemEval](longmemeval/README.md): long-term conversational memory. The
   included runner is a full-history baseline, not persistent-memory retrieval.
+- [EvalPlus](evalplus/README.md): HumanEval+ and MBPP+ code-generation
+  correctness using the official scorer.
+- [Companion behavior benchmarks](companion_safety/README.md): INTIMA and
+  AICompanionBench readiness and artifact requirements.
 - [Agent and self-coding benchmarks](agentic/README.md): BFCL V4 memory/search,
   SWE-bench Verified, Terminal-Bench, and AgentHarm recommendations.
