@@ -91,5 +91,3 @@ response, and final user constraint as-is, then generates only the final turn.
 The flattened prompt is used only as the official scorer key. Primary metric is
 prompt-level loose accuracy. Output paths and scorecard row stay distinct.
 
-For convenience, the old `benchmarks/ifbench_multiturn/ifbench_multiturn_run.py`
-path remains as a compatibility wrapper; new runs and docs use `benchmarks/ifbench/`.
