@@ -1,0 +1,11 @@
+Grace Canvas Eval: minicpm5-2b (8 tasks)
+  T1-apple               3/6  valid=True rendered=True  steps=1  57.92s
+  T1-lighthouse          1/5  valid=False rendered=True  steps=1  65.64s
+  T2-still-life          1/6  valid=False rendered=True  steps=1  56.71s
+  T2-robot-mascot        1/5  valid=False rendered=True  steps=1  58.11s
+  T3-navbar              0/7  valid=False rendered=True  steps=1  56.01s
+  T3-poster              3/5  valid=True rendered=True  steps=15  83.02s
+  T4-recolour-leaf       2/4  valid=True rendered=True  steps=1  12.03s
+  T5-critique-self       0/4  valid=False rendered=True  steps=1  147.24s
+
+SUMMARY {"label": "minicpm5-2b", "model": "minicpm5-2b", "schema_hint": false, "base_url": "http://127.0.0.1:8102/v1", "tasks": 8, "check_score": 0.2619, "tasks_fully_satisfied": 0, "fully_satisfied_rate": 0.0, "valid_rate": 0.375, "render_rate": 1.0, "truncated_rate": 0.0, "mean_steps": 2.75, "total_wall_s": 536.7, "critique_delta": 0.0}

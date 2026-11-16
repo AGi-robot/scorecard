@@ -1,25 +1,58 @@
-# Scorecard
+# AGi Scorecard
 
-Shared model benchmark suites for AGi projects.
+Shared model and agent benchmark suites for AGi projects. Start with the
+[benchmark index](benchmarks/README.md) to choose a suite, see its scope, and
+open its run guide. Each suite README is the source of truth for setup,
+arguments, outputs, protocol, and scoring.
 
-## Benchmarks
+## Benchmark suites
 
-- [CanvasBench for Grace](benchmarks/canvas/README.md) evaluates structured
-  canvas drawing actions against Grace's canvas task set.
+### Model and capability baselines
 
-## Running CanvasBench
+- [BFCL](benchmarks/bfcl/README.md): official BFCL V4 across single-turn, multi-turn, live, agentic, and format-sensitivity tracks; AIVA's memory adapter is separate.
+- [Companion safety](benchmarks/companion_safety/README.md): INTIMA and AICompanionBench readiness and artifact requirements.
+- [EQ-Bench and Creative Writing](benchmarks/eqbench/README.md): pinned v4 and v3 protocols; historical v2 results remain labeled separately.
+- [EvalPlus](benchmarks/evalplus/README.md): HumanEval+ and MBPP+ code-generation correctness.
+- [Grace Canvas Eval](benchmarks/grace_canvas_eval/README.md): canvas tool tasks.
+- [Grace Chatbot Eval](benchmarks/grace_chatbot_eval/README.md): blind pairwise conversation preference.
+- [IFEval](benchmarks/ifeval/README.md): strict and loose instruction following.
+- [IFBench](benchmarks/ifbench/README.md): single-turn and fixed-history multi-turn instruction following.
+- [LiveCodeBench](benchmarks/livecodebench/README.md): pinned release_v6 code-generation baseline.
+- [LongMemEval](benchmarks/longmemeval/README.md): full-history memory baseline; does not measure persistent-memory retrieval.
 
-CanvasBench imports the canvas engine and image kinds from an AGi source
-checkout. Set `AGI_REPO` to that checkout's path when running the harness:
+See the [agent and self-coding roadmap](benchmarks/README.md#agent-and-self-coding-roadmap) for capability-based recommendations and deferred evaluations.
+
+## Run and compare
+
+Most model runners use an OpenAI-compatible endpoint such as
+`http://127.0.0.1:8080/v1`. Check each suite's README for its exact command and
+required flags; older runners use positional endpoint/model/label arguments,
+while newer runners use named options. Do not assume their arguments are
+interchangeable. Keep each run's raw files in that suite's `results/` directory.
+Use a distinct label or output directory whenever the model, endpoint, prompt, or
+benchmark protocol changes.
+
+Prepare a smoke run with the suite's subset option before a full run. Smoke scores
+are diagnostic and should not be reported as full benchmark results. Record the
+model/server revision and benchmark/dataset/evaluator revisions with results;
+follow the suite guide for any execution-isolation requirements.
+
+Regenerate the combined report from the repository root with:
 
 ```bash
-AGI_REPO=/path/to/AGi python benchmarks/canvas/canvas_bench.py \
-    --base-url http://127.0.0.1:8080/v1 \
-    --model ministral-3-14b-instruct-2512 \
-    --label ministral3-14b \
-    --out results/ministral.json \
-    --out-dir renders/ministral
+python benchmarks/scorecard_all.py
+python benchmarks/scorecard_all.py --markdown
 ```
 
-Install its one-off Python dependencies and model-serving requirements from
-the [CanvasBench guide](benchmarks/canvas/README.md).
+The scorecard includes completed full-run results supported by its aggregator.
+Some suites have separate official evaluation commands or judge stages; their
+guides explain how to produce the final score.
+
+## Repository layout
+
+`benchmarks/README.md` indexes all suites, shared tooling, and the agentic roadmap.
+Implemented benchmark folders include a suite guide and runner/scorer as
+appropriate. Shared integrations use `baseline_common.py`; cross-suite checks
+live in `benchmarks/tests/`. Dependency pins and protocol validation artifacts
+are documented in the index. Large datasets, generated responses, caches, and
+result artifacts stay out of source control.

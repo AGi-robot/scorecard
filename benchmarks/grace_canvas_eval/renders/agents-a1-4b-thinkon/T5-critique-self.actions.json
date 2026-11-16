@@ -1,0 +1,98 @@
+[
+ {
+  "kind": "rectangle",
+  "x": 0,
+  "y": 0,
+  "width": 1000,
+  "height": 650,
+  "fill_color": "#0B1A30",
+  "stroke": false
+ },
+ {
+  "kind": "rectangle",
+  "x": 0,
+  "y": 450,
+  "width": 1000,
+  "height": 200,
+  "fill_color": "#E0E0E0",
+  "stroke": false
+ },
+ {
+  "kind": "curve",
+  "points": [
+   [
+    100,
+    450
+   ],
+   [
+    150,
+    350
+   ],
+   [
+    200,
+    450
+   ],
+   [
+    250,
+    450
+   ],
+   [
+    300,
+    450
+   ],
+   [
+    350,
+    450
+   ],
+   [
+    400,
+    450
+   ],
+   [
+    450,
+    450
+   ],
+   [
+    500,
+    450
+   ],
+   [
+    550,
+    450
+   ],
+   [
+    600,
+    450
+   ],
+   [
+    650,
+    450
+   ],
+   [
+    700,
+    450
+   ],
+   [
+    750,
+    450
+   ],
+   [
+    800,
+    450
+   ],
+   [
+    850,
+    450
+   ],
+   [
+    900,
+    450
+   ],
+   [
+    950,
+    450
+   ]
+  ],
+  "prompt": "Pine trees silhouette left and right, dark green/black, snowy ground below, cabin in center with warm light from window, night scene, small cabin in snowy pine forest at night, warm light spilling from one window"
+ }
+]

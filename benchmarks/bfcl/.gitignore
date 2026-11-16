@@ -1,0 +1,4 @@
+.env
+results/v4/
+results/aiva_recent_*
+results/seed_cache/

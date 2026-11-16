@@ -1,0 +1,44 @@
+[
+ {
+  "kind": "text",
+  "id": "title",
+  "x": 175,
+  "y": 92,
+  "size": 96,
+  "font": "serif",
+  "align": "center",
+  "text": "AFTER DARK"
+ },
+ {
+  "kind": "line",
+  "id": "rule",
+  "x": 200,
+  "y": 218,
+  "x2": 800,
+  "y2": 218,
+  "color": "#2b2b33",
+  "size": 2
+ },
+ {
+  "kind": "ellipse",
+  "id": "dot",
+  "x": 494,
+  "y": 212,
+  "width": 12,
+  "height": 12,
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#b25068"
+ },
+ {
+  "kind": "text",
+  "id": "dateline",
+  "x": 350,
+  "y": 470,
+  "size": 22,
+  "font": "sans",
+  "align": "center",
+  "color": "#54545e",
+  "text": "Saturday \u00b7 March 14 \u00b7 8 PM"
+ }
+]

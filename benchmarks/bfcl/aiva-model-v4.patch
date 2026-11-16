@@ -1,0 +1,36 @@
+diff --git a/berkeley-function-call-leaderboard/SUPPORTED_MODELS.md b/berkeley-function-call-leaderboard/SUPPORTED_MODELS.md
+index 961a4bb..a73c352 100644
+--- a/berkeley-function-call-leaderboard/SUPPORTED_MODELS.md
++++ b/berkeley-function-call-leaderboard/SUPPORTED_MODELS.md
+@@ -101,6 +101,7 @@ For model names containing `{...}`, multiple versions are available. For example
+ | MiniCPM3-4B-FC                         | Function Calling | Self-hosted 💻 | openbmb/MiniCPM3-4B-FC                                      |
+ | MiniCPM-SALA                           | Function Calling | Self-hosted 💻 | openbmb/MiniCPM-SALA-FC                                     |
+ | Ministral-8B-Instruct-2410             | Prompt           | Self-hosted 💻 | mistralai/Ministral-8B-Instruct-2410                        |
++| Ministral-3-14B-Instruct-2512           | Prompt           | Self-hosted 💻 | AGi/ministral-3-14b-instruct-2512                           |
+ | mistral-large-2411                     | Function Calling | Mistral AI     | mistral-large-2411-FC                                       |
+ | mistral-large-2411                     | Prompt           | Mistral AI     | mistral-large-2411                                          |
+ | Mistral-Medium-2505                    | Function Calling | Mistral AI     | mistral-medium-2505-FC                                      |
+diff --git a/berkeley-function-call-leaderboard/bfcl_eval/constants/model_config.py b/berkeley-function-call-leaderboard/bfcl_eval/constants/model_config.py
+index e42fe1c..cac21e7 100644
+--- a/berkeley-function-call-leaderboard/bfcl_eval/constants/model_config.py
++++ b/berkeley-function-call-leaderboard/bfcl_eval/constants/model_config.py
+@@ -2125,6 +2125,19 @@ local_inference_model_map = {
+         is_fc_model=True,
+         underscore_to_dot=False,
+     ),
++    # AIVA serves this model through an OpenAI-compatible local endpoint.
++    "AGi/ministral-3-14b-instruct-2512": ModelConfig(
++        model_name="ministral-3-14b-instruct-2512",
++        display_name="Ministral 3 14B Instruct 2512 (AIVA local prompt)",
++        url="https://huggingface.co/mistralai/Ministral-3-14B-Instruct-2512",
++        org="Mistral AI",
++        license="Mistral AI Research License",
++        model_handler=QuickTestingOSSHandler,
++        input_price=None,
++        output_price=None,
++        is_fc_model=False,
++        underscore_to_dot=False,
++    ),
+ }
+ 
+ # Inference through third-party inference platforms for open-source models

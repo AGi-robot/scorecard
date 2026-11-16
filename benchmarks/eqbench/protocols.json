@@ -1,0 +1,26 @@
+{
+  "eqbench-v4": {
+    "repository": "https://github.com/EQ-bench/eqbench4.git",
+    "revision": "93dcb7f5d430433ad49d501e672a98bcff2c9678",
+    "entrypoint": "eqbench4.py",
+    "metric": "Official anchored pairwise ability rating; retain confidence intervals",
+    "personas": 120,
+    "messages_per_conversation": 16,
+    "persona_model": "google/gemini-3.1-pro-preview",
+    "pairwise_judges": ["google/gemini-3.1-pro-preview", "openai/gpt-5.5", "claude-opus-4-6"],
+    "pointwise_judges": ["claude-opus-4-8"]
+  },
+  "creative-writing-v3": {
+    "repository": "https://github.com/EQ-bench/creative-writing-bench.git",
+    "revision": "c7c3ceef54c40a8ae02dc1c2e1a5e40970fe5c0b",
+    "entrypoint": "creative_writing_bench.py",
+    "metric": "elo_norm; retain rubric scores separately",
+    "prompts_file": "data/creative_writing_prompts_v3.json",
+    "prompts": 32,
+    "iterations": 3,
+    "temperature": 0.7,
+    "min_p": 0.1,
+    "judge_model": "claude-sonnet-4-6",
+    "reference_archives": ["creative_bench_runs.zip", "elo_results.zip"]
+  }
+}

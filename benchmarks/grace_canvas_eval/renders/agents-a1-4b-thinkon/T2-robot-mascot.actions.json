@@ -1,0 +1,62 @@
+[
+ {
+  "kind": "rectangle",
+  "x": 0,
+  "y": 0,
+  "width": 1000,
+  "height": 650,
+  "fill_color": "#4A5568",
+  "stroke": false,
+  "fill": true
+ },
+ {
+  "kind": "rectangle",
+  "x": 0,
+  "y": 450,
+  "width": 1000,
+  "height": 200,
+  "fill_color": "#E5E7EB",
+  "stroke": false,
+  "fill": true
+ },
+ {
+  "kind": "rectangle",
+  "x": 200,
+  "y": 350,
+  "width": 600,
+  "height": 300,
+  "fill_color": "#8B4513",
+  "stroke": false,
+  "fill": true
+ },
+ {
+  "kind": "curve",
+  "points": [
+   [
+    450,
+    500
+   ],
+   [
+    350,
+    400
+   ],
+   [
+    400,
+    300
+   ],
+   [
+    550,
+    300
+   ],
+   [
+    600,
+    400
+   ],
+   [
+    450,
+    500
+   ]
+  ],
+  "prompt": "Teal robot body, friendly mascot, standing on workbench, amber status light, cables trailing, garage background, warm lighting, teal body, amber light, garage setting, workbench, cables, friendly robot, teal color, amber color, garage background, workbench, cables, friendly robot, teal color, amber color, garage background, workbench, cables, friendly robot, teal color, amber color, garage background, workbench, cables, friendly robot, teal color, amber color, garage background, workbench, cables, friendly robot, teal color, amber color, garage background, workbench, cables, friendly robot, teal color, amber color, garage background, workbench, cables, friendly robot, teal color, amber color, garage background, workbench, cables, friendly robot, teal color, amber color, garage background, "
+ }
+]

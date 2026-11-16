@@ -3,3 +3,11 @@ __pycache__/
 *.py[cod]
 /results/
 /renders/
+benchmarks/.cache/
+benchmarks/ifbench/results/
+benchmarks/livecodebench/results/
+
+# New judged benchmarks retain raw artifacts outside source control.
+benchmarks/eqbench/results/
+benchmarks/eqbench/config.yaml
+benchmarks/eqbench/.env

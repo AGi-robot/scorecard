@@ -1,0 +1,97 @@
+{
+  "kind": "input_preparation_and_synthetic_validation",
+  "model_scores_recorded": false,
+  "endpoint_status": "No configured endpoint; localhost ports 8000 and 8080 refused connections",
+  "tests": {
+    "passed": 10,
+    "command": "IFBENCH_OFFICIAL=/path/to/IFBench LCB_OFFICIAL=/path/to/LiveCodeBench .venv/bin/python -m unittest discover -s benchmarks/tests -v"
+  },
+  "prepared": {
+    "ifbench_single_turn": {
+      "protocol": {
+        "suite": "IFBench single-turn",
+        "official_revision": "488918665d53f867fa908a293769ec6e71e74aec",
+        "temperature": 0,
+        "top_p": 1,
+        "nltk_data_revision": "550b6625bcef1f2abff2ff770a5a0d272c9c6b2a",
+        "history": "single user prompt",
+        "primary_metric": "prompt_loose",
+        "dataset": "data/IFBench_test.jsonl",
+        "dataset_revision": "488918665d53f867fa908a293769ec6e71e74aec"
+      },
+      "data_sha256": "d2ada7da94a38cfe406351614c4e686846ed2da6d1b339db95fa5ead19554a4a",
+      "total": 300,
+      "limit": 0,
+      "model": null,
+      "base_url": null,
+      "n": 1,
+      "temperature": 0.0,
+      "max_tokens": 8192
+    },
+    "ifbench_multi_turn": {
+      "protocol": {
+        "suite": "IFBench multi-turn",
+        "official_revision": "488918665d53f867fa908a293769ec6e71e74aec",
+        "temperature": 0,
+        "top_p": 1,
+        "nltk_data_revision": "550b6625bcef1f2abff2ff770a5a0d272c9c6b2a",
+        "history": "released messages including fixed assistant turn",
+        "primary_metric": "prompt_loose",
+        "dataset": "allenai/IFBench_multi-turn",
+        "dataset_revision": "e1ea65c5178fbeac522a26d12b8c71a298e9846d",
+        "config": "ifbench_constraints",
+        "split": "test"
+      },
+      "data_sha256": "7dde40dd598101968ea839792192032dd2cee92e95a501ed182237b306c99bd1",
+      "total": 1387,
+      "limit": 0,
+      "model": null,
+      "base_url": null,
+      "n": 1,
+      "temperature": 0.0,
+      "max_tokens": 8192
+    },
+    "livecodebench_release_v6": {
+      "protocol": {
+        "suite": "LiveCodeBench release_v6",
+        "official_revision": "28fef95ea8c9f7a547c8329f2cd3d32b92c1fa24",
+        "dataset": "livecodebench/code_generation_lite",
+        "dataset_revision": "0fe84c3912ea0c4d4a78037083943e8f0c4dd505",
+        "release": "release_v6",
+        "files": [
+          "test.jsonl",
+          "test2.jsonl",
+          "test3.jsonl",
+          "test4.jsonl",
+          "test5.jsonl",
+          "test6.jsonl"
+        ],
+        "scenario": "codegeneration",
+        "prompt_style": "OpenAIChat",
+        "n": 10,
+        "temperature": 0.2,
+        "top_p": 0.95,
+        "timeout": 6,
+        "num_process_evaluate": 1,
+        "date_filter": null,
+        "primary_metric": "pass@1"
+      },
+      "data_sha256": "0630b019c9741ae3422f4a03cf3a92d3976e6c0ec133edc32f89395b0524aaa4",
+      "total": 1055,
+      "limit": 0,
+      "model": null,
+      "base_url": null,
+      "n": 10,
+      "temperature": 0.2,
+      "max_tokens": 2000,
+      "file_sha256": {
+        "test.jsonl": "2bd02b38beb48e8c46b5b9987095d999ff38cd8efc255ea5d58974317c48f63f",
+        "test2.jsonl": "095df7c5daf15f882c51a9deb84085cff1e073495a5dbcf95015a564d485f3a3",
+        "test3.jsonl": "28ed26cc83363ce3f1fe2d5fad9f8393077beb1907b167a31bd3b32f80801b79",
+        "test4.jsonl": "d711138ddaebfcf5f8ec6a4283ee677298c0f5c5d374a235af92aaf0584510da",
+        "test5.jsonl": "7f77571c2a6df0c2a72a3277650309f67e01e0008e18117e624633df53f81214",
+        "test6.jsonl": "bb4c364f71921c4495a6ad15abe1a927350b720009f4933e2e71f8af0f6fd1f5"
+      }
+    }
+  }
+}

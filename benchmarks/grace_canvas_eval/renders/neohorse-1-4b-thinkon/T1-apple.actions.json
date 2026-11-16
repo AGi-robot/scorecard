@@ -1,0 +1,36 @@
+[
+ {
+  "kind": "curve",
+  "points": [
+   [
+    360,
+    530
+   ],
+   [
+    270,
+    460
+   ],
+   [
+    310,
+    390
+   ],
+   [
+    350,
+    380
+   ],
+   [
+    390,
+    385
+   ],
+   [
+    470,
+    450
+   ],
+   [
+    440,
+    530
+   ]
+  ],
+  "prompt": "Apple body - main red shape, slightly left of center, rounded bottom with top indentation for stem attachment. Fill with red, no stroke initially. Then add stem and leaf in same pass or next pass. Build the complete apple silhouette first, then refine with shading and details in subsequent passes. Keep proportions natural: apple about 200px tall, centered around x=380, y=400. Lobed asymmetric body, not an ellipse. Define the defining features: rounded lobes, top indentation, stem attachment point, and overall apple anatomy before adding shadows/highlights. Use 7-point cubic curve for smooth organic shape. Fill=true, stroke=false for the painted silhouette. Color: red fill #D04040 for the apple body. Then add stem (brown line) and leaf (green curve) in the same call if possible, or next. I\u2019"
+ }
+]

@@ -1,0 +1,31 @@
+[
+ {
+  "kind": "text",
+  "x": 350,
+  "y": 100,
+  "size": 72,
+  "text": "EVENT",
+  "fill": true,
+  "align": "center",
+  "prompt": "A bold, modern sans-serif title centered at the top of the poster. Use a clean, high-contrast color like #E74C3C for the text."
+ },
+ {
+  "kind": "line",
+  "x": 100,
+  "y": 180,
+  "width": 800,
+  "height": 2,
+  "color": "#E74C3C",
+  "stroke": true
+ },
+ {
+  "kind": "text",
+  "x": 350,
+  "y": 500,
+  "size": 24,
+  "text": "DATE: OCT 15",
+  "fill": true,
+  "align": "center",
+  "prompt": "A small, subtle date line near the bottom of the poster. Use a muted color like #7F8C8D for contrast."
+ }
+]

@@ -1,0 +1,384 @@
+[
+ {
+  "kind": "rectangle",
+  "x": 0,
+  "y": 0,
+  "width": 1000,
+  "height": 650,
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#33383f",
+  "id": "bg"
+ },
+ {
+  "kind": "ellipse",
+  "x": 330,
+  "y": 20,
+  "width": 380,
+  "height": 300,
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#465260",
+  "gradient_color": "#2b333d",
+  "gradient": "radial",
+  "id": "glow"
+ },
+ {
+  "kind": "polygon",
+  "x": 60,
+  "y": 430,
+  "width": 880,
+  "height": 220,
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#6e5436",
+  "points": [
+   [
+    60,
+    430
+   ],
+   [
+    940,
+    430
+   ],
+   [
+    940,
+    470
+   ],
+   [
+    60,
+    470
+   ]
+  ],
+  "id": "bench_top"
+ },
+ {
+  "kind": "polygon",
+  "x": 60,
+  "y": 470,
+  "width": 880,
+  "height": 180,
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#55401f",
+  "points": [
+   [
+    60,
+    470
+   ],
+   [
+    940,
+    470
+   ],
+   [
+    940,
+    650
+   ],
+   [
+    60,
+    650
+   ]
+  ],
+  "id": "bench_front"
+ },
+ {
+  "kind": "line",
+  "x": 60,
+  "y": 430,
+  "width": 880,
+  "height": 0,
+  "points": [
+   [
+    60,
+    430
+   ],
+   [
+    940,
+    430
+   ]
+  ],
+  "color": "#8a6d45"
+ },
+ {
+  "kind": "curve",
+  "points": [
+   [
+    120,
+    470
+   ],
+   [
+    140,
+    560
+   ],
+   [
+    110,
+    620
+   ],
+   [
+    150,
+    650
+   ],
+   [
+    100,
+    650
+   ],
+   [
+    80,
+    560
+   ],
+   [
+    95,
+    470
+   ]
+  ],
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#2e3d4a",
+  "id": "cable1"
+ },
+ {
+  "kind": "curve",
+  "points": [
+   [
+    860,
+    465
+   ],
+   [
+    830,
+    540
+   ],
+   [
+    870,
+    600
+   ],
+   [
+    840,
+    650
+   ],
+   [
+    880,
+    650
+   ],
+   [
+    900,
+    570
+   ],
+   [
+    885,
+    465
+   ]
+  ],
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#3d3a52",
+  "id": "cable2"
+ },
+ {
+  "kind": "curve",
+  "points": [
+   [
+    700,
+    445
+   ],
+   [
+    720,
+    520
+   ],
+   [
+    680,
+    580
+   ],
+   [
+    710,
+    650
+   ],
+   [
+    740,
+    650
+   ],
+   [
+    715,
+    575
+   ],
+   [
+    730,
+    445
+   ]
+  ],
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#243240",
+  "id": "cable3"
+ },
+ {
+  "kind": "ellipse",
+  "x": 400,
+  "y": 385,
+  "width": 210,
+  "height": 45,
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#1f242b",
+  "opacity": 0.55,
+  "id": "shadow"
+ },
+ {
+  "kind": "curve",
+  "points": [
+   [
+    455,
+    430
+   ],
+   [
+    450,
+    360
+   ],
+   [
+    550,
+    360
+   ],
+   [
+    545,
+    430
+   ],
+   [
+    525,
+    435
+   ],
+   [
+    520,
+    380
+   ],
+   [
+    480,
+    380
+   ],
+   [
+    475,
+    430
+   ]
+  ],
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#2a5f66",
+  "id": "legs"
+ },
+ {
+  "kind": "curve",
+  "points": [
+   [
+    430,
+    370
+   ],
+   [
+    420,
+    250
+   ],
+   [
+    580,
+    250
+   ],
+   [
+    570,
+    370
+   ],
+   [
+    500,
+    385
+   ],
+   [
+    430,
+    370
+   ]
+  ],
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#2e7079",
+  "gradient_color": "#1e4f57",
+  "gradient": "linear",
+  "gradient_angle": 115,
+  "id": "body"
+ },
+ {
+  "kind": "curve",
+  "points": [
+   425,
+   275,
+   395,
+   300,
+   400,
+   345,
+   425,
+   360,
+   435,
+   330,
+   430,
+   300,
+   425,
+   275
+  ],
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#28646c",
+  "id": "arm_l"
+ },
+ {
+  "kind": "curve",
+  "points": [
+   575,
+   275,
+   610,
+   290,
+   625,
+   320,
+   610,
+   345,
+   590,
+   350,
+   580,
+   315,
+   575,
+   275
+  ],
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#28646c",
+  "id": "arm_r"
+ },
+ {
+  "kind": "ellipse",
+  "x": 408,
+  "y": 338,
+  "width": 30,
+  "height": 26,
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#3a3f47",
+  "id": "hand_l"
+ },
+ {
+  "kind": "ellipse",
+  "x": 592,
+  "y": 330,
+  "width": 34,
+  "height": 30,
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#3a3f47",
+  "id": "hand_r"
+ },
+ {
+  "kind": "ellipse",
+  "x": 425,
+  "y": 145,
+  "width": 150,
+  "height": 125,
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#35787f",
+  "gradient_color": "#22585f",
+  "gradient": "linear",
+  "gradient_angle": 115,
+  "id": "head"
+ }
+]

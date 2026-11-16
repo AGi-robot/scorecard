@@ -1,0 +1,23 @@
+Grace Canvas Eval: swift-force (8 tasks)
+    retry 1/8 in 15.4s (HTTP Error 429: Too Many Requests)
+    retry 2/8 in 30.6s (HTTP Error 429: Too Many Requests)
+    retry 3/8 in 60.8s (HTTP Error 429: Too Many Requests)
+    retry 4/8 in 120.7s (HTTP Error 429: Too Many Requests)
+  T1-apple               2/6  valid=False rendered=True  steps=7  234.23s
+  T1-lighthouse          4/5  valid=True rendered=True  steps=16  10.86s
+    retry 1/8 in 15.5s (HTTP Error 429: Too Many Requests)
+    retry 2/8 in 30.4s (HTTP Error 429: Too Many Requests)
+    retry 3/8 in 60.4s (HTTP Error 429: Too Many Requests)
+  T2-still-life          4/6  valid=False rendered=True  steps=18  118.48s
+    retry 1/8 in 15.1s (HTTP Error 429: Too Many Requests)
+  T2-robot-mascot        1/5  valid=False rendered=True  steps=16  24.53s
+  T3-navbar              4/7  valid=True rendered=True  steps=5  3.04s
+    retry 1/8 in 15.3s (HTTP Error 429: Too Many Requests)
+    retry 2/8 in 30.7s (HTTP Error 429: Too Many Requests)
+  T3-poster              1/5  valid=False rendered=True  steps=463  48.83s
+    retry 1/8 in 15.7s (HTTP Error 429: Too Many Requests)
+  T4-recolour-leaf       2/4  valid=True rendered=True  steps=1  17.21s
+    retry 1/8 in 15.1s (HTTP Error 429: Too Many Requests)
+  T5-critique-self       3/4  valid=False rendered=True  steps=19  37.55s
+
+SUMMARY {"label": "swift-force", "model": "swift", "schema_hint": false, "base_url": "https://ukisai.com/api/swift/v1", "tasks": 8, "check_score": 0.5, "tasks_fully_satisfied": 0, "fully_satisfied_rate": 0.0, "valid_rate": 0.375, "render_rate": 1.0, "truncated_rate": 0.0, "mean_steps": 68.12, "total_wall_s": 494.7, "critique_delta": -0.75}

@@ -1,0 +1,244 @@
+[
+ {
+  "kind": "curve",
+  "id": "apple",
+  "points": [
+   [
+    430,
+    200
+   ],
+   [
+    500,
+    190,
+    540,
+    250,
+    530,
+    320
+   ],
+   [
+    520,
+    390,
+    470,
+    450,
+    410,
+    460
+   ],
+   [
+    350,
+    450,
+    300,
+    390,
+    295,
+    320
+   ],
+   [
+    290,
+    250,
+    330,
+    190,
+    430,
+    200
+   ]
+  ],
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#c62f2b",
+  "gradient_color": "#8f1e1e",
+  "gradient": "radial"
+ },
+ {
+  "kind": "curve",
+  "id": "apple-shadow",
+  "points": [
+   [
+    430,
+    205
+   ],
+   [
+    400,
+    215
+   ],
+   [
+    370,
+    250
+   ],
+   [
+    350,
+    300
+   ],
+   [
+    345,
+    350
+   ],
+   [
+    360,
+    400
+   ],
+   [
+    390,
+    440
+   ]
+  ],
+  "fill": false,
+  "stroke": true,
+  "color": "#7a1a18",
+  "brush": "soft",
+  "size": 26,
+  "opacity": 0.5
+ },
+ {
+  "kind": "curve",
+  "id": "apple-highlight",
+  "points": [
+   [
+    450,
+    230
+   ],
+   [
+    480,
+    240
+   ],
+   [
+    500,
+    270
+   ],
+   [
+    505,
+    300
+   ]
+  ],
+  "fill": false,
+  "stroke": true,
+  "color": "#f0805f",
+  "brush": "soft",
+  "size": 22,
+  "opacity": 0.55
+ },
+ {
+  "kind": "curve",
+  "id": "stem",
+  "points": [
+   [
+    428,
+    200
+   ],
+   [
+    432,
+    175
+   ],
+   [
+    440,
+    155
+   ],
+   [
+    452,
+    140
+   ]
+  ],
+  "fill": false,
+  "stroke": true,
+  "color": "#6b4426",
+  "size": 9
+ },
+ {
+  "kind": "curve",
+  "id": "leaf",
+  "points": [
+   [
+    452,
+    145
+   ],
+   [
+    500,
+    110
+   ],
+   [
+    560,
+    115
+   ],
+   [
+    580,
+    145
+   ],
+   [
+    530,
+    170
+   ],
+   [
+    475,
+    168
+   ],
+   [
+    452,
+    145
+   ]
+  ],
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#5f8f4a",
+  "gradient_color": "#3f6631",
+  "gradient": "linear",
+  "gradient_angle": 45
+ },
+ {
+  "kind": "curve",
+  "id": "leaf-vein",
+  "points": [
+   [
+    458,
+    148
+   ],
+   [
+    505,
+    140
+   ],
+   [
+    560,
+    138
+   ]
+  ],
+  "fill": false,
+  "stroke": true,
+  "color": "#3a5a2c",
+  "size": 3
+ },
+ {
+  "kind": "curve",
+  "id": "cast-shadow",
+  "points": [
+   [
+    380,
+    465
+   ],
+   [
+    430,
+    480
+   ],
+   [
+    490,
+    478
+   ],
+   [
+    520,
+    465
+   ],
+   [
+    480,
+    490
+   ],
+   [
+    420,
+    490
+   ],
+   [
+    380,
+    465
+   ]
+  ],
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#c9c2b4",
+  "brush": "soft",
+  "opacity": 0.7
+ }
+]

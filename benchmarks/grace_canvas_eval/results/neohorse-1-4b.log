@@ -1,0 +1,11 @@
+Grace Canvas Eval: neohorse-1-4b (8 tasks)
+  T1-apple               3/6  valid=True rendered=True  steps=1  10.85s
+  T1-lighthouse          3/5  valid=True rendered=True  steps=16  95.13s
+  T2-still-life          3/6  valid=False rendered=True  steps=16  171.32s
+  T2-robot-mascot        2/5  valid=True rendered=True  steps=5  74.37s
+  T3-navbar              3/7  valid=True rendered=True  steps=6  73.39s
+  T3-poster              4/5  valid=True rendered=True  steps=16  95.14s
+  T4-recolour-leaf       2/4  valid=True rendered=True  steps=1  60.2s
+  T5-critique-self       3/4  valid=False rendered=True  steps=16  155.47s
+
+SUMMARY {"label": "neohorse-1-4b", "model": "neohorse-1-4b", "schema_hint": false, "base_url": "http://127.0.0.1:8103/v1", "tasks": 8, "check_score": 0.5476, "tasks_fully_satisfied": 0, "fully_satisfied_rate": 0.0, "valid_rate": 0.75, "render_rate": 1.0, "truncated_rate": 0.0, "mean_steps": 9.62, "total_wall_s": 735.9, "critique_delta": -0.75}

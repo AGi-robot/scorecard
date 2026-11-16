@@ -1,0 +1,28 @@
+[
+ {
+  "kind": "curve",
+  "points": [
+   [
+    480,
+    30
+   ],
+   [
+    440,
+    80
+   ],
+   [
+    420,
+    40
+   ],
+   [
+    500,
+    40
+   ],
+   [
+    480,
+    30
+   ]
+  ],
+  "prompt": "Still life: red apple and ceramic cup on a wooden table, soft morning light from left casting warm shadow to right."
+ }
+]
