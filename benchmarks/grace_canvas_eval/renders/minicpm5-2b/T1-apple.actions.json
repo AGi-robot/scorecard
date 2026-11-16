@@ -1,0 +1,36 @@
+[
+ {
+  "kind": "curve",
+  "points": [
+   [
+    450,
+    560
+   ],
+   [
+    420,
+    520
+   ],
+   [
+    440,
+    470
+   ],
+   [
+    500,
+    440
+   ],
+   [
+    460,
+    470
+   ],
+   [
+    430,
+    520
+   ],
+   [
+    450,
+    560
+   ]
+  ],
+  "prompt": "Red apple with brown stem and green leaf, sitting slightly left of centre."
+ }
+]

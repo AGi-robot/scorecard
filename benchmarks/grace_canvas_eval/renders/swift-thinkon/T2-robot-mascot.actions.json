@@ -1,0 +1,115 @@
+[
+ {
+  "kind": "rectangle",
+  "id": "wall",
+  "x": 0,
+  "y": 0,
+  "width": 1000,
+  "height": 650,
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#8b8f88"
+ },
+ {
+  "kind": "rectangle",
+  "id": "floor",
+  "x": 0,
+  "y": 560,
+  "width": 1000,
+  "height": 90,
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#63665f"
+ },
+ {
+  "kind": "rectangle",
+  "id": "pegboard",
+  "x": 640,
+  "y": 60,
+  "width": 280,
+  "height": 250,
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#6c6255"
+ },
+ {
+  "kind": "path",
+  "id": "wrench",
+  "points": [
+   [
+    700,
+    100
+   ],
+   [
+    700,
+    190
+   ],
+   [
+    712,
+    190
+   ],
+   [
+    712,
+    100
+   ]
+  ],
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#4c5257"
+ },
+ {
+  "kind": "ellipse",
+  "id": "wrench_head",
+  "x": 692,
+  "y": 88,
+  "width": 30,
+  "height": 30,
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#4c5257"
+ },
+ {
+  "kind": "rectangle",
+  "id": "bench_top",
+  "x": 30,
+  "y": 430,
+  "width": 940,
+  "height": 42,
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#9c6f41"
+ },
+ {
+  "kind": "rectangle",
+  "id": "bench_apron",
+  "x": 30,
+  "y": 472,
+  "width": 940,
+  "height": 30,
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#77532f"
+ },
+ {
+  "kind": "rectangle",
+  "id": "bench_leg_l",
+  "x": 90,
+  "y": 502,
+  "width": 34,
+  "height": 110,
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#6b4b2e"
+ },
+ {
+  "kind": "rectangle",
+  "id": "bench_leg_r",
+  "x": 850,
+  "y": 502,
+  "width": 34,
+  "height": 110,
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#6b4b2e"
+ }
+]

@@ -1,0 +1,28 @@
+[
+ {
+  "kind": "curve",
+  "points": [
+   [
+    480,
+    30
+   ],
+   [
+    440,
+    60
+   ],
+   [
+    420,
+    40
+   ],
+   [
+    500,
+    40
+   ],
+   [
+    480,
+    30
+   ]
+  ],
+  "prompt": "Robot mascot on workbench in garage, teal body, amber status light, cables trailing off bench. Friendly robot with organic silhouette, warm light source from upper left, garage interior with workbench and cables."
+ }
+]

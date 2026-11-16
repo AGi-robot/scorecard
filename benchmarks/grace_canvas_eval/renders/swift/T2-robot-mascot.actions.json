@@ -1,0 +1,272 @@
+[
+ {
+  "kind": "rectangle",
+  "x": 0,
+  "y": 0,
+  "width": 1000,
+  "height": 650,
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#3a352e",
+  "gradient": "linear",
+  "gradient_angle": 90,
+  "gradient_color": "#2a2621",
+  "id": "bg"
+ },
+ {
+  "kind": "rectangle",
+  "x": 60,
+  "y": 30,
+  "width": 200,
+  "height": 150,
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#45403a",
+  "id": "shelf"
+ },
+ {
+  "kind": "polygon",
+  "x": 90,
+  "y": 150,
+  "width": 40,
+  "height": 30,
+  "points": [
+   [
+    100,
+    150
+   ],
+   [
+    150,
+    150
+   ],
+   [
+    145,
+    120
+   ],
+   [
+    105,
+    120
+   ]
+  ],
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#6b5d4a",
+  "id": "can1"
+ },
+ {
+  "kind": "polygon",
+  "x": 160,
+  "y": 150,
+  "width": 45,
+  "height": 35,
+  "points": [
+   [
+    165,
+    150
+   ],
+   [
+    220,
+    150
+   ],
+   [
+    215,
+    115
+   ],
+   [
+    170,
+    115
+   ]
+  ],
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#4a5d52",
+  "id": "can2"
+ },
+ {
+  "kind": "path",
+  "x": 0,
+  "y": 0,
+  "points": [
+   [
+    0,
+    470
+   ],
+   [
+    1000,
+    470
+   ],
+   [
+    1000,
+    650
+   ],
+   [
+    0,
+    650
+   ]
+  ],
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#232019",
+  "id": "floor"
+ },
+ {
+  "kind": "rectangle",
+  "x": 40,
+  "y": 400,
+  "width": 920,
+  "height": 42,
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#7a6650",
+  "gradient": "linear",
+  "gradient_angle": 90,
+  "gradient_color": "#5f4f3d",
+  "id": "bench"
+ },
+ {
+  "kind": "rectangle",
+  "x": 100,
+  "y": 442,
+  "width": 34,
+  "height": 178,
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#4f4234",
+  "id": "leg1"
+ },
+ {
+  "kind": "rectangle",
+  "x": 860,
+  "y": 442,
+  "width": 34,
+  "height": 178,
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#4f4234",
+  "id": "leg2"
+ },
+ {
+  "kind": "path",
+  "x": 0,
+  "y": 0,
+  "points": [
+   [
+    300,
+    400
+   ],
+   [
+    340,
+    440
+   ],
+   [
+    400,
+    430
+   ],
+   [
+    430,
+    405
+   ],
+   [
+    470,
+    435
+   ],
+   [
+    520,
+    425
+   ],
+   [
+    560,
+    400
+   ]
+  ],
+  "stroke": true,
+  "stroke_width": 5,
+  "color": "#2e4650",
+  "fill": false,
+  "brush": "soft",
+  "id": "cable1"
+ },
+ {
+  "kind": "path",
+  "x": 0,
+  "y": 0,
+  "points": [
+   [
+    620,
+    398
+   ],
+   [
+    660,
+    445
+   ],
+   [
+    720,
+    450
+   ],
+   [
+    760,
+    420
+   ],
+   [
+    810,
+    445
+   ],
+   [
+    850,
+    400
+   ]
+  ],
+  "stroke": true,
+  "stroke_width": 4,
+  "color": "#6b3f2e",
+  "fill": false,
+  "brush": "soft",
+  "id": "cable2"
+ },
+ {
+  "kind": "path",
+  "x": 0,
+  "y": 0,
+  "points": [
+   [
+    500,
+    398
+   ],
+   [
+    510,
+    460
+   ],
+   [
+    560,
+    500
+   ],
+   [
+    640,
+    490
+   ],
+   [
+    680,
+    430
+   ]
+  ],
+  "stroke": true,
+  "stroke_width": 6,
+  "color": "#253840",
+  "fill": false,
+  "brush": "soft",
+  "id": "cable3"
+ },
+ {
+  "kind": "ellipse",
+  "x": 430,
+  "y": 388,
+  "width": 150,
+  "height": 18,
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#1a1712",
+  "opacity": 0.5,
+  "brush": "soft",
+  "id": "shadow"
+ }
+]

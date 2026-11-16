@@ -1,0 +1,8 @@
+Grace Canvas Eval: swift-thinkon (8 tasks)
+    retry 1/8 in 15.9s (HTTP Error 429: Too Many Requests)
+    retry 2/8 in 30.9s (HTTP Error 429: Too Many Requests)
+  T1-apple               2/6  valid=False rendered=True  steps=8  56.77s
+    retry 1/8 in 15.8s (HTTP Error 429: Too Many Requests)
+    retry 2/8 in 30.9s (HTTP Error 429: Too Many Requests)
+  T1-lighthouse          1/5  valid=False rendered=True  steps=0  68.99s
+    retry 1/8 in 15.6s (HTTP Error 429: Too Many Requests)

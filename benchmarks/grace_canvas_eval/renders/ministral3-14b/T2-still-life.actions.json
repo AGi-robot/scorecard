@@ -1,0 +1,163 @@
+[
+ {
+  "kind": "rectangle",
+  "x": 0,
+  "y": 0,
+  "width": 1000,
+  "height": 650,
+  "fill_color": "#E8D5B5",
+  "stroke": false
+ },
+ {
+  "kind": "curve",
+  "points": [
+   [
+    35,
+    500
+   ],
+   [
+    100,
+    480
+   ],
+   [
+    200,
+    470
+   ],
+   [
+    300,
+    480
+   ],
+   [
+    400,
+    490
+   ],
+   [
+    500,
+    480
+   ],
+   [
+    600,
+    470
+   ],
+   [
+    700,
+    480
+   ],
+   [
+    800,
+    500
+   ],
+   [
+    900,
+    520
+   ],
+   [
+    900,
+    620
+   ],
+   [
+    35,
+    620
+   ]
+  ],
+  "prompt": "rough wooden table texture with visible grain and subtle knots, warm light from the left, soft shadows to the right, muted tones, no outlines, organic contours, fill only, no stroke, soft brush for texture"
+ },
+ {
+  "kind": "curve",
+  "points": [
+   [
+    450,
+    300
+   ],
+   [
+    400,
+    250
+   ],
+   [
+    480,
+    200
+   ],
+   [
+    550,
+    220
+   ],
+   [
+    580,
+    280
+   ],
+   [
+    530,
+    330
+   ],
+   [
+    450,
+    300
+   ]
+  ],
+  "prompt": "ceramic cup with subtle glaze, warm earthy tones, soft highlights on the left, cast shadow to the right, no outlines, organic contours, fill only, no stroke"
+ },
+ {
+  "kind": "curve",
+  "points": [
+   [
+    600,
+    250
+   ],
+   [
+    650,
+    200
+   ],
+   [
+    700,
+    220
+   ],
+   [
+    720,
+    280
+   ],
+   [
+    670,
+    320
+   ],
+   [
+    600,
+    250
+   ]
+  ],
+  "prompt": "cup handle, attached to the cup, same ceramic material, warm tones, soft shadow, no outlines, organic contours, fill only, no stroke"
+ },
+ {
+  "kind": "curve",
+  "points": [
+   [
+    250,
+    350
+   ],
+   [
+    200,
+    300
+   ],
+   [
+    280,
+    250
+   ],
+   [
+    350,
+    280
+   ],
+   [
+    380,
+    350
+   ],
+   [
+    300,
+    400
+   ],
+   [
+    250,
+    350
+   ]
+  ],
+  "prompt": "red apple with organic shape, warm light from the left, subtle highlights, cast shadow to the right, no outlines, organic contours, fill only, no stroke"
+ }
+]

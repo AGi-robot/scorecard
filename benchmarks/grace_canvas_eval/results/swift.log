@@ -1,1 +1,10 @@
-/tmp/opencode/bench-venv/bin/python: can't open file '/home/oppa-ai/AGi/scorecard/benchmarks/grace_canvas_eval/python3': [Errno 2] No such file or directory
+Grace Canvas Eval: swift (8 tasks)
+  T1-apple               2/6  valid=False rendered=True  steps=7  5.22s
+  T1-lighthouse          4/5  valid=False rendered=True  steps=16  10.64s
+  T2-still-life          1/6  valid=False rendered=True  steps=12  7.54s
+  T2-robot-mascot        4/5  valid=True rendered=True  steps=12  6.89s
+    retry 1/8 in 15.4s (HTTP Error 429: Too Many Requests)
+    retry 2/8 in 30.3s (HTTP Error 429: Too Many Requests)
+  T3-navbar              4/7  valid=True rendered=True  steps=5  49.32s
+  T3-poster              3/5  valid=True rendered=True  steps=3  1.9s
+    retry 1/8 in 15.6s (HTTP Error 429: Too Many Requests)

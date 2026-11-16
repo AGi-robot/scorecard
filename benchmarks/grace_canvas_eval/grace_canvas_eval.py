@@ -25,6 +25,14 @@ import sys
 import time
 from pathlib import Path
 
+# Hosted endpoints rate-limit hard; a local llama-server never trips these.
+# DELAY paces the task stream and RETRIES turn a 429/5xx into a backoff
+# instead of a failed task that silently scores zero.
+DELAY = float(os.environ.get("CANVAS_DELAY", "0"))
+RETRIES = int(os.environ.get("CANVAS_RETRIES", "5"))
+BACKOFF = float(os.environ.get("CANVAS_BACKOFF", "5"))
+RETRYABLE = (429, 500, 502, 503, 504)
+
 def find_agi_repo():
     """Find the AGi checkout that provides canvas and imagegen source."""
     configured = os.environ.get("AGI_REPO")
@@ -108,6 +116,8 @@ def chat(base_url, model, messages, tools=None, temperature=0.0, max_tokens=3072
 
 
 def urllib_request(base_url, body, timeout):
+    import urllib.error
+    import random
     import urllib.request
     url = base_url.rstrip("/")
     if not url.endswith("/chat/completions"):
@@ -115,10 +125,29 @@ def urllib_request(base_url, body, timeout):
     req = urllib.request.Request(url, data=json.dumps(body).encode(),
                                  headers={"Content-Type": "application/json"})
     t0 = time.time()
-    with urllib.request.urlopen(req, timeout=timeout) as response:
-        data = json.loads(response.read().decode())
-    data["_elapsed"] = time.time() - t0
-    return data
+    # Hosted endpoints rate-limit hard; a local llama-server never trips
+    # these. Without a retry a 429 fails the task outright and silently
+    # zeroes its score.
+    last = None
+    for attempt in range(RETRIES + 1):
+        try:
+            with urllib.request.urlopen(req, timeout=timeout) as response:
+                data = json.loads(response.read().decode())
+            data["_elapsed"] = time.time() - t0
+            return data
+        except urllib.error.HTTPError as e:
+            if e.code not in RETRYABLE or attempt == RETRIES:
+                raise
+            last = e
+        except Exception as e:
+            last = e
+            if attempt == RETRIES:
+                raise
+        wait = BACKOFF * (2 ** attempt) + random.uniform(0, 1)
+        print(f"    retry {attempt + 1}/{RETRIES} in {wait:.1f}s "
+              f"({str(last)[:60]})", flush=True)
+        time.sleep(wait)
+    raise last
 
 
 def draw_actions(base_url, model, system, user, images=None, temperature=0.0,
@@ -388,6 +417,8 @@ def main():
         print(f"  {task['id']:<22} {result.get('checks_passed', 0)}/{result.get('checks_total', 0)}"
               f"  valid={result.get('valid')} rendered={result.get('rendered')}"
               f"  steps={result.get('steps')}  {result['wall_s']}s", flush=True)
+        if DELAY:
+            time.sleep(DELAY)
 
     total_checks = sum(r.get("checks_total", 0) for r in results)
     passed_checks = sum(r.get("checks_passed", 0) for r in results)

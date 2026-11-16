@@ -1,0 +1,37 @@
+[
+ {
+  "kind": "text",
+  "x": 150,
+  "y": 95,
+  "size": 84,
+  "font": "sans",
+  "color": "#232733",
+  "text": "AURORA",
+  "align": "center"
+ },
+ {
+  "kind": "line",
+  "points": [
+   [
+    230,
+    215
+   ],
+   [
+    770,
+    215
+   ]
+  ],
+  "color": "#232733",
+  "size": 2
+ },
+ {
+  "kind": "text",
+  "x": 380,
+  "y": 520,
+  "size": 26,
+  "font": "sans",
+  "color": "#4a4f5c",
+  "text": "SAT 14 \u00b7 JUNE",
+  "align": "center"
+ }
+]

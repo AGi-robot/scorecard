@@ -1,0 +1,28 @@
+[
+ {
+  "kind": "curve",
+  "points": [
+   [
+    480,
+    30
+   ],
+   [
+    430,
+    60
+   ],
+   [
+    470,
+    120
+   ],
+   [
+    520,
+    80
+   ],
+   [
+    480,
+    30
+   ]
+  ],
+  "prompt": "Lighthouse on rocky headland at dusk with warm lamp glow at top. Background sky, rock formation, tower, lantern, light source."
+ }
+]

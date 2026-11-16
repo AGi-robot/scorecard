@@ -1,0 +1,28 @@
+[
+ {
+  "kind": "curve",
+  "points": [
+   [
+    40,
+    55
+   ],
+   [
+    20,
+    40
+   ],
+   [
+    30,
+    30
+   ],
+   [
+    50,
+    30
+   ],
+   [
+    40,
+    55
+   ]
+  ],
+  "prompt": "navigation bar with logo and menu items"
+ }
+]

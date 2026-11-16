@@ -1,0 +1,188 @@
+[
+ {
+  "kind": "rectangle",
+  "x": 0,
+  "y": 0,
+  "width": 1000,
+  "height": 650,
+  "fill_color": "#f0f0f0",
+  "stroke": false
+ },
+ {
+  "kind": "rectangle",
+  "x": 200,
+  "y": 400,
+  "width": 600,
+  "height": 200,
+  "fill_color": "#8B4513",
+  "stroke": false
+ },
+ {
+  "kind": "curve",
+  "points": [
+   [
+    250,
+    300
+   ],
+   [
+    280,
+    250
+   ],
+   [
+    350,
+    250
+   ],
+   [
+    380,
+    300
+   ],
+   [
+    380,
+    400
+   ],
+   [
+    350,
+    450
+   ],
+   [
+    280,
+    450
+   ],
+   [
+    250,
+    400
+   ],
+   [
+    250,
+    300
+   ]
+  ],
+  "prompt": "garage workbench with visible screws and tools, muted brown tones, soft lighting, subtle texture, no outlines, realistic wood grain, aged metal tools scattered on surface, warm ambient glow, depth with shadows under objects, no text, hyperrealistic style, cinematic lighting, 8k detail, trending on artstation, moody atmosphere, dramatic contrast, soft bokeh highlights, cinematic composition, depth of field, subtle noise, film grain, muted colors, warm lighting, realistic reflections, lifelike textures, intricate details, professional photography, high-end rendering, photorealistic, ultra-detailed, volumetric lighting, ambient occlusion, global illumination, physically accurate materials, hyper-detailed, trending on artstation, moody atmosphere, dramatic contrast, soft bokeh highlights, cin\u00c3"
+ },
+ {
+  "kind": "curve",
+  "points": [
+   [
+    450,
+    200
+   ],
+   [
+    480,
+    180
+   ],
+   [
+    520,
+    180
+   ],
+   [
+    550,
+    200
+   ],
+   [
+    550,
+    300
+   ],
+   [
+    520,
+    350
+   ],
+   [
+    480,
+    350
+   ],
+   [
+    450,
+    300
+   ],
+   [
+    450,
+    200
+   ]
+  ],
+  "prompt": "garage workbench extension with tools and cables, muted brown tones, soft lighting, subtle texture, no outlines, realistic wood grain, aged metal tools scattered on surface, warm ambient glow, depth with shadows under objects, no text, hyperrealistic style, cinematic lighting, 8k detail, trending on artstation, moody atmosphere, dramatic contrast, soft bokeh highlights, cinematic composition, depth of field, subtle noise, film grain, muted colors, warm lighting, realistic reflections, lifelike textures, intricate details, professional photography, high-end rendering, photorealistic, ultra-detailed, volumetric lighting, ambient occlusion, global illumination, physically accurate materials, hyper-detailed, trending on artstation, moody atmosphere, dramatic contrast, soft bokeh highlights, c"
+ },
+ {
+  "kind": "curve",
+  "points": [
+   [
+    300,
+    150
+   ],
+   [
+    320,
+    120
+   ],
+   [
+    380,
+    120
+   ],
+   [
+    400,
+    150
+   ],
+   [
+    400,
+    250
+   ],
+   [
+    380,
+    280
+   ],
+   [
+    320,
+    280
+   ],
+   [
+    300,
+    250
+   ],
+   [
+    300,
+    150
+   ]
+  ],
+  "prompt": "garage background wall with shelves and tools, muted tones, soft lighting, subtle texture, no outlines, realistic concrete and metal shelves, aged tools hanging, warm ambient glow, depth with shadows, no text, hyperrealistic style, cinematic lighting, 8k detail, trending on artstation, moody atmosphere, dramatic contrast, soft bokeh highlights, cinematic composition, depth of field, subtle noise, film grain, muted colors, warm lighting, realistic reflections, lifelike textures, intricate details, professional photography, high-end rendering, photorealistic, ultra-detailed, volumetric lighting, ambient occlusion, global illumination, physically accurate materials, hyper-detailed"
+ },
+ {
+  "kind": "curve",
+  "points": [
+   [
+    500,
+    100
+   ],
+   [
+    550,
+    80
+   ],
+   [
+    600,
+    80
+   ],
+   [
+    650,
+    100
+   ],
+   [
+    650,
+    200
+   ],
+   [
+    600,
+    250
+   ],
+   [
+    550,
+    250
+   ],
+   [
+    500,
+    200
+   ],
+   [
+    500,
+    100
+   ]
+  ],
+  "prompt": "garage background corner with tools and equipment, muted tones, soft lighting, subtle texture, no outlines, realistic metal cabinets and tools, aged appearance, warm ambient glow, depth with shadows, no text, hyperrealistic style, cinematic lighting, 8k detail, trending on artstation, moody atmosphere, dramatic contrast, soft bokeh highlights, cinematic composition, depth of field, subtle noise, film grain, muted colors, warm lighting, realistic reflections, lifelike textures, intricate details, professional photography, high-end rendering, photorealistic, ultra-detailed, volumetric lighting, ambient occlusion, global illumination, physically accurate materials, hyper-detailed"
+ }
+]

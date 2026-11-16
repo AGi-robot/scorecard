@@ -1,0 +1,240 @@
+[
+ {
+  "kind": "curve",
+  "id": "apple_body",
+  "points": [
+   [
+    440,
+    268
+   ],
+   [
+    470,
+    258
+   ],
+   [
+    505,
+    252
+   ],
+   [
+    512,
+    290
+   ],
+   [
+    548,
+    330
+   ],
+   [
+    552,
+    400
+   ],
+   [
+    520,
+    470
+   ],
+   [
+    470,
+    498
+   ],
+   [
+    440,
+    502
+   ],
+   [
+    410,
+    496
+   ],
+   [
+    362,
+    468
+   ],
+   [
+    332,
+    400
+   ],
+   [
+    338,
+    330
+   ],
+   [
+    375,
+    292
+   ],
+   [
+    410,
+    252
+   ],
+   [
+    425,
+    258
+   ]
+  ],
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#c2352e"
+ },
+ {
+  "kind": "ellipse",
+  "id": "cast_shadow",
+  "x": [
+   348,
+   492
+  ],
+  "width": 190,
+  "height": 44,
+  "fill_color": "#8a8272",
+  "opacity": 0.45
+ },
+ {
+  "kind": "curve",
+  "id": "apple_shade",
+  "points": [
+   [
+    500,
+    300
+   ],
+   [
+    540,
+    350
+   ],
+   [
+    545,
+    420
+   ],
+   [
+    505,
+    478
+   ],
+   [
+    470,
+    496
+   ],
+   [
+    488,
+    440
+   ],
+   [
+    505,
+    370
+   ],
+   [
+    500,
+    300
+   ]
+  ],
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#962620",
+  "opacity": 0.55
+ },
+ {
+  "kind": "curve",
+  "id": "stem",
+  "points": [
+   [
+    438,
+    266
+   ],
+   [
+    436,
+    246
+   ],
+   [
+    442,
+    232
+   ],
+   [
+    452,
+    218
+   ]
+  ],
+  "stroke": true,
+  "fill": false,
+  "color": "#6b4a2b",
+  "size": 9
+ },
+ {
+  "kind": "curve",
+  "id": "leaf",
+  "points": [
+   [
+    452,
+    228
+   ],
+   [
+    492,
+    206
+   ],
+   [
+    532,
+    208
+   ],
+   [
+    560,
+    228
+   ],
+   [
+    522,
+    250
+   ],
+   [
+    482,
+    250
+   ],
+   [
+    452,
+    228
+   ]
+  ],
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#5f8a44"
+ },
+ {
+  "kind": "path",
+  "id": "leaf_midrib",
+  "points": [
+   [
+    458,
+    230
+   ],
+   [
+    502,
+    226
+   ],
+   [
+    546,
+    229
+   ]
+  ],
+  "stroke": true,
+  "fill": false,
+  "color": "#47632f",
+  "size": 3
+ },
+ {
+  "kind": "ellipse",
+  "id": "highlight",
+  "x": [
+   372,
+   312
+  ],
+  "width": 66,
+  "height": 92,
+  "fill_color": "#e88175",
+  "opacity": 0.5,
+  "brush": "soft"
+ },
+ {
+  "kind": "ellipse",
+  "id": "spark",
+  "x": [
+   392,
+   332
+  ],
+  "width": 16,
+  "height": 22,
+  "fill_color": "#f9d9cf",
+  "opacity": 0.85,
+  "brush": "soft"
+ }
+]

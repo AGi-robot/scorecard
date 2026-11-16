@@ -1,1 +1,11 @@
-/tmp/opencode/bench-venv/bin/python: can't open file '/home/oppa-ai/AGi/scorecard/benchmarks/grace_canvas_eval/python3': [Errno 2] No such file or directory
+Grace Canvas Eval: agents-a1-4b (8 tasks)
+  T1-apple               2/6  valid=True rendered=True  steps=2  29.02s
+  T1-lighthouse          2/5  valid=True rendered=True  steps=1  21.75s
+  T2-still-life          3/6  valid=True rendered=True  steps=1  7.4s
+  T2-robot-mascot        2/5  valid=True rendered=True  steps=6  51.52s
+  T3-navbar              0/7  valid=True rendered=True  steps=1  14.99s
+  T3-poster              3/5  valid=True rendered=True  steps=1  5.71s
+  T4-recolour-leaf       2/4  valid=True rendered=True  steps=1  2.85s
+  T5-critique-self       0/4  valid=None rendered=None  steps=None  18.5s
+
+SUMMARY {"label": "agents-a1-4b", "model": "agents-a1-4b", "schema_hint": false, "base_url": "http://127.0.0.1:8101/v1", "tasks": 8, "check_score": 0.3333, "tasks_fully_satisfied": 0, "fully_satisfied_rate": 0.0, "valid_rate": 0.875, "render_rate": 0.875, "truncated_rate": 0.125, "mean_steps": 1.62, "total_wall_s": 151.7, "critique_delta": null}

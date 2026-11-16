@@ -1,0 +1,65 @@
+[
+ {
+  "kind": "rectangle",
+  "x": 0,
+  "y": 0,
+  "width": 1000,
+  "height": 650,
+  "fill_color": "#1a2a3a",
+  "stroke": false
+ },
+ {
+  "kind": "curve",
+  "points": [
+   [
+    200,
+    300
+   ],
+   [
+    180,
+    250
+   ],
+   [
+    150,
+    200
+   ],
+   [
+    120,
+    200
+   ],
+   [
+    100,
+    250
+   ],
+   [
+    80,
+    300
+   ],
+   [
+    80,
+    400
+   ],
+   [
+    100,
+    450
+   ],
+   [
+    120,
+    450
+   ],
+   [
+    150,
+    400
+   ],
+   [
+    180,
+    400
+   ],
+   [
+    200,
+    300
+   ]
+  ],
+  "prompt": "dark rocky headland with jagged edges, muted gray tones, subtle texture, dusk lighting, no outlines, fill only, organic contours, 1000x650 canvas, atmospheric perspective, muted palette, no text, no labels, no commentary, no icons, no shapes, no geometric forms, no ellipses, no circles, no primitive forms, no underpainting, no draft, no sketch, no placeholders, no outlines, no strokes, no lines, no paths, no polygons, no rectangles, no gradients, no highlights, no shadows, no details, no focal point yet, no negative space yet, no proportions yet, no perspective yet, no composition yet, no lighting yet, no atmosphere yet, no haze yet, no glow yet, no lamp yet, no lighthouse yet, no rocks yet, no headland yet, no silhouette yet, no anatomy yet, no features yet, no recognizable subject yet, 1"
+ }
+]
