@@ -1,0 +1,4 @@
+swift15-qwen3.8-27b: 541 prompts -> http://127.0.0.1:8094/v1 (think_off=True)
+  resuming: 179 already done
+  [180/541] 58s (elapsed 58s)
+  [200/541] 40s (elapsed 674s)

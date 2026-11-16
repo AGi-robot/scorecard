@@ -1,0 +1,9 @@
+{
+ "label": "minicpm5-2b",
+ "model": "any",
+ "n": 541,
+ "think_off": true,
+ "strict": 0.8558,
+ "loose": 0.8725,
+ "elapsed_s": 4916.9
+}

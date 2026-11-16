@@ -1,0 +1,9 @@
+{
+ "label": "neohorse-1-4b",
+ "model": "any",
+ "n": 541,
+ "think_off": true,
+ "strict": 0.7911,
+ "loose": 0.8299,
+ "elapsed_s": 6798.0
+}
