@@ -170,10 +170,11 @@ consumes local GPU.
 
 ## Gaps
 
-1. **BFCL V4 agent loop** — BFCL V3 now covers single-turn function calls; V4
-   memory and web-search simulations remain to be evaluated with the official
-   multi-turn harness. The current benchmark does not call Grace's own memory
-   or search services.
+1. **BFCL V4 agent loop** — BFCL V3 covers single-turn function calls; V4
+   memory and web-search are documented in `benchmarks/bfcl_v4/`. The current
+   AIVA history store does not implement BFCL memory tools, and its `/web`
+   prefix does not call SearXNG, so those remain separate from end-to-end AIVA
+   evaluation.
 2. **Multi-model coverage is uneven** — only `swift`, `ministral3-14b` and
    `neohorse-1-4b` have EQ-Bench numbers, and only `swift` and `ministral3-14b`
    have persona numbers.
