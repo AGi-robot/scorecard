@@ -217,7 +217,7 @@ def main() -> None:
     if args.limit is not None:
         question_entries = question_entries[:max(0, args.limit)]
 
-    output_path = args.output or Path("benchmarks/bfcl/v4/results") / f"aiva_recent_{args.label}.jsonl"
+    output_path = args.output or Path("benchmarks/bfcl/results/v4") / f"aiva_recent_{args.label}.jsonl"
     output_path = output_path.resolve()
     output_path.parent.mkdir(parents=True, exist_ok=True)
     if args.overwrite:

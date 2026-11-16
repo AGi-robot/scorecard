@@ -10,7 +10,7 @@ arguments, outputs, protocol, and scoring.
 ### Model and capability baselines
 
 - [BFCL V3](benchmarks/bfcl/README.md): single-turn function calling.
-- [BFCL V4](benchmarks/bfcl/v4/README.md): official memory and web-search tracks,
+- [BFCL](benchmarks/bfcl/README.md): V3 function calling and V4 memory/web-search tracks,
   plus the separate AIVA recent-window memory run.
 - [IFEval](benchmarks/ifeval/README.md): strict and loose instruction following.
 - [IFBench](benchmarks/ifbench/README.md): single-turn and fixed-history

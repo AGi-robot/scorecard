@@ -178,7 +178,7 @@ consumes local GPU.
 ## Gaps
 
 1. **BFCL V4 agent loop** — BFCL V3 covers single-turn function calls; V4
-   memory and web-search are documented in `benchmarks/bfcl/v4/`. The current
+   memory and web-search are documented in `benchmarks/bfcl/`. The current
    AIVA history store does not implement BFCL memory tools, and its `/web`
    prefix does not call SearXNG, so those remain separate from end-to-end AIVA
    evaluation.
