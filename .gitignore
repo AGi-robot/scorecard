@@ -3,3 +3,6 @@ __pycache__/
 *.py[cod]
 /results/
 /renders/
+benchmarks/.cache/
+benchmarks/ifbench/results/
+benchmarks/livecodebench/results/
