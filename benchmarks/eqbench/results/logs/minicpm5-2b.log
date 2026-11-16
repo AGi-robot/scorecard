@@ -1,3 +1,11 @@
 minicpm5-2b: 171 questions
   [20/171] running mean: 29.4 (parse fails so far: 0)
   [40/171] running mean: 37.5 (parse fails so far: 0)
+  [60/171] running mean: 38.9 (parse fails so far: 0)
+  [80/171] running mean: 41.2 (parse fails so far: 0)
+  [100/171] running mean: 39.0 (parse fails so far: 0)
+  [120/171] running mean: 40.4 (parse fails so far: 0)
+  [140/171] running mean: 40.8 (parse fails so far: 0)
+  [160/171] running mean: 40.4 (parse fails so far: 0)
+
+minicpm5-2b EQ-Bench v2 score: 40.44  (parseable 171.0/171, 147s total)

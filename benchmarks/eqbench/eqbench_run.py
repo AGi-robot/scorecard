@@ -104,7 +104,7 @@ def main():
     OUT.parent.mkdir(parents=True, exist_ok=True)
     questions = json.loads((HERE / "data" / "eq_bench_v2_questions_171.json").read_text())
     ids = sorted(questions, key=lambda x: int(x))
-    print(f"{LABEL}: {len(ids)} questions", flush=True)
+    print(f"{LABEL}: {len(ids)} questions (think_off={THINK_OFF})", flush=True)
 
     indiv = {}
     fails = 0
@@ -145,7 +145,8 @@ def main():
     results = {"eqbench": {
         "run_metadata": {"total_iterations": 1, "model": MODEL,
                          "label": LABEL, "benchmark": "EQ-Bench v2",
-                         "scoring": "official full-scale"},
+                         "scoring": "official full-scale",
+                         "think_off": THINK_OFF},
         "iterations": {"0": {"individual_scores_fullscale": indiv}}}}
     avg, parseable = calculate_eq_bench_score("eqbench", results, str(OUT), fullscale=True)
     print(f"\n{LABEL} EQ-Bench v2 score: {avg}  "

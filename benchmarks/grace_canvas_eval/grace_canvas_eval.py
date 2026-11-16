@@ -92,9 +92,14 @@ def build_tool(schema_hint=False):
 
 # ------------------------------------------------------------------ model ---
 def chat(base_url, model, messages, tools=None, temperature=0.0, max_tokens=3072,
-         timeout=900):
+         timeout=900, think_off=False):
     body = {"model": model, "messages": messages, "temperature": temperature,
             "max_tokens": max_tokens, "stream": False}
+    if think_off:
+        # Thinking models (Qwen3.x/Swift): a reasoning trace burns into the
+        # token budget and can truncate the tool call, so disable it for
+        # output-format parity with models that have no thinking mode.
+        body["chat_template_kwargs"] = {"enable_thinking": False}
     if tools:
         body["tools"] = tools
         body["parallel_tool_calls"] = False
@@ -117,7 +122,7 @@ def urllib_request(base_url, body, timeout):
 
 
 def draw_actions(base_url, model, system, user, images=None, temperature=0.0,
-                 schema_hint=False):
+                 schema_hint=False, think_off=False):
     """One canvas_draw turn. Returns (actions, meta)."""
     content = [{"type": "text", "text": user}]
     for image in images or []:
@@ -126,7 +131,7 @@ def draw_actions(base_url, model, system, user, images=None, temperature=0.0,
     messages = [{"role": "system", "content": system},
                 {"role": "user", "content": content}]
     data = chat(base_url, model, messages, tools=[build_tool(schema_hint)],
-                temperature=temperature)
+                temperature=temperature, think_off=think_off)
     choice = (data.get("choices") or [{}])[0]
     message = choice.get("message") or {}
     usage = data.get("usage") or {}

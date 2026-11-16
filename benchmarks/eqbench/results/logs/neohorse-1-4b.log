@@ -1,2 +1,11 @@
 neohorse-1-4b: 171 questions
   [20/171] running mean: 58.2 (parse fails so far: 0)
+  [40/171] running mean: 50.8 (parse fails so far: 0)
+  [60/171] running mean: 51.9 (parse fails so far: 0)
+  [80/171] running mean: 54.4 (parse fails so far: 0)
+  [100/171] running mean: 56.5 (parse fails so far: 0)
+  [120/171] running mean: 57.0 (parse fails so far: 0)
+  [140/171] running mean: 56.1 (parse fails so far: 0)
+  [160/171] running mean: 56.6 (parse fails so far: 0)
+
+neohorse-1-4b EQ-Bench v2 score: 57.03  (parseable 171.0/171, 239s total)

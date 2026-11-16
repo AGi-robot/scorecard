@@ -11,6 +11,7 @@ Usage:
 import glob
 import json
 import os
+import sys
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
@@ -139,10 +140,39 @@ def rows():
     return out
 
 
+def render_markdown(r):
+    """Render the collected rows as the scorecard report body."""
+    lines = []
+    by_bench = {}
+    for x in r:
+        by_bench.setdefault(x["bench"], []).append(x)
+    for bench, items in by_bench.items():
+        lines.append(f"### {bench}\n")
+        lines.append("| Model | n | Primary | Secondary | Notes |")
+        lines.append("|---|---:|---:|---:|---|")
+        for x in items:
+            lines.append(f"| {x['model']} | {x['n'] or '-'} | {x['strict']} | "
+                         f"{x['loose']} | {x['extra']} |")
+        lines.append("")
+    return "\n".join(lines)
+
+
 def main():
     r = rows()
     if not r:
         print("no results found")
+        return
+    if "--markdown" in sys.argv:
+        out = sys.argv[sys.argv.index("--markdown") + 1] \
+            if "--markdown" in sys.argv and \
+            sys.argv.index("--markdown") + 1 < len(sys.argv) else None
+        text = render_markdown(r)
+        if out:
+            with open(out, "w") as f:
+                f.write(text)
+            print(f"wrote {out}")
+        else:
+            print(text)
         return
     hdr = f"{'benchmark':<16}{'model':<28}{'n':>5}  {'primary':<12}{'secondary':<12}notes"
     print(hdr)
