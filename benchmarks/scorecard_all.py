@@ -32,6 +32,20 @@ def load_json(p):
 def rows():
     out = []
 
+    # Pinned official baselines stay separate; smoke subsets are never ranked.
+    for directory in ("ifbench", "ifbench_multiturn", "livecodebench"):
+        for p in sorted((HERE / directory / "results").glob("*/summary.json")):
+            d = load_json(p)
+            if not d or not d.get("full_run"):
+                continue
+            coding = directory == "livecodebench"
+            out.append({
+                "bench": d["suite"], "model": d["model"], "n": d["n"],
+                "strict": pct(d.get("pass@1" if coding else "prompt_loose")),
+                "loose": pct(d.get("pass@5" if coding else "prompt_strict")),
+                "extra": "pass@1 / pass@5" if coding else "prompt loose / strict",
+            })
+
     # --- IFEval: strict/loose accuracy -------------------------------
     for p in sorted(glob.glob(str(HERE / "ifeval" / "results" / "ifeval_*.json"))):
         d = load_json(p)
