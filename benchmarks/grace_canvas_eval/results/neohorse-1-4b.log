@@ -6,3 +6,6 @@ Grace Canvas Eval: neohorse-1-4b (8 tasks)
   T3-navbar              4/7  valid=True rendered=True  steps=6  49.94s
   T3-poster              1/5  valid=False rendered=True  steps=3  46.29s
   T4-recolour-leaf       2/4  valid=True rendered=True  steps=1  24.81s
+  T5-critique-self       4/4  valid=False rendered=True  steps=16  106.73s
+
+SUMMARY {"label": "neohorse-1-4b", "model": "neohorse-1-4b", "schema_hint": false, "base_url": "http://127.0.0.1:8103/v1", "tasks": 8, "check_score": 0.5476, "tasks_fully_satisfied": 1, "fully_satisfied_rate": 0.125, "valid_rate": 0.375, "render_rate": 1.0, "truncated_rate": 0.125, "mean_steps": 9.12, "total_wall_s": 454.4, "critique_delta": -0.5}

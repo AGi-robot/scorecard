@@ -34,12 +34,13 @@ side. Per-benchmark raw data and the exact protocol live in each suite's
 | IFEval | Instruction/format compliance on the final response | 541 | temp 0.0, max_tokens 2048, raw prompt, no system prompt | yes (google-research, vendored) |
 | EQ-Bench v2 | Emotion recognition — rating 4 emotions per scenario | 171 | temp 0.01, max_tokens 60, up to 3 attempts to parse | yes (official full-scale) |
 | Grace Chatbot Eval | Persona fit — warmth, coherence, persona, overall | 6 scripts | SOUL.md + current timestamp, temp 0.7, blind pairwise | single human rater, Elo K=32 |
-| Grace Canvas Eval | `canvas_draw` tool-call validity and drawing quality | 8 tasks | production DRAW_INSTRUCTIONS, temp 0.0 | scene-graph checks, no judge |
+| Grace Canvas Eval | `canvas_draw` tool-call validity and drawing quality | 8 tasks | production DRAW_INSTRUCTIONS, temp 0.0, max_tokens 3072 | scene-graph checks, no judge |
 | BFCL (planned) | Tool calling on Aiko's real tool schemas | — | — | yes |
 
 **Thinking mode.** All EQ-Bench and IFEval numbers are taken with thinking
 **off**, so every model is scored under one protocol. `ministral3-14b` has no
-thinking mode, so it is unaffected either way.
+thinking mode, so it is unaffected either way. Canvas is reported per arm
+because the arms disagree by more than any other benchmark here.
 
 ---
 
@@ -60,8 +61,32 @@ thinking mode, so it is unaffected either way.
 |---|---:|---:|---:|
 | neohorse-1-4b | 171 | **57.0** | 171/171 |
 | agents-a1-4b | 171 | 56.7 | 171/171 |
+| swift | 171 | 56.8 | 171/171 |
 | ministral3-14b | 171 | 54.8 | 171/171 |
 | minicpm5-2b | 171 | 40.4 | 171/171 |
+
+### Grace Canvas Eval — `canvas_draw` tool calling
+
+Eight tasks scored from the canvas engine's own scene graph — no reference
+images, no judge. `check_score` is the fraction of per-task checks passed
+(object count, palette, layout rhythm, coverage, overlap, edit semantics);
+`valid_rate` is the fraction of calls the validator accepted without repair.
+
+| Run | Arm | Drew | Actions | check_score | valid_rate |
+|---|---|---:|---:|---:|---:|
+| swift | think-off | 8/8 | 3691 | **0.667** | 0.500 |
+| neohorse-1-4b | think-off | 8/8 | 73 | 0.548 | 0.375 |
+| ministral3-14b | think-off | 8/8 | 36 | 0.452 | 0.375 |
+| swift | think-off, forced tool | 8/8 | 6662 | 0.452 | 0.375 |
+| swift | think-on | 5/8 | 1404 | 0.429 | 0.375 |
+| agents-a1-4b | think-off | 8/8 | 18 | 0.357 | **1.000** |
+| minicpm5-2b | think-off | 8/8 | 22 | 0.262 | 0.375 |
+| minicpm5-2b | think-on | 1/8 | 1 | 0.191 | 0.125 |
+| agents-a1-4b | think-on | 0/8 | 0 | 0.167 | — |
+
+Renders for every run are in `grace_canvas_eval/renders/<run>/`, and
+`grace_canvas_eval/renders/sheets/` has one side-by-side contact sheet per
+task with all runs labelled.
 
 ### Grace Chatbot Eval — blind persona preference (Elo)
 
@@ -89,10 +114,25 @@ table on EQ-Bench. A role split — 2B/4B as the robot-side or helper tier,
 Ministral as the brain — is supported by the data, but the small models have
 never been tested for tool calling, which is the job the helper tier would do.
 
-**Nobody has tool-calling numbers.** Canvas eval has no scores recorded (only
-renders), and BFCL has not been built. For a model whose day job is emitting
-valid `canvas_draw` JSON and calling weather/moon/aurora tools, this is the
-largest hole in the scorecard.
+**Nobody has a tool-calling story yet.** Canvas eval now covers all five
+models and the picture is clear: `swift` draws a real scene (461 actions per
+task, 0.667), `agents-a1-4b` emits two or three shapes per task and lands at
+0.357, and `ministral3-14b` emits four and lands at 0.452 with a `valid_rate`
+of 0.375 — roughly a quarter of its canvas calls would need repair in
+production. For the canvas path specifically, `swift` is the clear winner and
+`ministral3-14b` is the weakest on both axes.
+
+**`valid_rate` and `check_score` measure different things.** `agents-a1-4b`
+has a perfect `valid_rate` (1.000) and the second-worst `check_score`: every
+call it makes is well-formed and consumable, but the scene is nearly empty. A
+single amber blob satisfies "a red apple with a brown stem and one green
+leaf" as far as the validator is concerned. `valid_rate` is the metric for a
+helper model that must never break the tool contract; `check_score` is the
+metric for a model that has to draw.
+
+**Forcing the tool did not help.** Production sets `tool_choice` on the
+canvas call; running Swift that way scored 0.452 against 0.667 unforced, with
+832 actions per task instead of 461 — more verbose, no better.
 
 ---
 
@@ -100,26 +140,31 @@ largest hole in the scorecard.
 
 | Run | State |
 |---|---|
-| `swift` EQ-Bench | running, ~80/171, upstream API capped at 5 prompts/min |
-| `swift` IFEval | queued to auto-start when EQ-Bench releases the quota (64/541 already on disk) |
+| `swift` IFEval | ~174/541, upstream API capped at 5 prompts/min |
+| `neohorse-1-4b` canvas think-on | last local run, ~4/8 tasks |
 
-Both Swift runs are throttled by the upstream API's 5-prompts-per-minute
-limit, so they take roughly 35 and 110 minutes respectively. Neither consumes
-local GPU.
+Both are throttled by the upstream API's 5-prompts-per-minute limit; neither
+consumes local GPU.
 
 ## Gaps
 
-1. **Tool calling** — BFCL on Aiko's real tool schemas is not built yet.
-2. **Canvas eval has no scores** — the harness works but `--out` was never
-   used, so only PNG renders exist.
-3. **Single-model coverage** — only Ministral and Swift have EQ-Bench and
-   persona numbers. The three small models have IFEval only.
-4. **No multi-turn instruction retention** — `allenai/IFBench_multi-turn` is
+1. **BFCL on Aiko's real tool schemas** — not built yet. Canvas eval covers
+   one tool well; the agentic toolkit (weather, moon phase, aurora) is still
+   untested for call validity, parallel calls, and argument correctness.
+2. **Multi-model coverage is uneven** — only `swift`, `ministral3-14b` and
+   `neohorse-1-4b` have EQ-Bench numbers, and only `swift` and `ministral3-14b`
+   have persona numbers.
+3. **No multi-turn instruction retention** — `allenai/IFBench_multi-turn` is
    available and judge-free, and would cover conversation, which is Grace's
    only interface.
-5. **No long-context measurement in Grace's real context shape** — standard
+4. **No long-context measurement in Grace's real context shape** — standard
    long-context benches use clean filler; Grace receives assembled episodic
    memory with distractors.
-6. **Embeddings untested** — `voyage-4-nano` needs a retrieval benchmark, not
+5. **Embeddings untested** — `voyage-4-nano` needs a retrieval benchmark, not
    a chat benchmark.
+6. **Canvas has no image-level judge** — `check_score` verifies countable
+   properties (object count, palette, rhythm, coverage), not whether the
+   drawing resembles the subject. The harness supports an optional VLM judge
+   (`--judge-base-url`/`--judge-model`) that would cover that axis.
+
 
