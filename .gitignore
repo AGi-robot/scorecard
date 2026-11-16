@@ -5,5 +5,4 @@ __pycache__/
 /renders/
 benchmarks/.cache/
 benchmarks/ifbench/results/
-benchmarks/ifbench_multiturn/results/
 benchmarks/livecodebench/results/

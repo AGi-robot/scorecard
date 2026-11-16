@@ -71,7 +71,7 @@ class TransportTests(unittest.TestCase):
 
     def test_scorecard_keeps_suites_separate_and_excludes_smoke(self):
         import scorecard_all
-        suites = [("ifbench", "IFBench single-turn"), ("ifbench_multiturn", "IFBench multi-turn"),
+        suites = [("ifbench", "IFBench single-turn"), ("ifbench", "IFBench multi-turn"),
                   ("livecodebench", "LiveCodeBench release_v6")]
         for directory, name in suites:
             for full in (False, True):
@@ -106,7 +106,7 @@ class IFBenchOfficialTests(unittest.TestCase):
         path = common.HERE / ".cache" / f"ifbench-multiturn-{runner.MULTITURN_REVISION}.parquet"
         expected = pq.read_table(path).to_pylist()[0]["messages"]
         with tempfile.TemporaryDirectory() as directory:
-            argv = ["ifbench_multiturn_run", "--official", os.environ["IFBENCH_OFFICIAL"],
+            argv = ["ifbench_run", "--official", os.environ["IFBENCH_OFFICIAL"],
                     "--output", directory, "--limit", "1", "--model", "fixture",
                     "--base-url", "http://localhost:8000/v1"]
             with patch.object(sys, "argv", argv), patch.object(common, "complete", return_value="Galaxies sparkle.") as request:

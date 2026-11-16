@@ -33,7 +33,7 @@ def rows():
     out = []
 
     # Pinned official baselines stay separate; smoke subsets are never ranked.
-    for directory in ("ifbench", "ifbench_multiturn", "livecodebench"):
+    for directory in ("ifbench", "livecodebench"):
         for p in sorted((HERE / directory / "results").glob("*/summary.json")):
             d = load_json(p)
             if not d or not d.get("full_run"):

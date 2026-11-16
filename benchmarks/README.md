@@ -11,10 +11,8 @@ scores separate when their input conditions or evaluators differ.
   included runner is a full-history baseline, not persistent-memory retrieval.
 - [EvalPlus](evalplus/README.md): HumanEval+ and MBPP+ code-generation
   correctness using the official scorer.
-- [IFBench single-turn](ifbench/README.md): pinned official precise-instruction
-  prompts and strict/loose verifiers.
-- [IFBench multi-turn](ifbench_multiturn/README.md): separate released fixed-history
-  constraint-isolation baseline, using the `ifbench_constraints` test split.
+- [IFBench](ifbench/README.md): single-turn and released fixed-history
+  multi-turn constraint-isolation baselines, with separate official scores.
 - [LiveCodeBench](livecodebench/README.md): pinned release_v6 code-generation
   baseline with official prompts, execution checks, and pass@k metrics.
 - [Companion behavior benchmarks](companion_safety/README.md): INTIMA and

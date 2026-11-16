@@ -37,7 +37,7 @@ side. Per-benchmark raw data and the exact protocol live in each suite's
 | Grace Canvas Eval | `canvas_draw` tool-call validity and drawing quality | 8 tasks | production DRAW_INSTRUCTIONS, temp 0.0, max_tokens 3072 | scene-graph checks, no judge |
 | BFCL V3 | Single-turn function calling: simple, multiple, parallel, and irrelevance | 1,170 | temp 0.0, max_tokens 1024, think-off | yes (AST semantics ported from official checker) |
 | [IFBench single-turn](benchmarks/ifbench/README.md) | Precise instruction following | 300 | pinned test data, temp 0, one response, prompt loose primary | yes (pinned official library) |
-| [IFBench multi-turn](benchmarks/ifbench_multiturn/README.md) | Constraint isolation in released fixed conversation history | 1,387 | pinned ifbench_constraints/test, temp 0, final response only | yes (pinned official library) |
+| [IFBench multi-turn](benchmarks/ifbench/README.md) | Constraint isolation in released fixed conversation history | 1,387 | pinned ifbench_constraints/test, temp 0, final response only | yes (pinned official library) |
 | [LiveCodeBench](benchmarks/livecodebench/README.md) | Code generation | 1,055 | pinned cumulative release_v6 lite, n=10, temp 0.2, top_p 0.95, pass@1/pass@5 | yes (pinned official checker and estimator) |
 
 These three baseline integrations have no model scores recorded yet: this
