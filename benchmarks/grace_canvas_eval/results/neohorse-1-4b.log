@@ -1,2 +1,8 @@
 Grace Canvas Eval: neohorse-1-4b (8 tasks)
   T1-apple               3/6  valid=True rendered=True  steps=1  5.8s
+  T1-lighthouse          3/5  valid=False rendered=True  steps=16  56.76s
+  T2-still-life          4/6  valid=False rendered=True  steps=14  87.88s
+  T2-robot-mascot        2/5  valid=False rendered=True  steps=16  76.19s
+  T3-navbar              4/7  valid=True rendered=True  steps=6  49.94s
+  T3-poster              1/5  valid=False rendered=True  steps=3  46.29s
+  T4-recolour-leaf       2/4  valid=True rendered=True  steps=1  24.81s

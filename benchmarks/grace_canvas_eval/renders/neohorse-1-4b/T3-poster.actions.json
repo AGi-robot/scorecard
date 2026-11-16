@@ -9,8 +9,8 @@
  },
  {
   "kind": "text",
-  "x": 400,
-  "y": 600,
+  "x": 380,
+  "y": 580,
   "size": 24,
   "align": "center",
   "prompt": "small date line lower down"
@@ -18,7 +18,7 @@
  {
   "kind": "line",
   "x": 350,
-  "y": 190,
+  "y": 180,
   "prompt": "thin horizontal rule beneath title"
  }
 ]

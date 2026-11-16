@@ -1,28 +1,30 @@
 [
  {
   "kind": "text",
-  "x": 500,
-  "y": 100,
-  "size": 150,
-  "text": "AURORA",
+  "text": "SUMMER",
   "align": "center",
-  "prompt": "Bold title word for event poster"
+  "points": [],
+  "prompt": "bold title word high on the canvas, minimal event poster, sans-serif, dark navy color, centered horizontally, large size around 140px, y around 80px from top"
  },
  {
   "kind": "line",
-  "x": 50,
-  "y": 155,
-  "width": 900,
-  "color": "#3a3a5a",
-  "prompt": "Thin horizontal rule beneath title"
+  "points": [
+   [
+    100,
+    145
+   ],
+   [
+    900,
+    145
+   ]
+  ],
+  "prompt": "thin horizontal rule beneath the title, spanning most of canvas width, navy color matching title"
  },
  {
   "kind": "text",
-  "x": 500,
-  "y": 570,
-  "size": 24,
   "text": "OCT 15 \u2022 7PM",
   "align": "center",
-  "prompt": "Small date line lower down"
+  "points": [],
+  "prompt": "small date line lower down, centered, minimal sans-serif, dark navy color, size around 30px, y around 600px from top"
  }
 ]
