@@ -67,5 +67,5 @@ Resumable: completed answers append to `results/responses_<label>.jsonl`
 ## BFCL V4 memory and web search
 
 The BFCL V4 setup, SearXNG adapter, Docker configuration, run commands, and
-AIVA memory limitations are documented in the [BFCL V4 guide](../bfcl_v4/README.md).
+AIVA memory limitations are documented in the [BFCL V4 guide](v4/README.md).
 This V3 runner remains the local single-turn AST baseline.
