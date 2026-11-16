@@ -20,7 +20,7 @@ Canvas Eval.
 python preference_bench.py generate \
     --contestant ministral=http://127.0.0.1:8080/v1/ministral-3-14b-instruct-2512 \
     --contestant saluki=http://127.0.0.1:8092/v1/saluki \
-    --contestant swift=http://127.0.0.1:8091/v1/swift
+    --contestant swift1.5-qwen3.8-27B=http://127.0.0.1:8091/v1/swift
 
 # 2. Rate: side-by-side blind comparison in the terminal.
 python preference_bench.py rate
@@ -36,6 +36,9 @@ timestamp -- the same context `aiva_chat/node.py` builds -- so this tests the
 deployment, not the bare model. (`--bare` drops the persona for a pure model
 comparison. `--think-off` disables thinking on Qwen models for protocol
 parity with Ministral, which has no thinking mode.)
+
+The endpoint may still expose its API model ID as `swift`; the contestant label
+above identifies the exact Swift 1.5 Qwen 3.8 27B build.
 
 Six scripts, 21 user turns total:
 

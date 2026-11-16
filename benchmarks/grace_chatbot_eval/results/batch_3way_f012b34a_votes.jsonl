@@ -1,6 +1,6 @@
-{"script": "disagreement", "left": "ministral", "right": "swift", "batch": "batch_3way_f012b34a.json", "warmth": "A", "coherence": "A", "persona": "B", "overall": "A"}
-{"script": "topic-change", "left": "ministral", "right": "swift", "batch": "batch_3way_f012b34a.json", "warmth": "B", "coherence": "B", "persona": "B", "overall": "B"}
-{"script": "emotional-support", "left": "swift", "right": "ministral", "batch": "batch_3way_f012b34a.json", "warmth": "B", "coherence": "B", "persona": "A", "overall": "B"}
-{"script": "casual-evening", "left": "ministral", "right": "swift", "batch": "batch_3way_f012b34a.json", "warmth": "A", "coherence": "A", "persona": "A", "overall": "A"}
-{"script": "callback", "left": "ministral", "right": "swift", "batch": "batch_3way_f012b34a.json", "warmth": "B", "coherence": "B", "persona": "B", "overall": "B"}
-{"script": "memory-honesty", "left": "swift", "right": "ministral", "batch": "batch_3way_f012b34a.json", "warmth": "B", "coherence": "B", "persona": "B", "overall": "B"}
+{"script": "disagreement", "left": "ministral", "right": "swift1.5-qwen3.8-27B", "batch": "batch_3way_f012b34a.json", "warmth": "A", "coherence": "A", "persona": "B", "overall": "A"}
+{"script": "topic-change", "left": "ministral", "right": "swift1.5-qwen3.8-27B", "batch": "batch_3way_f012b34a.json", "warmth": "B", "coherence": "B", "persona": "B", "overall": "B"}
+{"script": "emotional-support", "left": "swift1.5-qwen3.8-27B", "right": "ministral", "batch": "batch_3way_f012b34a.json", "warmth": "B", "coherence": "B", "persona": "A", "overall": "B"}
+{"script": "casual-evening", "left": "ministral", "right": "swift1.5-qwen3.8-27B", "batch": "batch_3way_f012b34a.json", "warmth": "A", "coherence": "A", "persona": "A", "overall": "A"}
+{"script": "callback", "left": "ministral", "right": "swift1.5-qwen3.8-27B", "batch": "batch_3way_f012b34a.json", "warmth": "B", "coherence": "B", "persona": "B", "overall": "B"}
+{"script": "memory-honesty", "left": "swift1.5-qwen3.8-27B", "right": "ministral", "batch": "batch_3way_f012b34a.json", "warmth": "B", "coherence": "B", "persona": "B", "overall": "B"}

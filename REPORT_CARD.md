@@ -19,31 +19,41 @@ side. Per-benchmark raw data and the exact protocol live in each suite's
 
 ## Model roster
 
-| Label | Size | Intended role |
-|---|---:|---|
-| `ministral3-14b` | 14B | Grace's primary brain — chat, memory, persona |
-| `swift` | 27B | Pruned baseline / alternative brain — quantised reference |
-| `minicpm5-2b` | 2B | Cheap helper or robot-side model |
-| `agents-a1-4b` | 4B | Cheap helper or robot-side model |
-| `neohorse-1-4b` | 4B | Cheap helper or robot-side model |
+| Label | Model / build | Size | Intended role |
+|---|---|---:|---|
+| `ministral3-14b` | Ministral 3 14B Instruct 2512 UD-Q4KXL | 14B | Front-end chatbot for conversation and persona |
+| `swift1.5-qwen3.8-27B` | Swift 1.5 Qwen 3.8 27B GSQ-RCO IQ3_S MTP | 27B | Back-end agent for reasoning, tool calling, and vision |
+| `minicpm5-2b` | MiniCPM 5 | 2B | Cheap helper or robot-side model |
+| `agents-a1-4b` | Agents A1 | 4B | Cheap helper or robot-side model |
+| `neohorse-1-4b` | NeoHorse | 4B | Cheap helper or robot-side model |
+
+In this planned split, visual inputs can be routed to `swift1.5-qwen3.8-27B`, so Ministral vision
+is not needed unless the front-end must process images directly. Scores for the
+two component models do not predict the routed Grace system; evaluate that
+system end to end when it is available.
 
 ## Benchmarks and protocol
 
 | Benchmark | What it measures | n | Protocol | Official scorer |
 |---|---|---:|---|---|
-| IFEval | Instruction/format compliance on the final response | 541 | temp 0.0, max_tokens 2048, raw prompt, no system prompt | yes (google-research, vendored) |
-| EQ-Bench v2 | Emotion recognition — rating 4 emotions per scenario | 171 | temp 0.01, max_tokens 60, up to 3 attempts to parse | yes (official full-scale) |
-| Grace Chatbot Eval | Persona fit — warmth, coherence, persona, overall | 6 scripts | SOUL.md + current timestamp, temp 0.7, blind pairwise | single human rater, Elo K=32 |
-| Grace Canvas Eval | `canvas_draw` tool-call validity and drawing quality | 8 tasks | production DRAW_INSTRUCTIONS, temp 0.0, max_tokens 3072 | scene-graph checks, no judge |
-| BFCL V4 | Official full function-calling and agentic evaluation: single-turn, multi-turn, live, memory/search, hallucination, and format sensitivity | category-specific | pinned official harness; use the complete V4 protocol for an overall score | official BFCL evaluator |
-| [IFBench single-turn](benchmarks/ifbench/README.md) | Precise instruction following | 300 | pinned test data, temp 0, one response, prompt loose primary | yes (pinned official library) |
-| [IFBench multi-turn](benchmarks/ifbench/README.md) | Constraint isolation in released fixed conversation history | 1,387 | pinned ifbench_constraints/test, temp 0, final response only | yes (pinned official library) |
-| [LiveCodeBench](benchmarks/livecodebench/README.md) | Code generation | 1,055 | pinned cumulative release_v6 lite, n=10, temp 0.2, top_p 0.95, pass@1/pass@5 | yes (pinned official checker and estimator) |
+| [BFCL V4](benchmarks/bfcl/README.md) | Full function calling and agentic tool use: single-turn, multi-turn, live, memory/search, hallucination, and format sensitivity | category-specific | Pinned official V4 harness; complete protocol required for overall score | yes (official BFCL evaluator) |
+| [EQ-Bench v2 (historical)](benchmarks/eqbench/README.md) | Emotion recognition — rating 4 emotions per scenario | 171 | temp 0.01, max_tokens 60, up to 3 parse attempts | yes (official full-scale) |
+| [EQ-Bench v4 / Creative Writing v3](benchmarks/eqbench/README.md) | Applied emotional/social intelligence / judged writing quality | 120 personas / 32 prompts × 3 | Pinned official protocols and judges; v4 uses 16-message conversations; writing temp 0.7, min_p 0.1 | yes (official; runs pending) |
+| [EvalPlus](benchmarks/evalplus/README.md) | Code-generation correctness on HumanEval+ and MBPP+ with expanded tests | dataset-specific | Greedy generation; official sandbox/scorer; pin package and image for each run | yes (official EvalPlus scorer) |
+| [Grace Canvas Eval](benchmarks/grace_canvas_eval/README.md) | `canvas_draw` tool-call validity and drawing quality | 8 tasks | Production DRAW_INSTRUCTIONS, temp 0.0, max_tokens 3072 | scene-graph checks; no judge |
+| [Grace Chatbot Eval](benchmarks/grace_chatbot_eval/README.md) | Persona fit: warmth, coherence, persona, overall | 6 scripts / 21 turns | SOUL.md + timestamp, temp 0.7, blind pairwise rating | human rater; Elo K=32 |
+| [IFEval](benchmarks/ifeval/README.md) | Verifiable instruction/format compliance on final responses | 541 | temp 0.0, max_tokens 2048, raw prompt, no system prompt | yes (Google Research scorer, vendored) |
+| [IFBench single-turn](benchmarks/ifbench/README.md) | Precise instruction following | 300 | Pinned test data, temp 0, one response, prompt-level loose accuracy primary | yes (pinned official library) |
+| [IFBench multi-turn](benchmarks/ifbench/README.md) | Constraint isolation in released fixed conversation history | 1,387 | Pinned `ifbench_constraints/test`, temp 0, generate final response only | yes (pinned official library) |
+| [LiveCodeBench](benchmarks/livecodebench/README.md) | Code generation with execution-based pass@k | 1,055 | Pinned cumulative release_v6 lite, n=10, temp 0.2, top_p 0.95 | yes (pinned official checker and estimator) |
+| [LongMemEval](benchmarks/longmemeval/README.md) | Recall, multi-session reasoning, knowledge updates, temporal reasoning, and abstention | 500 | Full-history long-context baseline; official QA evaluator uses a configured LLM judge | yes (official evaluator; no result recorded) |
 
-IFBench and LiveCodeBench have no model scores yet. BFCL V4 has not been run.
-The retained BFCL V3 artifacts below are incomplete historical samples, not full
-benchmark scores. Synthetic scorer fixtures and smoke tests are not benchmark
-results.
+BFCL V4, EQ-Bench v4, Creative Writing v3, EvalPlus, IFBench, LiveCodeBench,
+and LongMemEval have no completed model scores here. EQ-Bench v2 results and
+the incomplete BFCL V3 artifacts below are historical; the V3 subset rates are
+not full benchmark scores. Synthetic scorer fixtures and smoke tests are not
+benchmark results. INTIMA and AICompanionBench are research-readiness entries,
+not runnable integrations ([guide](benchmarks/companion_safety/README.md)).
 
 **Thinking mode.** All EQ-Bench and IFEval numbers are taken with thinking
 **off**, so every model is scored under one protocol. `ministral3-14b` has no
@@ -85,7 +95,7 @@ against one another or compared with BFCL V4 leaderboard scores.
 |---|---:|---:|---:|
 | neohorse-1-4b | 171 | **57.0** | 171/171 |
 | agents-a1-4b | 171 | 56.7 | 171/171 |
-| swift | 171 | 56.8 | 171/171 |
+| swift1.5-qwen3.8-27B | 171 | 56.8 | 171/171 |
 | ministral3-14b | 171 | 54.8 | 171/171 |
 | minicpm5-2b | 171 | 40.4 | 171/171 |
 
@@ -98,14 +108,14 @@ images, no judge. `check_score` is the fraction of per-task checks passed
 
 | Run | Arm | Drew | Actions | check_score | valid_rate |
 |---|---|---:|---:|---:|---:|
-| swift | think-off | 8/8 | 3691 | **0.690** | 0.500 |
-| swift | think-off, forced tool | 8/8 | 6662 | **0.690** | 0.375 |
+| swift1.5-qwen3.8-27B | think-off | 8/8 | 3691 | **0.690** | 0.500 |
+| swift1.5-qwen3.8-27B | think-off, forced tool | 8/8 | 6662 | **0.690** | 0.375 |
 | neohorse-1-4b | think-off | 8/8 | 73 | 0.595 | 0.750 |
 | ministral3-14b | think-off | 8/8 | 36 | 0.595 | 0.375 |
 | minicpm5-2b | think-on, budget-capped | 8/8 | 49 | 0.595 | 0.250 |
 | agents-a1-4b | think-on, budget-capped | 8/8 | 27 | 0.595 | 0.375 |
 | neohorse-1-4b | think-on, budget-capped | 8/8 | 45 | 0.571 | 0.625 |
-| swift | think-on | 5/8 | 1404 | 0.500 | 0.125 |
+| swift1.5-qwen3.8-27B | think-on | 5/8 | 1404 | 0.500 | 0.125 |
 | agents-a1-4b | think-off | 8/8 | 18 | 0.405 | **1.000** |
 | minicpm5-2b | think-off | 8/8 | 22 | 0.310 | 0.375 |
 
@@ -122,7 +132,7 @@ the model:
 1. **Unbounded thinking starved the tool call** — the trace consumed all
    3072 tokens, 0 actions emitted. Fixed by `--reasoning-budget 1024` on the
    serving config (think-on arms rerun under the cap).
-2. **One poison action voided the scene** — e.g. Swift's lighthouse action 11
+2. **One poison action voided the scene** — e.g. the `swift1.5-qwen3.8-27B` lighthouse action 11
    (`x: [58, 175]`, a list where a number belongs). The old repair only
    handled three slip types; anything else failed revalidation and the
    harness fell back to an empty list. Fixed in the engine:
@@ -139,7 +149,7 @@ the model:
 | Model | Votes | Elo | Win rate | Per-dimension wins |
 |---|---:|---:|---:|---|
 | ministral | 16 | **1539** | 31% | coherence 3/3, overall 5/5, persona 3/3, warmth 5/5 |
-| swift | 11 | 1461 | 18% | coherence 3/3, overall 2/2, persona 4/4, warmth 2/2 |
+| swift1.5-qwen3.8-27B | 11 | 1461 | 18% | coherence 3/3, overall 2/2, persona 4/4, warmth 2/2 |
 
 Small n — single rater, six scripts. Treat as a directional signal only.
 
@@ -153,32 +163,28 @@ strict) — behind a 2B model by 20 points. For Grace this is the central
 tension: SOUL's emoji-and-colon prefix and 1–2 sentence limit are hard
 constraints, and "warmest" does not mean "follows the contract".
 
-**The 2B and the 4Bs are specialists, not generalists.** `minicpm5-2b` tops
-IFEval (85.6) but is last on EQ-Bench (40.4) — strong format compliance, weak
-emotional perception. The two 4Bs invert that: mid-pack on IFEval, top of the
-table on EQ-Bench. A role split — 2B/4B as the robot-side or helper tier,
-Ministral as the brain — is supported by the data, but the small models have
-never been tested for tool calling, which is the job the helper tier would do.
+**The smaller models show different profiles across tests.** `minicpm5-2b`
+tops the completed IFEval results (85.6) but has the lowest historical EQ-Bench
+v2 score (40.4). These separate model-only scores do not validate a model-role
+split or the planned Ministral-front-end/`swift1.5-qwen3.8-27B`-back-end system. The smaller
+models have not been evaluated as helpers in that routed system.
 
-**Nobody has a tool-calling story yet.** Canvas eval now covers all five
-models and the picture is clear: `swift` draws a real scene (461 actions per
-task, 0.667), `agents-a1-4b` emits two or three shapes per task and lands at
-0.357, and `ministral3-14b` emits four and lands at 0.452 with a `valid_rate`
-of 0.375 — roughly a quarter of its canvas calls would need repair in
-production. For the canvas path specifically, `swift` is the clear winner and
-`ministral3-14b` is the weakest on both axes.
+**Standard function calling still needs a full run.** BFCL V4 is the active
+tool-calling evaluation and has not yet been run. Grace Canvas Eval is a
+separate custom test: the current `swift1.5-qwen3.8-27B` think-off runs have the highest
+recorded `check_score` (0.690), while prompts, reasoning modes, and action
+counts vary across runs. These canvas results do not measure the combined
+Ministral/`swift1.5-qwen3.8-27B` system.
 
-**`valid_rate` and `check_score` measure different things.** `agents-a1-4b`
-has a perfect `valid_rate` (1.000) and the second-worst `check_score`: every
-call it makes is well-formed and consumable, but the scene is nearly empty. A
-single amber blob satisfies "a red apple with a brown stem and one green
-leaf" as far as the validator is concerned. `valid_rate` is the metric for a
-helper model that must never break the tool contract; `check_score` is the
-metric for a model that has to draw.
+**`valid_rate` and `check_score` measure different things.** A call can be
+well-formed without producing a complete scene, and a strong scene score can
+include repaired actions. Read both metrics together; neither alone measures
+the quality of the routed agent system.
 
-**Forcing the tool did not help.** Production sets `tool_choice` on the
-canvas call; running Swift that way scored 0.452 against 0.667 unforced, with
-832 actions per task instead of 461 — more verbose, no better.
+**Forcing the tool did not improve the `swift1.5-qwen3.8-27B` canvas score in this run.** The
+think-off forced and unforced runs both scored 0.690, while the forced run
+used 6,662 actions versus 3,691. It increased output without improving the
+scene-graph score.
 
 ---
 
@@ -186,7 +192,7 @@ canvas call; running Swift that way scored 0.452 against 0.667 unforced, with
 
 | Run | State |
 |---|---|
-| `swift` IFEval | ~174/541, upstream API capped at 5 prompts/min |
+| `swift1.5-qwen3.8-27B` IFEval | ~174/541, upstream API capped at 5 prompts/min |
 | `neohorse-1-4b` canvas think-on | last local run, ~4/8 tasks |
 
 Both are throttled by the upstream API's 5-prompts-per-minute limit; neither
@@ -198,9 +204,9 @@ consumes local GPU.
    protocol. Its memory and web-search tasks use benchmark tools/backends; they
    do not directly measure AIVA's SQLite history or its `/web` path. The
    retained V3 responses above are incomplete historical samples.
-2. **Multi-model coverage is uneven** — only `swift`, `ministral3-14b` and
-   `neohorse-1-4b` have EQ-Bench numbers, and only `swift` and `ministral3-14b`
-   have persona numbers.
+2. **Coverage differs by suite** — all five listed models have historical
+   EQ-Bench v2 results; the blind persona preference results cover only
+   `swift1.5-qwen3.8-27B` and `ministral3-14b`.
 3. **Multi-turn scores pending** — the IFBench fixed-history multi-turn runner
    is integrated; a configured model endpoint and completed run are still needed.
 4. **No persistent-memory retrieval measurement** — LongMemEval full-history

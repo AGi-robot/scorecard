@@ -100,8 +100,7 @@ change the protocol's task or iteration counts.
 
 Keep transcripts, judge outputs, comparison pools, model/server revisions,
 configuration, generation settings, dataset/source hashes, and dependency locks
-with the run. Never commit secrets or raw model outputs. Retest Ministral and
-Swift separately first; evaluating routed Grace requires running that actual
+with the run. Never commit secrets or raw model outputs. Retest Ministral and `swift1.5-qwen3.8-27B` separately first; evaluating routed Grace requires running that actual
 system. There is no arithmetic conversion from a component score to Grace's
 combined performance.
 

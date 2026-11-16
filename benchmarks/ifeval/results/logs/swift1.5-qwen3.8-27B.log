@@ -1,4 +1,4 @@
-swift: 541 prompts -> https://ukisai.com/api/swift/v1 (think_off=True)
+swift1.5-qwen3.8-27B: 541 prompts -> https://ukisai.com/api/swift/v1 (think_off=True)
   resuming: 64 already done
   [60/541] 5s (elapsed 203s)
   [80/541] 1s (elapsed 541s)

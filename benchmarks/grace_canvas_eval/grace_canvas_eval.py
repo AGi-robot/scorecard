@@ -110,7 +110,7 @@ def chat(base_url, model, messages, tools=None, temperature=0.0, max_tokens=3072
     body = {"model": model, "messages": messages, "temperature": temperature,
             "max_tokens": max_tokens, "stream": False}
     if think_off:
-        # Thinking models (Qwen3.x/Swift): a reasoning trace burns into the
+        # Thinking models (Qwen3.x family): a reasoning trace burns into the
         # token budget and can truncate the tool call, so disable it for
         # output-format parity with models that have no thinking mode.
         body["chat_template_kwargs"] = {"enable_thinking": False}
