@@ -7,266 +7,324 @@
   "height": 650,
   "fill": true,
   "stroke": false,
-  "fill_color": "#3a352e",
+  "fill_color": "#33414f",
   "gradient": "linear",
   "gradient_angle": 90,
-  "gradient_color": "#2a2621",
+  "gradient_color": "#1e2833",
   "id": "bg"
  },
  {
   "kind": "rectangle",
-  "x": 60,
-  "y": 30,
-  "width": 200,
-  "height": 150,
-  "fill": true,
-  "stroke": false,
-  "fill_color": "#45403a",
-  "id": "shelf"
- },
- {
-  "kind": "polygon",
-  "x": 90,
-  "y": 150,
-  "width": 40,
-  "height": 30,
-  "points": [
-   [
-    100,
-    150
-   ],
-   [
-    150,
-    150
-   ],
-   [
-    145,
-    120
-   ],
-   [
-    105,
-    120
-   ]
-  ],
-  "fill": true,
-  "stroke": false,
-  "fill_color": "#6b5d4a",
-  "id": "can1"
- },
- {
-  "kind": "polygon",
-  "x": 160,
-  "y": 150,
-  "width": 45,
-  "height": 35,
-  "points": [
-   [
-    165,
-    150
-   ],
-   [
-    220,
-    150
-   ],
-   [
-    215,
-    115
-   ],
-   [
-    170,
-    115
-   ]
-  ],
-  "fill": true,
-  "stroke": false,
-  "fill_color": "#4a5d52",
-  "id": "can2"
- },
- {
-  "kind": "path",
   "x": 0,
-  "y": 0,
-  "points": [
-   [
-    0,
-    470
-   ],
-   [
-    1000,
-    470
-   ],
-   [
-    1000,
-    650
-   ],
-   [
-    0,
-    650
-   ]
-  ],
+  "y": 430,
+  "width": 1000,
+  "height": 220,
   "fill": true,
   "stroke": false,
-  "fill_color": "#232019",
+  "fill_color": "#28323e",
   "id": "floor"
  },
  {
-  "kind": "rectangle",
-  "x": 40,
-  "y": 400,
-  "width": 920,
-  "height": 42,
-  "fill": true,
-  "stroke": false,
-  "fill_color": "#7a6650",
-  "gradient": "linear",
-  "gradient_angle": 90,
-  "gradient_color": "#5f4f3d",
-  "id": "bench"
- },
- {
-  "kind": "rectangle",
-  "x": 100,
-  "y": 442,
-  "width": 34,
-  "height": 178,
-  "fill": true,
-  "stroke": false,
-  "fill_color": "#4f4234",
-  "id": "leg1"
- },
- {
-  "kind": "rectangle",
-  "x": 860,
-  "y": 442,
-  "width": 34,
-  "height": 178,
-  "fill": true,
-  "stroke": false,
-  "fill_color": "#4f4234",
-  "id": "leg2"
- },
- {
-  "kind": "path",
-  "x": 0,
-  "y": 0,
+  "kind": "curve",
+  "id": "peg",
   "points": [
    [
-    300,
-    400
+    560,
+    70
    ],
    [
-    340,
-    440
+    700,
+    60
    ],
    [
-    400,
-    430
+    840,
+    70
    ],
    [
-    430,
-    405
+    845,
+    210
    ],
    [
-    470,
-    435
+    700,
+    220
    ],
    [
-    520,
-    425
+    555,
+    210
    ],
    [
     560,
-    400
+    70
    ]
   ],
-  "stroke": true,
-  "stroke_width": 5,
-  "color": "#2e4650",
-  "fill": false,
-  "brush": "soft",
-  "id": "cable1"
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#3a4450",
+  "opacity": 0.9
  },
  {
-  "kind": "path",
-  "x": 0,
-  "y": 0,
+  "kind": "line",
   "points": [
    [
-    620,
-    398
-   ],
-   [
-    660,
-    445
-   ],
-   [
-    720,
-    450
-   ],
-   [
-    760,
-    420
-   ],
-   [
-    810,
-    445
-   ],
-   [
-    850,
-    400
-   ]
-  ],
-  "stroke": true,
-  "stroke_width": 4,
-  "color": "#6b3f2e",
-  "fill": false,
-  "brush": "soft",
-  "id": "cable2"
- },
- {
-  "kind": "path",
-  "x": 0,
-  "y": 0,
-  "points": [
-   [
-    500,
-    398
-   ],
-   [
-    510,
-    460
-   ],
-   [
-    560,
-    500
+    610,
+    100
    ],
    [
     640,
-    490
-   ],
-   [
-    680,
-    430
+    150
    ]
   ],
-  "stroke": true,
-  "stroke_width": 6,
-  "color": "#253840",
-  "fill": false,
-  "brush": "soft",
-  "id": "cable3"
+  "color": "#7d8894",
+  "size": 5
+ },
+ {
+  "kind": "line",
+  "points": [
+   [
+    700,
+    95
+   ],
+   [
+    700,
+    160
+   ]
+  ],
+  "color": "#7d8894",
+  "size": 5
+ },
+ {
+  "kind": "line",
+  "points": [
+   [
+    780,
+    100
+   ],
+   [
+    752,
+    150
+   ]
+  ],
+  "color": "#7d8894",
+  "size": 5
+ },
+ {
+  "kind": "path",
+  "id": "wrench",
+  "points": [
+   [
+    620,
+    160
+   ],
+   [
+    628,
+    190
+   ],
+   [
+    622,
+    210
+   ],
+   [
+    612,
+    192
+   ],
+   [
+    606,
+    162
+   ]
+  ],
+  "smooth": true,
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#828e9b"
+ },
+ {
+  "kind": "path",
+  "id": "screwdriver",
+  "points": [
+   [
+    770,
+    158
+   ],
+   [
+    778,
+    185
+   ],
+   [
+    774,
+    208
+   ],
+   [
+    766,
+    208
+   ],
+   [
+    762,
+    184
+   ],
+   [
+    768,
+    158
+   ]
+  ],
+  "smooth": true,
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#828e9b"
+ },
+ {
+  "kind": "rectangle",
+  "id": "bench",
+  "x": 70,
+  "y": 400,
+  "width": 800,
+  "height": 42,
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#8a6844",
+  "gradient": "linear",
+  "gradient_angle": 90,
+  "gradient_color": "#6b4f33"
+ },
+ {
+  "kind": "rectangle",
+  "id": "legL",
+  "x": 110,
+  "y": 442,
+  "width": 34,
+  "height": 178,
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#5d4429"
+ },
+ {
+  "kind": "rectangle",
+  "id": "legR",
+  "x": 780,
+  "y": 442,
+  "width": 34,
+  "height": 178,
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#5d4429"
+ },
+ {
+  "kind": "rectangle",
+  "id": "rail",
+  "x": 110,
+  "y": 530,
+  "width": 704,
+  "height": 20,
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#55402a"
  },
  {
   "kind": "ellipse",
-  "x": 430,
-  "y": 388,
-  "width": 150,
-  "height": 18,
+  "id": "castshadow",
+  "x": 380,
+  "y": 398,
+  "width": 210,
+  "height": 26,
   "fill": true,
   "stroke": false,
-  "fill_color": "#1a1712",
-  "opacity": 0.5,
-  "brush": "soft",
-  "id": "shadow"
+  "fill_color": "#5c4429",
+  "opacity": 0.85
+ },
+ {
+  "kind": "path",
+  "id": "cable1",
+  "points": [
+   [
+    400,
+    398
+   ],
+   [
+    350,
+    420
+   ],
+   [
+    270,
+    430
+   ],
+   [
+    210,
+    470
+   ],
+   [
+    190,
+    540
+   ],
+   [
+    205,
+    600
+   ]
+  ],
+  "smooth": true,
+  "stroke": true,
+  "fill": false,
+  "color": "#2e4f52",
+  "size": 7
+ },
+ {
+  "kind": "path",
+  "id": "cable2",
+  "points": [
+   [
+    560,
+    398
+   ],
+   [
+    640,
+    425
+   ],
+   [
+    720,
+    440
+   ],
+   [
+    780,
+    480
+   ],
+   [
+    800,
+    550
+   ]
+  ],
+  "smooth": true,
+  "stroke": true,
+  "fill": false,
+  "color": "#3a3f55",
+  "size": 6
+ },
+ {
+  "kind": "path",
+  "id": "cable3",
+  "points": [
+   [
+    480,
+    400
+   ],
+   [
+    500,
+    430
+   ],
+   [
+    470,
+    470
+   ],
+   [
+    480,
+    530
+   ],
+   [
+    450,
+    580
+   ]
+  ],
+  "smooth": true,
+  "stroke": true,
+  "fill": false,
+  "color": "#4a3348",
+  "size": 5
  }
 ]

@@ -1,0 +1,283 @@
+[
+ {
+  "kind": "curve",
+  "id": "apple",
+  "points": [
+   [
+    300,
+    300
+   ],
+   [
+    230,
+    290
+   ],
+   [
+    200,
+    350
+   ],
+   [
+    215,
+    420
+   ],
+   [
+    260,
+    465
+   ],
+   [
+    300,
+    480
+   ],
+   [
+    340,
+    465
+   ],
+   [
+    385,
+    420
+   ],
+   [
+    400,
+    350
+   ],
+   [
+    370,
+    290
+   ],
+   [
+    300,
+    300
+   ]
+  ],
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#c2352e",
+  "gradient_color": "#8f1e1c",
+  "gradient": "radial"
+ },
+ {
+  "kind": "curve",
+  "id": "apple-shadow",
+  "points": [
+   [
+    300,
+    305
+   ],
+   [
+    240,
+    310
+   ],
+   [
+    215,
+    360
+   ],
+   [
+    230,
+    420
+   ],
+   [
+    265,
+    458
+   ],
+   [
+    300,
+    470
+   ],
+   [
+    335,
+    458
+   ],
+   [
+    368,
+    420
+   ],
+   [
+    382,
+    360
+   ],
+   [
+    358,
+    310
+   ],
+   [
+    300,
+    305
+   ]
+  ],
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#8f1e1c",
+  "gradient_color": "#c2352e",
+  "gradient": "linear",
+  "gradient_angle": 120,
+  "opacity": 0.55
+ },
+ {
+  "kind": "curve",
+  "id": "dimple",
+  "points": [
+   [
+    288,
+    302
+   ],
+   [
+    280,
+    292
+   ],
+   [
+    292,
+    286
+   ],
+   [
+    302,
+    296
+   ],
+   [
+    288,
+    302
+   ]
+  ],
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#7a1817"
+ },
+ {
+  "kind": "curve",
+  "id": "stem",
+  "points": [
+   [
+    296,
+    292
+   ],
+   [
+    292,
+    270
+   ],
+   [
+    298,
+    252
+   ],
+   [
+    304,
+    240
+   ]
+  ],
+  "stroke": true,
+  "stroke_color": "#6b4a2b",
+  "size": 7,
+  "brush": "ink"
+ },
+ {
+  "kind": "curve",
+  "id": "leaf",
+  "points": [
+   [
+    304,
+    244
+   ],
+   [
+    340,
+    220
+   ],
+   [
+    382,
+    218
+   ],
+   [
+    400,
+    238
+   ],
+   [
+    368,
+    262
+   ],
+   [
+    330,
+    262
+   ],
+   [
+    304,
+    244
+   ]
+  ],
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#648c55"
+ },
+ {
+  "kind": "curve",
+  "id": "leaf-vein",
+  "points": [
+   [
+    310,
+    244
+   ],
+   [
+    340,
+    236
+   ],
+   [
+    368,
+    232
+   ],
+   [
+    392,
+    234
+   ]
+  ],
+  "stroke": true,
+  "stroke_color": "#4d7240",
+  "size": 2.5
+ },
+ {
+  "kind": "curve",
+  "id": "highlight",
+  "points": [
+   [
+    250,
+    330
+   ],
+   [
+    238,
+    350
+   ],
+   [
+    240,
+    375
+   ],
+   [
+    250,
+    390
+   ],
+   [
+    244,
+    365
+   ],
+   [
+    242,
+    348
+   ],
+   [
+    250,
+    330
+   ]
+  ],
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#e0715f",
+  "opacity": 0.7,
+  "brush": "soft"
+ },
+ {
+  "kind": "ellipse",
+  "id": "cast-shadow",
+  "x": 230,
+  "y": 482,
+  "width": 150,
+  "height": 26,
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#c9c2b8",
+  "opacity": 0.6,
+  "brush": "soft"
+ }
+]

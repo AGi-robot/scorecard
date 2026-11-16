@@ -5,14 +5,14 @@
   "schema_hint": false,
   "base_url": "http://127.0.0.1:8080/v1",
   "tasks": 8,
-  "check_score": 0.4286,
+  "check_score": 0.4524,
   "tasks_fully_satisfied": 0,
   "fully_satisfied_rate": 0.0,
-  "valid_rate": 0.25,
+  "valid_rate": 0.375,
   "render_rate": 0.875,
   "truncated_rate": 0.0,
-  "mean_steps": 3.0,
-  "total_wall_s": 235.1,
+  "mean_steps": 3.75,
+  "total_wall_s": 550.8,
   "critique_delta": null
  },
  "results": [
@@ -23,18 +23,18 @@
    "brief": "Draw a single red apple with a short brown stem and one green leaf, sitting slightly left of centre.",
    "actions_returned": 1,
    "steps": 1,
-   "valid": true,
-   "validation_error": null,
+   "valid": false,
+   "validation_error": "Curve needs a start and triples of cubic control/end points, max 61",
    "clamped_fields": 0,
    "rendered": true,
    "render_error": null,
    "truncated_stream": false,
    "meta": {
-    "elapsed_s": 22.82,
-    "completion_tokens": 340,
+    "elapsed_s": 24.66,
+    "completion_tokens": 355,
     "prompt_tokens": 2260,
     "truncated": false,
-    "raw_len": 1119,
+    "raw_len": 1138,
     "raw_tail": "",
     "finish_reason": "tool_calls",
     "response": "",
@@ -43,11 +43,11 @@
    "scene": {
     "objects": 1,
     "kinds": [
-     "curve"
+     "path"
     ],
     "colours": [],
     "texts": [],
-    "coverage": 0.0418,
+    "coverage": 0.0585,
     "mean_overlap": 0.0,
     "shared_baseline": 1,
     "even_spacing_run": 0
@@ -71,7 +71,7 @@
     {
      "check": "coverage_between",
      "ok": true,
-     "detail": "coverage 4.2% (want 1%-35%)"
+     "detail": "coverage 5.8% (want 1%-35%)"
     },
     {
      "check": "overlap_below",
@@ -87,15 +87,15 @@
    "checks_passed": 3,
    "checks_total": 6,
    "score": 0.5,
-   "wall_s": 22.84
+   "wall_s": 24.68
   },
   {
    "task": "T1-lighthouse",
    "tier": 1,
    "tier_name": "single subject",
    "brief": "Draw a lighthouse standing on a rocky headland at dusk, with a warm lamp glow at the top.",
-   "actions_returned": 2,
-   "steps": 2,
+   "actions_returned": 7,
+   "steps": 7,
    "valid": false,
    "validation_error": "Curve needs a start and triples of cubic control/end points, max 61",
    "clamped_fields": 0,
@@ -103,36 +103,41 @@
    "render_error": null,
    "truncated_stream": false,
    "meta": {
-    "elapsed_s": 28.57,
-    "completion_tokens": 425,
+    "elapsed_s": 125.67,
+    "completion_tokens": 2068,
     "prompt_tokens": 2262,
     "truncated": false,
-    "raw_len": 1273,
+    "raw_len": 6187,
     "raw_tail": "",
     "finish_reason": "tool_calls",
     "response": "",
     "more": false
    },
    "scene": {
-    "objects": 2,
+    "objects": 7,
     "kinds": [
      "rectangle",
+     "path",
+     "path",
+     "path",
+     "path",
+     "path",
      "path"
     ],
     "colours": [
      "#1a2a3a"
     ],
     "texts": [],
-    "coverage": 1.0462,
-    "mean_overlap": 0.0462,
+    "coverage": 1.2585,
+    "mean_overlap": 0.0265,
     "shared_baseline": 1,
-    "even_spacing_run": 0
+    "even_spacing_run": 7
    },
    "checks": [
     {
      "check": "objects_at_least_4",
-     "ok": false,
-     "detail": "2 objects (need >= 4)"
+     "ok": true,
+     "detail": "7 objects (need >= 4)"
     },
     {
      "check": "has_hue_warm lamp",
@@ -147,26 +152,26 @@
     {
      "check": "coverage_between",
      "ok": false,
-     "detail": "coverage 104.6% (want 2%-60%)"
+     "detail": "coverage 125.8% (want 2%-60%)"
     },
     {
      "check": "overlap_below",
      "ok": true,
-     "detail": "mean bbox overlap 0.05 (limit 0.5)"
+     "detail": "mean bbox overlap 0.03 (limit 0.5)"
     }
    ],
-   "checks_passed": 2,
+   "checks_passed": 3,
    "checks_total": 5,
-   "score": 0.4,
-   "wall_s": 28.59
+   "score": 0.6,
+   "wall_s": 125.69
   },
   {
    "task": "T2-still-life",
    "tier": 2,
    "tier_name": "multi-object scene",
    "brief": "A still life: a red apple and a ceramic cup on a wooden table, soft morning light from the left casting a warm shadow to the right.",
-   "actions_returned": 5,
-   "steps": 5,
+   "actions_returned": 6,
+   "steps": 6,
    "valid": false,
    "validation_error": "Curve needs a start and triples of cubic control/end points, max 61",
    "clamped_fields": 0,
@@ -174,39 +179,40 @@
    "render_error": null,
    "truncated_stream": false,
    "meta": {
-    "elapsed_s": 37.89,
-    "completion_tokens": 612,
+    "elapsed_s": 44.67,
+    "completion_tokens": 747,
     "prompt_tokens": 2269,
     "truncated": false,
-    "raw_len": 1477,
+    "raw_len": 1765,
     "raw_tail": "",
     "finish_reason": "tool_calls",
     "response": "",
     "more": false
    },
    "scene": {
-    "objects": 5,
+    "objects": 6,
     "kinds": [
      "rectangle",
      "path",
-     "curve",
      "path",
+     "curve",
+     "curve",
      "curve"
     ],
     "colours": [
      "#E8D5B5"
     ],
     "texts": [],
-    "coverage": 1.2993,
-    "mean_overlap": 0.0299,
-    "shared_baseline": 2,
-    "even_spacing_run": 5
+    "coverage": 1.2984,
+    "mean_overlap": 0.0513,
+    "shared_baseline": 3,
+    "even_spacing_run": 2
    },
    "checks": [
     {
      "check": "objects_at_least_4",
      "ok": true,
-     "detail": "5 objects (need >= 4)"
+     "detail": "6 objects (need >= 4)"
     },
     {
      "check": "has_hue_apple red",
@@ -226,18 +232,18 @@
     {
      "check": "coverage_between",
      "ok": false,
-     "detail": "coverage 129.9% (want 3%-70%)"
+     "detail": "coverage 129.8% (want 3%-70%)"
     },
     {
      "check": "overlap_below",
      "ok": true,
-     "detail": "mean bbox overlap 0.03 (limit 0.5)"
+     "detail": "mean bbox overlap 0.05 (limit 0.5)"
     }
    ],
    "checks_passed": 4,
    "checks_total": 6,
    "score": 0.6666666666666666,
-   "wall_s": 37.91
+   "wall_s": 44.69
   },
   {
    "task": "T2-robot-mascot",
@@ -246,18 +252,18 @@
    "brief": "A friendly little robot mascot standing on a workbench in a garage, with a teal body, an amber status light and cables trailing off the bench.",
    "actions_returned": 6,
    "steps": 6,
-   "valid": false,
-   "validation_error": "Curve needs a start and triples of cubic control/end points, max 61",
+   "valid": true,
+   "validation_error": null,
    "clamped_fields": 0,
    "rendered": true,
    "render_error": null,
    "truncated_stream": false,
    "meta": {
-    "elapsed_s": 70.26,
-    "completion_tokens": 1158,
+    "elapsed_s": 63.88,
+    "completion_tokens": 1072,
     "prompt_tokens": 2271,
     "truncated": false,
-    "raw_len": 3934,
+    "raw_len": 3706,
     "raw_tail": "",
     "finish_reason": "tool_calls",
     "response": "",
@@ -268,20 +274,20 @@
     "kinds": [
      "rectangle",
      "rectangle",
-     "path",
-     "path",
-     "path",
-     "path"
+     "curve",
+     "curve",
+     "curve",
+     "curve"
     ],
     "colours": [
      "#f0f0f0",
      "#8B4513"
     ],
     "texts": [],
-    "coverage": 1.3146,
-    "mean_overlap": 0.0341,
-    "shared_baseline": 1,
-    "even_spacing_run": 2
+    "coverage": 1.2885,
+    "mean_overlap": 0.0192,
+    "shared_baseline": 2,
+    "even_spacing_run": 6
    },
    "checks": [
     {
@@ -302,18 +308,18 @@
     {
      "check": "coverage_between",
      "ok": false,
-     "detail": "coverage 131.5% (want 3%-70%)"
+     "detail": "coverage 128.8% (want 3%-70%)"
     },
     {
      "check": "overlap_below",
      "ok": true,
-     "detail": "mean bbox overlap 0.03 (limit 0.5)"
+     "detail": "mean bbox overlap 0.02 (limit 0.5)"
     }
    ],
    "checks_passed": 2,
    "checks_total": 5,
    "score": 0.4,
-   "wall_s": 70.28
+   "wall_s": 63.9
   },
   {
    "task": "T3-navbar",
@@ -322,18 +328,18 @@
    "brief": "A navigation bar across the top of the canvas: a round logo mark on the far left, then four evenly spaced menu items reading Home, Work, Journal and Contact.",
    "actions_returned": 6,
    "steps": 6,
-   "valid": false,
-   "validation_error": "Curve needs a start and triples of cubic control/end points, max 61",
+   "valid": true,
+   "validation_error": null,
    "clamped_fields": 0,
    "rendered": true,
    "render_error": null,
    "truncated_stream": false,
    "meta": {
-    "elapsed_s": 31.48,
-    "completion_tokens": 663,
+    "elapsed_s": 23.68,
+    "completion_tokens": 403,
     "prompt_tokens": 2273,
     "truncated": false,
-    "raw_len": 2256,
+    "raw_len": 1014,
     "raw_tail": "",
     "finish_reason": "tool_calls",
     "response": "",
@@ -343,7 +349,7 @@
     "objects": 6,
     "kinds": [
      "ellipse",
-     "path",
+     "curve",
      "text",
      "text",
      "text",
@@ -358,8 +364,8 @@
      "Journal",
      "Contact"
     ],
-    "coverage": 0.009,
-    "mean_overlap": 0.0222,
+    "coverage": 0.0085,
+    "mean_overlap": 0.0167,
     "shared_baseline": 4,
     "even_spacing_run": 6
    },
@@ -397,13 +403,13 @@
     {
      "check": "coverage_between",
      "ok": false,
-     "detail": "coverage 0.9% (want 1%-50%)"
+     "detail": "coverage 0.8% (want 1%-50%)"
     }
    ],
    "checks_passed": 4,
    "checks_total": 7,
    "score": 0.5714285714285714,
-   "wall_s": 31.51
+   "wall_s": 23.72
   },
   {
    "task": "T3-poster",
@@ -419,7 +425,7 @@
    "render_error": null,
    "truncated_stream": false,
    "meta": {
-    "elapsed_s": 10.93,
+    "elapsed_s": 14.52,
     "completion_tokens": 254,
     "prompt_tokens": 2268,
     "truncated": false,
@@ -469,7 +475,7 @@
    "checks_passed": 1,
    "checks_total": 5,
    "score": 0.2,
-   "wall_s": 10.95
+   "wall_s": 14.54
   },
   {
    "task": "T4-recolour-leaf",
@@ -485,7 +491,7 @@
    "render_error": null,
    "truncated_stream": false,
    "meta": {
-    "elapsed_s": 2.49,
+    "elapsed_s": 3.63,
     "completion_tokens": 53,
     "prompt_tokens": 2478,
     "truncated": false,
@@ -530,16 +536,16 @@
    "checks_passed": 2,
    "checks_total": 4,
    "score": 0.5,
-   "wall_s": 2.5
+   "wall_s": 3.65
   },
   {
    "task": "T5-critique-self",
    "tier": 5,
-   "error": "HTTP Error 500: Internal Server Error",
+   "error": "<urlopen error [Errno 111] Connection refused>",
    "score": 0.0,
    "checks_passed": 0,
    "checks_total": 4,
-   "wall_s": 30.56
+   "wall_s": 249.92
   }
  ]
 }

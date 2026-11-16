@@ -1,0 +1,466 @@
+[
+ {
+  "kind": "rectangle",
+  "x": 0,
+  "y": 0,
+  "width": 1000,
+  "height": 650,
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#33353b",
+  "gradient": "linear",
+  "gradient_angle": 90,
+  "gradient_color": "#23242a",
+  "id": "bg"
+ },
+ {
+  "kind": "polygon",
+  "x": 0,
+  "y": 430,
+  "width": 1000,
+  "height": 220,
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#46484f",
+  "id": "floor"
+ },
+ {
+  "kind": "curve",
+  "points": [
+   [
+    120,
+    300
+   ],
+   [
+    180,
+    200
+   ],
+   [
+    300,
+    190
+   ],
+   [
+    330,
+    290
+   ],
+   [
+    280,
+    330
+   ],
+   [
+    180,
+    330
+   ],
+   [
+    120,
+    300
+   ]
+  ],
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#3d4952",
+  "id": "pegboard"
+ },
+ {
+  "kind": "path",
+  "points": [
+   [
+    150,
+    230
+   ],
+   [
+    170,
+    290
+   ]
+  ],
+  "stroke": true,
+  "color": "#5a686f",
+  "size": 5,
+  "id": "wrench1"
+ },
+ {
+  "kind": "path",
+  "points": [
+   [
+    230,
+    225
+   ],
+   [
+    245,
+    285
+   ]
+  ],
+  "stroke": true,
+  "color": "#5a686f",
+  "size": 5,
+  "id": "screwdriver"
+ },
+ {
+  "kind": "path",
+  "points": [
+   [
+    285,
+    240
+   ],
+   [
+    265,
+    295
+   ]
+  ],
+  "stroke": true,
+  "color": "#5a686f",
+  "size": 5,
+  "id": "wrench2"
+ },
+ {
+  "kind": "curve",
+  "points": [
+   [
+    30,
+    470
+   ],
+   [
+    300,
+    445
+   ],
+   [
+    700,
+    440
+   ],
+   [
+    975,
+    465
+   ],
+   [
+    975,
+    495
+   ],
+   [
+    700,
+    472
+   ],
+   [
+    300,
+    478
+   ],
+   [
+    30,
+    505
+   ],
+   [
+    30,
+    470
+   ]
+  ],
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#6f5136",
+  "id": "bench_top"
+ },
+ {
+  "kind": "rectangle",
+  "x": 110,
+  "y": 495,
+  "width": 34,
+  "height": 130,
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#59402b",
+  "id": "leg1"
+ },
+ {
+  "kind": "rectangle",
+  "x": 850,
+  "y": 490,
+  "width": 34,
+  "height": 135,
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#59402b",
+  "id": "leg2"
+ },
+ {
+  "kind": "curve",
+  "points": [
+   [
+    60,
+    560
+   ],
+   [
+    300,
+    545
+   ],
+   [
+    560,
+    542
+   ],
+   [
+    800,
+    552
+   ],
+   [
+    940,
+    565
+   ],
+   [
+    940,
+    585
+   ],
+   [
+    800,
+    572
+   ],
+   [
+    560,
+    562
+   ],
+   [
+    300,
+    556
+   ],
+   [
+    60,
+    578
+   ],
+   [
+    60,
+    560
+   ]
+  ],
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#2e4a4a",
+  "id": "cable1"
+ },
+ {
+  "kind": "curve",
+  "points": [
+   [
+    120,
+    600
+   ],
+   [
+    340,
+    585
+   ],
+   [
+    600,
+    592
+   ],
+   [
+    830,
+    610
+   ],
+   [
+    960,
+    635
+   ],
+   [
+    900,
+    640
+   ],
+   [
+    700,
+    620
+   ],
+   [
+    450,
+    612
+   ],
+   [
+    200,
+    622
+   ],
+   [
+    120,
+    600
+   ]
+  ],
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#7a4a3a",
+  "id": "cable2"
+ },
+ {
+  "kind": "curve",
+  "points": [
+   [
+    430,
+    452
+   ],
+   [
+    445,
+    410
+   ],
+   [
+    555,
+    408
+   ],
+   [
+    575,
+    450
+   ],
+   [
+    545,
+    462
+   ],
+   [
+    460,
+    462
+   ],
+   [
+    430,
+    452
+   ]
+  ],
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#1c2226",
+  "id": "shadow"
+ },
+ {
+  "kind": "curve",
+  "points": [
+   [
+    455,
+    448
+   ],
+   [
+    462,
+    400
+   ],
+   [
+    538,
+    400
+   ],
+   [
+    545,
+    448
+   ],
+   [
+    522,
+    456
+   ],
+   [
+    478,
+    456
+   ],
+   [
+    455,
+    448
+   ]
+  ],
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#234b4b",
+  "id": "legL"
+ },
+ {
+  "kind": "curve",
+  "points": [
+   470,
+   410,
+   472,
+   385,
+   528,
+   385,
+   530,
+   410,
+   508,
+   414,
+   492,
+   414,
+   470,
+   410
+  ],
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#234b4b",
+  "id": "legR"
+ },
+ {
+  "kind": "curve",
+  "points": [
+   [
+    415,
+    300
+   ],
+   [
+    420,
+    240,
+    580,
+    240,
+    585,
+    300
+   ],
+   [
+    585,
+    360,
+    575,
+    385,
+    500,
+    388
+   ],
+   [
+    425,
+    385,
+    415,
+    360,
+    415,
+    300
+   ],
+   [
+    415,
+    300
+   ]
+  ],
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#2e6a6a",
+  "gradient": "linear",
+  "gradient_angle": 100,
+  "gradient_color": "#1d4a4d",
+  "id": "body"
+ },
+ {
+  "kind": "curve",
+  "points": [
+   [
+    438,
+    300
+   ],
+   [
+    450,
+    285,
+    550,
+    285,
+    562,
+    300
+   ],
+   [
+    562,
+    330,
+    550,
+    342,
+    500,
+    343
+   ],
+   [
+    438,
+    330,
+    [
+     438,
+     300
+    ]
+   ],
+   [
+    438,
+    300
+   ]
+  ],
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#3f8180",
+  "id": "panel"
+ }
+]

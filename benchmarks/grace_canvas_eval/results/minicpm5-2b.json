@@ -9,11 +9,11 @@
   "tasks_fully_satisfied": 0,
   "fully_satisfied_rate": 0.0,
   "valid_rate": 0.375,
-  "render_rate": 0.875,
+  "render_rate": 1.0,
   "truncated_rate": 0.0,
-  "mean_steps": 2.62,
-  "total_wall_s": 54.6,
-  "critique_delta": null
+  "mean_steps": 2.75,
+  "total_wall_s": 915.4,
+  "critique_delta": 0.25
  },
  "results": [
   {
@@ -30,7 +30,7 @@
    "render_error": null,
    "truncated_stream": false,
    "meta": {
-    "elapsed_s": 4.39,
+    "elapsed_s": 125.63,
     "completion_tokens": 86,
     "prompt_tokens": 2301,
     "truncated": false,
@@ -87,7 +87,7 @@
    "checks_passed": 3,
    "checks_total": 6,
    "score": 0.5,
-   "wall_s": 4.41
+   "wall_s": 125.65
   },
   {
    "task": "T1-lighthouse",
@@ -103,11 +103,11 @@
    "render_error": null,
    "truncated_stream": false,
    "meta": {
-    "elapsed_s": 4.1,
-    "completion_tokens": 120,
+    "elapsed_s": 125.49,
+    "completion_tokens": 119,
     "prompt_tokens": 2301,
     "truncated": false,
-    "raw_len": 292,
+    "raw_len": 289,
     "raw_tail": "",
     "finish_reason": "tool_calls",
     "response": "I'll plan and draw a dusk lighthouse scene on the canvas. Let me start by establishing the composition, then build it back to front.\n",
@@ -155,7 +155,7 @@
    "checks_passed": 1,
    "checks_total": 5,
    "score": 0.2,
-   "wall_s": 4.12
+   "wall_s": 125.52
   },
   {
    "task": "T2-still-life",
@@ -171,14 +171,14 @@
    "render_error": null,
    "truncated_stream": false,
    "meta": {
-    "elapsed_s": 3.99,
-    "completion_tokens": 115,
+    "elapsed_s": 125.59,
+    "completion_tokens": 109,
     "prompt_tokens": 2310,
     "truncated": false,
-    "raw_len": 267,
+    "raw_len": 258,
     "raw_tail": "",
     "finish_reason": "tool_calls",
-    "response": "I'll plan this still life carefully before drawing. Let me establish the composition, palette, and light source, then build it back to front.\n",
+    "response": "I'll plan and execute a still life of a red apple and a ceramic cup on a wooden table under soft morning light.\n",
     "more": false
    },
    "scene": {
@@ -188,7 +188,7 @@
     ],
     "colours": [],
     "texts": [],
-    "coverage": 0.0065,
+    "coverage": 0.0062,
     "mean_overlap": 0.0,
     "shared_baseline": 1,
     "even_spacing_run": 0
@@ -228,7 +228,7 @@
    "checks_passed": 1,
    "checks_total": 6,
    "score": 0.16666666666666666,
-   "wall_s": 4.01
+   "wall_s": 125.6
   },
   {
    "task": "T2-robot-mascot",
@@ -244,14 +244,14 @@
    "render_error": null,
    "truncated_stream": false,
    "meta": {
-    "elapsed_s": 4.98,
-    "completion_tokens": 149,
+    "elapsed_s": 83.25,
+    "completion_tokens": 135,
     "prompt_tokens": 2312,
     "truncated": false,
-    "raw_len": 362,
+    "raw_len": 316,
     "raw_tail": "",
     "finish_reason": "tool_calls",
-    "response": "I'll plan and execute a painting of a friendly robot mascot on a workbench in a garage. Let me start by establishing the composition, palette, and light source, then build the drawing back to front.\n",
+    "response": "I'll plan and execute a finished robot mascot drawing on the canvas. Let me start by establishing the composition, palette, and light source, then build the artwork back to front.\n",
     "more": false
    },
    "scene": {
@@ -261,7 +261,7 @@
     ],
     "colours": [],
     "texts": [],
-    "coverage": 0.0037,
+    "coverage": 0.0111,
     "mean_overlap": 0.0,
     "shared_baseline": 1,
     "even_spacing_run": 0
@@ -285,7 +285,7 @@
     {
      "check": "coverage_between",
      "ok": false,
-     "detail": "coverage 0.4% (want 3%-70%)"
+     "detail": "coverage 1.1% (want 3%-70%)"
     },
     {
      "check": "overlap_below",
@@ -296,7 +296,7 @@
    "checks_passed": 1,
    "checks_total": 5,
    "score": 0.2,
-   "wall_s": 5.0
+   "wall_s": 83.27
   },
   {
    "task": "T3-navbar",
@@ -312,11 +312,11 @@
    "render_error": null,
    "truncated_stream": false,
    "meta": {
-    "elapsed_s": 2.43,
-    "completion_tokens": 70,
+    "elapsed_s": 76.18,
+    "completion_tokens": 71,
     "prompt_tokens": 2314,
     "truncated": false,
-    "raw_len": 186,
+    "raw_len": 191,
     "raw_tail": "",
     "finish_reason": "tool_calls",
     "response": "",
@@ -374,7 +374,7 @@
    "checks_passed": 0,
    "checks_total": 7,
    "score": 0.0,
-   "wall_s": 2.45
+   "wall_s": 76.19
   },
   {
    "task": "T3-poster",
@@ -390,11 +390,11 @@
    "render_error": null,
    "truncated_stream": false,
    "meta": {
-    "elapsed_s": 28.33,
+    "elapsed_s": 94.14,
     "completion_tokens": 831,
     "prompt_tokens": 2309,
     "truncated": false,
-    "raw_len": 2509,
+    "raw_len": 2513,
     "raw_tail": "",
     "finish_reason": "tool_calls",
     "response": "",
@@ -421,7 +421,7 @@
     ],
     "colours": [],
     "texts": [],
-    "coverage": 0.0185,
+    "coverage": 0.0098,
     "mean_overlap": 0.0,
     "shared_baseline": 1,
     "even_spacing_run": 15
@@ -445,7 +445,7 @@
     {
      "check": "coverage_between",
      "ok": true,
-     "detail": "coverage 1.8% (want 0%-40%)"
+     "detail": "coverage 1.0% (want 0%-40%)"
     },
     {
      "check": "overlap_below",
@@ -456,7 +456,7 @@
    "checks_passed": 3,
    "checks_total": 5,
    "score": 0.6,
-   "wall_s": 28.35
+   "wall_s": 94.16
   },
   {
    "task": "T4-recolour-leaf",
@@ -472,7 +472,7 @@
    "render_error": null,
    "truncated_stream": false,
    "meta": {
-    "elapsed_s": 1.66,
+    "elapsed_s": 7.34,
     "completion_tokens": 48,
     "prompt_tokens": 2452,
     "truncated": false,
@@ -517,16 +517,115 @@
    "checks_passed": 2,
    "checks_total": 4,
    "score": 0.5,
-   "wall_s": 1.67
+   "wall_s": 7.36
   },
   {
    "task": "T5-critique-self",
    "tier": 5,
-   "error": "HTTP Error 500: Internal Server Error",
-   "score": 0.0,
+   "tier_name": "draft then self-critique",
+   "brief": "Draw a small cabin in a snowy pine forest at night, with warm light spilling from one window.",
+   "actions_returned": 1,
+   "steps": 1,
+   "valid": false,
+   "validation_error": "Curve needs a start and triples of cubic control/end points, max 61",
+   "clamped_fields": 0,
+   "rendered": true,
+   "render_error": null,
+   "truncated_stream": false,
+   "meta": {
+    "elapsed_s": 78.67,
+    "completion_tokens": 156,
+    "prompt_tokens": 2300,
+    "truncated": false,
+    "raw_len": 402,
+    "raw_tail": "",
+    "finish_reason": "tool_calls",
+    "response": "I'll plan and draw a small cabin in a snowy pine forest at night with warm light spilling from one window. Let me start by establishing the composition and painting the background, distant forms, and main silhouette.\n",
+    "more": false
+   },
+   "scene": {
+    "objects": 1,
+    "kinds": [
+     "path"
+    ],
+    "colours": [],
+    "texts": [],
+    "coverage": 0.8442,
+    "mean_overlap": 0.0,
+    "shared_baseline": 1,
+    "even_spacing_run": 0
+   },
+   "checks": [
+    {
+     "check": "objects_at_least_4",
+     "ok": false,
+     "detail": "1 objects (need >= 4)"
+    },
+    {
+     "check": "has_hue_warm window light",
+     "ok": false,
+     "detail": "colours=[] (warm window light band 20-55)"
+    },
+    {
+     "check": "has_hue_cold night",
+     "ok": false,
+     "detail": "colours=[] (cold night band 200-265)"
+    },
+    {
+     "check": "coverage_between",
+     "ok": false,
+     "detail": "coverage 84.4% (want 2%-60%)"
+    }
+   ],
    "checks_passed": 0,
    "checks_total": 4,
-   "wall_s": 4.58
+   "score": 0.0,
+   "pass2": {
+    "steps": 2,
+    "valid": false,
+    "clamped_fields": 0,
+    "truncated_stream": false,
+    "elapsed_s": 40.81,
+    "checks_passed": 1,
+    "checks_total": 4,
+    "score": 0.25,
+    "scene": {
+     "objects": 1,
+     "kinds": [
+      "path"
+     ],
+     "colours": [],
+     "texts": [],
+     "coverage": 0.0939,
+     "mean_overlap": 0.0,
+     "shared_baseline": 1,
+     "even_spacing_run": 0
+    },
+    "checks": [
+     {
+      "check": "objects_at_least_4",
+      "ok": false,
+      "detail": "1 objects (need >= 4)"
+     },
+     {
+      "check": "has_hue_warm window light",
+      "ok": false,
+      "detail": "colours=[] (warm window light band 20-55)"
+     },
+     {
+      "check": "has_hue_cold night",
+      "ok": false,
+      "detail": "colours=[] (cold night band 200-265)"
+     },
+     {
+      "check": "coverage_between",
+      "ok": true,
+      "detail": "coverage 9.4% (want 2%-60%)"
+     }
+    ]
+   },
+   "critique_delta": 0.25,
+   "wall_s": 277.7
   }
  ]
 }

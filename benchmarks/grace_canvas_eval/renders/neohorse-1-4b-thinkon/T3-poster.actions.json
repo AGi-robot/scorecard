@@ -1,0 +1,28 @@
+[
+ {
+  "kind": "text",
+  "x": 500,
+  "y": 100,
+  "size": 150,
+  "text": "AURORA",
+  "align": "center",
+  "prompt": "Bold title word for event poster"
+ },
+ {
+  "kind": "line",
+  "x": 50,
+  "y": 155,
+  "width": 900,
+  "color": "#3a3a5a",
+  "prompt": "Thin horizontal rule beneath title"
+ },
+ {
+  "kind": "text",
+  "x": 500,
+  "y": 570,
+  "size": 24,
+  "text": "OCT 15 \u2022 7PM",
+  "align": "center",
+  "prompt": "Small date line lower down"
+ }
+]

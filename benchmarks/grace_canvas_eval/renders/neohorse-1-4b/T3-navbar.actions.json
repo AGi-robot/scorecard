@@ -6,18 +6,18 @@
   "y": 325,
   "width": 60,
   "height": 60,
-  "fill_color": "#f3f4f6",
+  "fill_color": "#f0f0f0",
   "fill": true,
   "margin": 40
  },
  {
   "kind": "ellipse",
   "id": "logo_inner",
-  "x": 45,
-  "y": 330,
-  "width": 50,
-  "height": 50,
-  "fill_color": "#1a1a2e",
+  "x": 52,
+  "y": 337,
+  "width": 36,
+  "height": 36,
+  "fill_color": "#2d3748",
   "fill": true,
   "margin": 40
  },
@@ -26,35 +26,39 @@
   "id": "menu_home",
   "x": 120,
   "y": 30,
-  "size": 20,
+  "size": 18,
+  "text": "Home",
   "align": "center",
-  "prompt": "Home menu item"
+  "prompt": "menu item Home"
  },
  {
   "kind": "text",
   "id": "menu_work",
-  "x": 240,
+  "x": 260,
   "y": 30,
-  "size": 20,
+  "size": 18,
+  "text": "Work",
   "align": "center",
-  "prompt": "Work menu item"
+  "prompt": "menu item Work"
  },
  {
   "kind": "text",
   "id": "menu_journal",
-  "x": 360,
+  "x": 400,
   "y": 30,
-  "size": 20,
+  "size": 18,
+  "text": "Journal",
   "align": "center",
-  "prompt": "Journal menu item"
+  "prompt": "menu item Journal"
  },
  {
   "kind": "text",
   "id": "menu_contact",
-  "x": 480,
+  "x": 540,
   "y": 30,
-  "size": 20,
+  "size": 18,
+  "text": "Contact",
   "align": "center",
-  "prompt": "Contact menu item"
+  "prompt": "menu item Contact"
  }
 ]

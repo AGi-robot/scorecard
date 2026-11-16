@@ -1,55 +1,86 @@
 [
  {
   "kind": "ellipse",
-  "x": 45,
-  "y": 45,
+  "x": 42,
+  "y": 40,
   "width": 44,
   "height": 44,
   "fill": true,
   "stroke": false,
-  "fill_color": "#2f6f68",
-  "gradient_color": "#7fb8a8",
+  "fill_color": "#2f5d62",
+  "gradient_color": "#74a89a",
   "gradient": "radial",
   "id": "logo"
  },
  {
+  "kind": "ellipse",
+  "x": 56,
+  "y": 54,
+  "width": 16,
+  "height": 16,
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#f2ede3",
+  "id": "logo-core"
+ },
+ {
   "kind": "text",
   "x": 250,
-  "y": 55,
+  "y": 50,
   "text": "Home",
-  "size": 30,
-  "color": "#3b4a4a",
+  "size": 26,
+  "color": "#3b4544",
   "font": "sans",
+  "align": "left",
   "id": "nav-home"
  },
  {
   "kind": "text",
-  "x": 410,
-  "y": 55,
+  "x": 420,
+  "y": 50,
   "text": "Work",
-  "size": 30,
-  "color": "#3b4a4a",
+  "size": 26,
+  "color": "#3b4544",
   "font": "sans",
+  "align": "left",
   "id": "nav-work"
  },
  {
   "kind": "text",
-  "x": 570,
-  "y": 55,
+  "x": 590,
+  "y": 50,
   "text": "Journal",
-  "size": 30,
-  "color": "#3b4a4a",
+  "size": 26,
+  "color": "#3b4544",
   "font": "sans",
+  "align": "left",
   "id": "nav-journal"
  },
  {
   "kind": "text",
   "x": 760,
-  "y": 55,
+  "y": 50,
   "text": "Contact",
-  "size": 30,
-  "color": "#3b4a4a",
+  "size": 26,
+  "color": "#3b4544",
   "font": "sans",
+  "align": "left",
   "id": "nav-contact"
+ },
+ {
+  "kind": "line",
+  "points": [
+   [
+    35,
+    118
+   ],
+   [
+    965,
+    118
+   ]
+  ],
+  "color": "#c9c2b4",
+  "size": 2,
+  "id": "nav-rule"
  }
 ]

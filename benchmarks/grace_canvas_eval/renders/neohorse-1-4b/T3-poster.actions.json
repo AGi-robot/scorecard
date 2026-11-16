@@ -10,121 +10,15 @@
  {
   "kind": "text",
   "x": 400,
-  "y": 180,
-  "size": 12,
-  "align": "center",
-  "prompt": "thin horizontal rule beneath title"
- },
- {
-  "kind": "text",
-  "x": 380,
-  "y": 520,
-  "size": 18,
+  "y": 600,
+  "size": 24,
   "align": "center",
   "prompt": "small date line lower down"
  },
  {
-  "kind": "text",
-  "x": 380,
-  "y": 550,
-  "size": 14,
-  "align": "center",
-  "prompt": "date line"
- },
- {
-  "kind": "text",
-  "x": 380,
-  "y": 580,
-  "size": 12,
-  "align": "center",
-  "prompt": "date line"
- },
- {
-  "kind": "text",
-  "x": 380,
-  "y": 610,
-  "size": 10,
-  "align": "center",
-  "prompt": "date line"
- },
- {
-  "kind": "text",
-  "x": 380,
-  "y": 640,
-  "size": 8,
-  "align": "center",
-  "prompt": "date line"
- },
- {
-  "kind": "text",
-  "x": 380,
-  "y": 670,
-  "size": 6,
-  "align": "center",
-  "prompt": "date line"
- },
- {
-  "kind": "text",
-  "x": 380,
-  "y": 700,
-  "size": 4,
-  "align": "center",
-  "prompt": "date line"
- },
- {
-  "kind": "text",
-  "x": 380,
-  "y": 730,
-  "size": 2,
-  "align": "center",
-  "prompt": "date line"
- },
- {
-  "kind": "text",
-  "x": 380,
-  "y": 760,
-  "size": 1,
-  "align": "center",
-  "prompt": "date line"
- },
- {
-  "kind": "text",
-  "x": 380,
-  "y": 790,
-  "size": 0.5,
-  "align": "center",
-  "prompt": "date line"
- },
- {
-  "kind": "text",
-  "x": 380,
-  "y": 820,
-  "size": 0.25,
-  "align": "center",
-  "prompt": "date line"
- },
- {
-  "kind": "text",
-  "x": 380,
-  "y": 850,
-  "size": 0.1,
-  "align": "center",
-  "prompt": "date line"
- },
- {
-  "kind": "text",
-  "x": 380,
-  "y": 880,
-  "size": 0.05,
-  "align": "center",
-  "prompt": "date line"
- },
- {
-  "kind": "text",
-  "x": 380,
-  "y": 910,
-  "size": 0.02,
-  "align": "center",
-  "prompt": "date line"
+  "kind": "line",
+  "x": 350,
+  "y": 190,
+  "prompt": "thin horizontal rule beneath title"
  }
 ]

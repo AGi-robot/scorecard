@@ -1,11 +1,16 @@
 Grace Canvas Eval: minicpm5-2b (8 tasks)
-  T1-apple               3/6  valid=True rendered=True  steps=1  4.41s
-  T1-lighthouse          1/5  valid=False rendered=True  steps=1  4.12s
-  T2-still-life          1/6  valid=False rendered=True  steps=1  4.01s
-  T2-robot-mascot        1/5  valid=False rendered=True  steps=1  5.0s
-  T3-navbar              0/7  valid=False rendered=True  steps=1  2.45s
-  T3-poster              3/5  valid=True rendered=True  steps=15  28.35s
-  T4-recolour-leaf       2/4  valid=True rendered=True  steps=1  1.67s
-  T5-critique-self       0/4  valid=None rendered=None  steps=None  4.58s
+  T1-apple               3/6  valid=True rendered=True  steps=1  125.65s
+  T1-lighthouse          1/5  valid=False rendered=True  steps=1  125.52s
+  T2-still-life          1/6  valid=False rendered=True  steps=1  125.6s
+  T2-robot-mascot        1/5  valid=False rendered=True  steps=1  83.27s
+  T3-navbar              0/7  valid=False rendered=True  steps=1  76.19s
+  T3-poster              3/5  valid=True rendered=True  steps=15  94.16s
+  T4-recolour-leaf       2/4  valid=True rendered=True  steps=1  7.36s
+    retry 1/5 in 6.0s (HTTP Error 500: Internal Server Error)
+    retry 2/5 in 10.6s (HTTP Error 500: Internal Server Error)
+    retry 3/5 in 20.6s (HTTP Error 500: Internal Server Error)
+    retry 4/5 in 40.2s (HTTP Error 500: Internal Server Error)
+    retry 5/5 in 80.8s (HTTP Error 500: Internal Server Error)
+  T5-critique-self       0/4  valid=False rendered=True  steps=1  277.7s
 
-SUMMARY {"label": "minicpm5-2b", "model": "minicpm5-2b", "schema_hint": false, "base_url": "http://127.0.0.1:8102/v1", "tasks": 8, "check_score": 0.2619, "tasks_fully_satisfied": 0, "fully_satisfied_rate": 0.0, "valid_rate": 0.375, "render_rate": 0.875, "truncated_rate": 0.0, "mean_steps": 2.62, "total_wall_s": 54.6, "critique_delta": null}
+SUMMARY {"label": "minicpm5-2b", "model": "minicpm5-2b", "schema_hint": false, "base_url": "http://127.0.0.1:8102/v1", "tasks": 8, "check_score": 0.2619, "tasks_fully_satisfied": 0, "fully_satisfied_rate": 0.0, "valid_rate": 0.375, "render_rate": 1.0, "truncated_rate": 0.0, "mean_steps": 2.75, "total_wall_s": 915.4, "critique_delta": 0.25}

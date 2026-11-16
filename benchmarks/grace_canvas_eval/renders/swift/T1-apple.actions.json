@@ -1,215 +1,242 @@
 [
  {
   "kind": "curve",
-  "id": "apple-body",
+  "id": "apple",
   "points": [
    [
     300,
-    320
+    300
    ],
    [
     230,
-    300
+    290
    ],
    [
     200,
-    240
+    330
    ],
    [
-    215,
-    175
+    210,
+    400
    ],
    [
-    260,
-    145
+    250,
+    460
    ],
    [
-    300,
-    160
-   ],
-   [
-    340,
-    145
-   ],
-   [
-    385,
-    175
-   ],
-   [
-    400,
-    240
+    310,
+    480
    ],
    [
     370,
+    460
+   ],
+   [
+    410,
+    400
+   ],
+   [
+    415,
+    330
+   ],
+   [
+    385,
+    290
+   ],
+   [
+    320,
     300
    ],
    [
     300,
-    320
+    300
    ]
   ],
   "fill": true,
   "stroke": false,
-  "fill_color": "#c23b2e",
-  "gradient_color": "#8e2419",
+  "fill_color": "#c62828",
+  "gradient_color": "#8e1c1c",
   "gradient": "radial"
  },
  {
   "kind": "curve",
-  "id": "apple-shade",
-  "points": [
-   340,
-   180,
-   385,
-   220,
-   380,
-   280,
-   340,
-   310
-  ],
-  "fill": true,
-  "stroke": false,
-  "fill_color": "#8e2419",
-  "opacity": 0.5
- },
- {
-  "kind": "curve",
-  "id": "apple-highlight",
+  "id": "apple-shadow",
   "points": [
    [
-    250,
-    190
-   ],
-   [
-    235,
-    210
-   ],
-   [
-    240,
-    240
+    310,
+    480
    ],
    [
     260,
-    250
+    490
    ],
    [
-    270,
-    225
-   ],
-   [
-    265,
-    200
+    230,
+    520
    ],
    [
     250,
-    190
+    545
+   ],
+   [
+    330,
+    550
+   ],
+   [
+    410,
+    535
+   ],
+   [
+    440,
+    505
+   ],
+   [
+    400,
+    490
+   ],
+   [
+    350,
+    485
+   ],
+   [
+    310,
+    480
    ]
   ],
   "fill": true,
   "stroke": false,
-  "fill_color": "#e8735e",
-  "opacity": 0.7
+  "fill_color": "#d8d2c8",
+  "gradient_color": "#efece6",
+  "gradient": "radial"
  },
  {
   "kind": "curve",
   "id": "stem",
   "points": [
    [
+    305,
+    300
+   ],
+   [
     300,
-    160
+    285
    ],
    [
     298,
-    140
+    270
    ],
    [
-    305,
-    125
-   ],
-   [
-    312,
-    115
+    302,
+    255
    ]
   ],
   "stroke": true,
   "fill": false,
   "color": "#6b4a2b",
-  "size": 8,
-  "brush": "ink"
+  "brush": "ink",
+  "size": 7
  },
  {
   "kind": "curve",
   "id": "leaf",
   "points": [
    [
-    312,
-    118
+    305,
+    295
    ],
    [
-    350,
-    95
-   ],
-   [
-    395,
-    100
-   ],
-   [
-    405,
-    125
+    330,
+    270
    ],
    [
     370,
-    140
+    265
    ],
    [
-    335,
-    135
+    395,
+    285
    ],
    [
-    312,
-    118
+    370,
+    305
+   ],
+   [
+    330,
+    310
+   ],
+   [
+    305,
+    295
    ]
   ],
   "fill": true,
   "stroke": false,
-  "fill_color": "#648c55"
+  "fill_color": "#5a8a3c"
  },
  {
   "kind": "curve",
   "id": "leaf-vein",
   "points": [
    [
-    318,
-    120
+    310,
+    293
    ],
    [
-    350,
-    112
+    340,
+    285
    ],
    [
-    380,
-    112
+    365,
+    280
    ],
    [
-    400,
-    118
+    388,
+    283
    ]
   ],
   "stroke": true,
   "fill": false,
-  "color": "#4a6b3c",
-  "size": 3
+  "color": "#3f6b2a",
+  "brush": "ink",
+  "size": 2
  },
  {
-  "kind": "ellipse",
-  "id": "cast-shadow",
-  "x": 235,
-  "y": 320,
-  "width": 150,
-  "height": 26,
+  "kind": "curve",
+  "id": "highlight",
+  "points": [
+   [
+    260,
+    330
+   ],
+   [
+    250,
+    310
+   ],
+   [
+    255,
+    295
+   ],
+   [
+    270,
+    290
+   ],
+   [
+    280,
+    300
+   ],
+   [
+    275,
+    320
+   ],
+   [
+    260,
+    330
+   ]
+  ],
   "fill": true,
   "stroke": false,
-  "fill_color": "#3f3a36",
-  "opacity": 0.25
+  "fill_color": "#e85c4a",
+  "opacity": 0.6,
+  "brush": "soft"
  }
 ]

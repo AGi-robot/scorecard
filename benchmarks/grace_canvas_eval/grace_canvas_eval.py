@@ -23,6 +23,8 @@ import json
 import os
 import sys
 import time
+import urllib.error
+import urllib.request
 from pathlib import Path
 
 # Hosted endpoints rate-limit hard; a local llama-server never trips these.
@@ -31,7 +33,11 @@ from pathlib import Path
 DELAY = float(os.environ.get("CANVAS_DELAY", "0"))
 RETRIES = int(os.environ.get("CANVAS_RETRIES", "5"))
 BACKOFF = float(os.environ.get("CANVAS_BACKOFF", "5"))
-RETRYABLE = (429, 500, 502, 503, 504)
+# 500 is NOT retried here: llama.cpp answers "image input is not supported"
+# with 500, which is a permanent client-side condition, not a transient
+# server hiccup. Retrying it would stall for minutes before the caller gets
+# to its own image-free fallback.
+RETRYABLE = (429, 502, 503, 504)
 
 def find_agi_repo():
     """Find the AGi checkout that provides canvas and imagegen source."""
@@ -100,7 +106,7 @@ def build_tool(schema_hint=False):
 
 # ------------------------------------------------------------------ model ---
 def chat(base_url, model, messages, tools=None, temperature=0.0, max_tokens=3072,
-         timeout=900, think_off=False):
+         timeout=900, think_off=False, force_tool=False):
     body = {"model": model, "messages": messages, "temperature": temperature,
             "max_tokens": max_tokens, "stream": False}
     if think_off:
@@ -111,6 +117,11 @@ def chat(base_url, model, messages, tools=None, temperature=0.0, max_tokens=3072
     if tools:
         body["tools"] = tools
         body["parallel_tool_calls"] = False
+        if force_tool:
+            # Matches production (aiva_chat/node.py): the canvas turn forces
+            # the canvas_draw function instead of letting the model choose.
+            body["tool_choice"] = {"type": "function",
+                                   "function": {"name": tools[0]["function"]["name"]}}
     req = urllib_request(base_url, body, timeout)
     return req
 
@@ -151,7 +162,7 @@ def urllib_request(base_url, body, timeout):
 
 
 def draw_actions(base_url, model, system, user, images=None, temperature=0.0,
-                 schema_hint=False, think_off=False):
+                 schema_hint=False, think_off=False, force_tool=False):
     """One canvas_draw turn. Returns (actions, meta)."""
     content = [{"type": "text", "text": user}]
     for image in images or []:
@@ -159,8 +170,23 @@ def draw_actions(base_url, model, system, user, images=None, temperature=0.0,
                            "image_url": {"url": "data:image/png;base64," + image}})
     messages = [{"role": "system", "content": system},
                 {"role": "user", "content": content}]
-    data = chat(base_url, model, messages, tools=[build_tool(schema_hint)],
-                temperature=temperature, think_off=think_off)
+    try:
+        data = chat(base_url, model, messages, tools=[build_tool(schema_hint)],
+                    temperature=temperature, think_off=think_off,
+                    force_tool=force_tool)
+    except urllib.error.HTTPError as e:
+        # Production (aiva_chat/node.py) degrades to a text-only retry when
+        # the endpoint cannot take an image. llama.cpp reports that as 500
+        # ("image input is not supported"), so 500 belongs in this set too.
+        if images and e.code in (400, 404, 422, 500):
+            text_only = [{"type": "text", "text": user}]
+            messages = [{"role": "system", "content": system},
+                        {"role": "user", "content": text_only}]
+            data = chat(base_url, model, messages, tools=[build_tool(schema_hint)],
+                        temperature=temperature, think_off=think_off,
+                        force_tool=force_tool)
+        else:
+            raise
     choice = (data.get("choices") or [{}])[0]
     message = choice.get("message") or {}
     usage = data.get("usage") or {}
@@ -293,7 +319,8 @@ def run_task(task, args):
     actions, meta = draw_actions(args.base_url, args.model, system, user,
                                  schema_hint=args.schema_hint,
                                  temperature=args.temperature,
-                                 think_off=args.think_off)
+                                 think_off=args.think_off,
+                                 force_tool=args.force_tool)
     validated, valid, error, clamped = validate_and_measure(actions)
     scene = build_scene(validated)
     png, render_error = render_png(validated)
@@ -351,7 +378,8 @@ def run_task(task, args):
             images=[base64.b64encode(png).decode()],
             schema_hint=args.schema_hint,
             temperature=args.temperature,
-            think_off=args.think_off)
+            think_off=args.think_off,
+            force_tool=args.force_tool)
         edit_validated, edit_valid, edit_error, edit_clamped = validate_and_measure(edit_actions)
         edit_scene = build_scene(edit_validated)
         edit_png, _ = render_png(edit_validated)
@@ -397,6 +425,9 @@ def main():
     parser.add_argument("--think-off", action="store_true", default=False,
                         help="disable the model's reasoning mode for parity "
                              "with models that have no thinking mode")
+    parser.add_argument("--force-tool", action="store_true", default=False,
+                        help="force the canvas_draw function like production "
+                             "does (aiva_chat/node.py sets tool_choice)")
     args = parser.parse_args()
 
     selected = [t for t in T.TASKS if args.tier is None or t["tier"] in args.tier]

@@ -60,7 +60,7 @@
     620
    ]
   ],
-  "prompt": "rough wooden table texture with visible grain and subtle knots, warm light from the left, soft shadows to the right, muted tones, no outlines, organic contours, fill only, no stroke, soft brush for texture"
+  "prompt": "rough wooden table texture with visible grain and subtle knots, warm light from left, soft shadows to right, muted tones, no outlines, organic contours, fill only, no stroke, soft brush for texture"
  },
  {
   "kind": "curve",
@@ -79,85 +79,131 @@
    ],
    [
     550,
+    180
+   ],
+   [
+    600,
     220
    ],
    [
-    580,
+    620,
     280
    ],
    [
-    530,
+    580,
     330
+   ],
+   [
+    500,
+    350
    ],
    [
     450,
     300
    ]
   ],
-  "prompt": "ceramic cup with subtle glaze, warm earthy tones, soft highlights on the left, cast shadow to the right, no outlines, organic contours, fill only, no stroke"
+  "prompt": "ceramic cup with subtle glaze, warm terracotta base, lighter cream interior, soft gradient from left to right, shadow under rim and handle, no outlines, organic contours, fill only"
  },
  {
   "kind": "curve",
   "points": [
    [
-    600,
-    250
-   ],
-   [
-    650,
+    550,
     200
    ],
    [
-    700,
-    220
-   ],
-   [
-    720,
-    280
-   ],
-   [
-    670,
-    320
+    580,
+    180
    ],
    [
     600,
-    250
+    190
+   ],
+   [
+    620,
+    200
+   ],
+   [
+    600,
+    210
+   ],
+   [
+    580,
+    220
+   ],
+   [
+    550,
+    200
    ]
   ],
-  "prompt": "cup handle, attached to the cup, same ceramic material, warm tones, soft shadow, no outlines, organic contours, fill only, no stroke"
+  "prompt": "cup handle, smooth organic curve, warm terracotta color, subtle shadow on right side, no outlines, fill only"
  },
  {
   "kind": "curve",
   "points": [
    [
-    250,
-    350
-   ],
-   [
-    200,
-    300
-   ],
-   [
-    280,
+    500,
     250
    ],
    [
-    350,
+    520,
+    220
+   ],
+   [
+    580,
+    200
+   ],
+   [
+    600,
+    230
+   ],
+   [
+    580,
+    260
+   ],
+   [
+    520,
     280
    ],
    [
-    380,
-    350
+    500,
+    250
+   ]
+  ],
+  "prompt": "cup interior, lighter cream color, soft gradient to simulate depth, no outlines, fill only"
+ },
+ {
+  "kind": "curve",
+  "points": [
+   [
+    300,
+    250
+   ],
+   [
+    280,
+    200
+   ],
+   [
+    350,
+    180
+   ],
+   [
+    420,
+    200
+   ],
+   [
+    440,
+    250
+   ],
+   [
+    400,
+    280
    ],
    [
     300,
-    400
-   ],
-   [
-    250,
-    350
+    250
    ]
   ],
-  "prompt": "red apple with organic shape, warm light from the left, subtle highlights, cast shadow to the right, no outlines, organic contours, fill only, no stroke"
+  "prompt": "red apple with organic contours, asymmetric shape, slight indentation at top, warm red with subtle green stem and leaf, soft gradient for light from left, no outlines, fill only"
  }
 ]

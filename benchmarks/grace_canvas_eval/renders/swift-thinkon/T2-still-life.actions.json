@@ -1,0 +1,258 @@
+[
+ {
+  "kind": "rectangle",
+  "x": 0,
+  "y": 0,
+  "width": 1000,
+  "height": 650,
+  "fill_color": "#e3d3b6",
+  "gradient_color": "#cbb492",
+  "gradient": "radial",
+  "stroke": false,
+  "id": "wall"
+ },
+ {
+  "kind": "rectangle",
+  "x": 0,
+  "y": 418,
+  "width": 1000,
+  "height": 232,
+  "fill_color": "#97693f",
+  "stroke": false,
+  "id": "table"
+ },
+ {
+  "kind": "ellipse",
+  "x": 120,
+  "y": 440,
+  "width": 420,
+  "height": 170,
+  "fill_color": "#b2854f",
+  "opacity": 0.45,
+  "stroke": false,
+  "id": "lightpool"
+ },
+ {
+  "kind": "ellipse",
+  "x": 432,
+  "y": 486,
+  "width": 165,
+  "height": 42,
+  "fill_color": "#6b4526",
+  "opacity": 0.5,
+  "stroke": false,
+  "id": "shadow-apple"
+ },
+ {
+  "kind": "ellipse",
+  "x": 590,
+  "y": 482,
+  "width": 215,
+  "height": 54,
+  "fill_color": "#63401f",
+  "opacity": 0.55,
+  "stroke": false,
+  "id": "shadow-cup"
+ },
+ {
+  "kind": "curve",
+  "id": "apple",
+  "points": [
+   [
+    380,
+    492
+   ],
+   [
+    322,
+    478
+   ],
+   [
+    300,
+    408
+   ],
+   [
+    332,
+    366
+   ],
+   [
+    360,
+    380
+   ],
+   [
+    392,
+    366
+   ],
+   [
+    432,
+    402
+   ],
+   [
+    432,
+    452
+   ],
+   [
+    410,
+    482
+   ],
+   [
+    380,
+    492
+   ]
+  ],
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#b4332a"
+ },
+ {
+  "kind": "curve",
+  "id": "cup-body",
+  "points": [
+   [
+    560,
+    486
+   ],
+   [
+    548,
+    470
+   ],
+   [
+    545,
+    392
+   ],
+   [
+    590,
+    378
+   ],
+   [
+    640,
+    378
+   ],
+   [
+    675,
+    392
+   ],
+   [
+    672,
+    470
+   ],
+   [
+    660,
+    486
+   ],
+   [
+    610,
+    494
+   ]
+  ],
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#7e98a0"
+ },
+ {
+  "kind": "ellipse",
+  "id": "cup-rim",
+  "x": 545,
+  "y": 360,
+  "width": 130,
+  "height": 32,
+  "fill_color": "#a4bcc0",
+  "stroke": false
+ },
+ {
+  "kind": "ellipse",
+  "id": "cup-inner",
+  "x": [
+   558,
+   366
+  ],
+  "width": 104,
+  "height": 20,
+  "fill_color": "#4e6469",
+  "stroke": false
+ },
+ {
+  "kind": "path",
+  "id": "handle",
+  "points": [
+   [
+    672,
+    398
+   ],
+   [
+    722,
+    408
+   ],
+   [
+    726,
+    448
+   ],
+   [
+    676,
+    460
+   ]
+  ],
+  "stroke": true,
+  "fill": false,
+  "size": 15
+ },
+ {
+  "kind": "curve",
+  "id": "apple-highlight",
+  "points": [
+   [
+    342,
+    386
+   ],
+   [
+    322,
+    396
+   ],
+   [
+    318,
+    428
+   ],
+   [
+    330,
+    448
+   ],
+   [
+    352,
+    434
+   ],
+   [
+    356,
+    404
+   ],
+   [
+    342,
+    386
+   ]
+  ],
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#e0755f",
+  "opacity": 0.55,
+  "brush": "soft"
+ },
+ {
+  "kind": "path",
+  "id": "stem",
+  "points": [
+   [
+    378,
+    372
+   ],
+   [
+    374,
+    352
+   ],
+   [
+    366,
+    338
+   ]
+  ],
+  "stroke": true,
+  "fill": false,
+  "size": 7
+ }
+]

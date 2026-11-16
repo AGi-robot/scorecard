@@ -1,0 +1,372 @@
+[
+ {
+  "kind": "rectangle",
+  "x": 0,
+  "y": 0,
+  "width": 1000,
+  "height": 650,
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#2e3d63",
+  "gradient_color": "#6b4a6b",
+  "gradient": "linear",
+  "gradient_angle": 90,
+  "id": "sky"
+ },
+ {
+  "kind": "ellipse",
+  "x": 620,
+  "y": 300,
+  "width": 420,
+  "height": 300,
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#c9754a",
+  "gradient_color": "#8a5570",
+  "gradient": "radial",
+  "opacity": 0.55,
+  "id": "sungg"
+ },
+ {
+  "kind": "path",
+  "id": "clouds",
+  "points": [
+   [
+    80,
+    150
+   ],
+   [
+    280,
+    130
+   ],
+   [
+    470,
+    155
+   ],
+   [
+    660,
+    125
+   ],
+   [
+    860,
+    150
+   ],
+   [
+    950,
+    190
+   ],
+   [
+    760,
+    205
+   ],
+   [
+    540,
+    185
+   ],
+   [
+    330,
+    210
+   ],
+   [
+    120,
+    185
+   ]
+  ],
+  "smooth": true,
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#4a4670",
+  "gradient_color": "#7a5a78",
+  "gradient": "linear",
+  "gradient_angle": 90,
+  "opacity": 0.7
+ },
+ {
+  "kind": "path",
+  "id": "clouds2",
+  "points": [
+   [
+    120,
+    280
+   ],
+   [
+    320,
+    260
+   ],
+   [
+    520,
+    285
+   ],
+   [
+    700,
+    260
+   ],
+   [
+    880,
+    285
+   ],
+   [
+    820,
+    320
+   ],
+   [
+    620,
+    305
+   ],
+   [
+    400,
+    325
+   ],
+   [
+    200,
+    310
+   ]
+  ],
+  "smooth": true,
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#5c4f78",
+  "gradient_color": "#a06a60",
+  "gradient": "linear",
+  "gradient_angle": 90,
+  "opacity": 0.6
+ },
+ {
+  "kind": "path",
+  "id": "sea",
+  "points": [
+   [
+    0,
+    470
+   ],
+   [
+    200,
+    455
+   ],
+   [
+    430,
+    468
+   ],
+   [
+    640,
+    450
+   ],
+   [
+    850,
+    465
+   ],
+   [
+    1000,
+    452
+   ],
+   [
+    1000,
+    650
+   ],
+   [
+    0,
+    650
+   ]
+  ],
+  "smooth": true,
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#243b55",
+  "gradient_color": "#3f5a72",
+  "gradient": "linear",
+  "gradient_angle": 90
+ },
+ {
+  "kind": "path",
+  "id": "glint",
+  "points": [
+   [
+    640,
+    470
+   ],
+   [
+    700,
+    500
+   ],
+   [
+    680,
+    540
+   ],
+   [
+    720,
+    580
+   ],
+   [
+    690,
+    620
+   ],
+   [
+    650,
+    585
+   ],
+   [
+    675,
+    545
+   ],
+   [
+    640,
+    505
+   ]
+  ],
+  "smooth": true,
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#d98c55",
+  "opacity": 0.5
+ },
+ {
+  "kind": "path",
+  "id": "headland",
+  "points": [
+   [
+    120,
+    650
+   ],
+   [
+    150,
+    560
+   ],
+   [
+    230,
+    505
+   ],
+   [
+    330,
+    480
+   ],
+   [
+    430,
+    470
+   ],
+   [
+    520,
+    478
+   ],
+   [
+    590,
+    510
+   ],
+   [
+    640,
+    560
+   ],
+   [
+    660,
+    650
+   ]
+  ],
+  "smooth": true,
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#33404f",
+  "gradient_color": "#1e2733",
+  "gradient": "linear",
+  "gradient_angle": 90
+ },
+ {
+  "kind": "path",
+  "id": "rocks",
+  "points": [
+   [
+    180,
+    640
+   ],
+   [
+    230,
+    590
+   ],
+   [
+    300,
+    575
+   ],
+   [
+    360,
+    590
+   ],
+   [
+    420,
+    565
+   ],
+   [
+    480,
+    585
+   ],
+   [
+    540,
+    565
+   ],
+   [
+    600,
+    595
+   ],
+   [
+    640,
+    640
+   ]
+  ],
+  "smooth": true,
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#27313f",
+  "opacity": 0.9
+ },
+ {
+  "kind": "path",
+  "id": "beam",
+  "points": [
+   [
+    430,
+    300
+   ],
+   [
+    120,
+    210
+   ],
+   [
+    140,
+    260
+   ],
+   [
+    420,
+    330
+   ]
+  ],
+  "smooth": true,
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#f2c878",
+  "opacity": 0.28
+ },
+ {
+  "kind": "path",
+  "id": "beam2",
+  "points": [
+   [
+    430,
+    300
+   ],
+   [
+    760,
+    230
+   ],
+   [
+    740,
+    280
+   ],
+   [
+    440,
+    330
+   ]
+  ],
+  "smooth": true,
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#f2c878",
+  "opacity": 0.22
+ }
+]

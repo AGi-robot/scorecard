@@ -21,34 +21,26 @@
    ],
    [
     60,
-    60
-   ],
-   [
-    50,
     70
    ],
    [
     50,
-    90
+    80
    ],
    [
     60,
-    100
+    90
    ],
    [
     70,
-    100
-   ],
-   [
-    80,
-    90
+    80
    ],
    [
     80,
     70
    ]
   ],
-  "prompt": "A stylized logo mark with a subtle wave pattern inside the circle, filled with a gradient from #4a6fa5 to #2c3e50 for depth. The logo is centered and balanced on the left side of the navigation bar area. The wave pattern is smooth and organic, avoiding sharp angles. The logo is the focal point of the navigation bar and should stand out visually. The gradient adds a sense of depth and sophistication to the logo design. The logo should be simple yet distinctive, ensuring it is recognizable even at smaller sizes. The wave pattern is subtle and does not distract from the overall circular shape of the logo. The logo is placed at the top-left corner of the canvas, leaving space for the navigation items to the right. The logo's design is clean and modern, fitting well within the navigation bar's "
+  "prompt": "A stylized logo mark with a subtle wave pattern inside the circle, filled with a gradient from #4a6fa5 to #2c3e50 for depth, no outline, soft edges, and a slight metallic sheen effect."
  },
  {
   "kind": "text",
@@ -58,7 +50,7 @@
   "text": "Home",
   "fill": true,
   "align": "center",
-  "prompt": "The text 'Home' is the first menu item in the navigation bar. It is positioned to the right of the logo and evenly spaced with the other menu items. The text is clear and legible, using a neutral color that contrasts well with the background. The font is sans-serif for a modern and clean look. The text is centered vertically within the navigation bar area, ensuring a balanced and professional appearance. The spacing between the logo and the first menu item is consistent with the spacing between all menu items, creating a harmonious layout. The text color is chosen to ensure readability and visual appeal, complementing the overall design of the navigation bar."
+  "prompt": "Clean, modern sans-serif text for the navigation menu items, slightly darker than the background for readability."
  },
  {
   "kind": "text",

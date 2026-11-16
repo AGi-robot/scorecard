@@ -5,15 +5,15 @@
   "schema_hint": false,
   "base_url": "http://127.0.0.1:8101/v1",
   "tasks": 8,
-  "check_score": 0.3333,
+  "check_score": 0.3571,
   "tasks_fully_satisfied": 0,
   "fully_satisfied_rate": 0.0,
-  "valid_rate": 0.875,
-  "render_rate": 0.875,
-  "truncated_rate": 0.125,
-  "mean_steps": 1.62,
-  "total_wall_s": 151.7,
-  "critique_delta": null
+  "valid_rate": 1.0,
+  "render_rate": 1.0,
+  "truncated_rate": 0.0,
+  "mean_steps": 2.25,
+  "total_wall_s": 839.7,
+  "critique_delta": -0.25
  },
  "results": [
   {
@@ -30,7 +30,7 @@
    "render_error": null,
    "truncated_stream": false,
    "meta": {
-    "elapsed_s": 28.99,
+    "elapsed_s": 33.63,
     "completion_tokens": 713,
     "prompt_tokens": 2461,
     "truncated": false,
@@ -88,7 +88,7 @@
    "checks_passed": 2,
    "checks_total": 6,
    "score": 0.3333333333333333,
-   "wall_s": 29.02
+   "wall_s": 33.65
   },
   {
    "task": "T1-lighthouse",
@@ -104,7 +104,7 @@
    "render_error": null,
    "truncated_stream": false,
    "meta": {
-    "elapsed_s": 21.73,
+    "elapsed_s": 158.3,
     "completion_tokens": 578,
     "prompt_tokens": 2462,
     "truncated": false,
@@ -156,7 +156,7 @@
    "checks_passed": 2,
    "checks_total": 5,
    "score": 0.4,
-   "wall_s": 21.75
+   "wall_s": 158.32
   },
   {
    "task": "T2-still-life",
@@ -172,7 +172,7 @@
    "render_error": null,
    "truncated_stream": false,
    "meta": {
-    "elapsed_s": 7.39,
+    "elapsed_s": 142.14,
     "completion_tokens": 213,
     "prompt_tokens": 2470,
     "truncated": false,
@@ -231,35 +231,39 @@
    "checks_passed": 3,
    "checks_total": 6,
    "score": 0.5,
-   "wall_s": 7.4
+   "wall_s": 142.16
   },
   {
    "task": "T2-robot-mascot",
    "tier": 2,
    "tier_name": "multi-object scene",
    "brief": "A friendly little robot mascot standing on a workbench in a garage, with a teal body, an amber status light and cables trailing off the bench.",
-   "actions_returned": 6,
-   "steps": 6,
+   "actions_returned": 10,
+   "steps": 10,
    "valid": true,
    "validation_error": null,
    "clamped_fields": 0,
    "rendered": true,
    "render_error": null,
-   "truncated_stream": true,
+   "truncated_stream": false,
    "meta": {
-    "elapsed_s": 51.5,
-    "completion_tokens": 1626,
+    "elapsed_s": 160.24,
+    "completion_tokens": 2446,
     "prompt_tokens": 2470,
-    "truncated": true,
-    "raw_len": 6121,
-    "raw_tail": " depth and dimensionality, friendly expression with large eyes and antenna, cables trailing from robot body to the right side of bench, garage walls and tools in background, warm ambient lighting from",
-    "finish_reason": "length",
+    "truncated": false,
+    "raw_len": 9587,
+    "raw_tail": "",
+    "finish_reason": "tool_calls",
     "response": "I'll create a friendly robot mascot standing on a workbench in a garage setting. Let me plan the composition:\n\n**Palette:** Teal body (#20B2AA), amber status light (#FFB300), warm garage lighting, metallic workbench, subtle shadows.\n\n**Composition:** \n- Background: garage interior with soft lighting\n- Workbench in the foreground\n- Robot mascot as the focal point\n- Cables trailing from the robot\n\nL",
     "more": false
    },
    "scene": {
-    "objects": 6,
+    "objects": 10,
     "kinds": [
+     "curve",
+     "curve",
+     "curve",
+     "curve",
      "curve",
      "curve",
      "curve",
@@ -269,16 +273,16 @@
     ],
     "colours": [],
     "texts": [],
-    "coverage": 0.2769,
+    "coverage": 0.4615,
     "mean_overlap": 1.0,
-    "shared_baseline": 6,
-    "even_spacing_run": 6
+    "shared_baseline": 10,
+    "even_spacing_run": 10
    },
    "checks": [
     {
      "check": "objects_at_least_5",
      "ok": true,
-     "detail": "6 objects (need >= 5)"
+     "detail": "10 objects (need >= 5)"
     },
     {
      "check": "has_hue_teal",
@@ -293,7 +297,7 @@
     {
      "check": "coverage_between",
      "ok": true,
-     "detail": "coverage 27.7% (want 3%-70%)"
+     "detail": "coverage 46.2% (want 3%-70%)"
     },
     {
      "check": "overlap_below",
@@ -304,7 +308,7 @@
    "checks_passed": 2,
    "checks_total": 5,
    "score": 0.4,
-   "wall_s": 51.52
+   "wall_s": 160.26
   },
   {
    "task": "T3-navbar",
@@ -320,7 +324,7 @@
    "render_error": null,
    "truncated_stream": false,
    "meta": {
-    "elapsed_s": 14.98,
+    "elapsed_s": 86.31,
     "completion_tokens": 471,
     "prompt_tokens": 2474,
     "truncated": false,
@@ -382,7 +386,7 @@
    "checks_passed": 0,
    "checks_total": 7,
    "score": 0.0,
-   "wall_s": 14.99
+   "wall_s": 86.32
   },
   {
    "task": "T3-poster",
@@ -398,7 +402,7 @@
    "render_error": null,
    "truncated_stream": false,
    "meta": {
-    "elapsed_s": 5.68,
+    "elapsed_s": 78.68,
     "completion_tokens": 176,
     "prompt_tokens": 2469,
     "truncated": false,
@@ -452,7 +456,7 @@
    "checks_passed": 3,
    "checks_total": 5,
    "score": 0.6,
-   "wall_s": 5.71
+   "wall_s": 78.74
   },
   {
    "task": "T4-recolour-leaf",
@@ -468,7 +472,7 @@
    "render_error": null,
    "truncated_stream": false,
    "meta": {
-    "elapsed_s": 2.84,
+    "elapsed_s": 69.88,
     "completion_tokens": 83,
     "prompt_tokens": 2674,
     "truncated": false,
@@ -513,16 +517,115 @@
    "checks_passed": 2,
    "checks_total": 4,
    "score": 0.5,
-   "wall_s": 2.85
+   "wall_s": 69.89
   },
   {
    "task": "T5-critique-self",
    "tier": 5,
-   "error": "HTTP Error 500: Internal Server Error",
-   "score": 0.0,
-   "checks_passed": 0,
+   "tier_name": "draft then self-critique",
+   "brief": "Draw a small cabin in a snowy pine forest at night, with warm light spilling from one window.",
+   "actions_returned": 1,
+   "steps": 1,
+   "valid": true,
+   "validation_error": null,
+   "clamped_fields": 0,
+   "rendered": true,
+   "render_error": null,
+   "truncated_stream": false,
+   "meta": {
+    "elapsed_s": 56.85,
+    "completion_tokens": 577,
+    "prompt_tokens": 2461,
+    "truncated": false,
+    "raw_len": 697,
+    "raw_tail": "",
+    "finish_reason": "tool_calls",
+    "response": "I'll create a cozy winter scene with a small cabin nestled in a snowy pine forest at night, with warm light spilling from one window. Let me plan this carefully.\n\n**Composition:**\n- Background: dark night sky with subtle snowfall\n- Distant: silhouetted pine trees\n- Midground: the cabin with warm light\n- Foreground: snow-covered ground with subtle details\n\n**Palette:**\n- Deep blues and blacks for n",
+    "more": false
+   },
+   "scene": {
+    "objects": 1,
+    "kinds": [
+     "curve"
+    ],
+    "colours": [],
+    "texts": [],
+    "coverage": 0.0969,
+    "mean_overlap": 0.0,
+    "shared_baseline": 1,
+    "even_spacing_run": 0
+   },
+   "checks": [
+    {
+     "check": "objects_at_least_4",
+     "ok": false,
+     "detail": "1 objects (need >= 4)"
+    },
+    {
+     "check": "has_hue_warm window light",
+     "ok": false,
+     "detail": "colours=[] (warm window light band 20-55)"
+    },
+    {
+     "check": "has_hue_cold night",
+     "ok": false,
+     "detail": "colours=[] (cold night band 200-265)"
+    },
+    {
+     "check": "coverage_between",
+     "ok": true,
+     "detail": "coverage 9.7% (want 2%-60%)"
+    }
+   ],
+   "checks_passed": 1,
    "checks_total": 4,
-   "wall_s": 18.5
+   "score": 0.25,
+   "pass2": {
+    "steps": 1,
+    "valid": true,
+    "clamped_fields": 0,
+    "truncated_stream": false,
+    "elapsed_s": 53.43,
+    "checks_passed": 0,
+    "checks_total": 4,
+    "score": 0.0,
+    "scene": {
+     "objects": 1,
+     "kinds": [
+      "curve"
+     ],
+     "colours": [],
+     "texts": [],
+     "coverage": 1.0,
+     "mean_overlap": 0.0,
+     "shared_baseline": 1,
+     "even_spacing_run": 0
+    },
+    "checks": [
+     {
+      "check": "objects_at_least_4",
+      "ok": false,
+      "detail": "1 objects (need >= 4)"
+     },
+     {
+      "check": "has_hue_warm window light",
+      "ok": false,
+      "detail": "colours=[] (warm window light band 20-55)"
+     },
+     {
+      "check": "has_hue_cold night",
+      "ok": false,
+      "detail": "colours=[] (cold night band 200-265)"
+     },
+     {
+      "check": "coverage_between",
+      "ok": false,
+      "detail": "coverage 100.0% (want 2%-60%)"
+     }
+    ]
+   },
+   "critique_delta": -0.25,
+   "wall_s": 110.32
   }
  ]
 }

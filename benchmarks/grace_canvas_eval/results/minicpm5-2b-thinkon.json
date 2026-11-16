@@ -1,0 +1,601 @@
+{
+ "summary": {
+  "label": "minicpm5-2b-thinkon",
+  "model": "minicpm5-2b",
+  "schema_hint": false,
+  "base_url": "http://127.0.0.1:8102/v1",
+  "tasks": 8,
+  "check_score": 0.1905,
+  "tasks_fully_satisfied": 0,
+  "fully_satisfied_rate": 0.0,
+  "valid_rate": 0.125,
+  "render_rate": 1.0,
+  "truncated_rate": 0.875,
+  "mean_steps": 0.12,
+  "total_wall_s": 912.3,
+  "critique_delta": 0.0
+ },
+ "results": [
+  {
+   "task": "T1-apple",
+   "tier": 1,
+   "tier_name": "single subject",
+   "brief": "Draw a single red apple with a short brown stem and one green leaf, sitting slightly left of centre.",
+   "actions_returned": 0,
+   "steps": 0,
+   "valid": false,
+   "validation_error": "Expected 1 to 100 canvas actions",
+   "clamped_fields": 0,
+   "rendered": true,
+   "render_error": null,
+   "truncated_stream": true,
+   "meta": {
+    "elapsed_s": 122.06,
+    "completion_tokens": 3072,
+    "prompt_tokens": 2299,
+    "truncated": true,
+    "raw_len": 0,
+    "raw_tail": "",
+    "finish_reason": "length",
+    "response": "",
+    "more": false
+   },
+   "scene": {
+    "objects": 0,
+    "kinds": [],
+    "colours": [],
+    "texts": [],
+    "coverage": 0.0,
+    "mean_overlap": 0.0,
+    "shared_baseline": 0,
+    "even_spacing_run": 0
+   },
+   "checks": [
+    {
+     "check": "objects_at_least_3",
+     "ok": false,
+     "detail": "0 objects (need >= 3)"
+    },
+    {
+     "check": "has_hue_red",
+     "ok": false,
+     "detail": "colours=[] (red band 340-20)"
+    },
+    {
+     "check": "has_hue_green",
+     "ok": false,
+     "detail": "colours=[] (green band 70-160)"
+    },
+    {
+     "check": "coverage_between",
+     "ok": false,
+     "detail": "coverage 0.0% (want 1%-35%)"
+    },
+    {
+     "check": "overlap_below",
+     "ok": true,
+     "detail": "mean bbox overlap 0.00 (limit 0.45)"
+    },
+    {
+     "check": "no_white_background",
+     "ok": true,
+     "detail": "ok"
+    }
+   ],
+   "checks_passed": 2,
+   "checks_total": 6,
+   "score": 0.3333333333333333,
+   "wall_s": 122.08
+  },
+  {
+   "task": "T1-lighthouse",
+   "tier": 1,
+   "tier_name": "single subject",
+   "brief": "Draw a lighthouse standing on a rocky headland at dusk, with a warm lamp glow at the top.",
+   "actions_returned": 0,
+   "steps": 0,
+   "valid": false,
+   "validation_error": "Expected 1 to 100 canvas actions",
+   "clamped_fields": 0,
+   "rendered": true,
+   "render_error": null,
+   "truncated_stream": true,
+   "meta": {
+    "elapsed_s": 124.3,
+    "completion_tokens": 3072,
+    "prompt_tokens": 2299,
+    "truncated": true,
+    "raw_len": 0,
+    "raw_tail": "",
+    "finish_reason": "length",
+    "response": "",
+    "more": false
+   },
+   "scene": {
+    "objects": 0,
+    "kinds": [],
+    "colours": [],
+    "texts": [],
+    "coverage": 0.0,
+    "mean_overlap": 0.0,
+    "shared_baseline": 0,
+    "even_spacing_run": 0
+   },
+   "checks": [
+    {
+     "check": "objects_at_least_4",
+     "ok": false,
+     "detail": "0 objects (need >= 4)"
+    },
+    {
+     "check": "has_hue_warm lamp",
+     "ok": false,
+     "detail": "colours=[] (warm lamp band 20-50)"
+    },
+    {
+     "check": "has_hue_cool dusk",
+     "ok": false,
+     "detail": "colours=[] (cool dusk band 200-260)"
+    },
+    {
+     "check": "coverage_between",
+     "ok": false,
+     "detail": "coverage 0.0% (want 2%-60%)"
+    },
+    {
+     "check": "overlap_below",
+     "ok": true,
+     "detail": "mean bbox overlap 0.00 (limit 0.5)"
+    }
+   ],
+   "checks_passed": 1,
+   "checks_total": 5,
+   "score": 0.2,
+   "wall_s": 124.31
+  },
+  {
+   "task": "T2-still-life",
+   "tier": 2,
+   "tier_name": "multi-object scene",
+   "brief": "A still life: a red apple and a ceramic cup on a wooden table, soft morning light from the left casting a warm shadow to the right.",
+   "actions_returned": 0,
+   "steps": 0,
+   "valid": false,
+   "validation_error": "Expected 1 to 100 canvas actions",
+   "clamped_fields": 0,
+   "rendered": true,
+   "render_error": null,
+   "truncated_stream": true,
+   "meta": {
+    "elapsed_s": 126.0,
+    "completion_tokens": 3072,
+    "prompt_tokens": 2308,
+    "truncated": true,
+    "raw_len": 0,
+    "raw_tail": "",
+    "finish_reason": "length",
+    "response": "",
+    "more": false
+   },
+   "scene": {
+    "objects": 0,
+    "kinds": [],
+    "colours": [],
+    "texts": [],
+    "coverage": 0.0,
+    "mean_overlap": 0.0,
+    "shared_baseline": 0,
+    "even_spacing_run": 0
+   },
+   "checks": [
+    {
+     "check": "objects_at_least_4",
+     "ok": false,
+     "detail": "0 objects (need >= 4)"
+    },
+    {
+     "check": "has_hue_apple red",
+     "ok": false,
+     "detail": "colours=[] (apple red band 340-20)"
+    },
+    {
+     "check": "has_hue_warm wood",
+     "ok": false,
+     "detail": "colours=[] (warm wood band 20-45)"
+    },
+    {
+     "check": "wide_element",
+     "ok": false,
+     "detail": "0 element(s) spanning >= 45% of width"
+    },
+    {
+     "check": "coverage_between",
+     "ok": false,
+     "detail": "coverage 0.0% (want 3%-70%)"
+    },
+    {
+     "check": "overlap_below",
+     "ok": true,
+     "detail": "mean bbox overlap 0.00 (limit 0.5)"
+    }
+   ],
+   "checks_passed": 1,
+   "checks_total": 6,
+   "score": 0.16666666666666666,
+   "wall_s": 126.02
+  },
+  {
+   "task": "T2-robot-mascot",
+   "tier": 2,
+   "tier_name": "multi-object scene",
+   "brief": "A friendly little robot mascot standing on a workbench in a garage, with a teal body, an amber status light and cables trailing off the bench.",
+   "actions_returned": 0,
+   "steps": 0,
+   "valid": false,
+   "validation_error": "Expected 1 to 100 canvas actions",
+   "clamped_fields": 0,
+   "rendered": true,
+   "render_error": null,
+   "truncated_stream": true,
+   "meta": {
+    "elapsed_s": 84.25,
+    "completion_tokens": 3072,
+    "prompt_tokens": 2310,
+    "truncated": true,
+    "raw_len": 0,
+    "raw_tail": "",
+    "finish_reason": "length",
+    "response": "",
+    "more": false
+   },
+   "scene": {
+    "objects": 0,
+    "kinds": [],
+    "colours": [],
+    "texts": [],
+    "coverage": 0.0,
+    "mean_overlap": 0.0,
+    "shared_baseline": 0,
+    "even_spacing_run": 0
+   },
+   "checks": [
+    {
+     "check": "objects_at_least_5",
+     "ok": false,
+     "detail": "0 objects (need >= 5)"
+    },
+    {
+     "check": "has_hue_teal",
+     "ok": false,
+     "detail": "colours=[] (teal band 150-200)"
+    },
+    {
+     "check": "has_hue_amber",
+     "ok": false,
+     "detail": "colours=[] (amber band 30-60)"
+    },
+    {
+     "check": "coverage_between",
+     "ok": false,
+     "detail": "coverage 0.0% (want 3%-70%)"
+    },
+    {
+     "check": "overlap_below",
+     "ok": true,
+     "detail": "mean bbox overlap 0.00 (limit 0.5)"
+    }
+   ],
+   "checks_passed": 1,
+   "checks_total": 5,
+   "score": 0.2,
+   "wall_s": 84.27
+  },
+  {
+   "task": "T3-navbar",
+   "tier": 3,
+   "tier_name": "layout & hierarchy",
+   "brief": "A navigation bar across the top of the canvas: a round logo mark on the far left, then four evenly spaced menu items reading Home, Work, Journal and Contact.",
+   "actions_returned": 0,
+   "steps": 0,
+   "valid": false,
+   "validation_error": "Expected 1 to 100 canvas actions",
+   "clamped_fields": 0,
+   "rendered": true,
+   "render_error": null,
+   "truncated_stream": true,
+   "meta": {
+    "elapsed_s": 77.69,
+    "completion_tokens": 3072,
+    "prompt_tokens": 2312,
+    "truncated": true,
+    "raw_len": 0,
+    "raw_tail": "",
+    "finish_reason": "length",
+    "response": "",
+    "more": false
+   },
+   "scene": {
+    "objects": 0,
+    "kinds": [],
+    "colours": [],
+    "texts": [],
+    "coverage": 0.0,
+    "mean_overlap": 0.0,
+    "shared_baseline": 0,
+    "even_spacing_run": 0
+   },
+   "checks": [
+    {
+     "check": "objects_at_least_6",
+     "ok": false,
+     "detail": "0 objects (need >= 6)"
+    },
+    {
+     "check": "baseline_at_least",
+     "ok": false,
+     "detail": "0 objects share a baseline (need 5)"
+    },
+    {
+     "check": "spacing_at_least",
+     "ok": false,
+     "detail": "evenly spaced run of 0 (need 4)"
+    },
+    {
+     "check": "has_text",
+     "ok": false,
+     "detail": "no text objects"
+    },
+    {
+     "check": "has_text",
+     "ok": false,
+     "detail": "no text objects"
+    },
+    {
+     "check": "wide_element",
+     "ok": false,
+     "detail": "0 element(s) spanning >= 50% of width"
+    },
+    {
+     "check": "coverage_between",
+     "ok": false,
+     "detail": "coverage 0.0% (want 1%-50%)"
+    }
+   ],
+   "checks_passed": 0,
+   "checks_total": 7,
+   "score": 0.0,
+   "wall_s": 77.71
+  },
+  {
+   "task": "T3-poster",
+   "tier": 3,
+   "tier_name": "layout & hierarchy",
+   "brief": "A minimal event poster: a bold title word high on the canvas, a thin horizontal rule beneath it, and a small date line lower down.",
+   "actions_returned": 0,
+   "steps": 0,
+   "valid": false,
+   "validation_error": "Expected 1 to 100 canvas actions",
+   "clamped_fields": 0,
+   "rendered": true,
+   "render_error": null,
+   "truncated_stream": true,
+   "meta": {
+    "elapsed_s": 76.05,
+    "completion_tokens": 3072,
+    "prompt_tokens": 2307,
+    "truncated": true,
+    "raw_len": 0,
+    "raw_tail": "",
+    "finish_reason": "length",
+    "response": "",
+    "more": false
+   },
+   "scene": {
+    "objects": 0,
+    "kinds": [],
+    "colours": [],
+    "texts": [],
+    "coverage": 0.0,
+    "mean_overlap": 0.0,
+    "shared_baseline": 0,
+    "even_spacing_run": 0
+   },
+   "checks": [
+    {
+     "check": "objects_at_least_4",
+     "ok": false,
+     "detail": "0 objects (need >= 4)"
+    },
+    {
+     "check": "has_text",
+     "ok": false,
+     "detail": "no text objects"
+    },
+    {
+     "check": "baseline_at_least",
+     "ok": false,
+     "detail": "0 objects share a baseline (need 2)"
+    },
+    {
+     "check": "coverage_between",
+     "ok": false,
+     "detail": "coverage 0.0% (want 0%-40%)"
+    },
+    {
+     "check": "overlap_below",
+     "ok": true,
+     "detail": "mean bbox overlap 0.00 (limit 0.4)"
+    }
+   ],
+   "checks_passed": 1,
+   "checks_total": 5,
+   "score": 0.2,
+   "wall_s": 76.07
+  },
+  {
+   "task": "T4-recolour-leaf",
+   "tier": 4,
+   "tier_name": "edit existing work",
+   "brief": "Make the leaf a brighter green.",
+   "actions_returned": 1,
+   "steps": 1,
+   "valid": true,
+   "validation_error": null,
+   "clamped_fields": 0,
+   "rendered": true,
+   "render_error": null,
+   "truncated_stream": false,
+   "meta": {
+    "elapsed_s": 26.15,
+    "completion_tokens": 266,
+    "prompt_tokens": 2450,
+    "truncated": false,
+    "raw_len": 114,
+    "raw_tail": "",
+    "finish_reason": "tool_calls",
+    "response": "",
+    "more": false
+   },
+   "scene": {
+    "objects": 0,
+    "kinds": [],
+    "colours": [],
+    "texts": [],
+    "coverage": 0.0,
+    "mean_overlap": 0.0,
+    "shared_baseline": 0,
+    "even_spacing_run": 0
+   },
+   "checks": [
+    {
+     "check": "edit_referenced_ids",
+     "ok": true,
+     "detail": "edited ids=['leaf'] (want one of ['leaf'])"
+    },
+    {
+     "check": "no_clear",
+     "ok": true,
+     "detail": "0 clear action(s)"
+    },
+    {
+     "check": "objects_at_least_3",
+     "ok": false,
+     "detail": "0 objects (need >= 3)"
+    },
+    {
+     "check": "has_hue_green leaf",
+     "ok": false,
+     "detail": "colours=[] (green leaf band 70-170)"
+    }
+   ],
+   "checks_passed": 2,
+   "checks_total": 4,
+   "score": 0.5,
+   "wall_s": 26.17
+  },
+  {
+   "task": "T5-critique-self",
+   "tier": 5,
+   "tier_name": "draft then self-critique",
+   "brief": "Draw a small cabin in a snowy pine forest at night, with warm light spilling from one window.",
+   "actions_returned": 0,
+   "steps": 0,
+   "valid": false,
+   "validation_error": "Expected 1 to 100 canvas actions",
+   "clamped_fields": 0,
+   "rendered": true,
+   "render_error": null,
+   "truncated_stream": true,
+   "meta": {
+    "elapsed_s": 75.91,
+    "completion_tokens": 3072,
+    "prompt_tokens": 2298,
+    "truncated": true,
+    "raw_len": 0,
+    "raw_tail": "",
+    "finish_reason": "length",
+    "response": "",
+    "more": false
+   },
+   "scene": {
+    "objects": 0,
+    "kinds": [],
+    "colours": [],
+    "texts": [],
+    "coverage": 0.0,
+    "mean_overlap": 0.0,
+    "shared_baseline": 0,
+    "even_spacing_run": 0
+   },
+   "checks": [
+    {
+     "check": "objects_at_least_4",
+     "ok": false,
+     "detail": "0 objects (need >= 4)"
+    },
+    {
+     "check": "has_hue_warm window light",
+     "ok": false,
+     "detail": "colours=[] (warm window light band 20-55)"
+    },
+    {
+     "check": "has_hue_cold night",
+     "ok": false,
+     "detail": "colours=[] (cold night band 200-265)"
+    },
+    {
+     "check": "coverage_between",
+     "ok": false,
+     "detail": "coverage 0.0% (want 2%-60%)"
+    }
+   ],
+   "checks_passed": 0,
+   "checks_total": 4,
+   "score": 0.0,
+   "pass2": {
+    "steps": 0,
+    "valid": false,
+    "clamped_fields": 0,
+    "truncated_stream": true,
+    "elapsed_s": 41.89,
+    "checks_passed": 0,
+    "checks_total": 4,
+    "score": 0.0,
+    "scene": {
+     "objects": 0,
+     "kinds": [],
+     "colours": [],
+     "texts": [],
+     "coverage": 0.0,
+     "mean_overlap": 0.0,
+     "shared_baseline": 0,
+     "even_spacing_run": 0
+    },
+    "checks": [
+     {
+      "check": "objects_at_least_4",
+      "ok": false,
+      "detail": "0 objects (need >= 4)"
+     },
+     {
+      "check": "has_hue_warm window light",
+      "ok": false,
+      "detail": "colours=[] (warm window light band 20-55)"
+     },
+     {
+      "check": "has_hue_cold night",
+      "ok": false,
+      "detail": "colours=[] (cold night band 200-265)"
+     },
+     {
+      "check": "coverage_between",
+      "ok": false,
+      "detail": "coverage 0.0% (want 2%-60%)"
+     }
+    ]
+   },
+   "critique_delta": 0.0,
+   "wall_s": 275.71
+  }
+ ]
+}

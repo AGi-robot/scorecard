@@ -1,0 +1,11 @@
+Grace Canvas Eval: agents-a1-4b-thinkon (8 tasks)
+  T1-apple               2/6  valid=False rendered=True  steps=0  166.54s
+  T1-lighthouse          1/5  valid=False rendered=True  steps=0  158.15s
+  T2-still-life          1/6  valid=False rendered=True  steps=0  109.52s
+  T2-robot-mascot        1/5  valid=False rendered=True  steps=0  134.66s
+  T3-navbar              0/7  valid=False rendered=True  steps=0  86.08s
+  T3-poster              1/5  valid=False rendered=True  steps=0  72.88s
+  T4-recolour-leaf       1/4  valid=False rendered=True  steps=0  49.15s
+  T5-critique-self       0/4  valid=False rendered=True  steps=0  108.3s
+
+SUMMARY {"label": "agents-a1-4b-thinkon", "model": "agents-a1-4b", "schema_hint": false, "base_url": "http://127.0.0.1:8101/v1", "tasks": 8, "check_score": 0.1667, "tasks_fully_satisfied": 0, "fully_satisfied_rate": 0.0, "valid_rate": 0.0, "render_rate": 1.0, "truncated_rate": 1.0, "mean_steps": 0.0, "total_wall_s": 885.3, "critique_delta": 0.0}

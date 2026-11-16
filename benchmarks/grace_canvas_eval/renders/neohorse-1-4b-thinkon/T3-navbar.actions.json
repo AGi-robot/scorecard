@@ -1,0 +1,64 @@
+[
+ {
+  "kind": "ellipse",
+  "id": "logo_outer",
+  "x": 30,
+  "y": 40,
+  "width": 60,
+  "height": 60,
+  "fill_color": "#4a5568",
+  "fill": true,
+  "margin": 40
+ },
+ {
+  "kind": "ellipse",
+  "id": "logo_inner",
+  "x": 60,
+  "y": 55,
+  "width": 12,
+  "height": 12,
+  "fill_color": "#718096",
+  "fill": true,
+  "margin": 40
+ },
+ {
+  "kind": "text",
+  "id": "home",
+  "x": 180,
+  "y": 45,
+  "size": 19,
+  "text": "Home",
+  "align": "left",
+  "prompt": "Home menu text, sans font, dark slate color"
+ },
+ {
+  "kind": "text",
+  "id": "work",
+  "x": 300,
+  "y": 45,
+  "size": 19,
+  "text": "Work",
+  "align": "left",
+  "prompt": "Work menu text, sans font, dark slate color"
+ },
+ {
+  "kind": "text",
+  "id": "journal",
+  "x": 420,
+  "y": 45,
+  "size": 19,
+  "text": "Journal",
+  "align": "left",
+  "prompt": "Journal menu text, sans font, dark slate color"
+ },
+ {
+  "kind": "text",
+  "id": "contact",
+  "x": 540,
+  "y": 45,
+  "size": 19,
+  "text": "Contact",
+  "align": "left",
+  "prompt": "Contact menu text, sans font, dark slate color"
+ }
+]

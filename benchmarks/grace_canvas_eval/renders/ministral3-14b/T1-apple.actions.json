@@ -12,37 +12,45 @@
    ],
    [
     400,
-    220
-   ],
-   [
-    380,
     280
    ],
    [
-    400,
+    380,
     350
+   ],
+   [
+    400,
+    420
    ],
    [
     450,
-    380
+    450
    ],
    [
     500,
-    350
+    420
    ],
    [
     550,
-    320
+    450
+   ],
+   [
+    570,
+    420
+   ],
+   [
+    550,
+    350
    ],
    [
     530,
-    270
+    280
    ],
    [
     500,
     300
    ]
   ],
-  "prompt": "A single red apple with a slight indentation at the top, resting on a flat surface. The apple has a glossy finish with a warm red hue (#FF5A5A) and a subtle gradient to deepen the color (#D62828). The light source is from the upper left, casting a soft shadow on the right side of the apple. The apple is slightly left of center on the canvas, occupying a space that feels natural and balanced. The surface beneath it is a neutral off-white (#F5F5F5). No stem or leaf yet, just the apple silhouette and subtle shading for depth and realism. The apple\u2019s shape is organic and asymmetrical, with a slight bulge and a small dimple at the top where the stem would attach. The shadow is soft and diffused, avoiding harsh lines. The apple\u2019s form is complete and recognizable, with no additional details like"
+  "prompt": "A single red apple with a slight indentation at the top, sitting slightly left of center on a white background. The apple has a glossy finish with a warm red hue (#FF5A5A) and a subtle gradient to deepen the color (#D63333). The light source is from the upper left, casting a soft shadow on the right side of the apple. The apple is slightly tilted forward for a natural pose. No stem or leaf yet. The shape is organic and asymmetric, with a rounded bottom and a small stem indentation at the top. The apple fills the canvas vertically from about 25% to 70% height, centered horizontally with a slight left offset. The contour is smooth and closed, with no outline stroke. The fill is solid with a gradient to simulate light reflection on the surface. The apple is the sole focus of this pass, with a"
  }
 ]
