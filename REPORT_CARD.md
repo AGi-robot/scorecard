@@ -35,7 +35,7 @@ side. Per-benchmark raw data and the exact protocol live in each suite's
 | EQ-Bench v2 | Emotion recognition — rating 4 emotions per scenario | 171 | temp 0.01, max_tokens 60, up to 3 attempts to parse | yes (official full-scale) |
 | Grace Chatbot Eval | Persona fit — warmth, coherence, persona, overall | 6 scripts | SOUL.md + current timestamp, temp 0.7, blind pairwise | single human rater, Elo K=32 |
 | Grace Canvas Eval | `canvas_draw` tool-call validity and drawing quality | 8 tasks | production DRAW_INSTRUCTIONS, temp 0.0, max_tokens 3072 | scene-graph checks, no judge |
-| BFCL (planned) | Tool calling on Aiko's real tool schemas | — | — | yes |
+| BFCL V3 | Single-turn function calling: simple, multiple, parallel, and irrelevance | 1,170 | temp 0.0, max_tokens 1024, think-off | yes (AST semantics ported from official checker) |
 
 **Thinking mode.** All EQ-Bench and IFEval numbers are taken with thinking
 **off**, so every model is scored under one protocol. `ministral3-14b` has no
@@ -170,18 +170,19 @@ consumes local GPU.
 
 ## Gaps
 
-1. **BFCL on Aiko's real tool schemas** — not built yet. Canvas eval covers
-   one tool well; the agentic toolkit (weather, moon phase, aurora) is still
-   untested for call validity, parallel calls, and argument correctness.
+1. **BFCL V4 agent loop** — BFCL V3 now covers single-turn function calls; V4
+   memory and web-search simulations remain to be evaluated with the official
+   multi-turn harness. The current benchmark does not call Grace's own memory
+   or search services.
 2. **Multi-model coverage is uneven** — only `swift`, `ministral3-14b` and
    `neohorse-1-4b` have EQ-Bench numbers, and only `swift` and `ministral3-14b`
    have persona numbers.
 3. **No multi-turn instruction retention** — `allenai/IFBench_multi-turn` is
    available and judge-free, and would cover conversation, which is Grace's
    only interface.
-4. **No long-context measurement in Grace's real context shape** — standard
-   long-context benches use clean filler; Grace receives assembled episodic
-   memory with distractors.
+4. **No persistent-memory retrieval measurement** — LongMemEval full-history
+   is a useful baseline, but Grace needs a retrieval adapter to evaluate her
+   PostgreSQL-backed memory with the same questions.
 5. **Embeddings untested** — `voyage-4-nano` needs a retrieval benchmark, not
    a chat benchmark.
 6. **Canvas has no image-level judge** — `check_score` verifies countable

@@ -64,15 +64,22 @@ Resumable: completed answers append to `results/responses_<label>.jsonl`
 (keyed on prompt id, like the IFEval runner). Score file lands at
 `results/bfcl_<label>.json`.
 
-## Memory and web search (separate harness)
+## BFCL V4 memory and web search
 
-BFCL V4's `memory_*` and `web_search_*` sets are not AST tests — the ground
-truth is an *answer string*, reached through a multi-turn tool loop against a
-live backend. They live in the gorilla GitHub repo
-(`bfcl_eval/data/BFCL_v4_memory.json`, `BFCL_v4_web_search.json`, plus
-`memory_prereq_conversation/` seeds and `multi_turn_func_doc/` tool schemas),
-not in the HF dataset. The plan:
+This runner remains a BFCL V3 single-turn baseline. To evaluate the agent loop,
+use the [official BFCL repository](https://github.com/ShishirPatil/gorilla/tree/main/berkeley-function-call-leaderboard)
+and its maintained `bfcl-eval` harness for V4 `memory` and `web_search`.
+Those categories use multi-turn tool simulations and answer evaluation, so their
+scores are not directly comparable with the AST scores above. BFCL's memory
+simulation does not query Grace's PostgreSQL memory, and its web-search setup
+does not measure Grace's own search service. Treat them as agent/tool-use
+capability checks; build a separate adapter before claiming end-to-end product
+coverage.
 
-- `memory_*`: bare JSON KV backend now (baseline), Grace's EMC later — the
-  delta is the memory system's measured value.
-- `web_search_*`: the local searxng docker (`:8888`) as the search backend.
+Follow the upstream installation and model-registration instructions for the
+exact harness revision. Remote OpenAI-compatible endpoints and web-search
+credentials are configured by that harness; do not put API keys in this repo.
+The upstream model handler and simulator requirements can change between
+releases, so record the pinned `bfcl-eval` version, categories, model alias,
+endpoint, and external search provider with each result. Keep the V3 runner and
+results here as the reproducible single-turn baseline.
