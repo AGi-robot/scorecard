@@ -1,1 +1,37 @@
-[]
+[
+ {
+  "kind": "rectangle",
+  "x": 0,
+  "y": 0,
+  "width": 1000,
+  "height": 650,
+  "fill_color": "#F5F5F5",
+  "stroke": false
+ },
+ {
+  "kind": "curve",
+  "points": [
+   [
+    300,
+    500
+   ],
+   [
+    250,
+    400
+   ],
+   [
+    350,
+    380
+   ],
+   [
+    400,
+    450
+   ],
+   [
+    300,
+    500
+   ]
+  ],
+  "prompt": "Red apple on wooden table, soft morning light from left, warm shadow to right, ceramic cup nearby, still life composition, muted earth tones, warm lighting, detailed silhouette, natural proportions, balanced composition, focal point apple, wooden table texture, ceramic cup details, morning light direction, shadow cast to right, highlights on apple and cup, soft morning light, warm tones, still life, red apple, ceramic cup, wooden table, morning light, shadow, highlights, still life, apple, cup, table, wood, ceramic, red, white, brown, warm, soft, morning, light, shadow, highlight, still life, apple, cup, table, wood, ceramic, red, white, brown, warm, soft, morning, light, shadow, highlight, still life, apple, cup, table, wood, ceramic, red, white, brown, warm, soft, morning, light, shadow,"
+ }
+]

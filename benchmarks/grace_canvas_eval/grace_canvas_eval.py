@@ -106,7 +106,7 @@ def build_tool(schema_hint=False):
 
 # ------------------------------------------------------------------ model ---
 def chat(base_url, model, messages, tools=None, temperature=0.0, max_tokens=3072,
-         timeout=900, think_off=False, force_tool=False):
+         timeout=900, think_off=False, force_tool=False, reasoning_effort=None):
     body = {"model": model, "messages": messages, "temperature": temperature,
             "max_tokens": max_tokens, "stream": False}
     if think_off:
@@ -114,6 +114,10 @@ def chat(base_url, model, messages, tools=None, temperature=0.0, max_tokens=3072
         # token budget and can truncate the tool call, so disable it for
         # output-format parity with models that have no thinking mode.
         body["chat_template_kwargs"] = {"enable_thinking": False}
+    if reasoning_effort:
+        # Cap thinking instead of disabling it (upstream vLLM honours this;
+        # local llama-server uses --reasoning-budget at launch instead).
+        body["reasoning_effort"] = reasoning_effort
     if tools:
         body["tools"] = tools
         body["parallel_tool_calls"] = False
@@ -162,7 +166,8 @@ def urllib_request(base_url, body, timeout):
 
 
 def draw_actions(base_url, model, system, user, images=None, temperature=0.0,
-                 schema_hint=False, think_off=False, force_tool=False):
+                 schema_hint=False, think_off=False, force_tool=False,
+                 reasoning_effort=None):
     """One canvas_draw turn. Returns (actions, meta)."""
     content = [{"type": "text", "text": user}]
     for image in images or []:
@@ -320,10 +325,15 @@ def run_task(task, args):
                                  schema_hint=args.schema_hint,
                                  temperature=args.temperature,
                                  think_off=args.think_off,
-                                 force_tool=args.force_tool)
+                                 force_tool=args.force_tool,
+                                 reasoning_effort=args.reasoning_effort)
     validated, valid, error, clamped = validate_and_measure(actions)
-    scene = build_scene(validated)
-    png, render_error = render_png(validated)
+    # Edit tasks (tier 4): the model edits a seeded canvas, so the scene and
+    # the render must be seed + edit — rendering the edit alone produces a
+    # blank canvas with a style applied to nothing.
+    base = seed if seed else []
+    scene = build_scene(base + validated)
+    png, render_error = render_png(base + validated)
 
     checks = []
     for check in task["checks"]:
@@ -379,7 +389,8 @@ def run_task(task, args):
             schema_hint=args.schema_hint,
             temperature=args.temperature,
             think_off=args.think_off,
-            force_tool=args.force_tool)
+            force_tool=args.force_tool,
+            reasoning_effort=args.reasoning_effort)
         edit_validated, edit_valid, edit_error, edit_clamped = validate_and_measure(edit_actions)
         edit_scene = build_scene(edit_validated)
         edit_png, _ = render_png(edit_validated)
@@ -425,6 +436,9 @@ def main():
     parser.add_argument("--think-off", action="store_true", default=False,
                         help="disable the model's reasoning mode for parity "
                              "with models that have no thinking mode")
+    parser.add_argument("--reasoning-effort", default=None,
+                        help="cap thinking instead of disabling it (e.g. low; "
+                             "upstream vLLM honours reasoning_effort)")
     parser.add_argument("--force-tool", action="store_true", default=False,
                         help="force the canvas_draw function like production "
                              "does (aiva_chat/node.py sets tool_choice)")

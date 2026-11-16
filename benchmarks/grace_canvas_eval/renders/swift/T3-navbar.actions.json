@@ -1,86 +1,82 @@
 [
  {
   "kind": "ellipse",
-  "x": 42,
-  "y": 40,
-  "width": 44,
-  "height": 44,
+  "x": 45,
+  "y": 45,
+  "width": 50,
+  "height": 50,
   "fill": true,
   "stroke": false,
-  "fill_color": "#2f5d62",
-  "gradient_color": "#74a89a",
+  "fill_color": "#2e5d63",
+  "gradient_color": "#55907f",
   "gradient": "radial",
   "id": "logo"
  },
  {
   "kind": "ellipse",
-  "x": 56,
-  "y": 54,
-  "width": 16,
-  "height": 16,
+  "x": 108,
+  "y": 90,
+  "width": 14,
+  "height": 14,
   "fill": true,
   "stroke": false,
-  "fill_color": "#f2ede3",
-  "id": "logo-core"
+  "fill_color": "#e8dcc0",
+  "id": "logo-dot"
  },
  {
   "kind": "text",
-  "x": 250,
-  "y": 50,
+  "x": 300,
+  "y": 52,
+  "size": 30,
+  "color": "#3a4a4d",
+  "font": "sans",
   "text": "Home",
-  "size": 26,
-  "color": "#3b4544",
-  "font": "sans",
-  "align": "left",
-  "id": "nav-home"
+  "id": "menu-home"
  },
  {
   "kind": "text",
-  "x": 420,
-  "y": 50,
+  "x": 460,
+  "y": 52,
+  "size": 30,
+  "color": "#3a4a4d",
+  "font": "sans",
   "text": "Work",
-  "size": 26,
-  "color": "#3b4544",
-  "font": "sans",
-  "align": "left",
-  "id": "nav-work"
+  "id": "menu-work"
  },
  {
   "kind": "text",
-  "x": 590,
-  "y": 50,
+  "x": 620,
+  "y": 52,
+  "size": 30,
+  "color": "#3a4a4d",
+  "font": "sans",
   "text": "Journal",
-  "size": 26,
-  "color": "#3b4544",
-  "font": "sans",
-  "align": "left",
-  "id": "nav-journal"
+  "id": "menu-journal"
  },
  {
   "kind": "text",
-  "x": 760,
-  "y": 50,
-  "text": "Contact",
-  "size": 26,
-  "color": "#3b4544",
+  "x": 780,
+  "y": 52,
+  "size": 30,
+  "color": "#3a4a4d",
   "font": "sans",
-  "align": "left",
-  "id": "nav-contact"
+  "text": "Contact",
+  "id": "menu-contact"
  },
  {
   "kind": "line",
   "points": [
    [
-    35,
+    40,
     118
    ],
    [
-    965,
+    960,
     118
    ]
   ],
-  "color": "#c9c2b4",
+  "color": "#c9c2b2",
   "size": 2,
-  "id": "nav-rule"
+  "id": "navbar-rule"
  }
 ]

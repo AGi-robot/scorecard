@@ -1,1 +1,575 @@
-"[{\"kind\": \"rectangle\", \"x\": 0, \"y\": 0, \"width\": 1000, \"height\": 650, \"fill\": true, \"stroke\": false, \"fill_color\": \"#f2ead9\", \"gradient_color\": \"#e3d3b6\", \"gradient\": \"linear\", \"gradient_angle\": 100, \"id\": \"bg\"}, {\"kind\": \"rectangle\", \"x\": 0, \"y\": 430, \"width\": 1000, \"height\": 220, \"fill\": true, \"stroke\": false, \"fill_color\": \"#9a6f45\", \"gradient_color\": \"#7c5532\", \"gradient\": \"linear\", \"gradient_angle\": 90, \"id\": \"table\"}, {\"kind\": \"path\", \"id\": \"planks\", \"points\": [[40, 470], [350, 462], [660, 470], [960, 460]], \"stroke\": true, \"fill\": false, \"color\": \"#6e4a2b\", \"brush\": \"soft\", \"size\": 3}, {\"kind\": \"path\", \"id\": \"planks2\", \"points\": [[60, 540], [400, 548], [720, 540], [950, 548]], \"stroke\": true, \"fill\": false, \"color\": \"#6e4a2b\", \"brush\": \"soft\", \"size\": 3}, {\"kind\": \"path\", \"id\": \"tablelight\", \"points\": [[60, 445], [330, 438], [600, 448], [880, 440]], \"stroke\": true, \"fill\": false, \"color\": \"#c69a67\", \"brush\": \"soft\", \"size\": 14, \"opacity\": 0.5}, {\"kind\": \"curve\", \"id\": \"shadow_apple\", \"points\": [[430, 545], [500, 525], [560, 530], [585, 545], [540, 565], [470, 562], [430, 545]], \"fill\": true, \"stroke\": false, \"fill_color\": \"#8a5a38\", \"gradient_color\": \"#6b4527\", \"gradient\": \"radial\", \"opacity\": 0.85}, {\"kind\": \"curve\", \"id\": \"shadow_cup\", \"points\": [[660, 520], [760, 505], [850, 515], [880, 540], [800, 560], [700, 555], [660, 520]], \"fill\": true, \"stroke\": false, \"fill_color\": \"#8a5a38\", \"gradient_color\": \"#6b4527\", \"gradient\": \"radial\", \"opacity\": 0.85}, {\"kind\": \"curve\", \"id\": \"apple\", \"points\": [[400, 400], [340, 415], [315, 470], [340, 525], [400, 548], [460, 525], [485, 470], [460, 415], [420, 400], [410, 398], [400, 400]], \"fill\": true, \"stroke\": false, \"fill_color\": \"#c33b30\", \"gradient_color\": \"#8e2119\", \"gradient\": \"radial\"}, {\"kind\": \"curve\", \"id\": \"apple_dimple\", \"points\": [[402, 402], [388, 408], [392, 424], [410, 428], [426, 422], [428, 408], [416, 400], [408, 400], [402, 402]], \"fill\": true, \"stroke\": false, \"fill_color\": \"#7c1f18\", \"opacity\": 0.9}, {\"kind\": \"path\", \"id\": \"stem\", \"points\": [[408, 408], [412, 385], [422, 368], [432, 358]], \"stroke\": true, \"fill\": false, \"color\": \"#5c3a1e\", \"size\": 7, \"brush\": \"ink\"}, {\"kind\": \"curve\", \"id\": \"leaf\", \"points\": [[430, 372], [462, 352], [498, 356], [488, 380], [458, 388], [430, 372]], \"fill\": true, \"stroke\": false, \"fill_color\": \"#6f9350\", \"gradient_color\": \"#4e6f3a\", \"gradient\": \"linear\", \"gradient_angle\": 45}, {\"kind\": \"ellipse\", \"id\": \"apple_hl\", \"x\": 348, \"y\": 432, \"width\": 42, \"height\": 58, \"fill\": true, \"stroke\": false, \"fill_color\": \"#e8836b\", \"opacity\": 0.55, \"brush\": \"soft\"}, {\"kind\": \"curve\", \"id\": \"cup\", \"points\": [[560, 330], [548, 345], [548, 360], [552, 430], [562, 495], [600, 512], [640, 512], [672, 495], [682, 430], [686, 360], [674, 332], [640, 322], \"x\": 0, \"y\": 0}, {\"kind\": \"ellipse\", \"id\": \"cup_rim\", \"x\": 556, \"y\": 322, \"width\": 122, \"height\": 30, \"fill\": true, \"stroke\": false, \"fill_color\": \"#d9cdb6\", \"gradient_color\": \"#b3a688\", \"gradient\": \"radial\"}, {\"kind\": \"ellipse\", \"id\": \"cup_inner\", \"x\": [email protected], \"width\": 104, \"height\": 20, \"fill\": true, \"stroke\": false, \"fill_color\": \"#8a7f68\"}, {\"kind\": \"curve\", \"id\": \"handle\", \"points\": [[678, 360], [730, 375], [738, 425], [700, 455], [676, 445], [706, 420], [704, 385], [676, 372]], \"fill\": true, \"stroke\": false, \"fill_color\": \"#d9cdb6\", \"gradient_color\": \"#b3a688\", \"gradient\": \"linear\", \"gradient_angle\": 90}, {\"kind\": \"path\", \"id\": \"cup_shade\", \"points\": [[640, 340], [668, 380], [672, 450], [655, 500]], \"stroke\": true, \"fill\": false, \"color\": \"#a3977c\", \"size\": 22, \"brush\": \"soft\", \"opacity\": 0.6}]"
+[
+ {
+  "kind": "rectangle",
+  "x": 0,
+  "y": 0,
+  "width": 1000,
+  "height": 650,
+  "fill_color": "#e3d6bf",
+  "stroke": false,
+  "id": "bg"
+ },
+ {
+  "kind": "rectangle",
+  "x": 0,
+  "y": 400,
+  "width": 1000,
+  "height": 250,
+  "fill_color": "#9c7448",
+  "stroke": false,
+  "id": "table"
+ },
+ {
+  "kind": "path",
+  "id": "tablegrain",
+  "points": [
+   [
+    60,
+    470
+   ],
+   [
+    320,
+    462
+   ],
+   [
+    620,
+    474
+   ],
+   [
+    950,
+    460
+   ]
+  ],
+  "stroke": true,
+  "fill": false,
+  "color": "#8a6438",
+  "brush": "soft",
+  "size": 5,
+  "opacity": 0.5
+ },
+ {
+  "kind": "path",
+  "id": "tablegrain2",
+  "points": [
+   [
+    100,
+    560
+   ],
+   [
+    420,
+    552
+   ],
+   [
+    760,
+    566
+   ],
+   [
+    980,
+    554
+   ]
+  ],
+  "stroke": true,
+  "fill": false,
+  "color": "#8a6438",
+  "brush": "soft",
+  "size": 4,
+  "opacity": 0.4
+ },
+ {
+  "kind": "curve",
+  "id": "shadow_apple",
+  "points": [
+   [
+    430,
+    545
+   ],
+   [
+    510,
+    525
+   ],
+   [
+    600,
+    530
+   ],
+   [
+    640,
+    550
+   ],
+   [
+    560,
+    572
+   ],
+   [
+    470,
+    568
+   ],
+   [
+    430,
+    545
+   ]
+  ],
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#7a5a38",
+  "gradient_color": "#8f6c44",
+  "gradient": "linear",
+  "gradient_angle": 20,
+  "opacity": 0.85
+ },
+ {
+  "kind": "curve",
+  "id": "shadow_cup",
+  "points": [
+   [
+    640,
+    500
+   ],
+   [
+    740,
+    480
+   ],
+   [
+    850,
+    490
+   ],
+   [
+    900,
+    512
+   ],
+   [
+    800,
+    535
+   ],
+   [
+    700,
+    532
+   ],
+   [
+    640,
+    500
+   ]
+  ],
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#75573a",
+  "gradient_color": "#8c6a46",
+  "gradient": "linear",
+  "gradient_angle": 20,
+  "opacity": 0.85
+ },
+ {
+  "kind": "curve",
+  "id": "apple",
+  "points": [
+   [
+    400,
+    385
+   ],
+   [
+    345,
+    395
+   ],
+   [
+    315,
+    445
+   ],
+   [
+    330,
+    505
+   ],
+   [
+    380,
+    535
+   ],
+   [
+    435,
+    525
+   ],
+   [
+    475,
+    480
+   ],
+   [
+    478,
+    425
+   ],
+   [
+    448,
+    390
+   ],
+   [
+    400,
+    385
+   ]
+  ],
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#b83232",
+  "gradient_color": "#d95745",
+  "gradient": "radial"
+ },
+ {
+  "kind": "curve",
+  "id": "apple_dimple",
+  "points": [
+   [
+    400,
+    385
+   ],
+   [
+    388,
+    392
+   ],
+   [
+    392,
+    405
+   ],
+   [
+    402,
+    408
+   ],
+   [
+    412,
+    400
+   ],
+   [
+    410,
+    390
+   ],
+   [
+    400,
+    385
+   ]
+  ],
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#8c2320",
+  "opacity": 0.9
+ },
+ {
+  "kind": "path",
+  "id": "stem",
+  "points": [
+   [
+    402,
+    392
+   ],
+   [
+    398,
+    372
+   ],
+   [
+    408,
+    358
+   ]
+  ],
+  "stroke": true,
+  "fill": false,
+  "color": "#5c4226",
+  "size": 6
+ },
+ {
+  "kind": "curve",
+  "id": "leaf",
+  "points": [
+   [
+    408,
+    360
+   ],
+   [
+    430,
+    340
+   ],
+   [
+    462,
+    338
+   ],
+   [
+    470,
+    352
+   ],
+   [
+    445,
+    366
+   ],
+   [
+    420,
+    368
+   ],
+   [
+    408,
+    360
+   ]
+  ],
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#6f9450"
+ },
+ {
+  "kind": "ellipse",
+  "id": "cup_body",
+  "x": 590,
+  "y": 330,
+  "width": 170,
+  "height": 175,
+  "fill_color": "#d8d2c4",
+  "stroke": false
+ },
+ {
+  "kind": "curve",
+  "id": "cup_rim",
+  "points": [
+   [
+    592,
+    348
+   ],
+   [
+    620,
+    328
+   ],
+   [
+    660,
+    320
+   ],
+   [
+    700,
+    326
+   ],
+   [
+    722,
+    344
+   ],
+   [
+    712,
+    358
+   ],
+   [
+    690,
+    348
+   ],
+   [
+    655,
+    344
+   ],
+   [
+    620,
+    350
+   ],
+   [
+    600,
+    358
+   ],
+   [
+    592,
+    348
+   ]
+  ],
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#c3bca9"
+ },
+ {
+  "kind": "ellipse",
+  "id": "cup_mouth",
+  "x": 612,
+  "y": 328,
+  "width": 120,
+  "height": 30,
+  "fill_color": "#8f8877",
+  "stroke": false
+ },
+ {
+  "kind": "curve",
+  "id": "cup_handle",
+  "points": [
+   [
+    748,
+    360
+   ],
+   [
+    800,
+    375
+   ],
+   [
+    808,
+    420
+   ],
+   [
+    780,
+    452
+   ],
+   [
+    745,
+    448
+   ]
+  ],
+  "stroke": true,
+  "fill": false,
+  "color": "#cfc8b6",
+  "size": 16
+ },
+ {
+  "kind": "curve",
+  "id": "apple_shade",
+  "points": [
+   [
+    440,
+    400
+   ],
+   [
+    468,
+    430
+   ],
+   [
+    472,
+    480
+   ],
+   [
+    445,
+    515
+   ],
+   [
+    415,
+    525
+   ],
+   [
+    430,
+    480
+   ],
+   [
+    432,
+    435
+   ],
+   [
+    440,
+    400
+   ]
+  ],
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#8c2320",
+  "opacity": 0.55,
+  "brush": "soft"
+ },
+ {
+  "kind": "curve",
+  "id": "apple_light",
+  "points": [
+   [
+    352,
+    420
+   ],
+   [
+    338,
+    448
+   ],
+   [
+    342,
+    478
+   ],
+   [
+    356,
+    492
+   ],
+   [
+    348,
+    460
+   ],
+   [
+    350,
+    438
+   ],
+   [
+    352,
+    420
+   ]
+  ],
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#f0d0a8",
+  "opacity": 0.6,
+  "brush": "soft"
+ },
+ {
+  "kind": "curve",
+  "id": "cup_shade",
+  "points": [
+   [
+    710,
+    345
+   ],
+   [
+    740,
+    380
+   ],
+   [
+    745,
+    440
+   ],
+   [
+    725,
+    490
+   ],
+   [
+    700,
+    500
+   ],
+   [
+    715,
+    445
+   ],
+   [
+    712,
+    390
+   ],
+   [
+    710,
+    345
+   ]
+  ],
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#a89f8b",
+  "opacity": 0.6,
+  "brush": "soft"
+ },
+ {
+  "kind": "curve",
+  "id": "cup_light",
+  "points": [
+   [
+    608,
+    360
+   ],
+   [
+    598,
+    400
+   ],
+   [
+    600,
+    450
+   ],
+   [
+    610,
+    478
+   ],
+   [
+    616,
+    445
+   ],
+   [
+    614,
+    395
+   ],
+   [
+    608,
+    360
+   ]
+  ],
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#f2ead8",
+  "opacity": 0.7,
+  "brush": "soft"
+ }
+]

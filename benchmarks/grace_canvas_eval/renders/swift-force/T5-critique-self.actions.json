@@ -1,1 +1,647 @@
-"[{\"kind\": \"rectangle\", \"x\": 0, \"y\": 0, \"width\": 1000, \"height\": 650, \"fill\": true, \"stroke\": false, \"fill_color\": \"#1c2438\", \"gradient_color\": \"#2e3a57\", \"gradient\": \"linear\", \"gradient_angle\": 90, \"id\": \"sky\"}, {\"kind\": \"curve\", \"id\": \"moon\", \"points\": [[830, 90], [860, 70], [890, 90], [890, 130], [860, 150], [830, 130], [830, 90]], \"fill\": true, \"stroke\": false, \"fill_color\": \"#e8e6d2\", \"opacity\": 0.9}, {\"kind\": \"path\", \"id\": \"pines_far\", \"points\": [[60, 470], [90, 380], [120, 470], [170, 470], [200, 350], [230, 470], [300, 470], [330, 400], [360, 470], [640, 470], [670, 380], [700, 470], [760, 470], [800, 330], [840, 470], [900, 470], [930, 390], [960, 470]], \"fill\": true, \"stroke\": false, \"fill_color\": \"#25304a\", \"smooth\": true, \"opacity\": 0.9}, {\"kind\": \"path\", \"id\": \"snow_ground\", \"points\": [[0, 650], [0, 500], [150, 480], [330, 495], [500, 480], [680, 500], [850, 485], [1000, 505], [1000, 650]], \"fill\": true, \"stroke\": false, \"fill_color\": \"#dfe6f2\", \"smooth\": true}, {\"kind\": \"path\", \"id\": \"snow_shadow\", \"points\": [[0, 650], [0, 560], [200, 545], [420, 560], [620, 545], [820, 565], [1000, 550], [1000, 650]], \"fill\": true, \"stroke\": false, \"fill_color\": \"#c8d3e6\", \"smooth\": true, \"opacity\": 0.8}, {\"kind\": \"path\", \"id\": \"cabin_body\", \"points\": [[400, 540], [400, 420], [500, 350], [600, 420], [600, 540]], \"fill\": true, \"stroke\": false, \"fill_color\": \"#5a4436\", \"smooth\": false}, {\"kind\": \"path\", \"id\": \"roof_snow\", \"points\": [[385, 428], [500, 342], [615, 428], [595, 435], [500, 368], [405, 435]], \"fill\": true, \"stroke\": false, \"fill_color\": \"#eef2fa\", \"smooth\": true}, {\"kind\": \"path\", \"id\": \"chimney\", \"points\": [[530, 380], [530, 320], [560, 320], [560, 395]], \"fill\": true, \"stroke\": false, \"fill_color\": \"#4a3a30\"}, {\"kind\": \"rect\", \"id\": \"window\", \"x\": [455, 440], [545, 440], [545, 490], [455, 490], \"fill\": true, \"stroke\": false, \"fill_color\": \"#f5b95c\", \"gradient_color\": \"#ffd98a\", \"gradient\": \"radial\"}, {\"kind\": \"path\", \"id\": \"glow\", \"points\": [[430, 500], [470, 560], [560, 610], [640, 640], [400, 640], [300, 620], [360, 560]], \"fill\": true, \"stroke\": false, \"fill_color\": \"#f0c886\", \"smooth\": true, \"opacity\": 0.35}, {\"kind\": \"path\", \"id\": \"pine_left\", \"points\": [[180, 590], [130, 500], [165, 505], [120, 410], [160, 418], [125, 330], [190, 430], [160, 425], [205, 505], [175, 500], [215, 590]], \"fill\": true, \"stroke\": false, \"fill_color\": \"#2e4038\", \"smooth\": false}, {\"kind\": \"path\", \"id\": \"pine_right\", \"points\": [[790, 600], [740, 500], [775, 505], [730, 400], [770,408], [735, 300], [805, 415], [772, 408], [815, 505], [782, 498], [825, 600]], \"fill\": true, \"stroke\": false, \"fill_color\": \"#2a3b33\", \"smooth\": false}]"
+[
+ {
+  "kind": "rectangle",
+  "x": 0,
+  "y": 0,
+  "width": 1000,
+  "height": 650,
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#1c2438",
+  "gradient": "linear",
+  "gradient_angle": 90,
+  "gradient_color": "#2c3a55",
+  "id": "sky"
+ },
+ {
+  "kind": "curve",
+  "id": "moon",
+  "points": [
+   [
+    790,
+    95
+   ],
+   [
+    812,
+    78
+   ],
+   [
+    838,
+    82
+   ],
+   [
+    855,
+    105
+   ],
+   [
+    848,
+    130
+   ],
+   [
+    822,
+    138
+   ],
+   [
+    798,
+    126
+   ],
+   [
+    788,
+    108
+   ],
+   [
+    790,
+    95
+   ]
+  ],
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#f2ead2",
+  "opacity": 0.95
+ },
+ {
+  "kind": "curve",
+  "id": "moonglow",
+  "points": [
+   [
+    720,
+    110
+   ],
+   [
+    760,
+    40
+   ],
+   [
+    860,
+    35
+   ],
+   [
+    915,
+    100
+   ],
+   [
+    900,
+    170
+   ],
+   [
+    810,
+    195
+   ],
+   [
+    730,
+    175
+   ],
+   [
+    712,
+    130
+   ],
+   [
+    720,
+    110
+   ]
+  ],
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#8fa0c4",
+  "gradient": "radial",
+  "gradient_color": "#1c2438",
+  "opacity": 0.55
+ },
+ {
+  "kind": "path",
+  "id": "pines_far",
+  "points": [
+   [
+    60,
+    470
+   ],
+   [
+    95,
+    330
+   ],
+   [
+    130,
+    470
+   ]
+  ],
+  "smooth": true,
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#2b3d42",
+  "opacity": 0.75
+ },
+ {
+  "kind": "path",
+  "id": "pines_far2",
+  "points": [
+   [
+    880,
+    460
+   ],
+   [
+    915,
+    300
+   ],
+   [
+    950,
+    460
+   ]
+  ],
+  "smooth": true,
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#2b3d42",
+  "opacity": 0.75
+ },
+ {
+  "kind": "path",
+  "id": "pines_far3",
+  "points": [
+   [
+    700,
+    465
+   ],
+   [
+    735,
+    310
+   ],
+   [
+    770,
+    465
+   ]
+  ],
+  "smooth": true,
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#2b3d42",
+  "opacity": 0.7
+ },
+ {
+  "kind": "path",
+  "id": "pines_far4",
+  "points": [
+   [
+    200,
+    475
+   ],
+   [
+    235,
+    320
+   ],
+   [
+    270,
+    475
+   ]
+  ],
+  "smooth": true,
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#2b3d42",
+  "opacity": 0.7
+ },
+ {
+  "kind": "path",
+  "id": "pines_far5",
+  "points": [
+   [
+    400,
+    470
+   ],
+   [
+    430,
+    340
+   ],
+   [
+    460,
+    470
+   ]
+  ],
+  "smooth": true,
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#2b3d42",
+  "opacity": 0.65
+ },
+ {
+  "kind": "curve",
+  "id": "snow_ground",
+  "points": [
+   [
+    0,
+    650
+   ],
+   [
+    0,
+    500
+   ],
+   [
+    180,
+    485
+   ],
+   [
+    400,
+    505
+   ],
+   [
+    620,
+    488
+   ],
+   [
+    820,
+    510
+   ],
+   [
+    1000,
+    492
+   ],
+   [
+    1000,
+    650
+   ],
+   [
+    0,
+    650
+   ]
+  ],
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#c8d3e4",
+  "gradient": "linear",
+  "gradient_angle": 90,
+  "gradient_color": "#e8eef7"
+ },
+ {
+  "kind": "path",
+  "id": "pine_left",
+  "points": [
+   [
+    150,
+    520
+   ],
+   [
+    165,
+    440
+   ],
+   [
+    140,
+    430
+   ],
+   [
+    175,
+    340
+   ],
+   [
+    150,
+    330
+   ],
+   [
+    190,
+    225
+   ],
+   [
+    230,
+    330
+   ],
+   [
+    205,
+    342
+   ],
+   [
+    240,
+    432
+   ],
+   [
+    215,
+    442
+   ],
+   [
+    232,
+    522
+   ]
+  ],
+  "smooth": true,
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#2f4a3c"
+ },
+ {
+  "kind": "path",
+  "id": "pine_right",
+  "points": [
+   [
+    760,
+    530
+   ],
+   [
+    775,
+    445
+   ],
+   [
+    750,
+    435
+   ],
+   [
+    790,
+    330
+   ],
+   [
+    765,
+    320
+   ],
+   [
+    805,
+    205
+   ],
+   [
+    845,
+    320
+   ],
+   [
+    820,
+    332
+   ],
+   [
+    855,
+    435
+   ],
+   [
+    830,
+    447
+   ],
+   [
+    848,
+    532
+   ]
+  ],
+  "smooth": true,
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#2a4236"
+ },
+ {
+  "kind": "path",
+  "id": "pine_mid",
+  "points": [
+   [
+    590,
+    510
+   ],
+   [
+    605,
+    440
+   ],
+   [
+    585,
+    432
+   ],
+   [
+    615,
+    340
+   ],
+   [
+    598,
+    332
+   ],
+   [
+    630,
+    240
+   ],
+   [
+    662,
+    332
+   ],
+   [
+    643,
+    342
+   ],
+   [
+    673,
+    432
+   ],
+   [
+    653,
+    442
+   ],
+   [
+    668,
+    512
+   ]
+  ],
+  "smooth": true,
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#35543f"
+ },
+ {
+  "kind": "path",
+  "id": "cabin_body",
+  "points": [
+   [
+    390,
+    545
+   ],
+   [
+    390,
+    425
+   ],
+   [
+    510,
+    360
+   ],
+   [
+    630,
+    425
+   ],
+   [
+    630,
+    545
+   ]
+  ],
+  "smooth": false,
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#5a4232"
+ },
+ {
+  "kind": "path",
+  "id": "roof",
+  "points": [
+   [
+    368,
+    435
+   ],
+   [
+    510,
+    350
+   ],
+   [
+    652,
+    435
+   ],
+   [
+    630,
+    448
+   ],
+   [
+    510,
+    372
+   ],
+   [
+    390,
+    448
+   ]
+  ],
+  "smooth": false,
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#e9eef7"
+ },
+ {
+  "kind": "path",
+  "id": "chimney",
+  "points": [
+   [
+    555,
+    395
+   ],
+   [
+    555,
+    330
+   ],
+   [
+    585,
+    330
+   ],
+   [
+    585,
+    412
+   ]
+  ],
+  "smooth": false,
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#4a3a30"
+ },
+ {
+  "kind": "path",
+  "id": "chimney_snow",
+  "points": [
+   [
+    551,
+    336
+   ],
+   [
+    560,
+    324
+   ],
+   [
+    580,
+    325
+   ],
+   [
+    589,
+    337
+   ],
+   [
+    575,
+    334
+   ],
+   [
+    562,
+    333
+   ]
+  ],
+  "smooth": true,
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#f1f5fb"
+ },
+ {
+  "kind": "rectangle",
+  "id": "window",
+  "x": 462,
+  "y": 448,
+  "width": 62,
+  "height": 52,
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#f7c55e",
+  "gradient": "radial",
+  "gradient_color": "#e08f2e"
+ },
+ {
+  "kind": "curve",
+  "id": "window_glow",
+  "points": [
+   [
+    400,
+    470
+   ],
+   [
+    440,
+    380
+   ],
+   [
+    560,
+    378
+   ],
+   [
+    605,
+    465
+   ],
+   [
+    590,
+    560
+   ],
+   [
+    505,
+    600
+   ],
+   [
+    425,
+    565
+   ],
+   [
+    405,
+    500
+   ],
+   [
+    400,
+    470
+   ]
+  ],
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#f0b64f",
+  "gradient": "radial",
+  "gradient_color": "#1c2438",
+  "opacity": 0.35
+ },
+ {
+  "kind": "path",
+  "id": "light_spill",
+  "points": [
+   [
+    462,
+    500
+   ],
+   [
+    430,
+    610
+   ],
+   [
+    560,
+    620
+   ],
+   [
+    524,
+    500
+   ]
+  ],
+  "smooth": false,
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#f2c877",
+  "opacity": 0.45
+ }
+]

@@ -76,7 +76,7 @@ def _call_ok(pred_call, gt_call):
                 if "" in allowed:
                     continue
                 return False
-            if not _val_ok(pred_args[arg], [a for a in allowed if a != ""] or allowed):
+            if not _val_ok(pred_args[arg], allowed):
                 return False
     return True
 
@@ -86,24 +86,24 @@ def _key(call):
 
 
 def score_entry(cat, pred_calls, ground_truth):
-    """pred_calls: [{func: args}], ground_truth: list of options, each a list
-    of {func: {arg: [allowed...]}}."""
+    """pred_calls: [{func: args}], ground_truth: list of options, each option
+    is either a single call {func: {arg: [allowed...]}} or a list of calls."""
     if not ground_truth:
         return len(pred_calls) == 0
+    # normalize every option to a list of calls
+    opts = [o if isinstance(o, list) else [o] for o in ground_truth]
     if cat in ("simple", "multiple"):
         if len(pred_calls) != 1:
             return False
-        return any(_call_ok(pred_calls[0], opt[0])
-                   for opt in ground_truth if len(opt) == 1)
+        return any(len(o) == 1 and _call_ok(pred_calls[0], o[0]) for o in opts)
     if cat in ("parallel", "parallel_multiple"):
-        pred_set = sorted(_key(c) for c in pred_calls)
-        for opt in ground_truth:
-            if len(opt) != len(pred_calls):
+        for o in opts:
+            if len(o) != len(pred_calls):
                 continue
             # order-insensitive: every gt call must have a matching pred call
             used = [False] * len(pred_calls)
             ok = True
-            for g in opt:
+            for g in o:
                 found = False
                 for i, p in enumerate(pred_calls):
                     if not used[i] and _call_ok(p, g):

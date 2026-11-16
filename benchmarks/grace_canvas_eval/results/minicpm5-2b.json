@@ -5,15 +5,15 @@
   "schema_hint": false,
   "base_url": "http://127.0.0.1:8102/v1",
   "tasks": 8,
-  "check_score": 0.2619,
-  "tasks_fully_satisfied": 0,
-  "fully_satisfied_rate": 0.0,
+  "check_score": 0.3095,
+  "tasks_fully_satisfied": 1,
+  "fully_satisfied_rate": 0.125,
   "valid_rate": 0.375,
   "render_rate": 1.0,
   "truncated_rate": 0.0,
   "mean_steps": 2.75,
-  "total_wall_s": 915.4,
-  "critique_delta": 0.25
+  "total_wall_s": 526.6,
+  "critique_delta": 0.0
  },
  "results": [
   {
@@ -29,28 +29,8 @@
    "rendered": true,
    "render_error": null,
    "truncated_stream": false,
-   "meta": {
-    "elapsed_s": 125.63,
-    "completion_tokens": 86,
-    "prompt_tokens": 2301,
-    "truncated": false,
-    "raw_len": 246,
-    "raw_tail": "",
-    "finish_reason": "tool_calls",
-    "response": "",
-    "more": false
-   },
    "scene": {
-    "objects": 1,
-    "kinds": [
-     "curve"
-    ],
-    "colours": [],
-    "texts": [],
-    "coverage": 0.0148,
-    "mean_overlap": 0.0,
-    "shared_baseline": 1,
-    "even_spacing_run": 0
+    "n_objects": 1
    },
    "checks": [
     {
@@ -87,7 +67,18 @@
    "checks_passed": 3,
    "checks_total": 6,
    "score": 0.5,
-   "wall_s": 125.65
+   "wall_s": 57.92,
+   "meta": {
+    "elapsed_s": 57.9,
+    "completion_tokens": 86,
+    "prompt_tokens": 2301,
+    "truncated": false,
+    "raw_len": 246,
+    "raw_tail": "",
+    "finish_reason": "tool_calls",
+    "response": "",
+    "more": false
+   }
   },
   {
    "task": "T1-lighthouse",
@@ -102,28 +93,8 @@
    "rendered": true,
    "render_error": null,
    "truncated_stream": false,
-   "meta": {
-    "elapsed_s": 125.49,
-    "completion_tokens": 119,
-    "prompt_tokens": 2301,
-    "truncated": false,
-    "raw_len": 289,
-    "raw_tail": "",
-    "finish_reason": "tool_calls",
-    "response": "I'll plan and draw a dusk lighthouse scene on the canvas. Let me start by establishing the composition, then build it back to front.\n",
-    "more": false
-   },
    "scene": {
-    "objects": 1,
-    "kinds": [
-     "path"
-    ],
-    "colours": [],
-    "texts": [],
-    "coverage": 0.0125,
-    "mean_overlap": 0.0,
-    "shared_baseline": 1,
-    "even_spacing_run": 0
+    "n_objects": 1
    },
    "checks": [
     {
@@ -155,7 +126,18 @@
    "checks_passed": 1,
    "checks_total": 5,
    "score": 0.2,
-   "wall_s": 125.52
+   "wall_s": 65.64,
+   "meta": {
+    "elapsed_s": 65.62,
+    "completion_tokens": 119,
+    "prompt_tokens": 2301,
+    "truncated": false,
+    "raw_len": 289,
+    "raw_tail": "",
+    "finish_reason": "tool_calls",
+    "response": "I'll plan and draw a dusk lighthouse scene on the canvas. Let me start by establishing the composition, then build it back to front.\n",
+    "more": false
+   }
   },
   {
    "task": "T2-still-life",
@@ -170,28 +152,8 @@
    "rendered": true,
    "render_error": null,
    "truncated_stream": false,
-   "meta": {
-    "elapsed_s": 125.59,
-    "completion_tokens": 109,
-    "prompt_tokens": 2310,
-    "truncated": false,
-    "raw_len": 258,
-    "raw_tail": "",
-    "finish_reason": "tool_calls",
-    "response": "I'll plan and execute a still life of a red apple and a ceramic cup on a wooden table under soft morning light.\n",
-    "more": false
-   },
    "scene": {
-    "objects": 1,
-    "kinds": [
-     "path"
-    ],
-    "colours": [],
-    "texts": [],
-    "coverage": 0.0062,
-    "mean_overlap": 0.0,
-    "shared_baseline": 1,
-    "even_spacing_run": 0
+    "n_objects": 1
    },
    "checks": [
     {
@@ -228,7 +190,18 @@
    "checks_passed": 1,
    "checks_total": 6,
    "score": 0.16666666666666666,
-   "wall_s": 125.6
+   "wall_s": 56.71,
+   "meta": {
+    "elapsed_s": 56.7,
+    "completion_tokens": 109,
+    "prompt_tokens": 2310,
+    "truncated": false,
+    "raw_len": 258,
+    "raw_tail": "",
+    "finish_reason": "tool_calls",
+    "response": "I'll plan and execute a still life of a red apple and a ceramic cup on a wooden table under soft morning light.\n",
+    "more": false
+   }
   },
   {
    "task": "T2-robot-mascot",
@@ -243,28 +216,8 @@
    "rendered": true,
    "render_error": null,
    "truncated_stream": false,
-   "meta": {
-    "elapsed_s": 83.25,
-    "completion_tokens": 135,
-    "prompt_tokens": 2312,
-    "truncated": false,
-    "raw_len": 316,
-    "raw_tail": "",
-    "finish_reason": "tool_calls",
-    "response": "I'll plan and execute a finished robot mascot drawing on the canvas. Let me start by establishing the composition, palette, and light source, then build the artwork back to front.\n",
-    "more": false
-   },
    "scene": {
-    "objects": 1,
-    "kinds": [
-     "path"
-    ],
-    "colours": [],
-    "texts": [],
-    "coverage": 0.0111,
-    "mean_overlap": 0.0,
-    "shared_baseline": 1,
-    "even_spacing_run": 0
+    "n_objects": 1
    },
    "checks": [
     {
@@ -296,7 +249,18 @@
    "checks_passed": 1,
    "checks_total": 5,
    "score": 0.2,
-   "wall_s": 83.27
+   "wall_s": 58.11,
+   "meta": {
+    "elapsed_s": 58.1,
+    "completion_tokens": 135,
+    "prompt_tokens": 2312,
+    "truncated": false,
+    "raw_len": 316,
+    "raw_tail": "",
+    "finish_reason": "tool_calls",
+    "response": "I'll plan and execute a finished robot mascot drawing on the canvas. Let me start by establishing the composition, palette, and light source, then build the artwork back to front.\n",
+    "more": false
+   }
   },
   {
    "task": "T3-navbar",
@@ -311,28 +275,8 @@
    "rendered": true,
    "render_error": null,
    "truncated_stream": false,
-   "meta": {
-    "elapsed_s": 76.18,
-    "completion_tokens": 71,
-    "prompt_tokens": 2314,
-    "truncated": false,
-    "raw_len": 191,
-    "raw_tail": "",
-    "finish_reason": "tool_calls",
-    "response": "",
-    "more": false
-   },
    "scene": {
-    "objects": 1,
-    "kinds": [
-     "path"
-    ],
-    "colours": [],
-    "texts": [],
-    "coverage": 0.0012,
-    "mean_overlap": 0.0,
-    "shared_baseline": 1,
-    "even_spacing_run": 0
+    "n_objects": 1
    },
    "checks": [
     {
@@ -374,7 +318,18 @@
    "checks_passed": 0,
    "checks_total": 7,
    "score": 0.0,
-   "wall_s": 76.19
+   "wall_s": 56.01,
+   "meta": {
+    "elapsed_s": 56.0,
+    "completion_tokens": 71,
+    "prompt_tokens": 2314,
+    "truncated": false,
+    "raw_len": 191,
+    "raw_tail": "",
+    "finish_reason": "tool_calls",
+    "response": "",
+    "more": false
+   }
   },
   {
    "task": "T3-poster",
@@ -389,42 +344,8 @@
    "rendered": true,
    "render_error": null,
    "truncated_stream": false,
-   "meta": {
-    "elapsed_s": 94.14,
-    "completion_tokens": 831,
-    "prompt_tokens": 2309,
-    "truncated": false,
-    "raw_len": 2513,
-    "raw_tail": "",
-    "finish_reason": "tool_calls",
-    "response": "",
-    "more": false
-   },
    "scene": {
-    "objects": 15,
-    "kinds": [
-     "curve",
-     "curve",
-     "curve",
-     "curve",
-     "curve",
-     "curve",
-     "curve",
-     "curve",
-     "curve",
-     "curve",
-     "curve",
-     "curve",
-     "curve",
-     "curve",
-     "curve"
-    ],
-    "colours": [],
-    "texts": [],
-    "coverage": 0.0098,
-    "mean_overlap": 0.0,
-    "shared_baseline": 1,
-    "even_spacing_run": 15
+    "n_objects": 15
    },
    "checks": [
     {
@@ -456,7 +377,18 @@
    "checks_passed": 3,
    "checks_total": 5,
    "score": 0.6,
-   "wall_s": 94.16
+   "wall_s": 83.02,
+   "meta": {
+    "elapsed_s": 83.0,
+    "completion_tokens": 831,
+    "prompt_tokens": 2309,
+    "truncated": false,
+    "raw_len": 2513,
+    "raw_tail": "",
+    "finish_reason": "tool_calls",
+    "response": "",
+    "more": false
+   }
   },
   {
    "task": "T4-recolour-leaf",
@@ -471,26 +403,8 @@
    "rendered": true,
    "render_error": null,
    "truncated_stream": false,
-   "meta": {
-    "elapsed_s": 7.34,
-    "completion_tokens": 48,
-    "prompt_tokens": 2452,
-    "truncated": false,
-    "raw_len": 112,
-    "raw_tail": "",
-    "finish_reason": "tool_calls",
-    "response": "",
-    "more": false
-   },
    "scene": {
-    "objects": 0,
-    "kinds": [],
-    "colours": [],
-    "texts": [],
-    "coverage": 0.0,
-    "mean_overlap": 0.0,
-    "shared_baseline": 0,
-    "even_spacing_run": 0
+    "n_objects": 3
    },
    "checks": [
     {
@@ -505,19 +419,30 @@
     },
     {
      "check": "objects_at_least_3",
-     "ok": false,
-     "detail": "0 objects (need >= 3)"
+     "ok": true,
+     "detail": "3 objects (need >= 3)"
     },
     {
      "check": "has_hue_green leaf",
-     "ok": false,
-     "detail": "colours=[] (green leaf band 70-170)"
+     "ok": true,
+     "detail": "colours=['#c0392b', '#5a8a4a', '#6b4a2f'] (green leaf band 70-170)"
     }
    ],
-   "checks_passed": 2,
+   "checks_passed": 4,
    "checks_total": 4,
-   "score": 0.5,
-   "wall_s": 7.36
+   "score": 1.0,
+   "wall_s": 2.0,
+   "meta": {
+    "elapsed_s": 1.98,
+    "completion_tokens": 48,
+    "prompt_tokens": 2452,
+    "truncated": false,
+    "raw_len": 112,
+    "raw_tail": "",
+    "finish_reason": "tool_calls",
+    "response": "",
+    "more": false
+   }
   },
   {
    "task": "T5-critique-self",
@@ -532,28 +457,8 @@
    "rendered": true,
    "render_error": null,
    "truncated_stream": false,
-   "meta": {
-    "elapsed_s": 78.67,
-    "completion_tokens": 156,
-    "prompt_tokens": 2300,
-    "truncated": false,
-    "raw_len": 402,
-    "raw_tail": "",
-    "finish_reason": "tool_calls",
-    "response": "I'll plan and draw a small cabin in a snowy pine forest at night with warm light spilling from one window. Let me start by establishing the composition and painting the background, distant forms, and main silhouette.\n",
-    "more": false
-   },
    "scene": {
-    "objects": 1,
-    "kinds": [
-     "path"
-    ],
-    "colours": [],
-    "texts": [],
-    "coverage": 0.8442,
-    "mean_overlap": 0.0,
-    "shared_baseline": 1,
-    "even_spacing_run": 0
+    "n_objects": 1
    },
    "checks": [
     {
@@ -580,15 +485,16 @@
    "checks_passed": 0,
    "checks_total": 4,
    "score": 0.0,
+   "wall_s": 147.24,
    "pass2": {
     "steps": 2,
     "valid": false,
     "clamped_fields": 0,
     "truncated_stream": false,
-    "elapsed_s": 40.81,
-    "checks_passed": 1,
+    "elapsed_s": 67.15,
+    "checks_passed": 0,
     "checks_total": 4,
-    "score": 0.25,
+    "score": 0.0,
     "scene": {
      "objects": 1,
      "kinds": [
@@ -596,7 +502,7 @@
      ],
      "colours": [],
      "texts": [],
-     "coverage": 0.0939,
+     "coverage": 0.8442,
      "mean_overlap": 0.0,
      "shared_baseline": 1,
      "even_spacing_run": 0
@@ -619,13 +525,22 @@
      },
      {
       "check": "coverage_between",
-      "ok": true,
-      "detail": "coverage 9.4% (want 2%-60%)"
+      "ok": false,
+      "detail": "coverage 84.4% (want 2%-60%)"
      }
     ]
    },
-   "critique_delta": 0.25,
-   "wall_s": 277.7
+   "meta": {
+    "elapsed_s": 80.05,
+    "completion_tokens": 156,
+    "prompt_tokens": 2300,
+    "truncated": false,
+    "raw_len": 402,
+    "raw_tail": "",
+    "finish_reason": "tool_calls",
+    "response": "I'll plan and draw a small cabin in a snowy pine forest at night with warm light spilling from one window. Let me start by establishing the composition and painting the background, distant forms, and main silhouette.\n",
+    "more": false
+   }
   }
  ]
 }

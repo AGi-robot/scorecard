@@ -5,14 +5,14 @@
   "schema_hint": false,
   "base_url": "http://127.0.0.1:8101/v1",
   "tasks": 8,
-  "check_score": 0.3571,
-  "tasks_fully_satisfied": 0,
-  "fully_satisfied_rate": 0.0,
+  "check_score": 0.4048,
+  "tasks_fully_satisfied": 1,
+  "fully_satisfied_rate": 0.125,
   "valid_rate": 1.0,
   "render_rate": 1.0,
   "truncated_rate": 0.0,
   "mean_steps": 2.25,
-  "total_wall_s": 839.7,
+  "total_wall_s": 725.2,
   "critique_delta": -0.25
  },
  "results": [
@@ -29,29 +29,8 @@
    "rendered": true,
    "render_error": null,
    "truncated_stream": false,
-   "meta": {
-    "elapsed_s": 33.63,
-    "completion_tokens": 713,
-    "prompt_tokens": 2461,
-    "truncated": false,
-    "raw_len": 2211,
-    "raw_tail": "",
-    "finish_reason": "tool_calls",
-    "response": "I'll create a single red apple with a short brown stem and one green leaf, positioned slightly left of center. Let me plan the composition:\n\n- Apple: positioned slightly left of center, with a realistic lobed shape\n- Stem: short brown, attached to the top\n- Leaf: one green leaf, attached to the stem\n- Background: white (already there)\n- Lighting: from the upper right to create shadows and highligh",
-    "more": false
-   },
    "scene": {
-    "objects": 2,
-    "kinds": [
-     "curve",
-     "curve"
-    ],
-    "colours": [],
-    "texts": [],
-    "coverage": 0.0831,
-    "mean_overlap": 1.0,
-    "shared_baseline": 2,
-    "even_spacing_run": 0
+    "n_objects": 2
    },
    "checks": [
     {
@@ -88,7 +67,18 @@
    "checks_passed": 2,
    "checks_total": 6,
    "score": 0.3333333333333333,
-   "wall_s": 33.65
+   "wall_s": 33.23,
+   "meta": {
+    "elapsed_s": 33.21,
+    "completion_tokens": 713,
+    "prompt_tokens": 2461,
+    "truncated": false,
+    "raw_len": 2211,
+    "raw_tail": "",
+    "finish_reason": "tool_calls",
+    "response": "I'll create a single red apple with a short brown stem and one green leaf, positioned slightly left of center. Let me plan the composition:\n\n- Apple: positioned slightly left of center, with a realistic lobed shape\n- Stem: short brown, attached to the top\n- Leaf: one green leaf, attached to the stem\n- Background: white (already there)\n- Lighting: from the upper right to create shadows and highligh",
+    "more": false
+   }
   },
   {
    "task": "T1-lighthouse",
@@ -103,28 +93,8 @@
    "rendered": true,
    "render_error": null,
    "truncated_stream": false,
-   "meta": {
-    "elapsed_s": 158.3,
-    "completion_tokens": 578,
-    "prompt_tokens": 2462,
-    "truncated": false,
-    "raw_len": 662,
-    "raw_tail": "",
-    "finish_reason": "tool_calls",
-    "response": "I'll create a lighthouse on a rocky headland at dusk with a warm lamp glow. Let me plan the composition:\n\n**Palette:** \n- Deep blues and purples for the evening sky\n- Warm orange/yellow for the lighthouse lamp glow\n- Dark grays and browns for the rocky headland\n- Cool blues for the sea\n\n**Lighting:** \n- The lighthouse lamp will be the focal point, casting warm light\n- The sky will transition from ",
-    "more": false
-   },
    "scene": {
-    "objects": 1,
-    "kinds": [
-     "curve"
-    ],
-    "colours": [],
-    "texts": [],
-    "coverage": 0.0969,
-    "mean_overlap": 0.0,
-    "shared_baseline": 1,
-    "even_spacing_run": 0
+    "n_objects": 1
    },
    "checks": [
     {
@@ -156,7 +126,18 @@
    "checks_passed": 2,
    "checks_total": 5,
    "score": 0.4,
-   "wall_s": 158.32
+   "wall_s": 89.18,
+   "meta": {
+    "elapsed_s": 89.16,
+    "completion_tokens": 578,
+    "prompt_tokens": 2462,
+    "truncated": false,
+    "raw_len": 662,
+    "raw_tail": "",
+    "finish_reason": "tool_calls",
+    "response": "I'll create a lighthouse on a rocky headland at dusk with a warm lamp glow. Let me plan the composition:\n\n**Palette:** \n- Deep blues and purples for the evening sky\n- Warm orange/yellow for the lighthouse lamp glow\n- Dark grays and browns for the rocky headland\n- Cool blues for the sea\n\n**Lighting:** \n- The lighthouse lamp will be the focal point, casting warm light\n- The sky will transition from ",
+    "more": false
+   }
   },
   {
    "task": "T2-still-life",
@@ -171,30 +152,8 @@
    "rendered": true,
    "render_error": null,
    "truncated_stream": false,
-   "meta": {
-    "elapsed_s": 142.14,
-    "completion_tokens": 213,
-    "prompt_tokens": 2470,
-    "truncated": false,
-    "raw_len": 198,
-    "raw_tail": "",
-    "finish_reason": "tool_calls",
-    "response": "I'll create a still life scene with a red apple and ceramic cup on a wooden table, with soft morning light from the left casting warm shadows to the right.\n\nLet me plan the composition:\n- Background: warm wooden table texture\n- Apple: red with subtle highlights and shadows\n- Ceramic cup: neutral tone with light reflection\n- Light source: from the left, creating warm shadows to the right\n- Focal po",
-    "more": false
-   },
    "scene": {
-    "objects": 1,
-    "kinds": [
-     "rectangle"
-    ],
-    "colours": [
-     "#8B7355"
-    ],
-    "texts": [],
-    "coverage": 1.0,
-    "mean_overlap": 0.0,
-    "shared_baseline": 1,
-    "even_spacing_run": 0
+    "n_objects": 1
    },
    "checks": [
     {
@@ -231,7 +190,18 @@
    "checks_passed": 3,
    "checks_total": 6,
    "score": 0.5,
-   "wall_s": 142.16
+   "wall_s": 69.06,
+   "meta": {
+    "elapsed_s": 69.04,
+    "completion_tokens": 213,
+    "prompt_tokens": 2470,
+    "truncated": false,
+    "raw_len": 198,
+    "raw_tail": "",
+    "finish_reason": "tool_calls",
+    "response": "I'll create a still life scene with a red apple and ceramic cup on a wooden table, with soft morning light from the left casting warm shadows to the right.\n\nLet me plan the composition:\n- Background: warm wooden table texture\n- Apple: red with subtle highlights and shadows\n- Ceramic cup: neutral tone with light reflection\n- Light source: from the left, creating warm shadows to the right\n- Focal po",
+    "more": false
+   }
   },
   {
    "task": "T2-robot-mascot",
@@ -246,37 +216,8 @@
    "rendered": true,
    "render_error": null,
    "truncated_stream": false,
-   "meta": {
-    "elapsed_s": 160.24,
-    "completion_tokens": 2446,
-    "prompt_tokens": 2470,
-    "truncated": false,
-    "raw_len": 9587,
-    "raw_tail": "",
-    "finish_reason": "tool_calls",
-    "response": "I'll create a friendly robot mascot standing on a workbench in a garage setting. Let me plan the composition:\n\n**Palette:** Teal body (#20B2AA), amber status light (#FFB300), warm garage lighting, metallic workbench, subtle shadows.\n\n**Composition:** \n- Background: garage interior with soft lighting\n- Workbench in the foreground\n- Robot mascot as the focal point\n- Cables trailing from the robot\n\nL",
-    "more": false
-   },
    "scene": {
-    "objects": 10,
-    "kinds": [
-     "curve",
-     "curve",
-     "curve",
-     "curve",
-     "curve",
-     "curve",
-     "curve",
-     "curve",
-     "curve",
-     "curve"
-    ],
-    "colours": [],
-    "texts": [],
-    "coverage": 0.4615,
-    "mean_overlap": 1.0,
-    "shared_baseline": 10,
-    "even_spacing_run": 10
+    "n_objects": 10
    },
    "checks": [
     {
@@ -308,7 +249,18 @@
    "checks_passed": 2,
    "checks_total": 5,
    "score": 0.4,
-   "wall_s": 160.26
+   "wall_s": 164.71,
+   "meta": {
+    "elapsed_s": 164.69,
+    "completion_tokens": 2446,
+    "prompt_tokens": 2470,
+    "truncated": false,
+    "raw_len": 9587,
+    "raw_tail": "",
+    "finish_reason": "tool_calls",
+    "response": "I'll create a friendly robot mascot standing on a workbench in a garage setting. Let me plan the composition:\n\n**Palette:** Teal body (#20B2AA), amber status light (#FFB300), warm garage lighting, metallic workbench, subtle shadows.\n\n**Composition:** \n- Background: garage interior with soft lighting\n- Workbench in the foreground\n- Robot mascot as the focal point\n- Cables trailing from the robot\n\nL",
+    "more": false
+   }
   },
   {
    "task": "T3-navbar",
@@ -323,28 +275,8 @@
    "rendered": true,
    "render_error": null,
    "truncated_stream": false,
-   "meta": {
-    "elapsed_s": 86.31,
-    "completion_tokens": 471,
-    "prompt_tokens": 2474,
-    "truncated": false,
-    "raw_len": 590,
-    "raw_tail": "",
-    "finish_reason": "tool_calls",
-    "response": "I'll create a navigation bar with a round logo mark and four menu items. Let me plan the composition:\n\n- Round logo mark on the far left\n- Four evenly spaced menu items: Home, Work, Journal, Contact\n- I'll use a clean, modern design with appropriate spacing\n\nLet me start by drawing the round logo mark first, then the menu items.",
-    "more": false
-   },
    "scene": {
-    "objects": 1,
-    "kinds": [
-     "ellipse"
-    ],
-    "colours": [],
-    "texts": [],
-    "coverage": 0.0055,
-    "mean_overlap": 0.0,
-    "shared_baseline": 1,
-    "even_spacing_run": 0
+    "n_objects": 1
    },
    "checks": [
     {
@@ -386,7 +318,18 @@
    "checks_passed": 0,
    "checks_total": 7,
    "score": 0.0,
-   "wall_s": 86.32
+   "wall_s": 90.96,
+   "meta": {
+    "elapsed_s": 90.93,
+    "completion_tokens": 471,
+    "prompt_tokens": 2474,
+    "truncated": false,
+    "raw_len": 590,
+    "raw_tail": "",
+    "finish_reason": "tool_calls",
+    "response": "I'll create a navigation bar with a round logo mark and four menu items. Let me plan the composition:\n\n- Round logo mark on the far left\n- Four evenly spaced menu items: Home, Work, Journal, Contact\n- I'll use a clean, modern design with appropriate spacing\n\nLet me start by drawing the round logo mark first, then the menu items.",
+    "more": false
+   }
   },
   {
    "task": "T3-poster",
@@ -401,30 +344,8 @@
    "rendered": true,
    "render_error": null,
    "truncated_stream": false,
-   "meta": {
-    "elapsed_s": 78.68,
-    "completion_tokens": 176,
-    "prompt_tokens": 2469,
-    "truncated": false,
-    "raw_len": 185,
-    "raw_tail": "",
-    "finish_reason": "tool_calls",
-    "response": "I'll create a minimal event poster with a bold title, horizontal rule, and date line. Let me plan the composition:\n\n- **Title**: Bold, centered at the top\n- **Horizontal rule**: Thin line beneath the title\n- **Date line**: Small text lower down, centered\n\nI'll use a clean, minimalist design with good spacing. Let me start by drawing the title first.",
-    "more": false
-   },
    "scene": {
-    "objects": 1,
-    "kinds": [
-     "text"
-    ],
-    "colours": [],
-    "texts": [
-     "EVENT"
-    ],
-    "coverage": 0.008,
-    "mean_overlap": 0.0,
-    "shared_baseline": 1,
-    "even_spacing_run": 0
+    "n_objects": 1
    },
    "checks": [
     {
@@ -456,7 +377,18 @@
    "checks_passed": 3,
    "checks_total": 5,
    "score": 0.6,
-   "wall_s": 78.74
+   "wall_s": 66.96,
+   "meta": {
+    "elapsed_s": 66.93,
+    "completion_tokens": 176,
+    "prompt_tokens": 2469,
+    "truncated": false,
+    "raw_len": 185,
+    "raw_tail": "",
+    "finish_reason": "tool_calls",
+    "response": "I'll create a minimal event poster with a bold title, horizontal rule, and date line. Let me plan the composition:\n\n- **Title**: Bold, centered at the top\n- **Horizontal rule**: Thin line beneath the title\n- **Date line**: Small text lower down, centered\n\nI'll use a clean, minimalist design with good spacing. Let me start by drawing the title first.",
+    "more": false
+   }
   },
   {
    "task": "T4-recolour-leaf",
@@ -471,26 +403,8 @@
    "rendered": true,
    "render_error": null,
    "truncated_stream": false,
-   "meta": {
-    "elapsed_s": 69.88,
-    "completion_tokens": 83,
-    "prompt_tokens": 2674,
-    "truncated": false,
-    "raw_len": 121,
-    "raw_tail": "",
-    "finish_reason": "tool_calls",
-    "response": "I'll make the leaf a brighter green by changing its fill color.",
-    "more": false
-   },
    "scene": {
-    "objects": 0,
-    "kinds": [],
-    "colours": [],
-    "texts": [],
-    "coverage": 0.0,
-    "mean_overlap": 0.0,
-    "shared_baseline": 0,
-    "even_spacing_run": 0
+    "n_objects": 3
    },
    "checks": [
     {
@@ -505,19 +419,30 @@
     },
     {
      "check": "objects_at_least_3",
-     "ok": false,
-     "detail": "0 objects (need >= 3)"
+     "ok": true,
+     "detail": "3 objects (need >= 3)"
     },
     {
      "check": "has_hue_green leaf",
-     "ok": false,
-     "detail": "colours=[] (green leaf band 70-170)"
+     "ok": true,
+     "detail": "colours=['#c0392b', '#7cb378', '#6b4a2f'] (green leaf band 70-170)"
     }
    ],
-   "checks_passed": 2,
+   "checks_passed": 4,
    "checks_total": 4,
-   "score": 0.5,
-   "wall_s": 69.89
+   "score": 1.0,
+   "wall_s": 52.76,
+   "meta": {
+    "elapsed_s": 52.73,
+    "completion_tokens": 83,
+    "prompt_tokens": 2674,
+    "truncated": false,
+    "raw_len": 121,
+    "raw_tail": "",
+    "finish_reason": "tool_calls",
+    "response": "I'll make the leaf a brighter green by changing its fill color.",
+    "more": false
+   }
   },
   {
    "task": "T5-critique-self",
@@ -532,28 +457,8 @@
    "rendered": true,
    "render_error": null,
    "truncated_stream": false,
-   "meta": {
-    "elapsed_s": 56.85,
-    "completion_tokens": 577,
-    "prompt_tokens": 2461,
-    "truncated": false,
-    "raw_len": 697,
-    "raw_tail": "",
-    "finish_reason": "tool_calls",
-    "response": "I'll create a cozy winter scene with a small cabin nestled in a snowy pine forest at night, with warm light spilling from one window. Let me plan this carefully.\n\n**Composition:**\n- Background: dark night sky with subtle snowfall\n- Distant: silhouetted pine trees\n- Midground: the cabin with warm light\n- Foreground: snow-covered ground with subtle details\n\n**Palette:**\n- Deep blues and blacks for n",
-    "more": false
-   },
    "scene": {
-    "objects": 1,
-    "kinds": [
-     "curve"
-    ],
-    "colours": [],
-    "texts": [],
-    "coverage": 0.0969,
-    "mean_overlap": 0.0,
-    "shared_baseline": 1,
-    "even_spacing_run": 0
+    "n_objects": 1
    },
    "checks": [
     {
@@ -580,12 +485,13 @@
    "checks_passed": 1,
    "checks_total": 4,
    "score": 0.25,
+   "wall_s": 158.39,
    "pass2": {
     "steps": 1,
     "valid": true,
     "clamped_fields": 0,
     "truncated_stream": false,
-    "elapsed_s": 53.43,
+    "elapsed_s": 85.03,
     "checks_passed": 0,
     "checks_total": 4,
     "score": 0.0,
@@ -624,8 +530,17 @@
      }
     ]
    },
-   "critique_delta": -0.25,
-   "wall_s": 110.32
+   "meta": {
+    "elapsed_s": 73.33,
+    "completion_tokens": 577,
+    "prompt_tokens": 2461,
+    "truncated": false,
+    "raw_len": 697,
+    "raw_tail": "",
+    "finish_reason": "tool_calls",
+    "response": "I'll create a cozy winter scene with a small cabin nestled in a snowy pine forest at night, with warm light spilling from one window. Let me plan this carefully.\n\n**Composition:**\n- Background: dark night sky with subtle snowfall\n- Distant: silhouetted pine trees\n- Midground: the cabin with warm light\n- Foreground: snow-covered ground with subtle details\n\n**Palette:**\n- Deep blues and blacks for n",
+    "more": false
+   }
   }
  ]
 }

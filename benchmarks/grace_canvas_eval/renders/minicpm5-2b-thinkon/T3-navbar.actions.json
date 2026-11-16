@@ -1,1 +1,65 @@
-[]
+[
+ {
+  "kind": "ellipse",
+  "id": "logo",
+  "x": 40,
+  "y": 300,
+  "width": 80,
+  "height": 80,
+  "fill_color": "#5a7a5a",
+  "stroke": false,
+  "fill": true
+ },
+ {
+  "kind": "text",
+  "id": "menu_home",
+  "x": 120,
+  "y": 300,
+  "text": "Home",
+  "fill": false,
+  "margin": 0,
+  "line_height": 1.2,
+  "align": "left",
+  "points": [],
+  "prompt": "menu item"
+ },
+ {
+  "kind": "text",
+  "id": "menu_work",
+  "x": 370,
+  "y": 300,
+  "text": "Work",
+  "fill": false,
+  "margin": 0,
+  "line_height": 1.2,
+  "align": "left",
+  "points": [],
+  "prompt": "menu item"
+ },
+ {
+  "kind": "text",
+  "id": "menu_journal",
+  "x": 620,
+  "y": 300,
+  "text": "Journal",
+  "fill": false,
+  "margin": 0,
+  "line_height": 1.2,
+  "align": "left",
+  "points": [],
+  "prompt": "menu item"
+ },
+ {
+  "kind": "text",
+  "id": "menu_contact",
+  "x": 870,
+  "y": 300,
+  "text": "Contact",
+  "fill": false,
+  "margin": 0,
+  "line_height": 1.2,
+  "align": "left",
+  "points": [],
+  "prompt": "menu item"
+ }
+]

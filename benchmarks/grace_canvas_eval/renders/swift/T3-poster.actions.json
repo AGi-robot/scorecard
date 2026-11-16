@@ -3,35 +3,35 @@
   "kind": "text",
   "x": 150,
   "y": 110,
-  "size": 84,
+  "size": 88,
   "font": "sans",
-  "color": "#2c2a33",
-  "text": "GATHER",
+  "color": "#2b2b33",
+  "text": "AURORA",
   "align": "center"
  },
  {
   "kind": "line",
   "points": [
    [
-    230,
-    230
+    150,
+    235
    ],
    [
-    770,
-    230
+    850,
+    235
    ]
   ],
-  "color": "#2c2a33",
+  "color": "#2b2b33",
   "size": 2
  },
  {
   "kind": "text",
-  "x": 330,
-  "y": 470,
+  "x": 350,
+  "y": 480,
   "size": 26,
   "font": "sans",
-  "color": "#5a5666",
-  "text": "SATURDAY \u00b7 JUNE 14 \u00b7 7PM",
+  "color": "#5a5a66",
+  "text": "Saturday, June 14 \u2014 8PM",
   "align": "center"
  }
 ]

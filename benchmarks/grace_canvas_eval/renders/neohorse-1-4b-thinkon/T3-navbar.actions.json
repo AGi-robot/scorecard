@@ -2,51 +2,52 @@
  {
   "kind": "ellipse",
   "id": "logo",
-  "x": 100,
+  "x": 40,
   "y": 35,
-  "width": 50,
-  "height": 50,
-  "fill_color": "#4a5568",
-  "fill": true
+  "width": 56,
+  "height": 56,
+  "fill_color": "#2c5f6d",
+  "fill": true,
+  "margin": 40
  },
  {
   "kind": "text",
   "id": "home",
-  "x": 200,
-  "y": 42,
-  "size": 19,
-  "text": "HOME",
-  "align": "left",
-  "prompt": "nav menu text, sans font, uppercase"
+  "x": 180,
+  "y": 35,
+  "size": 18,
+  "text": "Home",
+  "align": "center",
+  "prompt": "menu item text"
  },
  {
   "kind": "text",
   "id": "work",
-  "x": 320,
-  "y": 42,
-  "size": 19,
-  "text": "WORK",
-  "align": "left",
-  "prompt": "nav menu text, sans font, uppercase"
+  "x": 340,
+  "y": 35,
+  "size": 18,
+  "text": "Work",
+  "align": "center",
+  "prompt": "menu item text"
  },
  {
   "kind": "text",
   "id": "journal",
-  "x": 440,
-  "y": 42,
-  "size": 19,
-  "text": "JOURNAL",
-  "align": "left",
-  "prompt": "nav menu text, sans font, uppercase"
+  "x": 500,
+  "y": 35,
+  "size": 18,
+  "text": "Journal",
+  "align": "center",
+  "prompt": "menu item text"
  },
  {
   "kind": "text",
   "id": "contact",
-  "x": 560,
-  "y": 42,
-  "size": 19,
-  "text": "CONTACT",
-  "align": "left",
-  "prompt": "nav menu text, sans font, uppercase"
+  "x": 660,
+  "y": 35,
+  "size": 18,
+  "text": "Contact",
+  "align": "center",
+  "prompt": "menu item text"
  }
 ]

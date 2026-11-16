@@ -1,1 +1,86 @@
-[]
+[
+ {
+  "kind": "curve",
+  "points": [
+   [
+    350,
+    400
+   ],
+   [
+    300,
+    320
+   ],
+   [
+    350,
+    250
+   ],
+   [
+    450,
+    320
+   ],
+   [
+    400,
+    400
+   ]
+  ],
+  "prompt": "A single red apple with a short brown stem and one green leaf, sitting slightly left of centre. The apple should have a lobed asymmetric body with a top indentation, stem, and leaf. Use muted earths, botanical greens, warm skin tones, rose, coral, lavender, teal or jewel tones. Respect requested monochrome palettes too. Use explicit hex colors; color is the outline/text, fill_color the interior. Paint shadows with darker/cooler hues and highlights with lighter/warmer hues from a consistent direction. Set fill=true, stroke=false for painted silhouettes. Use sparse outlines for line art. Gradient linear or radial blends fill_color to gradient_color; gradient_stops optionally provides 2-8 sorted {offset:0..1,color:\"#RRGGBB\"} stops. gradient_angle is degrees, 0=right, 90=down. Low opacity and\u5237"
+ },
+ {
+  "kind": "curve",
+  "points": [
+   [
+    350,
+    250
+   ],
+   [
+    340,
+    220
+   ],
+   [
+    350,
+    200
+   ]
+  ],
+  "prompt": "A short brown stem attached to the top of the apple."
+ },
+ {
+  "kind": "curve",
+  "points": [
+   [
+    350,
+    200
+   ],
+   [
+    320,
+    180
+   ],
+   [
+    350,
+    160
+   ],
+   [
+    380,
+    180
+   ]
+  ],
+  "prompt": "A green leaf attached to the stem."
+ },
+ {
+  "kind": "curve",
+  "points": [
+   [
+    350,
+    400
+   ],
+   [
+    380,
+    420
+   ],
+   [
+    400,
+    400
+   ]
+  ],
+  "prompt": "A shadow under the apple to the right."
+ }
+]

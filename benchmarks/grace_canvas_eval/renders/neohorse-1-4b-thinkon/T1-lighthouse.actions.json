@@ -1,1 +1,414 @@
-[]
+[
+ {
+  "kind": "curve",
+  "points": [
+   [
+    0,
+    0
+   ],
+   [
+    250,
+    10
+   ],
+   [
+    500,
+    30
+   ],
+   [
+    750,
+    10
+   ],
+   [
+    1000,
+    0
+   ],
+   [
+    1000,
+    650
+   ],
+   [
+    0,
+    650
+   ],
+   [
+    0,
+    0
+   ]
+  ],
+  "prompt": "dusk sky gradient from deep indigo to dusky purple, fading into the horizon"
+ },
+ {
+  "kind": "curve",
+  "points": [
+   [
+    740,
+    310
+   ],
+   [
+    650,
+    200
+   ],
+   [
+    740,
+    150
+   ],
+   [
+    840,
+    200
+   ],
+   [
+    740,
+    310
+   ]
+  ],
+  "prompt": "lighthouse tower body, dark silhouette, cylindrical shape"
+ },
+ {
+  "kind": "curve",
+  "points": [
+   [
+    745,
+    280
+   ],
+   [
+    710,
+    240
+   ],
+   [
+    745,
+    220
+   ],
+   [
+    780,
+    240
+   ],
+   [
+    745,
+    280
+   ]
+  ],
+  "prompt": "lantern room on top of lighthouse, smaller dome shape"
+ },
+ {
+  "kind": "curve",
+  "points": [
+   [
+    680,
+    600
+   ],
+   [
+    500,
+    580
+   ],
+   [
+    350,
+    620
+   ],
+   [
+    200,
+    600
+   ],
+   [
+    150,
+    550
+   ],
+   [
+    100,
+    580
+   ],
+   [
+    680,
+    600
+   ]
+  ],
+  "prompt": "rocky headland base, jagged dark rocks supporting the lighthouse"
+ },
+ {
+  "kind": "curve",
+  "points": [
+   [
+    745,
+    230
+   ],
+   [
+    730,
+    200
+   ],
+   [
+    760,
+    200
+   ],
+   [
+    745,
+    230
+   ]
+  ],
+  "prompt": "warm golden lamp glow at the lantern room, soft circle"
+ },
+ {
+  "kind": "curve",
+  "points": [
+   [
+    745,
+    220
+   ],
+   [
+    720,
+    180
+   ],
+   [
+    770,
+    180
+   ],
+   [
+    745,
+    220
+   ]
+  ],
+  "prompt": "outer lantern glass, warm glow halo"
+ },
+ {
+  "kind": "curve",
+  "points": [
+   [
+    735,
+    310
+   ],
+   [
+    735,
+    600
+   ],
+   [
+    840,
+    600
+   ],
+   [
+    840,
+    310
+   ],
+   [
+    735,
+    310
+   ]
+  ],
+  "prompt": "lighthouse tower walls, dark silhouette fill"
+ },
+ {
+  "kind": "curve",
+  "points": [
+   [
+    710,
+    240
+   ],
+   [
+    710,
+    280
+   ],
+   [
+    745,
+    280
+   ],
+   [
+    710,
+    240
+   ]
+  ],
+  "prompt": "lantern room walls, dark fill"
+ },
+ {
+  "kind": "curve",
+  "points": [
+   [
+    780,
+    240
+   ],
+   [
+    780,
+    280
+   ],
+   [
+    745,
+    280
+   ],
+   [
+    780,
+    240
+   ]
+  ],
+  "prompt": "lantern room right wall, dark fill"
+ },
+ {
+  "kind": "curve",
+  "points": [
+   [
+    740,
+    310
+   ],
+   [
+    740,
+    600
+   ],
+   [
+    680,
+    600
+   ],
+   [
+    680,
+    310
+   ],
+   [
+    740,
+    310
+   ]
+  ],
+  "prompt": "left tower wall, dark fill"
+ },
+ {
+  "kind": "curve",
+  "points": [
+   [
+    840,
+    310
+   ],
+   [
+    840,
+    600
+   ],
+   [
+    740,
+    600
+   ],
+   [
+    740,
+    310
+   ],
+   [
+    840,
+    310
+   ]
+  ],
+  "prompt": "right tower wall, dark fill"
+ },
+ {
+  "kind": "curve",
+  "points": [
+   [
+    650,
+    200
+   ],
+   [
+    650,
+    240
+   ],
+   [
+    710,
+    240
+   ],
+   [
+    650,
+    200
+   ]
+  ],
+  "prompt": "lantern room left wall, dark fill"
+ },
+ {
+  "kind": "curve",
+  "points": [
+   [
+    740,
+    200
+   ],
+   [
+    740,
+    240
+   ],
+   [
+    780,
+    240
+   ],
+   [
+    740,
+    200
+   ]
+  ],
+  "prompt": "lantern room right wall, dark fill"
+ },
+ {
+  "kind": "curve",
+  "points": [
+   [
+    740,
+    150
+   ],
+   [
+    740,
+    200
+   ],
+   [
+    745,
+    200
+   ],
+   [
+    740,
+    150
+   ]
+  ],
+  "prompt": "lantern roof, dark fill"
+ },
+ {
+  "kind": "curve",
+  "points": [
+   [
+    740,
+    310
+   ],
+   [
+    740,
+    350
+   ],
+   [
+    745,
+    350
+   ],
+   [
+    740,
+    310
+   ]
+  ],
+  "prompt": "lighthouse door, small dark rectangle"
+ },
+ {
+  "kind": "curve",
+  "points": [
+   [
+    680,
+    600
+   ],
+   [
+    600,
+    590
+   ],
+   [
+    450,
+    610
+   ],
+   [
+    300,
+    600
+   ],
+   [
+    200,
+    570
+   ],
+   [
+    120,
+    590
+   ],
+   [
+    680,
+    600
+   ]
+  ],
+  "prompt": "foreground rocks, jagged dark shapes, textured silhouette"
+ }
+]

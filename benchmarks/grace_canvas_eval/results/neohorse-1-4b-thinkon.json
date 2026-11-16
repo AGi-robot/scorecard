@@ -5,15 +5,15 @@
   "schema_hint": false,
   "base_url": "http://127.0.0.1:8103/v1",
   "tasks": 8,
-  "check_score": 0.3095,
-  "tasks_fully_satisfied": 0,
-  "fully_satisfied_rate": 0.0,
-  "valid_rate": 0.375,
+  "check_score": 0.5714,
+  "tasks_fully_satisfied": 1,
+  "fully_satisfied_rate": 0.125,
+  "valid_rate": 0.625,
   "render_rate": 1.0,
-  "truncated_rate": 0.625,
-  "mean_steps": 1.12,
-  "total_wall_s": 498.5,
-  "critique_delta": 0.0
+  "truncated_rate": 0.0,
+  "mean_steps": 5.62,
+  "total_wall_s": 848.3,
+  "critique_delta": -0.25
  },
  "results": [
   {
@@ -21,40 +21,22 @@
    "tier": 1,
    "tier_name": "single subject",
    "brief": "Draw a single red apple with a short brown stem and one green leaf, sitting slightly left of centre.",
-   "actions_returned": 0,
-   "steps": 0,
-   "valid": false,
-   "validation_error": "Expected 1 to 100 canvas actions",
+   "actions_returned": 1,
+   "steps": 1,
+   "valid": true,
+   "validation_error": null,
    "clamped_fields": 0,
    "rendered": true,
    "render_error": null,
-   "truncated_stream": true,
-   "meta": {
-    "elapsed_s": 49.44,
-    "completion_tokens": 3072,
-    "prompt_tokens": 2459,
-    "truncated": true,
-    "raw_len": 0,
-    "raw_tail": "",
-    "finish_reason": "length",
-    "response": "",
-    "more": false
-   },
+   "truncated_stream": false,
    "scene": {
-    "objects": 0,
-    "kinds": [],
-    "colours": [],
-    "texts": [],
-    "coverage": 0.0,
-    "mean_overlap": 0.0,
-    "shared_baseline": 0,
-    "even_spacing_run": 0
+    "n_objects": 1
    },
    "checks": [
     {
      "check": "objects_at_least_3",
      "ok": false,
-     "detail": "0 objects (need >= 3)"
+     "detail": "1 objects (need >= 3)"
     },
     {
      "check": "has_hue_red",
@@ -68,8 +50,8 @@
     },
     {
      "check": "coverage_between",
-     "ok": false,
-     "detail": "coverage 0.0% (want 1%-35%)"
+     "ok": true,
+     "detail": "coverage 4.6% (want 1%-35%)"
     },
     {
      "check": "overlap_below",
@@ -82,50 +64,43 @@
      "detail": "ok"
     }
    ],
-   "checks_passed": 2,
+   "checks_passed": 3,
    "checks_total": 6,
-   "score": 0.3333333333333333,
-   "wall_s": 49.46
+   "score": 0.5,
+   "wall_s": 71.08,
+   "meta": {
+    "elapsed_s": 71.06,
+    "completion_tokens": 1388,
+    "prompt_tokens": 2459,
+    "truncated": false,
+    "raw_len": 1212,
+    "raw_tail": "",
+    "finish_reason": "tool_calls",
+    "response": "",
+    "more": false
+   }
   },
   {
    "task": "T1-lighthouse",
    "tier": 1,
    "tier_name": "single subject",
    "brief": "Draw a lighthouse standing on a rocky headland at dusk, with a warm lamp glow at the top.",
-   "actions_returned": 0,
-   "steps": 0,
+   "actions_returned": 16,
+   "steps": 16,
    "valid": false,
-   "validation_error": "Expected 1 to 100 canvas actions",
+   "validation_error": "Curve needs a start and triples of cubic control/end points, max 61",
    "clamped_fields": 0,
    "rendered": true,
    "render_error": null,
-   "truncated_stream": true,
-   "meta": {
-    "elapsed_s": 56.8,
-    "completion_tokens": 3072,
-    "prompt_tokens": 2460,
-    "truncated": true,
-    "raw_len": 0,
-    "raw_tail": "",
-    "finish_reason": "length",
-    "response": "",
-    "more": false
-   },
+   "truncated_stream": false,
    "scene": {
-    "objects": 0,
-    "kinds": [],
-    "colours": [],
-    "texts": [],
-    "coverage": 0.0,
-    "mean_overlap": 0.0,
-    "shared_baseline": 0,
-    "even_spacing_run": 0
+    "n_objects": 16
    },
    "checks": [
     {
      "check": "objects_at_least_4",
-     "ok": false,
-     "detail": "0 objects (need >= 4)"
+     "ok": true,
+     "detail": "16 objects (need >= 4)"
     },
     {
      "check": "has_hue_warm lamp",
@@ -140,78 +115,71 @@
     {
      "check": "coverage_between",
      "ok": false,
-     "detail": "coverage 0.0% (want 2%-60%)"
+     "detail": "coverage 128.4% (want 2%-60%)"
     },
     {
      "check": "overlap_below",
      "ok": true,
-     "detail": "mean bbox overlap 0.00 (limit 0.5)"
+     "detail": "mean bbox overlap 0.03 (limit 0.5)"
     }
    ],
-   "checks_passed": 1,
+   "checks_passed": 2,
    "checks_total": 5,
-   "score": 0.2,
-   "wall_s": 56.81
+   "score": 0.4,
+   "wall_s": 131.59,
+   "meta": {
+    "elapsed_s": 131.56,
+    "completion_tokens": 2244,
+    "prompt_tokens": 2460,
+    "truncated": false,
+    "raw_len": 2519,
+    "raw_tail": "",
+    "finish_reason": "tool_calls",
+    "response": "",
+    "more": false
+   }
   },
   {
    "task": "T2-still-life",
    "tier": 2,
    "tier_name": "multi-object scene",
    "brief": "A still life: a red apple and a ceramic cup on a wooden table, soft morning light from the left casting a warm shadow to the right.",
-   "actions_returned": 0,
-   "steps": 0,
-   "valid": false,
-   "validation_error": "Expected 1 to 100 canvas actions",
+   "actions_returned": 1,
+   "steps": 1,
+   "valid": true,
+   "validation_error": null,
    "clamped_fields": 0,
    "rendered": true,
    "render_error": null,
-   "truncated_stream": true,
-   "meta": {
-    "elapsed_s": 87.92,
-    "completion_tokens": 3072,
-    "prompt_tokens": 2468,
-    "truncated": true,
-    "raw_len": 0,
-    "raw_tail": "",
-    "finish_reason": "length",
-    "response": "",
-    "more": false
-   },
+   "truncated_stream": false,
    "scene": {
-    "objects": 0,
-    "kinds": [],
-    "colours": [],
-    "texts": [],
-    "coverage": 0.0,
-    "mean_overlap": 0.0,
-    "shared_baseline": 0,
-    "even_spacing_run": 0
+    "n_objects": 1
    },
    "checks": [
     {
      "check": "objects_at_least_4",
      "ok": false,
-     "detail": "0 objects (need >= 4)"
+     "detail": "1 objects (need >= 4)"
     },
     {
      "check": "has_hue_apple red",
      "ok": false,
-     "detail": "colours=[] (apple red band 340-20)"
+     "detail": "colours=['#8B6914'] (apple red band 340-20)"
     },
     {
      "check": "has_hue_warm wood",
-     "ok": false,
-     "detail": "colours=[] (warm wood band 20-45)"
+     "ok": true,
+     "detail": "colours=['#8B6914'] (warm wood band 20-45)"
     },
     {
      "check": "wide_element",
-     "ok": false,
-     "detail": "0 element(s) spanning >= 45% of width"
+     "ok": true,
+     "detail": "1 element(s) spanning >= 45% of width"
     },
     {
      "check": "coverage_between",
-     "ok": false,
-     "detail": "coverage 0.0% (want 3%-70%)"
+     "ok": true,
+     "detail": "coverage 29.2% (want 3%-70%)"
     },
     {
      "check": "overlap_below",
@@ -219,76 +187,80 @@
      "detail": "mean bbox overlap 0.00 (limit 0.5)"
     }
    ],
-   "checks_passed": 1,
+   "checks_passed": 4,
    "checks_total": 6,
-   "score": 0.16666666666666666,
-   "wall_s": 87.93
+   "score": 0.6666666666666666,
+   "wall_s": 123.8,
+   "meta": {
+    "elapsed_s": 123.79,
+    "completion_tokens": 1143,
+    "prompt_tokens": 2468,
+    "truncated": false,
+    "raw_len": 263,
+    "raw_tail": "",
+    "finish_reason": "tool_calls",
+    "response": "",
+    "more": false
+   }
   },
   {
    "task": "T2-robot-mascot",
    "tier": 2,
    "tier_name": "multi-object scene",
    "brief": "A friendly little robot mascot standing on a workbench in a garage, with a teal body, an amber status light and cables trailing off the bench.",
-   "actions_returned": 0,
-   "steps": 0,
-   "valid": false,
-   "validation_error": "Expected 1 to 100 canvas actions",
+   "actions_returned": 2,
+   "steps": 2,
+   "valid": true,
+   "validation_error": null,
    "clamped_fields": 0,
    "rendered": true,
    "render_error": null,
-   "truncated_stream": true,
-   "meta": {
-    "elapsed_s": 76.09,
-    "completion_tokens": 3072,
-    "prompt_tokens": 2468,
-    "truncated": true,
-    "raw_len": 0,
-    "raw_tail": "",
-    "finish_reason": "length",
-    "response": "",
-    "more": false
-   },
+   "truncated_stream": false,
    "scene": {
-    "objects": 0,
-    "kinds": [],
-    "colours": [],
-    "texts": [],
-    "coverage": 0.0,
-    "mean_overlap": 0.0,
-    "shared_baseline": 0,
-    "even_spacing_run": 0
+    "n_objects": 2
    },
    "checks": [
     {
      "check": "objects_at_least_5",
      "ok": false,
-     "detail": "0 objects (need >= 5)"
+     "detail": "2 objects (need >= 5)"
     },
     {
      "check": "has_hue_teal",
      "ok": false,
-     "detail": "colours=[] (teal band 150-200)"
+     "detail": "colours=['#d4c8b8', '#8b7355'] (teal band 150-200)"
     },
     {
      "check": "has_hue_amber",
-     "ok": false,
-     "detail": "colours=[] (amber band 30-60)"
+     "ok": true,
+     "detail": "colours=['#d4c8b8', '#8b7355'] (amber band 30-60)"
     },
     {
      "check": "coverage_between",
      "ok": false,
-     "detail": "coverage 0.0% (want 3%-70%)"
+     "detail": "coverage 117.2% (want 3%-70%)"
     },
     {
      "check": "overlap_below",
      "ok": true,
-     "detail": "mean bbox overlap 0.00 (limit 0.5)"
+     "detail": "mean bbox overlap 0.17 (limit 0.5)"
     }
    ],
-   "checks_passed": 1,
+   "checks_passed": 2,
    "checks_total": 5,
-   "score": 0.2,
-   "wall_s": 76.11
+   "score": 0.4,
+   "wall_s": 80.48,
+   "meta": {
+    "elapsed_s": 80.46,
+    "completion_tokens": 1231,
+    "prompt_tokens": 2468,
+    "truncated": false,
+    "raw_len": 311,
+    "raw_tail": "",
+    "finish_reason": "tool_calls",
+    "response": "I'll build this from back to front: garage background, workbench, robot body, amber light, cables, and final highlights. Let me start with the full canvas background and the workbench.",
+    "more": false
+   }
   },
   {
    "task": "T3-navbar",
@@ -303,39 +275,8 @@
    "rendered": true,
    "render_error": null,
    "truncated_stream": false,
-   "meta": {
-    "elapsed_s": 49.66,
-    "completion_tokens": 3049,
-    "prompt_tokens": 2472,
-    "truncated": false,
-    "raw_len": 894,
-    "raw_tail": "",
-    "finish_reason": "tool_calls",
-    "response": "",
-    "more": false
-   },
    "scene": {
-    "objects": 5,
-    "kinds": [
-     "ellipse",
-     "text",
-     "text",
-     "text",
-     "text"
-    ],
-    "colours": [
-     "#4a5568"
-    ],
-    "texts": [
-     "HOME",
-     "WORK",
-     "JOURNAL",
-     "CONTACT"
-    ],
-    "coverage": 0.0061,
-    "mean_overlap": 0.0,
-    "shared_baseline": 5,
-    "even_spacing_run": 5
+    "n_objects": 5
    },
    "checks": [
     {
@@ -356,12 +297,12 @@
     {
      "check": "has_text",
      "ok": true,
-     "detail": "texts=['HOME', 'WORK', 'JOURNAL', 'CONTACT']"
+     "detail": "texts=['Home', 'Work', 'Journal', 'Contact']"
     },
     {
      "check": "has_text",
      "ok": true,
-     "detail": "texts=['HOME', 'WORK', 'JOURNAL', 'CONTACT']"
+     "detail": "texts=['Home', 'Work', 'Journal', 'Contact']"
     },
     {
      "check": "wide_element",
@@ -371,13 +312,24 @@
     {
      "check": "coverage_between",
      "ok": false,
-     "detail": "coverage 0.6% (want 1%-50%)"
+     "detail": "coverage 0.7% (want 1%-50%)"
     }
    ],
    "checks_passed": 4,
    "checks_total": 7,
    "score": 0.5714285714285714,
-   "wall_s": 49.69
+   "wall_s": 79.78,
+   "meta": {
+    "elapsed_s": 79.75,
+    "completion_tokens": 1429,
+    "prompt_tokens": 2472,
+    "truncated": false,
+    "raw_len": 789,
+    "raw_tail": "",
+    "finish_reason": "tool_calls",
+    "response": "I'll build a clean navigation bar across the top. Let me plan the layout: logo circle on the far left at x=40, then four menu items evenly spaced at 140px intervals across the top. I'll draw the logo mark first, then the text items.",
+    "more": false
+   }
   },
   {
    "task": "T3-poster",
@@ -386,39 +338,14 @@
    "brief": "A minimal event poster: a bold title word high on the canvas, a thin horizontal rule beneath it, and a small date line lower down.",
    "actions_returned": 3,
    "steps": 3,
-   "valid": true,
-   "validation_error": null,
-   "clamped_fields": 0,
+   "valid": false,
+   "validation_error": "Expected 1 to 2000 points",
+   "clamped_fields": 1,
    "rendered": true,
    "render_error": null,
    "truncated_stream": false,
-   "meta": {
-    "elapsed_s": 26.5,
-    "completion_tokens": 1649,
-    "prompt_tokens": 2467,
-    "truncated": false,
-    "raw_len": 839,
-    "raw_tail": "",
-    "finish_reason": "tool_calls",
-    "response": "",
-    "more": false
-   },
    "scene": {
-    "objects": 3,
-    "kinds": [
-     "text",
-     "line",
-     "text"
-    ],
-    "colours": [],
-    "texts": [
-     "SUMMER",
-     "OCT 15 \u2022 7PM"
-    ],
-    "coverage": 0.0,
-    "mean_overlap": 0.0,
-    "shared_baseline": 1,
-    "even_spacing_run": 0
+    "n_objects": 3
    },
    "checks": [
     {
@@ -429,7 +356,7 @@
     {
      "check": "has_text",
      "ok": true,
-     "detail": "texts=['SUMMER', 'OCT 15 \u2022 7PM']"
+     "detail": "texts=['SUMMER', 'OCT 3 \u2022 7PM']"
     },
     {
      "check": "baseline_at_least",
@@ -438,19 +365,30 @@
     },
     {
      "check": "coverage_between",
-     "ok": false,
-     "detail": "coverage 0.0% (want 0%-40%)"
+     "ok": true,
+     "detail": "coverage 2.7% (want 0%-40%)"
     },
     {
      "check": "overlap_below",
      "ok": true,
-     "detail": "mean bbox overlap 0.00 (limit 0.4)"
+     "detail": "mean bbox overlap 0.02 (limit 0.4)"
     }
    ],
-   "checks_passed": 2,
+   "checks_passed": 3,
    "checks_total": 5,
-   "score": 0.4,
-   "wall_s": 26.52
+   "score": 0.6,
+   "wall_s": 90.42,
+   "meta": {
+    "elapsed_s": 90.41,
+    "completion_tokens": 1287,
+    "prompt_tokens": 2467,
+    "truncated": false,
+    "raw_len": 625,
+    "raw_tail": "",
+    "finish_reason": "tool_calls",
+    "response": "",
+    "more": false
+   }
   },
   {
    "task": "T4-recolour-leaf",
@@ -465,26 +403,8 @@
    "rendered": true,
    "render_error": null,
    "truncated_stream": false,
-   "meta": {
-    "elapsed_s": 4.41,
-    "completion_tokens": 231,
-    "prompt_tokens": 2672,
-    "truncated": false,
-    "raw_len": 130,
-    "raw_tail": "",
-    "finish_reason": "tool_calls",
-    "response": "",
-    "more": false
-   },
    "scene": {
-    "objects": 0,
-    "kinds": [],
-    "colours": [],
-    "texts": [],
-    "coverage": 0.0,
-    "mean_overlap": 0.0,
-    "shared_baseline": 0,
-    "even_spacing_run": 0
+    "n_objects": 3
    },
    "checks": [
     {
@@ -499,59 +419,52 @@
     },
     {
      "check": "objects_at_least_3",
-     "ok": false,
-     "detail": "0 objects (need >= 3)"
+     "ok": true,
+     "detail": "3 objects (need >= 3)"
     },
     {
      "check": "has_hue_green leaf",
-     "ok": false,
-     "detail": "colours=[] (green leaf band 70-170)"
+     "ok": true,
+     "detail": "colours=['#c0392b', '#8fbc8f', '#6b4a2f'] (green leaf band 70-170)"
     }
    ],
-   "checks_passed": 2,
+   "checks_passed": 4,
    "checks_total": 4,
-   "score": 0.5,
-   "wall_s": 4.43
+   "score": 1.0,
+   "wall_s": 14.91,
+   "meta": {
+    "elapsed_s": 14.89,
+    "completion_tokens": 231,
+    "prompt_tokens": 2672,
+    "truncated": false,
+    "raw_len": 130,
+    "raw_tail": "",
+    "finish_reason": "tool_calls",
+    "response": "",
+    "more": false
+   }
   },
   {
    "task": "T5-critique-self",
    "tier": 5,
    "tier_name": "draft then self-critique",
    "brief": "Draw a small cabin in a snowy pine forest at night, with warm light spilling from one window.",
-   "actions_returned": 0,
-   "steps": 0,
+   "actions_returned": 16,
+   "steps": 16,
    "valid": false,
-   "validation_error": "Expected 1 to 100 canvas actions",
+   "validation_error": "Curve needs a start and triples of cubic control/end points, max 61",
    "clamped_fields": 0,
    "rendered": true,
    "render_error": null,
-   "truncated_stream": true,
-   "meta": {
-    "elapsed_s": 57.87,
-    "completion_tokens": 3072,
-    "prompt_tokens": 2459,
-    "truncated": true,
-    "raw_len": 0,
-    "raw_tail": "",
-    "finish_reason": "length",
-    "response": "",
-    "more": false
-   },
+   "truncated_stream": false,
    "scene": {
-    "objects": 0,
-    "kinds": [],
-    "colours": [],
-    "texts": [],
-    "coverage": 0.0,
-    "mean_overlap": 0.0,
-    "shared_baseline": 0,
-    "even_spacing_run": 0
+    "n_objects": 16
    },
    "checks": [
     {
      "check": "objects_at_least_4",
-     "ok": false,
-     "detail": "0 objects (need >= 4)"
+     "ok": true,
+     "detail": "16 objects (need >= 4)"
     },
     {
      "check": "has_hue_warm window light",
@@ -565,37 +478,55 @@
     },
     {
      "check": "coverage_between",
-     "ok": false,
-     "detail": "coverage 0.0% (want 2%-60%)"
+     "ok": true,
+     "detail": "coverage 24.7% (want 2%-60%)"
     }
    ],
-   "checks_passed": 0,
+   "checks_passed": 2,
    "checks_total": 4,
-   "score": 0.0,
+   "score": 0.5,
+   "wall_s": 256.22,
    "pass2": {
-    "steps": 0,
+    "steps": 16,
     "valid": false,
-    "clamped_fields": 0,
-    "truncated_stream": true,
-    "elapsed_s": 89.65,
-    "checks_passed": 0,
+    "clamped_fields": 1,
+    "truncated_stream": false,
+    "elapsed_s": 136.26,
+    "checks_passed": 1,
     "checks_total": 4,
-    "score": 0.0,
+    "score": 0.25,
     "scene": {
-     "objects": 0,
-     "kinds": [],
+     "objects": 16,
+     "kinds": [
+      "path",
+      "ellipse",
+      "curve",
+      "rectangle",
+      "rectangle",
+      "rectangle",
+      "ellipse",
+      "path",
+      "path",
+      "curve",
+      "curve",
+      "path",
+      "path",
+      "curve",
+      "curve",
+      "path"
+     ],
      "colours": [],
      "texts": [],
-     "coverage": 0.0,
-     "mean_overlap": 0.0,
-     "shared_baseline": 0,
-     "even_spacing_run": 0
+     "coverage": 1.1887,
+     "mean_overlap": 0.0593,
+     "shared_baseline": 7,
+     "even_spacing_run": 14
     },
     "checks": [
      {
       "check": "objects_at_least_4",
-      "ok": false,
-      "detail": "0 objects (need >= 4)"
+      "ok": true,
+      "detail": "16 objects (need >= 4)"
      },
      {
       "check": "has_hue_warm window light",
@@ -610,12 +541,21 @@
      {
       "check": "coverage_between",
       "ok": false,
-      "detail": "coverage 0.0% (want 2%-60%)"
+      "detail": "coverage 118.9% (want 2%-60%)"
      }
     ]
    },
-   "critique_delta": 0.0,
-   "wall_s": 147.54
+   "meta": {
+    "elapsed_s": 119.91,
+    "completion_tokens": 1821,
+    "prompt_tokens": 2459,
+    "truncated": false,
+    "raw_len": 1657,
+    "raw_tail": "",
+    "finish_reason": "tool_calls",
+    "response": "",
+    "more": false
+   }
   }
  ]
 }

@@ -1,1 +1,22 @@
-[]
+[
+ {
+  "kind": "rectangle",
+  "x": 0,
+  "y": 0,
+  "width": 1000,
+  "height": 650,
+  "fill_color": "#d4c8b8",
+  "fill": true,
+  "margin": 0
+ },
+ {
+  "kind": "rectangle",
+  "x": 100,
+  "y": 480,
+  "width": 800,
+  "height": 140,
+  "fill_color": "#8b7355",
+  "fill": true,
+  "margin": 0
+ }
+]

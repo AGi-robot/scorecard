@@ -42,7 +42,7 @@ def main():
     out.mkdir(parents=True, exist_ok=True)
 
     labels = [d.name for d in sorted(renders.iterdir())
-              if d.is_dir() and (d / "T1-apple.png").is_file()]
+              if d.is_dir() and d.name != "sheets" and (d / "T1-apple.png").is_file()]
     labels.sort(key=lambda n: (DEFAULT_ORDER.index(n)
                                 if n in DEFAULT_ORDER else 99, n))
 

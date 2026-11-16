@@ -7,315 +7,219 @@
   "height": 650,
   "fill": true,
   "stroke": false,
-  "fill_color": "#33353b",
-  "gradient": "linear",
-  "gradient_angle": 90,
-  "gradient_color": "#23242a",
+  "fill_color": "#33383f",
   "id": "bg"
  },
  {
+  "kind": "ellipse",
+  "x": 330,
+  "y": 20,
+  "width": 380,
+  "height": 300,
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#465260",
+  "gradient_color": "#2b333d",
+  "gradient": "radial",
+  "id": "glow"
+ },
+ {
   "kind": "polygon",
-  "x": 0,
+  "x": 60,
   "y": 430,
-  "width": 1000,
+  "width": 880,
   "height": 220,
   "fill": true,
   "stroke": false,
-  "fill_color": "#46484f",
-  "id": "floor"
- },
- {
-  "kind": "curve",
+  "fill_color": "#6e5436",
   "points": [
    [
-    120,
-    300
+    60,
+    430
    ],
    [
-    180,
-    200
+    940,
+    430
    ],
    [
-    300,
-    190
-   ],
-   [
-    330,
-    290
-   ],
-   [
-    280,
-    330
-   ],
-   [
-    180,
-    330
-   ],
-   [
-    120,
-    300
-   ]
-  ],
-  "fill": true,
-  "stroke": false,
-  "fill_color": "#3d4952",
-  "id": "pegboard"
- },
- {
-  "kind": "path",
-  "points": [
-   [
-    150,
-    230
-   ],
-   [
-    170,
-    290
-   ]
-  ],
-  "stroke": true,
-  "color": "#5a686f",
-  "size": 5,
-  "id": "wrench1"
- },
- {
-  "kind": "path",
-  "points": [
-   [
-    230,
-    225
-   ],
-   [
-    245,
-    285
-   ]
-  ],
-  "stroke": true,
-  "color": "#5a686f",
-  "size": 5,
-  "id": "screwdriver"
- },
- {
-  "kind": "path",
-  "points": [
-   [
-    285,
-    240
-   ],
-   [
-    265,
-    295
-   ]
-  ],
-  "stroke": true,
-  "color": "#5a686f",
-  "size": 5,
-  "id": "wrench2"
- },
- {
-  "kind": "curve",
-  "points": [
-   [
-    30,
+    940,
     470
    ],
    [
-    300,
-    445
-   ],
-   [
-    700,
-    440
-   ],
-   [
-    975,
-    465
-   ],
-   [
-    975,
-    495
-   ],
-   [
-    700,
-    472
-   ],
-   [
-    300,
-    478
-   ],
-   [
-    30,
-    505
-   ],
-   [
-    30,
+    60,
     470
    ]
   ],
-  "fill": true,
-  "stroke": false,
-  "fill_color": "#6f5136",
   "id": "bench_top"
  },
  {
-  "kind": "rectangle",
-  "x": 110,
-  "y": 495,
-  "width": 34,
-  "height": 130,
+  "kind": "polygon",
+  "x": 60,
+  "y": 470,
+  "width": 880,
+  "height": 180,
   "fill": true,
   "stroke": false,
-  "fill_color": "#59402b",
-  "id": "leg1"
+  "fill_color": "#55401f",
+  "points": [
+   [
+    60,
+    470
+   ],
+   [
+    940,
+    470
+   ],
+   [
+    940,
+    650
+   ],
+   [
+    60,
+    650
+   ]
+  ],
+  "id": "bench_front"
  },
  {
-  "kind": "rectangle",
-  "x": 850,
-  "y": 490,
-  "width": 34,
-  "height": 135,
-  "fill": true,
-  "stroke": false,
-  "fill_color": "#59402b",
-  "id": "leg2"
+  "kind": "line",
+  "x": 60,
+  "y": 430,
+  "width": 880,
+  "height": 0,
+  "points": [
+   [
+    60,
+    430
+   ],
+   [
+    940,
+    430
+   ]
+  ],
+  "color": "#8a6d45"
  },
  {
   "kind": "curve",
   "points": [
    [
-    60,
+    120,
+    470
+   ],
+   [
+    140,
     560
    ],
    [
-    300,
-    545
+    110,
+    620
    ],
    [
-    560,
-    542
+    150,
+    650
    ],
    [
-    800,
-    552
+    100,
+    650
    ],
    [
-    940,
-    565
-   ],
-   [
-    940,
-    585
-   ],
-   [
-    800,
-    572
-   ],
-   [
-    560,
-    562
-   ],
-   [
-    300,
-    556
-   ],
-   [
-    60,
-    578
-   ],
-   [
-    60,
+    80,
     560
+   ],
+   [
+    95,
+    470
    ]
   ],
   "fill": true,
   "stroke": false,
-  "fill_color": "#2e4a4a",
+  "fill_color": "#2e3d4a",
   "id": "cable1"
  },
  {
   "kind": "curve",
   "points": [
    [
-    120,
-    600
-   ],
-   [
-    340,
-    585
-   ],
-   [
-    600,
-    592
+    860,
+    465
    ],
    [
     830,
-    610
+    540
    ],
    [
-    960,
-    635
+    870,
+    600
+   ],
+   [
+    840,
+    650
+   ],
+   [
+    880,
+    650
    ],
    [
     900,
-    640
+    570
    ],
    [
-    700,
-    620
-   ],
-   [
-    450,
-    612
-   ],
-   [
-    200,
-    622
-   ],
-   [
-    120,
-    600
+    885,
+    465
    ]
   ],
   "fill": true,
   "stroke": false,
-  "fill_color": "#7a4a3a",
+  "fill_color": "#3d3a52",
   "id": "cable2"
  },
  {
   "kind": "curve",
   "points": [
    [
-    430,
-    452
+    700,
+    445
    ],
    [
-    445,
-    410
+    720,
+    520
    ],
    [
-    555,
-    408
+    680,
+    580
    ],
    [
-    575,
-    450
+    710,
+    650
    ],
    [
-    545,
-    462
+    740,
+    650
    ],
    [
-    460,
-    462
+    715,
+    575
    ],
    [
-    430,
-    452
+    730,
+    445
    ]
   ],
   "fill": true,
   "stroke": false,
-  "fill_color": "#1c2226",
+  "fill_color": "#243240",
+  "id": "cable3"
+ },
+ {
+  "kind": "ellipse",
+  "x": 400,
+  "y": 385,
+  "width": 210,
+  "height": 45,
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#1f242b",
+  "opacity": 0.55,
   "id": "shadow"
  },
  {
@@ -323,144 +227,158 @@
   "points": [
    [
     455,
-    448
+    430
    ],
    [
-    462,
-    400
+    450,
+    360
    ],
    [
-    538,
-    400
+    550,
+    360
    ],
    [
     545,
-    448
+    430
    ],
    [
-    522,
-    456
+    525,
+    435
    ],
    [
-    478,
-    456
+    520,
+    380
    ],
    [
-    455,
-    448
+    480,
+    380
+   ],
+   [
+    475,
+    430
    ]
   ],
   "fill": true,
   "stroke": false,
-  "fill_color": "#234b4b",
-  "id": "legL"
- },
- {
-  "kind": "curve",
-  "points": [
-   470,
-   410,
-   472,
-   385,
-   528,
-   385,
-   530,
-   410,
-   508,
-   414,
-   492,
-   414,
-   470,
-   410
-  ],
-  "fill": true,
-  "stroke": false,
-  "fill_color": "#234b4b",
-  "id": "legR"
+  "fill_color": "#2a5f66",
+  "id": "legs"
  },
  {
   "kind": "curve",
   "points": [
    [
-    415,
-    300
+    430,
+    370
    ],
    [
     420,
-    240,
+    250
+   ],
+   [
     580,
-    240,
-    585,
-    300
+    250
    ],
    [
-    585,
-    360,
-    575,
-    385,
+    570,
+    370
+   ],
+   [
     500,
-    388
+    385
    ],
    [
-    425,
-    385,
-    415,
-    360,
-    415,
-    300
-   ],
-   [
-    415,
-    300
+    430,
+    370
    ]
   ],
   "fill": true,
   "stroke": false,
-  "fill_color": "#2e6a6a",
+  "fill_color": "#2e7079",
+  "gradient_color": "#1e4f57",
   "gradient": "linear",
-  "gradient_angle": 100,
-  "gradient_color": "#1d4a4d",
+  "gradient_angle": 115,
   "id": "body"
  },
  {
   "kind": "curve",
   "points": [
-   [
-    438,
-    300
-   ],
-   [
-    450,
-    285,
-    550,
-    285,
-    562,
-    300
-   ],
-   [
-    562,
-    330,
-    550,
-    342,
-    500,
-    343
-   ],
-   [
-    438,
-    330,
-    [
-     438,
-     300
-    ]
-   ],
-   [
-    438,
-    300
-   ]
+   425,
+   275,
+   395,
+   300,
+   400,
+   345,
+   425,
+   360,
+   435,
+   330,
+   430,
+   300,
+   425,
+   275
   ],
   "fill": true,
   "stroke": false,
-  "fill_color": "#3f8180",
-  "id": "panel"
+  "fill_color": "#28646c",
+  "id": "arm_l"
+ },
+ {
+  "kind": "curve",
+  "points": [
+   575,
+   275,
+   610,
+   290,
+   625,
+   320,
+   610,
+   345,
+   590,
+   350,
+   580,
+   315,
+   575,
+   275
+  ],
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#28646c",
+  "id": "arm_r"
+ },
+ {
+  "kind": "ellipse",
+  "x": 408,
+  "y": 338,
+  "width": 30,
+  "height": 26,
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#3a3f47",
+  "id": "hand_l"
+ },
+ {
+  "kind": "ellipse",
+  "x": 592,
+  "y": 330,
+  "width": 34,
+  "height": 30,
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#3a3f47",
+  "id": "hand_r"
+ },
+ {
+  "kind": "ellipse",
+  "x": 425,
+  "y": 145,
+  "width": 150,
+  "height": 125,
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#35787f",
+  "gradient_color": "#22585f",
+  "gradient": "linear",
+  "gradient_angle": 115,
+  "id": "head"
  }
 ]

@@ -8,9 +8,9 @@
   "fill": true,
   "stroke": false,
   "fill_color": "#f2ead9",
+  "gradient_color": "#e3d5ba",
   "gradient": "linear",
-  "gradient_angle": 100,
-  "gradient_color": "#ddd0b6",
+  "gradient_angle": 110,
   "id": "bg"
  },
  {
@@ -21,365 +21,472 @@
   "height": 220,
   "fill": true,
   "stroke": false,
-  "fill_color": "#a3764e",
+  "fill_color": "#a3743f",
+  "gradient_color": "#7c5329",
   "gradient": "linear",
-  "gradient_angle": 95,
-  "gradient_color": "#7c5537",
+  "gradient_angle": 90,
   "id": "table"
  },
  {
-  "kind": "path",
-  "id": "planks",
+  "kind": "line",
+  "x": 0,
+  "y": 432,
+  "width": 1000,
+  "height": 2,
+  "color": "#c9995c",
+  "id": "tableedge"
+ },
+ {
+  "kind": "curve",
   "points": [
    [
-    60,
+    430,
     470
    ],
    [
-    340,
-    462
+    520,
+    445
    ],
    [
-    640,
-    472
-   ],
-   [
-    950,
-    460
-   ]
-  ],
-  "stroke": true,
-  "fill": false,
-  "color": "#8a6238",
-  "brush": "soft",
-  "size": 3,
-  "opacity": 0.5
- },
- {
-  "kind": "path",
-  "id": "planks2",
-  "points": [
-   [
-    120,
-    560
-   ],
-   [
-    430,
-    552
-   ],
-   [
-    760,
-    562
-   ],
-   [
-    980,
-    552
-   ]
-  ],
-  "stroke": true,
-  "fill": false,
-  "color": "#8a6238",
-  "brush": "soft",
-  "size": 3,
-  "opacity": 0.45
- },
- {
-  "kind": "curve",
-  "id": "shadow_apple",
-  "points": [
-   [
-    430,
-    545
-   ],
-   [
-    500,
-    525
-   ],
-   [
-    580,
-    535
-   ],
-   [
-    610,
-    560
-   ],
-   [
-    540,
-    585
-   ],
-   [
-    450,
-    575
-   ],
-   [
-    430,
-    545
-   ]
-  ],
-  "fill": true,
-  "stroke": false,
-  "fill_color": "#8a5a38",
-  "gradient": "radial",
-  "gradient_color": "#6b4527",
-  "opacity": 0.85
- },
- {
-  "kind": "curve",
-  "id": "shadow_cup",
-  "points": [
-   [
-    640,
-    500
-   ],
-   [
-    730,
-    480
-   ],
-   [
-    830,
-    495
-   ],
-   [
-    860,
-    525
-   ],
-   [
-    770,
-    555
-   ],
-   [
-    670,
-    540
-   ],
-   [
-    640,
-    500
-   ]
-  ],
-  "fill": true,
-  "stroke": false,
-  "fill_color": "#8a5a38",
-  "gradient": "radial",
-  "gradient_color": "#6b4527",
-  "opacity": 0.85
- },
- {
-  "kind": "curve",
-  "id": "apple",
-  "points": [
-   [
-    400,
-    380
-   ],
-   [
-    345,
-    395
-   ],
-   [
-    325,
-    460
-   ],
-   [
-    355,
-    520
-   ],
-   [
-    420,
-    540
-   ],
-   [
-    485,
-    515
-   ],
-   [
-    505,
+    620,
     450
    ],
    [
-    480,
-    392
+    680,
+    475
    ],
    [
-    435,
-    378
-   ]
-  ],
-  "fill": true,
-  "stroke": false,
-  "fill_color": "#c2352b",
-  "gradient": "radial",
-  "gradient_color": "#8f1f1c"
- },
- {
-  "kind": "curve",
-  "id": "apple_shade",
-  "points": [
-   [
-    455,
-    395
+    640,
+    505
    ],
    [
-    495,
-    425
-   ],
-   [
-    503,
-    480
-   ],
-   [
-    470,
-    522
-   ],
-   [
-    440,
-    530
+    540,
+    512
    ],
    [
     460,
+    500
+   ],
+   [
+    430,
     470
-   ],
-   [
-    452,
-    420
-   ],
-   [
-    455,
-    395
    ]
   ],
   "fill": true,
   "stroke": false,
-  "fill_color": "#8f1f1c",
-  "opacity": 0.7,
-  "brush": "soft"
+  "fill_color": "#8a5a2b",
+  "opacity": 0.55,
+  "id": "cupshadow"
  },
  {
   "kind": "curve",
-  "id": "apple_dimple",
   "points": [
    [
-    400,
-    380
+    250,
+    500
    ],
    [
-    390,
-    368
+    330,
+    480
    ],
-   [
-    405,
-    360
-   ],
-   [
-    425,
-    368
-   ],
-   [
-    418,
-    382
-   ],
-   [
-    400,
-    380
-   ]
-  ],
-  "fill": true,
-  "stroke": false,
-  "fill_color": "#7a1a18",
-  "opacity": 0.8
- },
- {
-  "kind": "path",
-  "id": "stem",
-  "points": [
    [
     410,
-    368
+    485
    ],
    [
-    406,
-    345
+    460,
+    505
    ],
    [
-    415,
-    328
-   ]
-  ],
-  "stroke": true,
-  "fill": false,
-  "color": "#5c3a22",
-  "size": 7,
-  "brush": "ink"
- },
- {
-  "kind": "curve",
-  "id": "leaf",
-  "points": [
-   [
-    418,
-    340
+    420,
+    530
    ],
    [
-    450,
-    315
+    330,
+    535
    ],
    [
-    490,
-    315
+    270,
+    522
    ],
    [
-    470,
-    345
-   ],
-   [
-    435,
-    355
-   ],
-   [
-    418,
-    340
+    250,
+    500
    ]
   ],
   "fill": true,
   "stroke": false,
-  "fill_color": "#6d8f4f"
+  "fill_color": "#8a5a2b",
+  "opacity": 0.6,
+  "id": "appleshadow"
  },
  {
   "kind": "curve",
-  "id": "apple_light",
   "points": [
    [
-    360,
-    400
+    520,
+    300
    ],
    [
-    345,
-    425
+    505,
+    340
    ],
    [
-    352,
-    455
+    505,
+    395
    ],
    [
-    372,
-    465
-   ],
-   [
-    378,
+    520,
     435
    ],
    [
-    372,
-    408
+    560,
+    452
    ],
    [
-    360,
+    620,
+    452
+   ],
+   [
+    660,
+    435
+   ],
+   [
+    675,
+    395
+   ],
+   [
+    675,
+    340
+   ],
+   [
+    660,
+    300
+   ],
+   [
+    620,
+    286
+   ],
+   [
+    560,
+    286
+   ],
+   [
+    520,
+    300
+   ]
+  ],
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#d9cdb6",
+  "gradient_color": "#b8a888",
+  "gradient": "linear",
+  "gradient_angle": 100,
+  "id": "cup"
+ },
+ {
+  "kind": "ellipse",
+  "x": 522,
+  "y": 282,
+  "width": 156,
+  "height": 34,
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#c4b595",
+  "id": "cuprim"
+ },
+ {
+  "kind": "ellipse",
+  "x": 536,
+  "y": 288,
+  "width": 128,
+  "height": 22,
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#6e6250",
+  "id": "cupinner"
+ },
+ {
+  "kind": "curve",
+  "points": [
+   [
+    672,
+    315
+   ],
+   [
+    730,
+    320
+   ],
+   [
+    742,
+    370
+   ],
+   [
+    700,
+    405
+   ],
+   [
+    676,
+    392
+   ],
+   [
+    700,
+    372
+   ],
+   [
+    702,
+    340
+   ],
+   [
+    672,
+    332
+   ],
+   [
+    672,
+    315
+   ]
+  ],
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#c9bb9e",
+  "id": "handle"
+ },
+ {
+  "kind": "curve",
+  "points": [
+   [
+    230,
+    400
+   ],
+   [
+    215,
+    340
+   ],
+   [
+    250,
+    285,
+    250,
+    285
+   ],
+   [
+    300,
+    275
+   ],
+   [
+    330,
+    300
+   ],
+   [
+    350,
+    350
+   ],
+   [
+    340,
+    405
+   ],
+   [
+    300,
+    435
+   ],
+   [
+    255,
+    428
+   ],
+   [
+    230,
     400
    ]
   ],
   "fill": true,
   "stroke": false,
-  "fill_color": "#e8756a",
-  "opacity": 0.55,
-  "brush": "soft"
+  "fill_color": "#b8322b",
+  "gradient_color": "#8c231e",
+  "gradient": "radial",
+  "id": "apple"
+ },
+ {
+  "kind": "curve",
+  "points": [
+   [
+    272,
+    288
+   ],
+   [
+    268,
+    270
+   ],
+   [
+    276,
+    255
+   ],
+   [
+    288,
+    250
+   ]
+  ],
+  "fill": false,
+  "stroke": true,
+  "color": "#5c3a22",
+  "size": 6,
+  "id": "stem"
+ },
+ {
+  "kind": "curve",
+  "points": [
+   [
+    288,
+    252
+   ],
+   [
+    315,
+    240
+   ],
+   [
+    340,
+    245
+   ],
+   [
+    352,
+    262
+   ],
+   [
+    325,
+    262
+   ],
+   [
+    300,
+    262
+   ],
+   [
+    288,
+    252
+   ]
+  ],
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#648c55",
+  "id": "leaf"
+ },
+ {
+  "kind": "curve",
+  "points": [
+   [
+    240,
+    330
+   ],
+   [
+    250,
+    305
+   ],
+   [
+    268,
+    295
+   ],
+   [
+    282,
+    300
+   ],
+   [
+    265,
+    312
+   ],
+   [
+    252,
+    330
+   ],
+   [
+    240,
+    330
+   ]
+  ],
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#e0645a",
+  "opacity": 0.8,
+  "id": "applelight"
+ },
+ {
+  "kind": "curve",
+  "points": [
+   [
+    530,
+    320
+   ],
+   [
+    522,
+    355
+   ],
+   [
+    522,
+    400
+   ],
+   [
+    530,
+    425
+   ],
+   [
+    545,
+    432
+   ],
+   [
+    548,
+    380
+   ],
+   [
+    545,
+    328
+   ],
+   [
+    530,
+    320
+   ]
+  ],
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#eee6d4",
+  "opacity": 0.7,
+  "id": "cuplight"
+ },
+ {
+  "kind": "curve",
+  "points": [
+   [
+    250,
+    470
+   ],
+   [
+    320,
+    455
+   ],
+   [
+    400,
+    460
+   ],
+   [
+    440,
+    475
+   ],
+   [
+    400,
+    492
+   ],
+   [
+    320,
+    495
+   ],
+   [
+    270,
+    485
+   ],
+   [
+    250,
+    470
+   ]
+  ],
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#e8b06a",
+  "opacity": 0.35,
+  "id": "warmglow"
  }
 ]

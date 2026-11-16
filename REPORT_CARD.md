@@ -74,19 +74,41 @@ images, no judge. `check_score` is the fraction of per-task checks passed
 
 | Run | Arm | Drew | Actions | check_score | valid_rate |
 |---|---|---:|---:|---:|---:|
-| swift | think-off | 8/8 | 3691 | **0.667** | 0.500 |
-| neohorse-1-4b | think-off | 8/8 | 73 | 0.548 | 0.375 |
-| ministral3-14b | think-off | 8/8 | 36 | 0.452 | 0.375 |
-| swift | think-off, forced tool | 8/8 | 6662 | 0.452 | 0.375 |
-| swift | think-on | 5/8 | 1404 | 0.429 | 0.375 |
-| agents-a1-4b | think-off | 8/8 | 18 | 0.357 | **1.000** |
-| minicpm5-2b | think-off | 8/8 | 22 | 0.262 | 0.375 |
-| minicpm5-2b | think-on | 1/8 | 1 | 0.191 | 0.125 |
-| agents-a1-4b | think-on | 0/8 | 0 | 0.167 | — |
+| swift | think-off | 8/8 | 3691 | **0.690** | 0.500 |
+| swift | think-off, forced tool | 8/8 | 6662 | **0.690** | 0.375 |
+| neohorse-1-4b | think-off | 8/8 | 73 | 0.595 | 0.750 |
+| ministral3-14b | think-off | 8/8 | 36 | 0.595 | 0.375 |
+| minicpm5-2b | think-on, budget-capped | 8/8 | 49 | 0.595 | 0.250 |
+| agents-a1-4b | think-on, budget-capped | 8/8 | 27 | 0.595 | 0.375 |
+| neohorse-1-4b | think-on, budget-capped | 8/8 | 45 | 0.571 | 0.625 |
+| swift | think-on | 5/8 | 1404 | 0.500 | 0.125 |
+| agents-a1-4b | think-off | 8/8 | 18 | 0.405 | **1.000** |
+| minicpm5-2b | think-off | 8/8 | 22 | 0.310 | 0.375 |
 
-Renders for every run are in `grace_canvas_eval/renders/<run>/`, and
-`grace_canvas_eval/renders/sheets/` has one side-by-side contact sheet per
-task with all runs labelled.
+Scores are post-repair (see *Blank renders* below): the engine now drops
+poison actions instead of voiding the scene, and tier-4 renders seed+edit.
+`Drew` counts tasks with at least one emitted action; `render_rate` is 1.0
+across the board after the fix, so it is omitted.
+
+#### Blank renders — root causes, all fixed or explained
+
+Every blank-white PNG traced to one of four causes; none required rerunning
+the model:
+
+1. **Unbounded thinking starved the tool call** — the trace consumed all
+   3072 tokens, 0 actions emitted. Fixed by `--reasoning-budget 1024` on the
+   serving config (think-on arms rerun under the cap).
+2. **One poison action voided the scene** — e.g. Swift's lighthouse action 11
+   (`x: [58, 175]`, a list where a number belongs). The old repair only
+   handled three slip types; anything else failed revalidation and the
+   harness fell back to an empty list. Fixed in the engine:
+   `repair_model_actions` is now per-action (drop the poison, keep the
+   fourteen good ones), plus coercions for list-valued coords and
+   point-less lines. Valid input passes through byte-identical (self-tested).
+3. **Tier-4 rendered without the seed** — the harness rendered only the edit
+   actions. Fixed (seed+edit), T4 rescored to 4/4 for every model.
+4. **Genuine model failures** — T5's 3205-action dump (over the 100-action
+   cap) and empty think-on emissions remain blank, correctly.
 
 ### Grace Chatbot Eval — blind persona preference (Elo)
 

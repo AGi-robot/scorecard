@@ -5,340 +5,57 @@
   "y": 0,
   "width": 1000,
   "height": 650,
-  "fill_color": "#1a1a20"
+  "fill_color": "#1a1a20",
+  "fill": true
  },
  {
   "kind": "rectangle",
-  "x": 120,
-  "y": 520,
-  "width": 760,
-  "height": 130,
-  "fill_color": "#2d2d35"
+  "x": 35,
+  "y": 30,
+  "width": 965,
+  "height": 620,
+  "fill_color": "#2d2d35",
+  "fill": true
+ },
+ {
+  "kind": "rectangle",
+  "x": 300,
+  "y": 480,
+  "width": 400,
+  "height": 180,
+  "fill_color": "#3a3a40",
+  "fill": true
+ },
+ {
+  "kind": "rectangle",
+  "x": 310,
+  "y": 490,
+  "width": 380,
+  "height": 160,
+  "fill_color": "#35353b",
+  "fill": true
  },
  {
   "kind": "curve",
   "id": "robot_body",
   "points": [
    [
-    350,
-    480
+    450,
+    320
    ],
    [
-    280,
-    380
+    380,
+    200
    ],
    [
-    300,
-    340
-   ],
-   [
-    350,
-    350
-   ],
-   [
-    420,
-    340
-   ],
-   [
-    460,
-    380
-   ],
-   [
-    480,
-    480
+    520,
+    190
    ],
    [
     450,
-    510
-   ],
-   [
-    400,
-    510
-   ],
-   [
-    350,
-    480
-   ]
-  ],
-  "prompt": "teal robot torso with rounded shoulders, smooth organic silhouette, amber status light on chest, cables trailing from sides, garage background, friendly mascot style, workbench setting, teal body, amber status light, cables trailing off the bench, friendly little robot mascot standing on a workbench in a garage, teal body, amber status light and cables trailing off the bench, warm garage lighting, soft shadows, detailed cables, friendly expression, workbench texture, garage tools background, teal body, amber status light, cables trailing off the bench, friendly little robot mascot standing on a workbench in a garage, teal body, amber status light and cables trailing off the bench, warm garage lighting, soft shadows, detailed cables, friendly expression, workbench texture, garage tools, low"
- },
- {
-  "kind": "curve",
-  "id": "robot_head",
-  "points": [
-   [
-    350,
-    340
-   ],
-   [
-    300,
-    260
-   ],
-   [
-    340,
-    250
-   ],
-   [
-    350,
-    280
-   ],
-   [
-    360,
-    340
-   ],
-   [
-    350,
-    340
-   ]
-  ],
-  "prompt": "robot head, rounded, friendly, with two small eyes, antenna with amber light, garage background, workbench, teal body, amber status light, cables trailing off the bench, friendly little robot mascot standing on a workbench in a garage, teal body, amber status light and cables trailing off the bench, warm garage lighting, soft shadows, detailed cables, friendly expression, workbench texture, garage tools, low"
- },
- {
-  "kind": "curve",
-  "id": "robot_arm_left",
-  "points": [
-   [
-    300,
-    380
-   ],
-   [
-    240,
-    340
-   ],
-   [
-    180,
-    380
-   ]
-  ],
-  "prompt": "robot left arm, curved, attached to body, garage background, workbench, teal body, amber status light, cables trailing off the bench, friendly little robot mascot standing on a workbench in a garage, teal body, amber status light and cables trailing off the bench, warm garage lighting, soft shadows, detailed cables, friendly expression, workbench texture, garage tools, low"
- },
- {
-  "kind": "curve",
-  "id": "robot_arm_right",
-  "points": [
-   [
-    420,
-    380
-   ],
-   [
-    480,
-    340
-   ],
-   [
-    540,
-    380
-   ]
-  ],
-  "prompt": "robot right arm, curved, attached to body, garage background, workbench, teal body, amber status light, cables trailing off the bench, friendly little robot mascot standing on a workbench in a garage, teal body, amber status light and cables trailing off the bench, warm garage lighting, soft shadows, detailed cables, friendly expression, workbench texture, garage tools, low"
- },
- {
-  "kind": "curve",
-  "id": "robot_leg_left",
-  "points": [
-   [
-    350,
-    510
-   ],
-   [
-    330,
-    580
-   ],
-   [
-    300,
-    600
-   ]
-  ],
-  "prompt": "robot left leg, curved, standing on workbench, garage background, workbench, teal body, amber status light, cables trailing off the bench, friendly little robot mascot standing on a workbench in a garage, teal body, amber status light and cables trailing off the bench, warm garage lighting, soft shadows, detailed cables, friendly expression, workbench texture, garage tools, low"
- },
- {
-  "kind": "curve",
-  "id": "robot_leg_right",
-  "points": [
-   [
-    400,
-    510
-   ],
-   [
-    380,
-    580
-   ],
-   [
-    410,
-    600
-   ]
-  ],
-  "prompt": "robot right leg, curved, standing on workbench, garage background, workbench, teal body, amber status light, cables trailing off the bench, friendly little robot mascot standing on a workbench in a garage, teal body, amber status light and cables trailing off the bench, warm garage lighting, soft shadows, detailed cables, friendly expression, workbench texture, garage tools, low"
- },
- {
-  "kind": "curve",
-  "id": "robot_antenna",
-  "points": [
-   [
-    350,
-    280
-   ],
-   [
-    350,
-    220
-   ],
-   [
-    350,
-    180
-   ],
-   [
-    355,
-    160
-   ]
-  ],
-  "prompt": "robot antenna, thin, from head, amber light at tip, garage background, workbench, teal body, amber status light, cables trailing off the bench, friendly little robot mascot standing on a workbench in a garage, teal body, amber status light and cables trailing off the bench, warm garage lighting, soft shadows, detailed cables, friendly expression, workbench texture, garage tools, low"
- },
- {
-  "kind": "curve",
-  "id": "cable_left",
-  "points": [
-   [
-    180,
-    380
-   ],
-   [
-    140,
-    420
-   ],
-   [
-    100,
-    460
-   ]
-  ],
-  "prompt": "cable trailing from left arm, curved, off workbench, garage background, workbench, teal body, amber status light, cables trailing off the bench, friendly little robot mascot standing on a workbench in a garage, teal body, amber status light and cables trailing off the bench, warm garage lighting, soft shadows, detailed cables, friendly expression, workbench texture, garage tools, low"
- },
- {
-  "kind": "curve",
-  "id": "cable_right",
-  "points": [
-   [
-    540,
-    380
-   ],
-   [
-    580,
-    420
-   ],
-   [
-    620,
-    460
-   ]
-  ],
-  "prompt": "cable trailing from right arm, curved, off workbench, garage background, workbench, teal body, amber status light, cables trailing off the bench, friendly little robot mascot standing on a workbench in a garage, teal body, amber status light and cables trailing off the bench, warm garage lighting, soft shadows, detailed cables, friendly expression, workbench texture, garage tools, low"
- },
- {
-  "kind": "curve",
-  "id": "cable_center",
-  "points": [
-   [
-    350,
-    510
-   ],
-   [
-    330,
-    560
-   ],
-   [
-    310,
-    610
-   ]
-  ],
-  "prompt": "cable trailing from body, curved, off workbench, garage background, workbench, teal body, amber status light, cables trailing off the bench, friendly little robot mascot standing on a workbench in a garage, teal body, amber status light and cables trailing off the bench, warm garage lighting, soft shadows, detailed cables, friendly expression, workbench texture, garage tools, low"
- },
- {
-  "kind": "curve",
-  "id": "robot_chest",
-  "points": [
-   [
-    350,
-    350
-   ],
-   [
-    330,
-    320
-   ],
-   [
-    350,
     310
-   ],
-   [
-    370,
-    320
-   ],
-   [
-    350,
-    350
    ]
   ],
-  "prompt": "robot chest, rounded, amber status light, garage background, workbench, teal body, amber status light, cables trailing off the bench, friendly little robot mascot standing on a workbench in a garage, teal body, amber status light and cables trailing off the bench, warm garage lighting, soft shadows, detailed cables, friendly expression, workbench texture, garage tools, low"
- },
- {
-  "kind": "curve",
-  "id": "robot_eye_left",
-  "points": [
-   [
-    320,
-    260
-   ],
-   [
-    310,
-    245
-   ],
-   [
-    330,
-    245
-   ],
-   [
-    340,
-    260
-   ]
-  ],
-  "prompt": "robot left eye, small, dark, friendly, garage background, workbench, teal body, amber status light, cables trailing off the bench, friendly little robot mascot standing on a workbench in a garage, teal body, amber status light and cables trailing off the bench, warm garage lighting, soft shadows, detailed cables, friendly expression, workbench texture, garage tools, low"
- },
- {
-  "kind": "curve",
-  "id": "robot_eye_right",
-  "points": [
-   [
-    380,
-    260
-   ],
-   [
-    370,
-    245
-   ],
-   [
-    390,
-    245
-   ],
-   [
-    400,
-    260
-   ]
-  ],
-  "prompt": "robot right eye, small, dark, friendly, garage background, workbench, teal body, amber status light, cables trailing off the bench, friendly little robot mascot standing on a workbench in a garage, teal body, amber status light and cables trailing off the bench, warm garage lighting, soft shadows, detailed cables, friendly expression, workbench texture, garage tools, low"
- },
- {
-  "kind": "curve",
-  "id": "robot_antenna_tip",
-  "points": [
-   [
-    355,
-    160
-   ],
-   [
-    355,
-    140
-   ],
-   [
-    355,
-    120
-   ]
-  ],
-  "prompt": "antenna tip, amber glowing light, garage background, workbench, teal body, amber status light, cables trailing off the bench, friendly little robot mascot standing on a workbench in a garage, teal body, amber status light and cables trailing off the bench, warm garage lighting, soft shadows, detailed cables, friendly expression, workbench texture, garage tools, low"
+  "prompt": "teal robot torso, rounded organic shape, smooth curve, filled teal body, asymmetric lobed silhouette, top indentation for neck area, no outline, clean filled contour, garage background context, workbench surface below, amber status light at top center, cables trailing from sides, friendly mascot proportions, standing pose, garage walls and tools in background, warm ambient lighting, focal point, balanced composition, 1000x650 canvas, x=35..965, y=30..620, teal body #2a5f6b, amber light #ffb84d, cables #4a4a50, workbench #2d2d35, garage #1a1a20, friendly mascot, teal body, amber status light, cables trailing off the bench, standing on workbench, garage setting, warm ambient lighting, focal point, balanced proportions, 450 center x, 320 top y, 400 width, 180 height, teal #2a5f6b, amber #ffb8"
  }
 ]

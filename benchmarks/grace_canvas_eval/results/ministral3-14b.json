@@ -5,15 +5,15 @@
   "schema_hint": false,
   "base_url": "http://127.0.0.1:8080/v1",
   "tasks": 8,
-  "check_score": 0.4524,
-  "tasks_fully_satisfied": 0,
-  "fully_satisfied_rate": 0.0,
+  "check_score": 0.5952,
+  "tasks_fully_satisfied": 1,
+  "fully_satisfied_rate": 0.125,
   "valid_rate": 0.375,
-  "render_rate": 0.875,
+  "render_rate": 1.0,
   "truncated_rate": 0.0,
-  "mean_steps": 3.75,
-  "total_wall_s": 550.8,
-  "critique_delta": null
+  "mean_steps": 4.5,
+  "total_wall_s": 557.1,
+  "critique_delta": 0.0
  },
  "results": [
   {
@@ -29,28 +29,8 @@
    "rendered": true,
    "render_error": null,
    "truncated_stream": false,
-   "meta": {
-    "elapsed_s": 24.66,
-    "completion_tokens": 355,
-    "prompt_tokens": 2260,
-    "truncated": false,
-    "raw_len": 1138,
-    "raw_tail": "",
-    "finish_reason": "tool_calls",
-    "response": "",
-    "more": false
-   },
    "scene": {
-    "objects": 1,
-    "kinds": [
-     "path"
-    ],
-    "colours": [],
-    "texts": [],
-    "coverage": 0.0585,
-    "mean_overlap": 0.0,
-    "shared_baseline": 1,
-    "even_spacing_run": 0
+    "n_objects": 1
    },
    "checks": [
     {
@@ -87,7 +67,18 @@
    "checks_passed": 3,
    "checks_total": 6,
    "score": 0.5,
-   "wall_s": 24.68
+   "wall_s": 26.45,
+   "meta": {
+    "elapsed_s": 26.43,
+    "completion_tokens": 355,
+    "prompt_tokens": 2260,
+    "truncated": false,
+    "raw_len": 1138,
+    "raw_tail": "",
+    "finish_reason": "tool_calls",
+    "response": "",
+    "more": false
+   }
   },
   {
    "task": "T1-lighthouse",
@@ -102,36 +93,8 @@
    "rendered": true,
    "render_error": null,
    "truncated_stream": false,
-   "meta": {
-    "elapsed_s": 125.67,
-    "completion_tokens": 2068,
-    "prompt_tokens": 2262,
-    "truncated": false,
-    "raw_len": 6187,
-    "raw_tail": "",
-    "finish_reason": "tool_calls",
-    "response": "",
-    "more": false
-   },
    "scene": {
-    "objects": 7,
-    "kinds": [
-     "rectangle",
-     "path",
-     "path",
-     "path",
-     "path",
-     "path",
-     "path"
-    ],
-    "colours": [
-     "#1a2a3a"
-    ],
-    "texts": [],
-    "coverage": 1.2585,
-    "mean_overlap": 0.0265,
-    "shared_baseline": 1,
-    "even_spacing_run": 7
+    "n_objects": 7
    },
    "checks": [
     {
@@ -163,7 +126,18 @@
    "checks_passed": 3,
    "checks_total": 5,
    "score": 0.6,
-   "wall_s": 125.69
+   "wall_s": 131.84,
+   "meta": {
+    "elapsed_s": 131.82,
+    "completion_tokens": 2068,
+    "prompt_tokens": 2262,
+    "truncated": false,
+    "raw_len": 6187,
+    "raw_tail": "",
+    "finish_reason": "tool_calls",
+    "response": "",
+    "more": false
+   }
   },
   {
    "task": "T2-still-life",
@@ -178,35 +152,8 @@
    "rendered": true,
    "render_error": null,
    "truncated_stream": false,
-   "meta": {
-    "elapsed_s": 44.67,
-    "completion_tokens": 747,
-    "prompt_tokens": 2269,
-    "truncated": false,
-    "raw_len": 1765,
-    "raw_tail": "",
-    "finish_reason": "tool_calls",
-    "response": "",
-    "more": false
-   },
    "scene": {
-    "objects": 6,
-    "kinds": [
-     "rectangle",
-     "path",
-     "path",
-     "curve",
-     "curve",
-     "curve"
-    ],
-    "colours": [
-     "#E8D5B5"
-    ],
-    "texts": [],
-    "coverage": 1.2984,
-    "mean_overlap": 0.0513,
-    "shared_baseline": 3,
-    "even_spacing_run": 2
+    "n_objects": 6
    },
    "checks": [
     {
@@ -243,7 +190,18 @@
    "checks_passed": 4,
    "checks_total": 6,
    "score": 0.6666666666666666,
-   "wall_s": 44.69
+   "wall_s": 47.45,
+   "meta": {
+    "elapsed_s": 47.43,
+    "completion_tokens": 747,
+    "prompt_tokens": 2269,
+    "truncated": false,
+    "raw_len": 1765,
+    "raw_tail": "",
+    "finish_reason": "tool_calls",
+    "response": "",
+    "more": false
+   }
   },
   {
    "task": "T2-robot-mascot",
@@ -258,36 +216,8 @@
    "rendered": true,
    "render_error": null,
    "truncated_stream": false,
-   "meta": {
-    "elapsed_s": 63.88,
-    "completion_tokens": 1072,
-    "prompt_tokens": 2271,
-    "truncated": false,
-    "raw_len": 3706,
-    "raw_tail": "",
-    "finish_reason": "tool_calls",
-    "response": "",
-    "more": false
-   },
    "scene": {
-    "objects": 6,
-    "kinds": [
-     "rectangle",
-     "rectangle",
-     "curve",
-     "curve",
-     "curve",
-     "curve"
-    ],
-    "colours": [
-     "#f0f0f0",
-     "#8B4513"
-    ],
-    "texts": [],
-    "coverage": 1.2885,
-    "mean_overlap": 0.0192,
-    "shared_baseline": 2,
-    "even_spacing_run": 6
+    "n_objects": 6
    },
    "checks": [
     {
@@ -319,7 +249,18 @@
    "checks_passed": 2,
    "checks_total": 5,
    "score": 0.4,
-   "wall_s": 63.9
+   "wall_s": 68.2,
+   "meta": {
+    "elapsed_s": 68.18,
+    "completion_tokens": 1072,
+    "prompt_tokens": 2271,
+    "truncated": false,
+    "raw_len": 3706,
+    "raw_tail": "",
+    "finish_reason": "tool_calls",
+    "response": "",
+    "more": false
+   }
   },
   {
    "task": "T3-navbar",
@@ -334,40 +275,8 @@
    "rendered": true,
    "render_error": null,
    "truncated_stream": false,
-   "meta": {
-    "elapsed_s": 23.68,
-    "completion_tokens": 403,
-    "prompt_tokens": 2273,
-    "truncated": false,
-    "raw_len": 1014,
-    "raw_tail": "",
-    "finish_reason": "tool_calls",
-    "response": "",
-    "more": false
-   },
    "scene": {
-    "objects": 6,
-    "kinds": [
-     "ellipse",
-     "curve",
-     "text",
-     "text",
-     "text",
-     "text"
-    ],
-    "colours": [
-     "#4a6fa5"
-    ],
-    "texts": [
-     "Home",
-     "Work",
-     "Journal",
-     "Contact"
-    ],
-    "coverage": 0.0085,
-    "mean_overlap": 0.0167,
-    "shared_baseline": 4,
-    "even_spacing_run": 6
+    "n_objects": 6
    },
    "checks": [
     {
@@ -409,7 +318,18 @@
    "checks_passed": 4,
    "checks_total": 7,
    "score": 0.5714285714285714,
-   "wall_s": 23.72
+   "wall_s": 25.72,
+   "meta": {
+    "elapsed_s": 25.69,
+    "completion_tokens": 403,
+    "prompt_tokens": 2273,
+    "truncated": false,
+    "raw_len": 1014,
+    "raw_tail": "",
+    "finish_reason": "tool_calls",
+    "response": "",
+    "more": false
+   }
   },
   {
    "task": "T3-poster",
@@ -424,8 +344,42 @@
    "rendered": true,
    "render_error": null,
    "truncated_stream": false,
+   "scene": {
+    "n_objects": 3
+   },
+   "checks": [
+    {
+     "check": "objects_at_least_4",
+     "ok": false,
+     "detail": "3 objects (need >= 4)"
+    },
+    {
+     "check": "has_text",
+     "ok": true,
+     "detail": "texts=['EVENT', 'DATE: OCT 15']"
+    },
+    {
+     "check": "baseline_at_least",
+     "ok": false,
+     "detail": "1 objects share a baseline (need 2)"
+    },
+    {
+     "check": "coverage_between",
+     "ok": true,
+     "detail": "coverage 1.1% (want 0%-40%)"
+    },
+    {
+     "check": "overlap_below",
+     "ok": true,
+     "detail": "mean bbox overlap 0.00 (limit 0.4)"
+    }
+   ],
+   "checks_passed": 3,
+   "checks_total": 5,
+   "score": 0.6,
+   "wall_s": 19.03,
    "meta": {
-    "elapsed_s": 14.52,
+    "elapsed_s": 19.01,
     "completion_tokens": 254,
     "prompt_tokens": 2268,
     "truncated": false,
@@ -434,48 +388,7 @@
     "finish_reason": "tool_calls",
     "response": "",
     "more": false
-   },
-   "scene": {
-    "objects": 0,
-    "kinds": [],
-    "colours": [],
-    "texts": [],
-    "coverage": 0.0,
-    "mean_overlap": 0.0,
-    "shared_baseline": 0,
-    "even_spacing_run": 0
-   },
-   "checks": [
-    {
-     "check": "objects_at_least_4",
-     "ok": false,
-     "detail": "0 objects (need >= 4)"
-    },
-    {
-     "check": "has_text",
-     "ok": false,
-     "detail": "no text objects"
-    },
-    {
-     "check": "baseline_at_least",
-     "ok": false,
-     "detail": "0 objects share a baseline (need 2)"
-    },
-    {
-     "check": "coverage_between",
-     "ok": false,
-     "detail": "coverage 0.0% (want 0%-40%)"
-    },
-    {
-     "check": "overlap_below",
-     "ok": true,
-     "detail": "mean bbox overlap 0.00 (limit 0.4)"
-    }
-   ],
-   "checks_passed": 1,
-   "checks_total": 5,
-   "score": 0.2,
-   "wall_s": 14.54
+   }
   },
   {
    "task": "T4-recolour-leaf",
@@ -490,26 +403,8 @@
    "rendered": true,
    "render_error": null,
    "truncated_stream": false,
-   "meta": {
-    "elapsed_s": 3.63,
-    "completion_tokens": 53,
-    "prompt_tokens": 2478,
-    "truncated": false,
-    "raw_len": 157,
-    "raw_tail": "",
-    "finish_reason": "tool_calls",
-    "response": "",
-    "more": false
-   },
    "scene": {
-    "objects": 0,
-    "kinds": [],
-    "colours": [],
-    "texts": [],
-    "coverage": 0.0,
-    "mean_overlap": 0.0,
-    "shared_baseline": 0,
-    "even_spacing_run": 0
+    "n_objects": 3
    },
    "checks": [
     {
@@ -524,28 +419,135 @@
     },
     {
      "check": "objects_at_least_3",
-     "ok": false,
-     "detail": "0 objects (need >= 3)"
+     "ok": true,
+     "detail": "3 objects (need >= 3)"
     },
     {
      "check": "has_hue_green leaf",
+     "ok": true,
+     "detail": "colours=['#c0392b', '#75b987', '#6b4a2f'] (green leaf band 70-170)"
+    }
+   ],
+   "checks_passed": 4,
+   "checks_total": 4,
+   "score": 1.0,
+   "wall_s": 16.43,
+   "meta": {
+    "elapsed_s": 16.41,
+    "completion_tokens": 53,
+    "prompt_tokens": 2478,
+    "truncated": false,
+    "raw_len": 157,
+    "raw_tail": "",
+    "finish_reason": "tool_calls",
+    "response": "",
+    "more": false
+   }
+  },
+  {
+   "task": "T5-critique-self",
+   "tier": 5,
+   "tier_name": "draft then self-critique",
+   "brief": "Draw a small cabin in a snowy pine forest at night, with warm light spilling from one window.",
+   "actions_returned": 6,
+   "steps": 6,
+   "valid": false,
+   "validation_error": "Curve needs a start and triples of cubic control/end points, max 61",
+   "clamped_fields": 0,
+   "rendered": true,
+   "render_error": null,
+   "truncated_stream": false,
+   "scene": {
+    "n_objects": 6
+   },
+   "checks": [
+    {
+     "check": "objects_at_least_4",
+     "ok": true,
+     "detail": "6 objects (need >= 4)"
+    },
+    {
+     "check": "has_hue_warm window light",
      "ok": false,
-     "detail": "colours=[] (green leaf band 70-170)"
+     "detail": "colours=['#0a1a2a'] (warm window light band 20-55)"
+    },
+    {
+     "check": "has_hue_cold night",
+     "ok": true,
+     "detail": "colours=['#0a1a2a'] (cold night band 200-265)"
+    },
+    {
+     "check": "coverage_between",
+     "ok": false,
+     "detail": "coverage 116.2% (want 2%-60%)"
     }
    ],
    "checks_passed": 2,
    "checks_total": 4,
    "score": 0.5,
-   "wall_s": 3.65
-  },
-  {
-   "task": "T5-critique-self",
-   "tier": 5,
-   "error": "<urlopen error [Errno 111] Connection refused>",
-   "score": 0.0,
-   "checks_passed": 0,
-   "checks_total": 4,
-   "wall_s": 249.92
+   "wall_s": 221.95,
+   "pass2": {
+    "steps": 15,
+    "valid": false,
+    "clamped_fields": 0,
+    "truncated_stream": false,
+    "elapsed_s": 124.99,
+    "checks_passed": 2,
+    "checks_total": 4,
+    "score": 0.5,
+    "scene": {
+     "objects": 6,
+     "kinds": [
+      "rectangle",
+      "path",
+      "path",
+      "path",
+      "path",
+      "path"
+     ],
+     "colours": [
+      "#0a1a2a"
+     ],
+     "texts": [],
+     "coverage": 1.1391,
+     "mean_overlap": 0.0102,
+     "shared_baseline": 1,
+     "even_spacing_run": 2
+    },
+    "checks": [
+     {
+      "check": "objects_at_least_4",
+      "ok": true,
+      "detail": "6 objects (need >= 4)"
+     },
+     {
+      "check": "has_hue_warm window light",
+      "ok": false,
+      "detail": "colours=['#0a1a2a'] (warm window light band 20-55)"
+     },
+     {
+      "check": "has_hue_cold night",
+      "ok": true,
+      "detail": "colours=['#0a1a2a'] (cold night band 200-265)"
+     },
+     {
+      "check": "coverage_between",
+      "ok": false,
+      "detail": "coverage 113.9% (want 2%-60%)"
+     }
+    ]
+   },
+   "meta": {
+    "elapsed_s": 96.91,
+    "completion_tokens": 1525,
+    "prompt_tokens": 2261,
+    "truncated": false,
+    "raw_len": 4708,
+    "raw_tail": "",
+    "finish_reason": "tool_calls",
+    "response": "",
+    "more": false
+   }
   }
  ]
 }

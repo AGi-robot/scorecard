@@ -1,0 +1,17 @@
+Grace Canvas Eval: swift-thinklow (8 tasks)
+  T1-apple               2/6  valid=False rendered=True  steps=1101  20.24s
+  T1-lighthouse          1/5  valid=False rendered=True  steps=0  22.84s
+    retry 1/8 in 15.4s (HTTP Error 429: Too Many Requests)
+    retry 2/8 in 30.4s (HTTP Error 429: Too Many Requests)
+  T2-still-life          1/6  valid=False rendered=True  steps=1241  51.61s
+    retry 1/8 in 15.3s (HTTP Error 429: Too Many Requests)
+    retry 2/8 in 30.3s (HTTP Error 429: Too Many Requests)
+  T2-robot-mascot        1/5  valid=False rendered=True  steps=1312  67.18s
+    retry 1/8 in 15.4s (HTTP Error 429: Too Many Requests)
+    retry 2/8 in 30.9s (HTTP Error 429: Too Many Requests)
+  T3-navbar              6/7  valid=True rendered=True  steps=8  64.94s
+  T3-poster              3/5  valid=True rendered=True  steps=3  3.98s
+  T4-recolour-leaf       4/4  valid=True rendered=True  steps=1  1.85s
+  T5-critique-self       0/4  valid=False rendered=True  steps=0  43.31s
+
+SUMMARY {"label": "swift-thinklow", "model": "swift", "schema_hint": false, "base_url": "https://ukisai.com/api/swift/v1", "tasks": 8, "check_score": 0.4286, "tasks_fully_satisfied": 1, "fully_satisfied_rate": 0.125, "valid_rate": 0.375, "render_rate": 1.0, "truncated_rate": 0.25, "mean_steps": 458.25, "total_wall_s": 275.9, "critique_delta": 0.0}
