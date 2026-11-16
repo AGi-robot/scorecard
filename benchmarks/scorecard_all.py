@@ -60,7 +60,7 @@ def rows():
             "extra": f"{d.get('elapsed_s', 0) / 60:.0f} min",
         })
 
-    # --- EQ-Bench v2: final score ------------------------------------
+    # --- Historical EQ-Bench v2: final score ------------------------------------
     for p in sorted(glob.glob(str(HERE / "eqbench" / "results" / "eqbench_v2_*.json"))):
         d = load_json(p)
         if not d:
@@ -100,31 +100,29 @@ def rows():
         for v in votes:
             seen[(v.get("script"), v.get("left"), v.get("right"), v.get("batch"))] = v
         tally = {}
+        elo = {}
         for v in seen.values():
+            left, right = v["left"], v["right"]
+            for model in (left, right):
+                tally.setdefault(model, {"w": 0, "n": 0, "dims": {}})
+                elo.setdefault(model, 1500.0)
             for dim in ("warmth", "coherence", "persona", "overall"):
-                r = v.get(dim)
-                if r not in ("A", "B"):
+                pick = v.get(dim)
+                if pick not in ("A", "B", "tie"):
                     continue
-                winner = v["left"] if r == "A" else v["right"]
-                t = tally.setdefault(winner, {"w": 0, "n": 0, "dims": {}})
-                t["dims"].setdefault(dim, {"w": 0, "n": 0})
-                t["dims"][dim]["w"] += 1
-                t["dims"][dim]["n"] += 1
-                t["n"] += 1
+                sa = 0.5 if pick == "tie" else float(pick == "A")
+                for model, score in ((left, sa), (right, 1 - sa)):
+                    t = tally[model]
+                    d = t["dims"].setdefault(dim, {"w": 0, "n": 0})
+                    d["w"] += score
+                    d["n"] += 1
+                    if dim == "overall":
+                        t["w"] += score
+                        t["n"] += 1
                 if dim == "overall":
-                    t["w"] += 1
-        # Elo from overall dimension, K=32, start 1500 (matches preference_bench.py)
-        elo = {k: 1500.0 for k in tally}
-        for v in seen.values():
-            r = v.get("overall")
-            if r not in ("A", "B"):
-                continue
-            a, b = v["left"], v["right"]
-            ea, eb = 1.0 if r == "A" else 0.0, 1.0 if r == "B" else 0.0
-            ra = 1 / (1 + 10 ** ((elo[b] - elo[a]) / 400))
-            rb = 1 - ra
-            elo[a] += 32 * (ea - ra)
-            elo[b] += 32 * (eb - rb)
+                    expected = 1 / (1 + 10 ** ((elo[right] - elo[left]) / 400))
+                    elo[left] += 32 * (sa - expected)
+                    elo[right] += 32 * ((1 - sa) - (1 - expected))
         for model, t in sorted(tally.items(), key=lambda kv: -elo.get(kv[0], 1500)):
             wr = t["w"] / t["n"] if t["n"] else 0
             dims = " ".join(

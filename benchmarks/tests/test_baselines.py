@@ -75,15 +75,47 @@ class TransportTests(unittest.TestCase):
                   ("livecodebench", "LiveCodeBench release_v6")]
         for directory, name in suites:
             for full in (False, True):
-                out = self.root / directory / "results" / str(full)
+                out = self.root / directory / "results" / (name + str(full))
                 out.mkdir(parents=True)
                 common.write_json(out / "summary.json", {
                     "suite": name, "full_run": full, "model": "fixture", "n": 10,
                     "prompt_loose": 0.5, "prompt_strict": 0.4, "pass@1": 0.3, "pass@5": 0.6})
         with patch.object(scorecard_all, "HERE", self.root):
             rows = scorecard_all.rows()
+        rows.sort(key=lambda r: [name for _, name in suites].index(r["bench"]))
         self.assertEqual([r["bench"] for r in rows], [name for _, name in suites])
         self.assertEqual([r["strict"] for r in rows], ["50.0", "50.0", "30.0"])
+
+    def test_chatbot_loser_and_tie_are_counted(self):
+        import scorecard_all
+        out = self.root / "grace_chatbot_eval/results"
+        out.mkdir(parents=True)
+        vote = {"left": "winner", "right": "loser", "script": "one", "overall": "A"}
+        (out / "fixture_votes.jsonl").write_text(json.dumps(vote) + "\n")
+        with patch.object(scorecard_all, "HERE", self.root):
+            result = {r["model"]: r for r in scorecard_all.rows()}
+        self.assertEqual(result["winner"]["loose"], "100% win")
+        self.assertEqual(result["loser"]["loose"], "0% win")
+        self.assertEqual(result["loser"]["strict"], "Elo 1484")
+        vote["overall"] = "tie"
+        (out / "fixture_votes.jsonl").write_text(json.dumps(vote) + "\n")
+        with patch.object(scorecard_all, "HERE", self.root):
+            self.assertTrue(all(r["loose"] == "50% win" for r in scorecard_all.rows()))
+
+    def test_bfcl_request_failure_is_not_scored_as_irrelevance(self):
+        import runpy
+        sys.path.insert(0, str(common.HERE / "bfcl"))
+        with patch.object(sys, "argv", ["bfcl_run", "http://localhost/v1", "fixture", "fixture"]):
+            module = runpy.run_path(str(common.HERE / "bfcl/bfcl_run.py"))
+        main = module["main"]
+        question = {"question": [{"role": "user", "content": "fixture"}], "function": []}
+        with patch.dict(main.__globals__, OUT=self.root, CATS=["irrelevance"],
+                        load_cat=lambda cat: ({"fixture": question}, {}),
+                        ask=lambda *args: (_ for _ in ()).throw(RuntimeError("offline"))):
+            with self.assertRaises(RuntimeError):
+                main()
+        self.assertFalse((self.root / "bfcl_fixture.json").exists())
+        self.assertEqual((self.root / "responses_fixture.jsonl").read_text(), "")
 
 
 @unittest.skipUnless(os.environ.get("IFBENCH_OFFICIAL"), "set IFBENCH_OFFICIAL for official fixture")

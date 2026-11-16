@@ -1,82 +1,25 @@
-# BFCL for Grace (single-turn AST categories)
+# BFCL V4: full function-calling and agentic evaluation
 
-Tool-calling accuracy on the official Berkeley Function Calling Leaderboard
-data, scored with AST matching that follows the official checker's semantics.
+The active BFCL evaluation is the official V4 protocol. It covers single-turn,
+multi-turn, live execution, agentic memory and web search, hallucination
+measurement, and format sensitivity. Use the pinned official harness and report
+its overall and component metrics from the same V4 run. A partial category run
+is diagnostic and must not be presented as the complete V4 score.
 
-## Scope (deliberate)
+The repository's bundled V3 runner and existing V3 results are retained only
+for historical reference. They are not the active BFCL test and cannot be
+converted into V4 scores. Replace the displayed V3 score only after a complete
+V4 run is available. The AIVA recent-window adapter remains a separate custom
+track; it is not part of the official BFCL overall score.
 
-Only the five single-turn, AST-checkable categories are run here:
+## Historical V3 results
 
-| Category | n | What it probes |
-|---|---|---|
-| `simple` | 400 | one function, correct name + arguments |
-| `multiple` | 200 | pick the right function among several, correct args |
-| `parallel` | ~130 | several calls in one turn (order-insensitive) |
-| `parallel_multiple` | ~200 | several calls, chosen among distractors |
-| `irrelevance` | 240 | must NOT call any function |
+The V3 runner, local scorer, and bundled V3 task data have been removed. Existing V3 response and score artifacts are retained as historical results until a complete V4 result is available. They are not inputs to the active V4 evaluation and cannot be relabeled as V4.
 
-Excluded on purpose: `live_*` (needs user-contributed execution), `multi_turn_*`
-(needs the state simulators), `memory_*` / `web_search_*` (need live backends —
-tracked separately, see below), `executable` / `REST` / `SQL` / `java` /
-`javascript` (language runtimes Grace never calls).
+## Official BFCL V4 run
 
-Data: `gorilla-llm/Berkeley-Function-Calling-Leaderboard`, branch `main`
-(Apache-2.0). Questions from `BFCL_v3_<cat>.json`, answers from
-`possible_answer/BFCL_v3_<cat>.json`, copied into `data/`.
-
-## Protocol
-
-- temperature 0.0, `max_tokens` 1024, raw user message (no system prompt).
-- Tools passed as OpenAI `tools` (converted from BFCL's `dict`-style schemas).
-- Prediction read from `message.tool_calls[].function.{name,arguments}`.
-- Think-off for thinking models, matching every other bench in this repo.
-
-## Scorer semantics (`bfcl_scoring.py`)
-
-Dependency-free reimplementation of the official AST checker
-(`bfcl_eval/eval_checker/ast_eval/ast_checker.py`, Apache-2.0 — vendoring the
-full file was skipped because it drags in the whole `bfcl_eval` package tree;
-the semantics below were ported instead):
-
-- Function name must match exactly.
-- Every ground-truth argument with a non-empty allowed list must be present,
-  unless `""` is in its allowed list (optional argument — may be omitted, and
-  an explicit `""` is accepted as omitted).
-- Each provided value must equal one of the allowed values, type-leniently
-  (`10 == 10.0`, `"true"` accepted for booleans, nested structures compared
-  normalized). Numeric tolerance 1e-6.
-- `parallel` / `parallel_multiple` are order-insensitive; call count must match.
-- `irrelevance` passes only with zero tool calls.
-
-Validated by `bfcl_scoring.py` self-test plus a ground-truth round-trip:
-feeding the first allowed answer back as the prediction scores 20/20 on all
-four answer-bearing categories, empty predictions score 0, wrong names score 0.
-
-## Running it
-
-```bash
-python bfcl_run.py http://127.0.0.1:8080/v1 ministral-3-14b-instruct-2512 ministral3-14b --think-off
-# --categories "simple parallel"  to subset
-# --limit N                       to smoke-test
-```
-
-Resumable: completed answers append to `results/responses_<label>.jsonl`
-(keyed on prompt id, like the IFEval runner). Score file lands at
-`results/bfcl_<label>.json`.
-
-## BFCL V4 memory and web search
-
-The BFCL V4 setup, SearXNG adapter, Docker configuration, run commands, and
-AIVA memory limitations are documented in the [BFCL V4 guide](v4/README.md).
-This V3 runner remains the local single-turn AST baseline.
-
-
----
-
-# BFCL V4: memory and web search
-
-This guide adds BFCL V4's official `memory` and `web_search` categories to the
-scorecard workflow. It uses the official BFCL task set and evaluator, with a
+Use BFCL's official full V4 categories via its pinned harness. The following
+task tracks make up the current benchmark: It uses the official BFCL task set and evaluator, with a
 local SearXNG service replacing the upstream SerpAPI search backend. Scores from
 this SearXNG run are **not directly comparable** to leaderboard results using
 SerpAPI; report the search backend and versions with every run.
@@ -140,8 +83,8 @@ network.
 Use the official repository at the revision both local patches target:
 
 - Upstream commit: `6ea57973c7a6097fd7c5915698c54c17c5b1b6c8`
-- Patches: [`searxng.patch`](searxng.patch) and
-  [`aiva-model.patch`](aiva-model.patch), applied from the Gorilla repository root.
+- Patches: [`searxng-v4.patch`](searxng-v4.patch) and
+  [`aiva-model-v4.patch`](aiva-model-v4.patch), applied from the Gorilla repository root.
   The model patch registers AIVA's local Ministral alias in BFCL's model map
   using its prompt-mode quick-test handler.
 
@@ -155,8 +98,8 @@ git checkout 6ea57973c7a6097fd7c5915698c54c17c5b1b6c8
 cd berkeley-function-call-leaderboard
 python -m pip install -e .
 cd ..
-git apply /path/to/AGi-scorecard/benchmarks/bfcl/searxng.patch
-git apply /path/to/AGi-scorecard/benchmarks/bfcl/aiva-model.patch
+git apply /path/to/AGi-scorecard/benchmarks/bfcl/searxng-v4.patch
+git apply /path/to/AGi-scorecard/benchmarks/bfcl/aiva-model-v4.patch
 ```
 
 The patch reads `SEARXNG_BASE_URL` (default `http://127.0.0.1:8888`) and
@@ -167,7 +110,7 @@ URLs as well as to SearXNG. The SearXNG service does not need to run on the same
 host if the BFCL process can reach it; use the appropriate service DNS name
 when BFCL itself runs in a container.
 
-## Run the categories
+## Run V4 categories
 
 The model patch registers the AIVA served model alias
 `ministral-3-14b-instruct-2512`. For the OpenAI-compatible endpoint, set
@@ -232,20 +175,17 @@ python benchmarks/bfcl/aiva_memory_run.py \
 ```
 
 The runner writes per-question results and a summary under
-`benchmarks/bfcl/results/`. A limited question run still replays the full
+`benchmarks/bfcl/results/v4/`. A limited question run still replays the full
 prerequisite history for the selected scenario so it measures the configured
 memory window. It reports a BFCL-answer-checker accuracy for this AIVA-specific
 track; do not present it as the official BFCL `memory` category score.
 
-## Baseline sequence for Grace
+## V4 run sequence for Grace
 
-1. Start with BFCL `memory_kv` as the lightest BFCL memory-tools baseline. It
+1. Run the official BFCL V4 standard categories together to obtain the current overall score. Then inspect category-level outcomes. It
    uses BFCL's simulator, not AIVA's eight-exchange chat history.
-2. Run `web_search` with the same model and the pinned local SearXNG instance.
-3. When AIVA exposes real memory and search tools to its agent loop, rerun the
-   same IDs through that agent and compare per-task outcomes. Keep the official
-   simulator and the AIVA-backed results as separately labeled tracks until
-   their tool interfaces match.
+2. Run memory and web-search categories using their official prerequisites and the pinned local SearXNG instance described above. Record any changed backend because SearXNG results differ from leaderboard SerpAPI.
+3. Preserve the V4 overall and component results. Report the AIVA recent-window adapter separately because it measures another system.
 
 ## Native SearXNG alternative
 

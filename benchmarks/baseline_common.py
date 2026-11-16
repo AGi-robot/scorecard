@@ -134,11 +134,14 @@ def responses(args, tasks, messages, top_p=1.0):
     if args.stage in ("generate", "all"):
         with path.open("a") as out:
             for task in tasks:
+                prompt_messages = None
                 for sample in range(args.n):
                     key = (str(task["id"]), sample)
                     if key in have:
                         continue
-                    text = complete(args, messages(task), top_p)
+                    if prompt_messages is None:
+                        prompt_messages = messages(task)
+                    text = complete(args, prompt_messages, top_p)
                     row = {"id": key[0], "sample": sample, "response": text}
                     out.write(json.dumps(row, ensure_ascii=False) + "\n")
                     out.flush()
