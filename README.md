@@ -9,29 +9,18 @@ arguments, outputs, protocol, and scoring.
 
 ### Model and capability baselines
 
-- [BFCL](benchmarks/bfcl/README.md): V3 function calling and V4 memory/web-search tracks,
-  plus the separate AIVA recent-window memory run.
+- [BFCL](benchmarks/bfcl/README.md): V3 function calling and V4 memory/web-search tracks, plus AIVA's recent-window memory adapter.
+- [Companion safety](benchmarks/companion_safety/README.md): INTIMA and AICompanionBench readiness and artifact requirements.
+- [EQ-Bench and Creative Writing](benchmarks/eqbench/README.md): pinned v4 and v3 protocols; historical v2 results remain labeled separately.
+- [EvalPlus](benchmarks/evalplus/README.md): HumanEval+ and MBPP+ code-generation correctness.
+- [Grace Canvas Eval](benchmarks/grace_canvas_eval/README.md): canvas tool tasks.
+- [Grace Chatbot Eval](benchmarks/grace_chatbot_eval/README.md): blind pairwise conversation preference.
 - [IFEval](benchmarks/ifeval/README.md): strict and loose instruction following.
-- [IFBench](benchmarks/ifbench/README.md): single-turn and fixed-history
-  multi-turn instruction following, with separate suites and scores.
-- [EQ-Bench v4 and Creative Writing v3](benchmarks/eqbench/README.md):
-  official judged emotional/social and writing evaluations, pending fresh runs;
-  historical v2 results remain available.
-- [EvalPlus](benchmarks/evalplus/README.md): HumanEval+ and MBPP+ code generation.
-- [LiveCodeBench](benchmarks/livecodebench/README.md): pinned release_v6 code generation.
-- [LongMemEval](benchmarks/longmemeval/README.md): full-history memory baseline.
-- [Grace Canvas Eval](benchmarks/grace_canvas_eval/README.md): canvas tool use.
-- [Grace Chatbot Eval](benchmarks/grace_chatbot_eval/README.md): blind pairwise
-  conversation preference.
+- [IFBench](benchmarks/ifbench/README.md): single-turn and fixed-history multi-turn instruction following.
+- [LiveCodeBench](benchmarks/livecodebench/README.md): pinned release_v6 code-generation baseline.
+- [LongMemEval](benchmarks/longmemeval/README.md): full-history memory baseline; does not measure persistent-memory retrieval.
 
-### Research plans
-
-- [Companion safety](benchmarks/companion_safety/README.md): INTIMA and
-  AICompanionBench readiness.
-- [Agent and self-coding](benchmarks/agentic/README.md): recommendations for
-  memory/search agents, repository repair, and terminal use.
-
-See the [future roadmap](benchmarks/agentic/README.md#future-evaluation-roadmap) for capability triggers and deferred suites.
+See the [agent and self-coding roadmap](benchmarks/README.md#agent-and-self-coding-roadmap) for capability-based recommendations and deferred evaluations.
 
 ## Run and compare
 
@@ -61,9 +50,9 @@ guides explain how to produce the final score.
 
 ## Repository layout
 
-Each implemented benchmark has a folder under `benchmarks/` with its README,
-runner, and suite-specific scoring or configuration files. Shared runner support
-lives in `benchmarks/baseline_common.py`; cross-suite checks live in
-`benchmarks/tests/`. Large datasets, generated responses, caches, and result
-artifacts stay out of source control. See the
-[benchmark index](benchmarks/README.md) for the complete suite list.
+`benchmarks/README.md` indexes all suites, shared tooling, and the agentic roadmap.
+Implemented benchmark folders include a suite guide and runner/scorer as
+appropriate. Shared integrations use `baseline_common.py`; cross-suite checks
+live in `benchmarks/tests/`. Dependency pins and protocol validation artifacts
+are documented in the index. Large datasets, generated responses, caches, and
+result artifacts stay out of source control.
