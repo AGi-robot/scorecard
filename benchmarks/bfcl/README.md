@@ -1,16 +1,18 @@
-# BFCL: function calling, memory, and search
+# BFCL V4: full function-calling and agentic evaluation
 
-Tool-calling accuracy on the official Berkeley Function Calling Leaderboard
-data, scored with AST matching that follows the official checker's semantics.
+The active BFCL evaluation is the official V4 protocol. It covers single-turn,
+multi-turn, live execution, agentic memory and web search, hallucination
+measurement, and format sensitivity. Use the pinned official harness and report
+its overall and component metrics from the same V4 run. A partial category run
+is diagnostic and must not be presented as the complete V4 score.
 
-The V3 runner uses bundled single-turn tasks and a local AST scorer. The V4
-commands below use the pinned official harness for memory and search; the AIVA
-adapter measures a separate recent-history track. They share this folder, but
-currently require separate commands. A memory/search run alone does not provide
-a complete official V4 leaderboard score. Historical V3 scores cannot be reused
-as V4 results without rerunning the applicable official protocol.
+The repository's bundled V3 runner and existing V3 results are retained only
+for historical reference. They are not the active BFCL test and cannot be
+converted into V4 scores. Replace the displayed V3 score only after a complete
+V4 run is available. The AIVA recent-window adapter remains a separate custom
+track; it is not part of the official BFCL overall score.
 
-## V3 scope
+## Historical V3 runner (legacy)
 
 The local V3 runner covers five single-turn, AST-checkable categories:
 
@@ -31,7 +33,9 @@ Data: `gorilla-llm/Berkeley-Function-Calling-Leaderboard`, branch `main`
 (Apache-2.0). Questions from `BFCL_v3_<cat>.json`, answers from
 `possible_answer/BFCL_v3_<cat>.json`, copied into `data/`.
 
-## Protocol
+## Legacy V3 protocol
+
+The following settings apply only to the retained historical V3 runner.
 
 - temperature 0.0, `max_tokens` 1024, raw user message (no system prompt).
 - Tools passed as OpenAI `tools` (converted from BFCL's `dict`-style schemas).
@@ -59,7 +63,10 @@ Validated by `bfcl_scoring.py` self-test plus a ground-truth round-trip:
 feeding the first allowed answer back as the prediction scores 20/20 on all
 four answer-bearing categories, empty predictions score 0, wrong names score 0.
 
-## Running it
+## Reproducing a historical V3 run
+
+This command is retained for old-result reproduction only. Use the official
+V4 commands below for current evaluations.
 
 ```bash
 python benchmarks/bfcl/bfcl_run.py http://127.0.0.1:8080/v1 ministral-3-14b-instruct-2512 ministral3-14b --think-off
@@ -71,10 +78,10 @@ Resumable: completed answers append to `results/responses_<label>.jsonl`
 (keyed on prompt id, like the IFEval runner). Score file lands at
 `results/bfcl_<label>.json`.
 
-## BFCL V4: memory and web search
+## Official BFCL V4 run
 
-This guide adds BFCL V4's official `memory` and `web_search` categories to the
-scorecard workflow. It uses the official BFCL task set and evaluator, with a
+Use BFCL's official full V4 categories via its pinned harness. The following
+task tracks make up the current benchmark: It uses the official BFCL task set and evaluator, with a
 local SearXNG service replacing the upstream SerpAPI search backend. Scores from
 this SearXNG run are **not directly comparable** to leaderboard results using
 SerpAPI; report the search backend and versions with every run.
@@ -165,7 +172,7 @@ URLs as well as to SearXNG. The SearXNG service does not need to run on the same
 host if the BFCL process can reach it; use the appropriate service DNS name
 when BFCL itself runs in a container.
 
-## Run the categories
+## Run V4 categories
 
 The model patch registers the AIVA served model alias
 `ministral-3-14b-instruct-2512`. For the OpenAI-compatible endpoint, set
@@ -235,15 +242,12 @@ prerequisite history for the selected scenario so it measures the configured
 memory window. It reports a BFCL-answer-checker accuracy for this AIVA-specific
 track; do not present it as the official BFCL `memory` category score.
 
-## Baseline sequence for Grace
+## V4 run sequence for Grace
 
-1. Start with BFCL `memory_kv` as the lightest BFCL memory-tools baseline. It
+1. Run the official BFCL V4 standard categories together to obtain the current overall score. Then inspect category-level outcomes. It
    uses BFCL's simulator, not AIVA's eight-exchange chat history.
-2. Run `web_search` with the same model and the pinned local SearXNG instance.
-3. When AIVA exposes real memory and search tools to its agent loop, rerun the
-   same IDs through that agent and compare per-task outcomes. Keep the official
-   simulator and the AIVA-backed results as separately labeled tracks until
-   their tool interfaces match.
+2. Run memory and web-search categories using their official prerequisites and the pinned local SearXNG instance described above. Record any changed backend because SearXNG results differ from leaderboard SerpAPI.
+3. Preserve the V4 overall and component results. Report the AIVA recent-window adapter separately because it measures another system.
 
 ## Native SearXNG alternative
 
