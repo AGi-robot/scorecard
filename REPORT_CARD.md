@@ -69,6 +69,7 @@ because the arms disagree by more than any other benchmark here.
 | Model | n | Strict | Loose | Time |
 |---|---:|---:|---:|---:|
 | minicpm5-2b | 541 | **85.6** | **87.2** | 82 min |
+| swift | 541 | 82.1 | 86.9 | API, rate-limited |
 | neohorse-1-4b | 541 | 79.1 | 83.0 | 113 min |
 | agents-a1-4b | 541 | 76.3 | 81.2 | 117 min |
 | ministral3-14b | 541 | 65.1 | 71.5 | 219 min |

@@ -1,0 +1,9 @@
+{
+ "label": "swift1.5-qwen3.8-27B",
+ "model": "swift",
+ "n": 541,
+ "think_off": true,
+ "strict": 0.8207,
+ "loose": 0.8688,
+ "elapsed_s": 2283.7
+}

@@ -49,3 +49,16 @@ swift1.5-qwen3.8-27B: 541 prompts -> https://ukisai.com/api/swift/v1 (think_off=
     retry 1/6 in 15.9s (HTTP Error 429: Too Many Requests)
     retry 2/6 in 30.2s (HTTP Error 429: Too Many Requests)
   [380/541] 1s (elapsed 5833s)
+swift1.5-qwen3.8-27B: 541 prompts -> https://ukisai.com/api/swift/v1 (think_off=True)
+  resuming: 401 already done
+  [400/541] 1s (elapsed 66s)
+  [420/541] 3s (elapsed 404s)
+  [440/541] 5s (elapsed 713s)
+  [460/541] 1s (elapsed 1011s)
+  [480/541] 12s (elapsed 1325s)
+  [500/541] 1s (elapsed 1632s)
+  [520/541] 1s (elapsed 1971s)
+  [540/541] 2s (elapsed 2269s)
+swift1.5-qwen3.8-27B IFEval strict: 0.8207 (444/541)
+swift1.5-qwen3.8-27B IFEval loose: 0.8688 (470/541)
+SUMMARY {"label": "swift1.5-qwen3.8-27B", "model": "swift", "n": 541, "think_off": true, "strict": 0.8207, "loose": 0.8688, "elapsed_s": 2283.7}
