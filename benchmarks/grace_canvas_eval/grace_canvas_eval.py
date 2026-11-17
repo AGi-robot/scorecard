@@ -47,10 +47,10 @@ def find_agi_repo():
     else:
         candidates = list(Path(__file__).resolve().parents)
     for candidate in candidates:
-        if (candidate / "canvas" / "src").is_dir() and (candidate / "imaging" / "src").is_dir():
+        if (candidate / "canvas" / "src").is_dir():
             return candidate
     raise SystemExit(
-        "Could not find the AGi source checkout (canvas/src and imaging/src). "
+        "Could not find the AGi source checkout (canvas/src; imaging/src is optional). "
         "Set AGI_REPO to its path."
     )
 
@@ -75,26 +75,18 @@ except Exception:
 # ------------------------------------------------------------------ curve rule
 # The most common model mistake: a curve needs exactly 1+3n points
 # (4, 7, 10, ... 31): one start point plus triples of cubic control/endpoint.
-# Models obey machine-validated constraints far better than prose in the system
-# prompt, so this constraint exists in two forms below.
-CURVE_RULE_PROSE = (
-    "CURVE POINT RULE (strict): a curve's points array must hold exactly "
-    "1 + 3n points -- one of 4, 7, 10, 13, 16, 19, 22, 25, 28 or 31. The "
-    "FIRST point is the start; every following triple is control1, control2, "
-    "endpoint. Never emit 3, 5, 6, 9, 12 or 15 points."
-)
-
 CURVE_POINT_COUNTS = [4, 7, 10, 13, 16, 19, 22, 25, 28, 31]
 
 
 def build_tool(schema_hint=False):
     """canvas_draw tool. With schema_hint the curve point constraint is made
-    machine-visible (minItems + explicit allowed counts) instead of prose-only."""
+    explicit in the shared points description without restricting line lengths."""
     tool = json.loads(json.dumps(DRAW_TOOL))
     if schema_hint:
         points = tool["function"]["parameters"]["properties"][
             "actions"]["items"]["properties"]["points"]
-        points["minItems"] = 4
+        # points is shared by curves, two-point lines, and polygons.
+        # A global minItems=4 would prohibit valid lines and triangles.
         points["description"] = (
             "Curve: start followed by control1, control2, endpoint for each "
             "cubic segment. The count must be exactly one of "
@@ -178,7 +170,7 @@ def draw_actions(base_url, model, system, user, images=None, temperature=0.0,
     try:
         data = chat(base_url, model, messages, tools=[build_tool(schema_hint)],
                     temperature=temperature, think_off=think_off,
-                    force_tool=force_tool)
+                    force_tool=force_tool, reasoning_effort=reasoning_effort)
     except urllib.error.HTTPError as e:
         # Production (aiva_chat/node.py) degrades to a text-only retry when
         # the endpoint cannot take an image. llama.cpp reports that as 500
@@ -189,7 +181,7 @@ def draw_actions(base_url, model, system, user, images=None, temperature=0.0,
                         {"role": "user", "content": text_only}]
             data = chat(base_url, model, messages, tools=[build_tool(schema_hint)],
                         temperature=temperature, think_off=think_off,
-                        force_tool=force_tool)
+                        force_tool=force_tool, reasoning_effort=reasoning_effort)
         else:
             raise
     choice = (data.get("choices") or [{}])[0]
@@ -231,8 +223,9 @@ def draw_actions(base_url, model, system, user, images=None, temperature=0.0,
 # ------------------------------------------------------------------ scene ---
 def build_scene(actions):
     """Replay actions onto the canvas renderer and summarise the result."""
+    from canvas.palette import ensure_paint
     renderer = svg.Renderer()
-    for action in actions:
+    for action in ensure_paint(actions):
         try:
             renderer.apply(action)
         except Exception:
@@ -375,7 +368,7 @@ def run_task(task, args):
 
     # Tier 5: show the draft, let the model critique and improve it.
     if task["tier"] == 5 and png:
-        state = engine.canvas_context(build_scene(validated)["objects"])
+        state = engine.canvas_context(scene["objects"])
         critique = ("Here is a rendered screenshot of the canvas as it currently looks. "
                     "Review it against the request: inspect silhouette, proportions, overlap, "
                     "spacing, palette, lighting and focal point. Remove or replace stray "
@@ -392,8 +385,9 @@ def run_task(task, args):
             force_tool=args.force_tool,
             reasoning_effort=args.reasoning_effort)
         edit_validated, edit_valid, edit_error, edit_clamped = validate_and_measure(edit_actions)
-        edit_scene = build_scene(edit_validated)
-        edit_png, _ = render_png(edit_validated)
+        final_actions = base + validated + edit_validated
+        edit_scene = build_scene(final_actions)
+        edit_png, edit_render_error = render_png(final_actions)
         edit_checks = []
         for check in task["checks"]:
             try:
@@ -405,6 +399,8 @@ def run_task(task, args):
         passed = sum(1 for c in edit_checks if c["ok"])
         result["pass2"] = {
             "steps": len(edit_actions), "valid": edit_valid, "clamped_fields": edit_clamped,
+            "validation_error": edit_error, "rendered": edit_png is not None,
+            "render_error": edit_render_error,
             "truncated_stream": edit_meta["truncated"],
             "elapsed_s": edit_meta["elapsed_s"],
             "checks_passed": passed, "checks_total": len(edit_checks),
@@ -413,8 +409,12 @@ def run_task(task, args):
             "checks": edit_checks,
         }
         result["critique_delta"] = result["pass2"]["score"] - result["score"]
-        if args.out_dir and edit_png:
-            (Path(args.out_dir) / f"{task['id']}.pass2.png").write_bytes(edit_png)
+        if args.out_dir:
+            out = Path(args.out_dir)
+            (out / f"{task['id']}.pass2.actions.json").write_text(json.dumps(edit_actions, indent=1))
+            (out / f"{task['id']}.final.actions.json").write_text(json.dumps(final_actions, indent=1))
+            if edit_png:
+                (out / f"{task['id']}.pass2.png").write_bytes(edit_png)
     return result
 
 
@@ -443,6 +443,9 @@ def main():
                         help="force the canvas_draw function like production "
                              "does (aiva_chat/node.py sets tool_choice)")
     args = parser.parse_args()
+
+    if args.think_off and args.reasoning_effort:
+        parser.error("choose --think-off or --reasoning-effort, not both")
 
     selected = [t for t in T.TASKS if args.tier is None or t["tier"] in args.tier]
     if args.limit:
@@ -473,6 +476,9 @@ def main():
     summary = {
         "label": args.label, "model": args.model, "schema_hint": args.schema_hint,
         "base_url": args.base_url,
+        "protocol_version": 2, "temperature": args.temperature,
+        "think_off": args.think_off, "force_tool": args.force_tool,
+        "reasoning_effort": args.reasoning_effort,
         "tasks": len(results),
         "check_score": round(passed_checks / max(1, total_checks), 4),
         "tasks_fully_satisfied": perfect,
