@@ -49,7 +49,7 @@ def rows():
     # --- IFEval: strict/loose accuracy -------------------------------
     for p in sorted(glob.glob(str(HERE / "ifeval" / "results" / "ifeval_*.json"))):
         d = load_json(p)
-        if not d:
+        if not d or d.get("smoke") or Path(p).name.startswith("ifeval_smoke_"):
             continue
         out.append({
             "bench": "IFEval",

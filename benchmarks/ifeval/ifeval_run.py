@@ -11,6 +11,8 @@ Usage:
     # think-off adds chat_template_kwargs enable_thinking=false (Qwen models)
 Results: results/ifeval_<label>.json + results/responses_<label>.jsonl
 """
+import argparse
+import hashlib
 import json
 import os
 import random
@@ -24,14 +26,11 @@ HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE / "official"))
 from instruction_following_eval import evaluation_lib as E  # noqa: E402
 
-BASE_URL = sys.argv[1].rstrip("/")
-MODEL = sys.argv[2]
-LABEL = sys.argv[3] if len(sys.argv) > 3 else MODEL
-THINK_OFF = "--think-off" in sys.argv
-LIMIT = 0
-for i, a in enumerate(sys.argv):
-    if a == "--limit" and i + 1 < len(sys.argv):
-        LIMIT = int(sys.argv[i + 1])
+DATA = HERE / "data" / "ifeval_input.jsonl"
+OUT = HERE / "results"
+MAX_TOKENS = 2048
+TEMPERATURE = 0.0
+
 
 # Hosted endpoints (e.g. a shared research API) rate-limit hard; a local
 # llama-server never trips these. DELAY paces the request stream and RETRIES
@@ -42,23 +41,15 @@ RETRIES = int(os.environ.get("IF_EVAL_RETRIES", "5"))
 BACKOFF = float(os.environ.get("IF_EVAL_BACKOFF", "5"))
 RETRYABLE = (429, 500, 502, 503, 504)
 
-OUT = HERE / "results"
-OUT.mkdir(parents=True, exist_ok=True)
 
-PROMPTS = [json.loads(l) for l in
-           open(HERE / "data" / "ifeval_input.jsonl")]
-if LIMIT:
-    PROMPTS = PROMPTS[:LIMIT]
-
-
-def ask(prompt, timeout=900, max_tokens=2048):
-    body = {"model": MODEL,
+def ask(args, prompt, timeout=900):
+    body = {"model": args.model,
             "messages": [{"role": "user", "content": prompt}],
-            "temperature": 0.0, "max_tokens": max_tokens, "stream": False}
-    if THINK_OFF:
+            "temperature": TEMPERATURE, "max_tokens": MAX_TOKENS, "stream": False}
+    if args.think_off:
         body["chat_template_kwargs"] = {"enable_thinking": False}
     req = urllib.request.Request(
-        BASE_URL + "/chat/completions", data=json.dumps(body).encode(),
+        args.base_url + "/chat/completions", data=json.dumps(body).encode(),
         headers={"Content-Type": "application/json"})
     t0 = time.time()
     last = None
@@ -66,7 +57,10 @@ def ask(prompt, timeout=900, max_tokens=2048):
         try:
             with urllib.request.urlopen(req, timeout=timeout) as r:
                 data = json.loads(r.read().decode())
-            msg = (data["choices"][0].get("message") or {}).get("content") or ""
+            choice = data["choices"][0]
+            msg = (choice.get("message") or {}).get("content")
+            if choice.get("finish_reason") != "stop" or not isinstance(msg, str) or not msg.strip():
+                raise ValueError("Endpoint returned an empty or incomplete response")
             return msg, time.time() - t0
         except urllib.error.HTTPError as e:
             if e.code not in RETRYABLE or attempt == RETRIES:
@@ -84,59 +78,105 @@ def ask(prompt, timeout=900, max_tokens=2048):
 
 
 def main():
-    responses_path = OUT / f"responses_{LABEL}.jsonl"
-    print(f"{LABEL}: {len(PROMPTS)} prompts -> {BASE_URL} (think_off={THINK_OFF})",
-          flush=True)
-    t_start = time.time()
-    # Resume on the PROMPT, not the line number: a request that failed (or
-    # came back empty after a rate-limit) must be retried, while a later
-    # prompt that succeeded must not be lost.
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("base_url")
+    parser.add_argument("model")
+    parser.add_argument("label", nargs="?")
+    parser.add_argument("--think-off", action="store_true")
+    parser.add_argument("--limit", type=int, default=0)
+    args = parser.parse_args()
+    args.base_url = args.base_url.rstrip("/")
+    label = args.label or args.model
+    if args.limit < 0 or Path(label).name != label or label in {".", ".."}:
+        parser.error("Use a nonnegative limit and a label without directory components")
+
+    dataset = DATA.read_bytes()
+    inputs = E.read_prompt_list(str(DATA))
+    if args.limit:
+        inputs = inputs[:args.limit]
+    expected = {item.prompt for item in inputs}
+    config = {
+        "protocol": 1, "dataset_sha256": hashlib.sha256(dataset).hexdigest(),
+        "base_url_sha256": hashlib.sha256(args.base_url.encode()).hexdigest(),
+        "model": args.model, "think_off": args.think_off, "limit": args.limit,
+        "temperature": TEMPERATURE, "max_tokens": MAX_TOKENS,
+    }
+    fingerprint = hashlib.sha256(json.dumps(config, sort_keys=True).encode()).hexdigest()
+
+    OUT.mkdir(parents=True, exist_ok=True)
+    responses_path = OUT / f"responses_{label}.jsonl"
     have = {}
+    needs_newline = False
+    partial_offset = None
     if responses_path.is_file():
-        for line in open(responses_path):
-            line = line.strip()
-            if not line:
+        with responses_path.open("rb") as checkpoint:
+            while line := checkpoint.readline():
+                offset = checkpoint.tell() - len(line)
+                needs_newline = not line.endswith(b"\n")
+                if not line.strip():
+                    continue
+                try:
+                    record = json.loads(line)
+                except (ValueError, UnicodeDecodeError):
+                    if needs_newline:
+                        partial_offset = offset
+                        break  # Interrupted before completing the last record.
+                    raise SystemExit("Invalid checkpoint record. Use a new label.")
+                if not isinstance(record, dict) or record.get("fingerprint") != fingerprint:
+                    raise SystemExit("Incompatible or historical checkpoint. Use a new label.")
+                response = record.get("response")
+                if not isinstance(response, str) or not response.strip():
+                    raise SystemExit("Invalid checkpoint response. Use a new label.")
+                prompt = record.get("prompt")
+                if not isinstance(prompt, str) or prompt not in expected or prompt in have:
+                    raise SystemExit("Unexpected or duplicate checkpoint prompt. Use a new label.")
+                have[prompt] = response
+
+    if partial_offset is not None:
+        with responses_path.open("r+b") as checkpoint:
+            checkpoint.truncate(partial_offset)
+        needs_newline = False
+
+    print(f"{label}: {len(inputs)} prompts, {len(have)} already complete", flush=True)
+    t_start = time.time()
+    with responses_path.open("a", encoding="utf-8") as checkpoint:
+        for i, item in enumerate(inputs, 1):
+            if item.prompt in have:
                 continue
             try:
-                rec = json.loads(line)
-            except json.JSONDecodeError:
+                text, elapsed = ask(args, item.prompt)
+            except Exception as exc:
+                print(f"  [{i}] request failed ({type(exc).__name__}); rerun to resume", flush=True)
                 continue
-            if rec.get("response", "").strip():
-                have[rec["prompt"]] = rec["response"]
-        print(f"  resuming: {len(have)} already done", flush=True)
-    with open(responses_path, "a") as f:
-        for i, ex in enumerate(PROMPTS):
-            if ex["prompt"] in have:
-                continue
-            try:
-                text, el = ask(ex["prompt"])
-            except Exception as e:
-                print(f"  [{i}] request error: {str(e)[:100]}", flush=True)
-                text, el = "", 0.0
-            f.write(json.dumps({"prompt": ex["prompt"],
-                                "response": text}) + "\n")
-            f.flush()
+            if needs_newline:
+                checkpoint.write("\n")
+                needs_newline = False
+            checkpoint.write(json.dumps({"prompt": item.prompt, "response": text,
+                                         "fingerprint": fingerprint}) + "\n")
+            checkpoint.flush()
+            have[item.prompt] = text
             if DELAY:
                 time.sleep(DELAY)
-            if (i + 1) % 20 == 0:
-                print(f"  [{i+1}/{len(PROMPTS)}] {el:.0f}s "
-                      f"(elapsed {time.time()-t_start:.0f}s)", flush=True)
+            if i % 20 == 0:
+                print(f"  [{i}/{len(inputs)}] {elapsed:.0f}s", flush=True)
 
-    inputs = E.read_prompt_list(str(HERE / "data" / "ifeval_input.jsonl"))
-    if LIMIT:
-        inputs = inputs[:LIMIT]
-    prompt_to_response = E.read_prompt_to_response_dict(str(responses_path))
-    summary = {"label": LABEL, "model": MODEL, "n": len(inputs),
-               "think_off": THINK_OFF}
+    missing = sum(item.prompt not in have for item in inputs)
+    if missing:
+        raise SystemExit(f"Incomplete run: {missing} responses missing. No score written.")
+
+    summary = {"label": label, "model": args.model, "n": len(inputs),
+               "think_off": args.think_off, "run_fingerprint": fingerprint,
+               "limit": args.limit, "smoke": bool(args.limit)}
     for name, func in [("strict", E.test_instruction_following_strict),
                        ("loose", E.test_instruction_following_loose)]:
-        outputs = [func(inp, prompt_to_response) for inp in inputs]
-        acc = sum(o.follow_all_instructions for o in outputs) / len(outputs)
+        outputs = [func(inp, have) for inp in inputs]
+        passed = sum(o.follow_all_instructions for o in outputs)
+        acc = passed / len(outputs)
         summary[name] = round(acc, 4)
-        print(f"{LABEL} IFEval {name}: {acc:.4f} "
-              f"({sum(o.follow_all_instructions for o in outputs)}/{len(outputs)})")
+        print(f"{label} IFEval {name}: {acc:.4f} ({passed}/{len(outputs)})")
     summary["elapsed_s"] = round(time.time() - t_start, 1)
-    json.dump(summary, open(OUT / f"ifeval_{LABEL}.json", "w"), indent=1)
+    score_name = "ifeval_smoke" if args.limit else "ifeval"
+    (OUT / f"{score_name}_{label}.json").write_text(json.dumps(summary, indent=1) + "\n", encoding="utf-8")
     print("SUMMARY " + json.dumps(summary), flush=True)
 
 
