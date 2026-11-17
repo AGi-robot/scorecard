@@ -89,3 +89,43 @@ explain themselves in the JSON report.
   visual metrics stay meaningful while `valid_rate` records the raw failure.
 - `T3` checks are the CANVAS-style ones: rhythm and alignment rather than
   "is there a rectangle".
+
+## Corrected pipeline (protocol version 2)
+
+Use the canvas fixes in [canvas PR #1](https://github.com/AGi-robot/canvas/pull/1)
+for independent action recovery, consistent cubic point counts, and polygon fill.
+`AGI_REPO` must contain `canvas/src`; `imaging/src` is optional.
+
+For a repeatable vector drawing run on a thinking model:
+
+```bash
+AGI_REPO=/path/to/AGi python benchmarks/grace_canvas_eval/grace_canvas_eval.py \
+  --base-url http://127.0.0.1:8080/v1 --model YOUR_MODEL \
+  --label YOUR_MODEL-thinkoff --think-off --force-tool \
+  --out /tmp/canvas-run.json --out-dir /tmp/canvas-renders
+```
+
+The endpoint must support `enable_thinking=false` for that option to take effect.
+For a separate thinking experiment, replace `--think-off` with
+`--reasoning-effort low` when the endpoint supports it. With llama.cpp, configure
+the token budget on the server (the previous experiments used
+`--reasoning-budget 1024`). Effort names do not guarantee a token cap.
+`--force-tool` matches the production caller; it is not a quality guarantee.
+
+Version 2 forwards reasoning effort on both normal and image-free requests,
+keeps the seed and draft during review, and scores the same fallback colors
+that appear in the PNG. Review artifacts include edit actions and the complete
+replay as `.pass2.actions.json` and `.final.actions.json`. The schema hint keeps
+valid lines and triangles available. Output summaries record thinking controls,
+temperature, forced-tool selection, and protocol version.
+
+Historical results remain historical: review deltas from the old pipeline and
+runs labelled with reasoning effort need rerunning. Scene checks measure
+structure and palette; inspect the PNGs or configure the image judge to assess
+visual quality. These fixes do not establish a new model score.
+
+Offline pipeline checks (requires pytest, cairosvg, and pillow):
+
+```bash
+AGI_REPO=/path/to/AGi python -m pytest -q benchmarks/grace_canvas_eval/test_canvas_pipeline.py
+```
