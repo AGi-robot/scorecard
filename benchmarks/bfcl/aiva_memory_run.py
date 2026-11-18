@@ -52,14 +52,14 @@ def load_grace_memory(aiva_root: Path, mind_root: Path | None = None):
         mind_src = (mind_root / "src").resolve()
         expected_store_path = mind_src / "memory" / "conversation.py"
         if not expected_store_path.is_file():
-            raise SystemExit(f"Mind conversation store not found: {expected_store_path}")
+            raise SystemExit(f"Memory conversation store not found: {expected_store_path}")
         sys.path.insert(0, str(mind_src))
     try:
         spec.loader.exec_module(module)
     except ModuleNotFoundError as error:
         if error.name not in {"memory", "memory.conversation"}:
             raise
-        raise SystemExit("Install AIVA's Mind dependency or use --mind-root with a Mind checkout.") from error
+        raise SystemExit("Install AIVA's Memory dependency or use --mind-root with a Mind checkout.") from error
     finally:
         if expected_store_path is not None:
             sys.path.remove(str(mind_src))
@@ -201,7 +201,7 @@ def replay_scenario(
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--aiva-root", required=True, type=Path, help="AIVA checkout root")
-    parser.add_argument("--mind-root", type=Path, help="Mind checkout root when agi-memory is not installed")
+    parser.add_argument("--mind-root", type=Path, help="Memory checkout root when agi-memory is not installed")
     parser.add_argument(
         "--bfcl-root", required=True, type=Path,
         help="Pinned berkeley-function-call-leaderboard checkout root",
