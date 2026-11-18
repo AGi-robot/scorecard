@@ -160,16 +160,16 @@ by the same configured model and cached under `results/seed_cache/`; this makes
 restarts resumable without repeating completed prerequisite turns. Use a new
 `--label` when the model, endpoint, system prompt, or memory window changes.
 
-The pinned Gorilla checkout, AIVA soma checkout, and Psyche Python package are required. For current AIVA,
-install Psyche in the benchmark environment from `AIVA/psyche` (or install the
+The pinned Gorilla checkout, AIVA shell checkout, and Memory Python package are required. For current AIVA,
+install Memory in the benchmark environment from `AIVA/mind/memory` (or install the
 scorecard requirements that include `agi-memory`). The summary records source
 hashes for both the AIVA adapter and
-Psyche store. Use a fresh label after changing the memory implementation.
+Memory store. Use a fresh label after changing the memory implementation.
 Start the local AIVA LLM endpoint, then from the scorecard root run:
 
 ```bash
 python benchmarks/bfcl/aiva_memory_run.py \
-  --aiva-root /path/to/AGi/AIVA/soma \
+  --aiva-root /path/to/AGi/AIVA/shell \
   --bfcl-root /tmp/gorilla-bfcl/berkeley-function-call-leaderboard \
   --base-url http://127.0.0.1:8080/v1 \
   --model ministral-3-14b-instruct-2512 \

@@ -46,7 +46,7 @@ CHOICES = {"a": "A", "b": "B", "t": "tie", "s": "skip"}
 
 def load_soul():
     for cand in [
-        Path("/home/oppa-ai/AGi/AIVA/soma/persona/SOUL.md"),
+        Path("/home/oppa-ai/AGi/AIVA/shell/persona/SOUL.md"),
     ]:
         if cand.is_file():
             return cand.read_text(encoding="utf-8")
