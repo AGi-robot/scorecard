@@ -102,20 +102,20 @@ class TransportTests(unittest.TestCase):
         with patch.object(scorecard_all, "HERE", self.root):
             self.assertTrue(all(r["loose"] == "50% win" for r in scorecard_all.rows()))
 
-    def test_bfcl_request_failure_is_not_scored_as_irrelevance(self):
-        import runpy
+    def test_bfcl_v4_aiva_adapter_propagates_endpoint_failure(self):
         sys.path.insert(0, str(common.HERE / "bfcl"))
-        with patch.object(sys, "argv", ["bfcl_run", "http://localhost/v1", "fixture", "fixture"]):
-            module = runpy.run_path(str(common.HERE / "bfcl/bfcl_run.py"))
-        main = module["main"]
-        question = {"question": [{"role": "user", "content": "fixture"}], "function": []}
-        with patch.dict(main.__globals__, OUT=self.root, CATS=["irrelevance"],
-                        load_cat=lambda cat: ({"fixture": question}, {}),
-                        ask=lambda *args: (_ for _ in ()).throw(RuntimeError("offline"))):
-            with self.assertRaises(RuntimeError):
-                main()
-        self.assertFalse((self.root / "bfcl_fixture.json").exists())
-        self.assertEqual((self.root / "responses_fixture.jsonl").read_text(), "")
+        import aiva_memory_run as runner
+
+        error = runner.urllib.error.HTTPError(
+            "http://localhost/v1/chat/completions", 503, "unavailable", {},
+            io.BytesIO(b"fixture endpoint unavailable"),
+        )
+        with patch.object(runner.urllib.request, "urlopen", side_effect=error):
+            with self.assertRaisesRegex(RuntimeError, "HTTP 503"):
+                runner.completion(
+                    "http://localhost/v1", "fixture", "EMPTY",
+                    [{"role": "user", "content": "fixture"}], 32, 1,
+                )
 
 
 @unittest.skipUnless(os.environ.get("IFBENCH_OFFICIAL"), "set IFBENCH_OFFICIAL for official fixture")

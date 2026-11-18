@@ -11,6 +11,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import importlib.util
+import inspect
 import json
 import os
 import sys
@@ -38,7 +39,7 @@ def user_messages(question: list) -> list[str]:
     return messages
 
 
-def load_grace_memory(aiva_root: Path):
+def load_grace_memory(aiva_root: Path, mind_root: Path | None = None):
     memory_module = aiva_root / "src/central_neural_system/aiva_chat/aiva_chat/memory.py"
     if not memory_module.is_file():
         raise SystemExit(f"AIVA GraceMemory source not found: {memory_module}")
@@ -46,8 +47,28 @@ def load_grace_memory(aiva_root: Path):
     if spec is None or spec.loader is None:
         raise SystemExit(f"Cannot load AIVA GraceMemory from {memory_module}")
     module = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(module)
-    return module.GraceMemory
+    expected_store_path = None
+    if mind_root is not None:
+        mind_src = (mind_root / "src").resolve()
+        expected_store_path = mind_src / "memory" / "conversation.py"
+        if not expected_store_path.is_file():
+            raise SystemExit(f"Mind conversation store not found: {expected_store_path}")
+        sys.path.insert(0, str(mind_src))
+    try:
+        spec.loader.exec_module(module)
+    except ModuleNotFoundError as error:
+        if error.name not in {"memory", "memory.conversation"}:
+            raise
+        raise SystemExit("Install AIVA's Mind dependency or use --mind-root with a Mind checkout.") from error
+    finally:
+        if expected_store_path is not None:
+            sys.path.remove(str(mind_src))
+
+    shared_store = getattr(module, "ConversationStore", None)
+    shared_source = Path(inspect.getfile(shared_store)).resolve() if shared_store is not None else None
+    if shared_source is not None and expected_store_path is not None and shared_source != expected_store_path:
+        raise SystemExit(f"AIVA loaded Mind from {shared_source}; expected {expected_store_path}.")
+    return module.GraceMemory, memory_module, shared_source
 
 
 def load_official_checker(bfcl_root: Path):
@@ -180,6 +201,7 @@ def replay_scenario(
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--aiva-root", required=True, type=Path, help="AIVA checkout root")
+    parser.add_argument("--mind-root", type=Path, help="Mind checkout root when agi-memory is not installed")
     parser.add_argument(
         "--bfcl-root", required=True, type=Path,
         help="Pinned berkeley-function-call-leaderboard checkout root",
@@ -207,7 +229,7 @@ def main() -> None:
         if not path.exists():
             raise SystemExit(f"BFCL V4 data is missing: {path}")
 
-    memory_class = load_grace_memory(aiva_root)
+    memory_class, memory_source, mind_source = load_grace_memory(aiva_root, args.mind_root)
     agentic_checker = load_official_checker(bfcl_root)
     system_path = aiva_root / "persona" / "SOUL.md"
     system_prompt = system_path.read_text(encoding="utf-8").strip() if system_path.is_file() else ""
@@ -231,15 +253,15 @@ def main() -> None:
     remaining = [row for row in question_entries if str(row["id"]) not in completed]
     scenarios = sorted({str(row["scenario"]) for row in remaining})
 
-    memory_source = aiva_root / "src/central_neural_system/aiva_chat/aiva_chat/memory.py"
     aiva_memory_hash = hashlib.sha256(memory_source.read_bytes()).hexdigest()
+    mind_memory_hash = hashlib.sha256(mind_source.read_bytes()).hexdigest() if mind_source else None
     questions_hash = hashlib.sha256(questions_path.read_bytes()).hexdigest()
     prereq_hashes = {
         path.name: hashlib.sha256(path.read_bytes()).hexdigest()
         for path in sorted(prereq_dir.glob("memory_*.json"))
     }
     system_hash = hashlib.sha256(system_prompt.encode()).hexdigest()
-    signature = hashlib.sha256(json.dumps({
+    seed_config = {
         "aiva_memory_source": aiva_memory_hash,
         "bfcl_questions": questions_hash,
         "bfcl_prerequisites": prereq_hashes,
@@ -248,7 +270,20 @@ def main() -> None:
         "system_prompt": system_hash,
         "memory_turns": args.memory_turns,
         "seed_max_tokens": args.seed_max_tokens,
-    }, sort_keys=True).encode()).hexdigest()
+    }
+    if mind_memory_hash is not None:
+        seed_config["mind_conversation_source"] = mind_memory_hash
+    signature = hashlib.sha256(json.dumps(seed_config, sort_keys=True).encode()).hexdigest()
+    result_config = {
+        "seed_signature": signature,
+        "answers_sha256": hashlib.sha256(answers_path.read_bytes()).hexdigest(),
+        "max_tokens": args.max_tokens,
+    }
+    result_signature = hashlib.sha256(json.dumps(result_config, sort_keys=True).encode()).hexdigest()
+    for row in completed.values():
+        saved_signature = row.get("run_signature")
+        if saved_signature != result_signature and (saved_signature is not None or mind_memory_hash is not None):
+            raise SystemExit("Existing results use a different run configuration. Choose a new label or use --overwrite.")
     cache_dir = output_path.parent / "seed_cache"
 
     output_mode = "a" if output_path.exists() else "w"
@@ -292,6 +327,7 @@ def main() -> None:
                         "valid": valid,
                         "memory_turns": args.memory_turns,
                         "model": args.model,
+                        "run_signature": result_signature,
                     }
                     output.write(json.dumps(result, ensure_ascii=False) + "\n")
                     output.flush()
@@ -310,6 +346,8 @@ def main() -> None:
         if all_rows else 0.0,
         "aiva_memory_implementation": "GraceMemory.recent/add_exchange",
         "aiva_memory_source_sha256": aiva_memory_hash,
+        "mind_conversation_source_sha256": mind_memory_hash,
+        "run_signature": result_signature,
         "bfcl_questions_sha256": questions_hash,
         "bfcl_prerequisite_sha256": prereq_hashes,
         "system_prompt_sha256": system_hash,

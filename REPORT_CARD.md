@@ -102,6 +102,11 @@ against one another or compared with BFCL V4 leaderboard scores.
 
 ### Grace Canvas Eval — `canvas_draw` tool calling
 
+**Historical pipeline results:** the corrected protocol forwards reasoning effort
+and preserves the draft during review. Existing review deltas and effort-labelled
+runs need rerunning; the table below has not been recomputed. See the
+[corrected pipeline notes](benchmarks/grace_canvas_eval/README.md#corrected-pipeline-protocol-version-2).
+
 Eight tasks scored from the canvas engine's own scene graph — no reference
 images, no judge. `check_score` is the fraction of per-task checks passed
 (object count, palette, layout rhythm, coverage, overlap, edit semantics);

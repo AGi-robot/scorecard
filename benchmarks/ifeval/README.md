@@ -40,7 +40,11 @@ python ifeval_run.py http://127.0.0.1:8103/v1 neo neohorse-1-4b --think-off
 
 Resumable: completed responses are appended to
 `results/responses_<label>.jsonl`, so an interrupted run picks up where it
-left off. Score files land at `results/ifeval_<label>.json`.
+left off. Resume requires the same model, endpoint, dataset, limit, and
+thinking settings. Use a fresh label for older checkpoints or when changing
+these settings. A full score is written to `results/ifeval_<label>.json`
+only once every response is present. A limited run writes
+`results/ifeval_smoke_<label>.json`.
 
 If a run reports that NLTK's `punkt` tokenizer data is missing, install it
 once with `python -m nltk.downloader punkt`.
