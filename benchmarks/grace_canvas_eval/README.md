@@ -80,6 +80,42 @@ Per-task checks live in `tasks.py` and run against the scene graph, so adding a
 task or a check is a few lines. Each check returns `(ok, detail)` and failures
 explain themselves in the JSON report.
 
+## Local recipe: reproducing the strong canvas runs (Swift IQ3_S, single GPU pair)
+
+The 2026-11-17 experiments found that local IQ3_S "could not pick colours" --
+it wrote colour prose into an ignored `prompt` field and the renderer's
+`ensure_paint` warm fallback painted every shape (`palette.py`). The fix is
+constrained decoding, not a bigger quant. The working recipe:
+
+1. Serve with thinking on but bounded:
+
+   ```bash
+   llama-server -m Swift-1.5-Qwen3.8-27B-GSQ-RCO-IQ3_S-mtp.gguf \
+       --mmproj <projector>.gguf -c 32768 -ngl 999 \
+       --cache-type-k q8_0 --cache-type-v q8_0 --no-mmproj-offload \
+       --jinja --reasoning-effort medium --port 8080
+   ```
+
+2. Send `response_format: {"type": "json_schema", ...}` whose `actions[]`
+   items require `kind`, `color` and `fill_color`; read the actions from
+   `message.content` (no tool round-trip needed). Do NOT combine the
+   grammar with `chat_template_kwargs {enable_thinking: false}` -- the
+   constrained stream then burns the budget and returns empty.
+
+3. Give `max_tokens >= 6144`; at `--reasoning-effort medium` thinking is
+   part of the plan and pays for itself (lighthouse judge ladder:
+   effort off 7/10, low 8/10, medium 9/10 + 5/5 checks).
+
+Measured with this recipe (judge = Ministral3-14B, single sample):
+sunflower 9/10, lighthouse 9/10. Ministral3-14B (Q4_K_XL and Q8_0) emits
+correct hex colours under the same grammar but composes worse (8/10, muted
+palette) -- keep it on chat, not canvas.
+
+Protocol change 2026-11-17: `tasks.coverage()` excludes near-full-canvas
+background layers (>= 90% of canvas) so a deliberate backdrop no longer
+fails T1-lighthouse; the lighthouse ceiling is 0.95. Historical scores in
+`results/` predate this -- rerun `rescore.py` before comparing.
+
 ## Notes
 
 - The renderer is Grace's own (`canvas.svg.Renderer`), so `objects` is the same
