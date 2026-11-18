@@ -160,12 +160,16 @@ by the same configured model and cached under `results/seed_cache/`; this makes
 restarts resumable without repeating completed prerequisite turns. Use a new
 `--label` when the model, endpoint, system prompt, or memory window changes.
 
-The pinned Gorilla checkout and AIVA checkout are required. Start the local AIVA
-LLM endpoint, then from the scorecard root run:
+The pinned Gorilla checkout and AIVA checkout are required. For current AIVA,
+install Mind in the benchmark environment or pass `--mind-root`, as shown
+below. The summary records the source hashes for both the AIVA adapter and
+Mind store. Use a fresh label for the first run after migrating to Mind.
+Start the local AIVA LLM endpoint, then from the scorecard root run:
 
 ```bash
 python benchmarks/bfcl/aiva_memory_run.py \
   --aiva-root /path/to/AGi-Robot/AIVA \
+  --mind-root /path/to/AGi-Robot/mind \
   --bfcl-root /tmp/gorilla-bfcl/berkeley-function-call-leaderboard \
   --base-url http://127.0.0.1:8080/v1 \
   --model ministral-3-14b-instruct-2512 \
