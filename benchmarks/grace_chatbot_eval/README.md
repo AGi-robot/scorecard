@@ -31,7 +31,7 @@ python preference_bench.py score
 
 ## What's tested
 
-The system prompt is Grace's `AIVA/persona/SOUL.md` plus the current
+The system prompt is Grace's `AIVA/soma/persona/SOUL.md` plus the current
 timestamp -- the same context `aiva_chat/node.py` builds -- so this tests the
 deployment, not the bare model. (`--bare` drops the persona for a pure model
 comparison. `--think-off` disables thinking on Qwen models for protocol

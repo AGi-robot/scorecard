@@ -7,7 +7,7 @@ labeled separately from official benchmark scores.
 ## Regenerating
 
 ```bash
-cd scorecard/benchmarks
+cd benchmarks
 python3 scorecard_all.py                 # one table to stdout
 python3 scorecard_all.py --markdown      # the tables in this file
 ```

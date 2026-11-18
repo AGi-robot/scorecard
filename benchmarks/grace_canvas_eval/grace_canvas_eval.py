@@ -47,17 +47,18 @@ def find_agi_repo():
     else:
         candidates = list(Path(__file__).resolve().parents)
     for candidate in candidates:
-        if (candidate / "canvas" / "src").is_dir():
+        if (candidate / "capability" / "canvas" / "src").is_dir():
             return candidate
     raise SystemExit(
-        "Could not find the AGi source checkout (canvas/src; imaging/src is optional). "
+        "Could not find the AGi source checkout (capability/canvas/src; "
+        "capability/imaging/src is optional). "
         "Set AGI_REPO to its path."
     )
 
 
 AGI_REPO = find_agi_repo()
-sys.path.insert(0, str(AGI_REPO / "canvas" / "src"))
-sys.path.insert(0, str(AGI_REPO / "imaging" / "src"))
+sys.path.insert(0, str(AGI_REPO / "capability" / "canvas" / "src"))
+sys.path.insert(0, str(AGI_REPO / "capability" / "imaging" / "src"))
 
 import cairosvg  # noqa: E402
 from canvas import DRAW_INSTRUCTIONS, DRAW_TOOL, engine, svg  # noqa: E402

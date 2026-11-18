@@ -130,7 +130,7 @@ fails T1-lighthouse; the lighthouse ceiling is 0.95. Historical scores in
 
 Use the canvas fixes in [canvas PR #1](https://github.com/AGi-robot/canvas/pull/1)
 for independent action recovery, consistent cubic point counts, and polygon fill.
-`AGI_REPO` must contain `canvas/src`; `imaging/src` is optional.
+`AGI_REPO` must contain `capability/canvas/src`; `capability/imaging/src` is optional.
 
 For a repeatable vector drawing run on a thinking model:
 

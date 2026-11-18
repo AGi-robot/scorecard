@@ -9,7 +9,7 @@ import urllib.error
 import pytest
 from PIL import Image
 
-# AGI_REPO points to the parent containing canvas/src; imaging is optional.
+# AGI_REPO points to the checkout containing capability/canvas/src; imaging is optional.
 spec = importlib.util.spec_from_file_location(
     'canvas_eval_pipeline', Path(__file__).with_name('grace_canvas_eval.py'))
 eval = importlib.util.module_from_spec(spec)
