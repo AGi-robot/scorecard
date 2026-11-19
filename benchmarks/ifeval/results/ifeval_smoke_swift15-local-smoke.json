@@ -1,0 +1,13 @@
+{
+ "label": "swift15-local-smoke",
+ "model": "swift15-qwen3.8-27b",
+ "n": 3,
+ "think_off": true,
+ "run_fingerprint": "b1523388d88fddb847a0ed86d12a171ea9d92d4a634f1a175a6e04a184161d53",
+ "limit": 3,
+ "smoke": true,
+ "truncated": 0,
+ "strict": 1.0,
+ "loose": 1.0,
+ "elapsed_s": 76.2
+}

@@ -59,9 +59,13 @@ def ask(args, prompt, timeout=900):
                 data = json.loads(r.read().decode())
             choice = data["choices"][0]
             msg = (choice.get("message") or {}).get("content")
-            if choice.get("finish_reason") != "stop" or not isinstance(msg, str) or not msg.strip():
+            finish_reason = choice.get("finish_reason")
+            # A model that runs into the 2048-token protocol cap still produced
+            # an answer that the official scorer can evaluate; truncation is a
+            # legitimate instruction-following failure, not a transport error.
+            if finish_reason not in ("stop", "length") or not isinstance(msg, str) or not msg.strip():
                 raise ValueError("Endpoint returned an empty or incomplete response")
-            return msg, time.time() - t0
+            return msg, time.time() - t0, finish_reason
         except urllib.error.HTTPError as e:
             if e.code not in RETRYABLE or attempt == RETRIES:
                 raise
@@ -139,19 +143,23 @@ def main():
 
     print(f"{label}: {len(inputs)} prompts, {len(have)} already complete", flush=True)
     t_start = time.time()
+    truncated = 0
     with responses_path.open("a", encoding="utf-8") as checkpoint:
         for i, item in enumerate(inputs, 1):
             if item.prompt in have:
                 continue
             try:
-                text, elapsed = ask(args, item.prompt)
+                text, elapsed, finish_reason = ask(args, item.prompt)
             except Exception as exc:
                 print(f"  [{i}] request failed ({type(exc).__name__}); rerun to resume", flush=True)
                 continue
+            if finish_reason == "length":
+                truncated += 1
             if needs_newline:
                 checkpoint.write("\n")
                 needs_newline = False
             checkpoint.write(json.dumps({"prompt": item.prompt, "response": text,
+                                         "finish_reason": finish_reason,
                                          "fingerprint": fingerprint}) + "\n")
             checkpoint.flush()
             have[item.prompt] = text
@@ -166,7 +174,8 @@ def main():
 
     summary = {"label": label, "model": args.model, "n": len(inputs),
                "think_off": args.think_off, "run_fingerprint": fingerprint,
-               "limit": args.limit, "smoke": bool(args.limit)}
+               "limit": args.limit, "smoke": bool(args.limit),
+               "truncated": truncated}
     for name, func in [("strict", E.test_instruction_following_strict),
                        ("loose", E.test_instruction_following_loose)]:
         outputs = [func(inp, have) for inp in inputs]
