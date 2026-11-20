@@ -10,10 +10,54 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import shutil
+import tempfile
 import time
 import urllib.error
 import urllib.request
 from pathlib import Path
+
+
+DATASET_URLS = {
+    "longmemeval_s_cleaned.json": (
+        "https://huggingface.co/datasets/xiaowu0162/longmemeval-cleaned/"
+        "resolve/main/longmemeval_s_cleaned.json"
+    ),
+    "longmemeval_oracle.json": (
+        "https://huggingface.co/datasets/xiaowu0162/longmemeval-cleaned/"
+        "resolve/main/longmemeval_oracle.json"
+    ),
+}
+
+
+def ensure_dataset(path: Path) -> Path:
+    """Download a supported LongMemEval dataset when its input file is absent."""
+    if path.exists():
+        return path
+    url = DATASET_URLS.get(path.name)
+    if url is None:
+        raise SystemExit(
+            f"Input file not found: {path}. Automatic download is available for: "
+            f"{', '.join(DATASET_URLS)}"
+        )
+
+    path.parent.mkdir(parents=True, exist_ok=True)
+    print(f"Downloading {path.name} from Hugging Face...", flush=True)
+    temp_path: Path | None = None
+    try:
+        with urllib.request.urlopen(url, timeout=60) as response:
+            with tempfile.NamedTemporaryFile(
+                mode="wb", dir=path.parent, prefix=f".{path.name}.", delete=False
+            ) as temp_file:
+                temp_path = Path(temp_file.name)
+                shutil.copyfileobj(response, temp_file)
+        temp_path.replace(path)
+    except (OSError, urllib.error.URLError) as error:
+        if temp_path is not None:
+            temp_path.unlink(missing_ok=True)
+        raise SystemExit(f"Could not download {path.name}: {error}") from error
+    print(f"Saved dataset to {path}", flush=True)
+    return path
 
 
 def build_prompt(entry: dict) -> str:
@@ -88,6 +132,7 @@ def main() -> None:
     parser.add_argument("--overwrite", action="store_true", help="Discard existing output instead of resuming")
     args = parser.parse_args()
 
+    args.input = ensure_dataset(args.input)
     entries = load_entries(args.input)
     selected = entries[args.offset:]
     if args.limit is not None:

@@ -5,7 +5,11 @@ long-term conversational memory with 500 questions covering information
 extraction, multi-session reasoning, knowledge updates, temporal reasoning,
 and abstention. The data is hosted by the authors on
 [Hugging Face](https://huggingface.co/datasets/xiaowu0162/longmemeval-cleaned).
-It is not copied into this repository.
+The dataset files are ignored by Git. The runner downloads either supported
+dataset into the requested input path the first time it is needed.
+
+The S split is about 265 MiB and the oracle split about 15 MiB. Both come from
+the authors' [Hugging Face dataset](https://huggingface.co/datasets/xiaowu0162/longmemeval-cleaned).
 
 ## Full-history baseline
 
@@ -14,7 +18,7 @@ the official `question_id` / `hypothesis` JSONL format. It is a **long-context
 baseline**, not a test of Grace's persistent memory database. Use the official
 retrieval track or a dedicated memory adapter to measure a memory system.
 
-Download `longmemeval_s_cleaned.json` from the dataset card, then run:
+Run the baseline with the S split; it downloads the file if it is missing:
 
 ```bash
 python benchmarks/longmemeval/full_history_run.py \

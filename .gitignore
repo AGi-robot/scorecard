@@ -12,3 +12,6 @@ benchmarks/livecodebench/results/
 benchmarks/eqbench/results/
 benchmarks/eqbench/config.yaml
 benchmarks/eqbench/.env
+
+# LongMemEval source datasets are large and should stay local.
+benchmarks/longmemeval/data/*.json
