@@ -29,13 +29,19 @@ python preference_bench.py rate
 python preference_bench.py score
 ```
 
+Generation calls each model's OpenAI-compatible endpoint directly. It does not
+start or import Grace's runtime. By default no system prompt is sent, so model
+comparisons do not inherit changes to Grace's persona or chat orchestration.
+To evaluate a persona separately, pass `--system-prompt-file` with a saved,
+versioned prompt snapshot; the batch records its filename and SHA-256. Do not point
+this option at a live persona file if you want runs to remain independent of
+Grace updates.
+
 ## What's tested
 
-The system prompt is Grace's `AIVA/shell/persona/SOUL.md` plus the current
-timestamp -- the same context `aiva_chat/node.py` builds -- so this tests the
-deployment, not the bare model. (`--bare` drops the persona for a pure model
-comparison. `--think-off` disables thinking on Qwen models for protocol
-parity with Ministral, which has no thinking mode.)
+`--think-off` disables thinking on Qwen models for protocol parity with
+Ministral, which has no thinking mode. Keep the setting fixed across contestants
+and record the serving-model revision and quantization with each run.
 
 The endpoint may still expose its API model ID as `swift`; the contestant label
 above identifies the exact Swift 1.5 Qwen 3.8 27B build.

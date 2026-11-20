@@ -102,9 +102,9 @@ class TransportTests(unittest.TestCase):
         with patch.object(scorecard_all, "HERE", self.root):
             self.assertTrue(all(r["loose"] == "50% win" for r in scorecard_all.rows()))
 
-    def test_bfcl_v4_aiva_adapter_propagates_endpoint_failure(self):
+    def test_bfcl_v4_mind_adapter_propagates_endpoint_failure(self):
         sys.path.insert(0, str(common.HERE / "bfcl"))
-        import aiva_memory_run as runner
+        import mind_memory_run as runner
 
         error = runner.urllib.error.HTTPError(
             "http://localhost/v1/chat/completions", 503, "unavailable", {},

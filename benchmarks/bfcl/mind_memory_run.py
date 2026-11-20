@@ -1,17 +1,16 @@
 #!/usr/bin/env python3
-"""Score AIVA's real SQLite recent-turn memory on BFCL V4 memory questions.
+"""Score Mind's SQLite conversation window on BFCL V4 memory questions.
 
-This is a product-specific adapter, not an official BFCL memory-tool run.
-It replays BFCL prerequisite dialogue through AIVA's GraceMemory class, then
-asks the BFCL memory questions with the same recent() history shape used by
-AivaChat. The BFCL agentic answer checker scores the final answers.
+This is a component adapter, not an official BFCL memory-tool run. It uses
+Mind's public ConversationStore API directly and calls the selected model
+through an OpenAI-compatible endpoint. It does not import or launch Grace's
+runtime, chat node, persona, or tool orchestration.
 """
 from __future__ import annotations
 
 import argparse
 import hashlib
 import importlib.util
-import inspect
 import json
 import os
 import sys
@@ -39,36 +38,16 @@ def user_messages(question: list) -> list[str]:
     return messages
 
 
-def load_grace_memory(aiva_root: Path, mind_root: Path | None = None):
-    memory_module = aiva_root / "src/central_neural_system/aiva_chat/aiva_chat/memory.py"
+def load_conversation_store(mind_root: Path):
+    memory_module = mind_root / "src/memory/conversation.py"
     if not memory_module.is_file():
-        raise SystemExit(f"AIVA GraceMemory source not found: {memory_module}")
-    spec = importlib.util.spec_from_file_location("aiva_grace_memory", memory_module)
+        raise SystemExit(f"Mind ConversationStore source not found: {memory_module}")
+    spec = importlib.util.spec_from_file_location("scorecard_mind_conversation", memory_module)
     if spec is None or spec.loader is None:
-        raise SystemExit(f"Cannot load AIVA GraceMemory from {memory_module}")
+        raise SystemExit(f"Cannot load Mind ConversationStore from {memory_module}")
     module = importlib.util.module_from_spec(spec)
-    expected_store_path = None
-    if mind_root is not None:
-        mind_src = (mind_root / "src").resolve()
-        expected_store_path = mind_src / "memory" / "conversation.py"
-        if not expected_store_path.is_file():
-            raise SystemExit(f"Memory conversation store not found: {expected_store_path}")
-        sys.path.insert(0, str(mind_src))
-    try:
-        spec.loader.exec_module(module)
-    except ModuleNotFoundError as error:
-        if error.name not in {"memory", "memory.conversation"}:
-            raise
-        raise SystemExit("Install AIVA's Memory dependency or use --mind-root with a Mind checkout.") from error
-    finally:
-        if expected_store_path is not None:
-            sys.path.remove(str(mind_src))
-
-    shared_store = getattr(module, "ConversationStore", None)
-    shared_source = Path(inspect.getfile(shared_store)).resolve() if shared_store is not None else None
-    if shared_source is not None and expected_store_path is not None and shared_source != expected_store_path:
-        raise SystemExit(f"AIVA loaded Mind from {shared_source}; expected {expected_store_path}.")
-    return module.GraceMemory, memory_module, shared_source
+    spec.loader.exec_module(module)
+    return module.ConversationStore, memory_module
 
 
 def load_official_checker(bfcl_root: Path):
@@ -200,8 +179,7 @@ def replay_scenario(
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--aiva-root", required=True, type=Path, help="AIVA checkout root")
-    parser.add_argument("--mind-root", type=Path, help="Memory checkout root when agi-memory is not installed")
+    parser.add_argument("--mind-root", required=True, type=Path, help="Mind repository checkout root")
     parser.add_argument(
         "--bfcl-root", required=True, type=Path,
         help="Pinned berkeley-function-call-leaderboard checkout root",
@@ -210,6 +188,8 @@ def main() -> None:
     parser.add_argument("--model", default="ministral-3-14b-instruct-2512")
     parser.add_argument("--api-key", default=os.getenv("OPENAI_API_KEY", "EMPTY"))
     parser.add_argument("--memory-turns", type=int, default=8)
+    parser.add_argument("--system-prompt-file", type=Path,
+                        help="optional frozen prompt file; omitted for a bare-model memory run")
     parser.add_argument("--max-tokens", type=int, default=500)
     parser.add_argument("--seed-max-tokens", type=int, default=256)
     parser.add_argument("--timeout", type=float, default=900)
@@ -219,7 +199,7 @@ def main() -> None:
     parser.add_argument("--overwrite", action="store_true")
     args = parser.parse_args()
 
-    aiva_root = args.aiva_root.resolve()
+    mind_root = args.mind_root.resolve()
     bfcl_root = args.bfcl_root.resolve()
     bfcl_data = bfcl_root / "bfcl_eval" / "data"
     questions_path = bfcl_data / "BFCL_v4_memory.json"
@@ -229,17 +209,17 @@ def main() -> None:
         if not path.exists():
             raise SystemExit(f"BFCL V4 data is missing: {path}")
 
-    memory_class, memory_source, mind_source = load_grace_memory(aiva_root, args.mind_root)
+    memory_class, memory_source = load_conversation_store(mind_root)
     agentic_checker = load_official_checker(bfcl_root)
-    system_path = aiva_root / "persona" / "SOUL.md"
-    system_prompt = system_path.read_text(encoding="utf-8").strip() if system_path.is_file() else ""
+    system_prompt = args.system_prompt_file.read_text(encoding="utf-8").strip() \
+        if args.system_prompt_file else ""
     question_entries = read_jsonl(questions_path)
     answer_entries = read_jsonl(answers_path)
     answers = {str(row["id"]): row.get("ground_truth", []) for row in answer_entries}
     if args.limit is not None:
         question_entries = question_entries[:max(0, args.limit)]
 
-    output_path = args.output or Path("benchmarks/bfcl/results/v4") / f"aiva_recent_{args.label}.jsonl"
+    output_path = args.output or Path("benchmarks/bfcl/results/v4") / f"mind_recent_{args.label}.jsonl"
     output_path = output_path.resolve()
     output_path.parent.mkdir(parents=True, exist_ok=True)
     if args.overwrite:
@@ -253,16 +233,15 @@ def main() -> None:
     remaining = [row for row in question_entries if str(row["id"]) not in completed]
     scenarios = sorted({str(row["scenario"]) for row in remaining})
 
-    aiva_memory_hash = hashlib.sha256(memory_source.read_bytes()).hexdigest()
-    mind_memory_hash = hashlib.sha256(mind_source.read_bytes()).hexdigest() if mind_source else None
+    memory_hash = hashlib.sha256(memory_source.read_bytes()).hexdigest()
     questions_hash = hashlib.sha256(questions_path.read_bytes()).hexdigest()
     prereq_hashes = {
         path.name: hashlib.sha256(path.read_bytes()).hexdigest()
         for path in sorted(prereq_dir.glob("memory_*.json"))
     }
-    system_hash = hashlib.sha256(system_prompt.encode()).hexdigest()
+    system_hash = hashlib.sha256(system_prompt.encode()).hexdigest() if system_prompt else None
     seed_config = {
-        "aiva_memory_source": aiva_memory_hash,
+        "mind_conversation_source": memory_hash,
         "bfcl_questions": questions_hash,
         "bfcl_prerequisites": prereq_hashes,
         "base_url": args.base_url,
@@ -271,8 +250,6 @@ def main() -> None:
         "memory_turns": args.memory_turns,
         "seed_max_tokens": args.seed_max_tokens,
     }
-    if mind_memory_hash is not None:
-        seed_config["mind_conversation_source"] = mind_memory_hash
     signature = hashlib.sha256(json.dumps(seed_config, sort_keys=True).encode()).hexdigest()
     result_config = {
         "seed_signature": signature,
@@ -282,12 +259,12 @@ def main() -> None:
     result_signature = hashlib.sha256(json.dumps(result_config, sort_keys=True).encode()).hexdigest()
     for row in completed.values():
         saved_signature = row.get("run_signature")
-        if saved_signature != result_signature and (saved_signature is not None or mind_memory_hash is not None):
+        if saved_signature != result_signature:
             raise SystemExit("Existing results use a different run configuration. Choose a new label or use --overwrite.")
     cache_dir = output_path.parent / "seed_cache"
 
     output_mode = "a" if output_path.exists() else "w"
-    with tempfile.TemporaryDirectory(prefix="aiva-bfcl-memory-") as temporary:
+    with tempfile.TemporaryDirectory(prefix="mind-bfcl-memory-") as temporary:
         with output_path.open(output_mode, encoding="utf-8") as output:
             for scenario in scenarios:
                 prereq_path = prereq_dir / f"memory_{scenario}.json"
@@ -296,7 +273,7 @@ def main() -> None:
                 prereq_entries = read_jsonl(prereq_path)
                 db_path = Path(temporary) / f"{scenario}.sqlite3"
                 cache_path = cache_dir / f"{args.label}_{scenario}.jsonl"
-                print(f"Seeding {scenario} history through AIVA GraceMemory...", flush=True)
+                print(f"Seeding {scenario} history through Mind ConversationStore...", flush=True)
                 memory = replay_scenario(
                     scenario, prereq_entries, memory_class, system_prompt,
                     args.base_url, args.model, args.api_key, args.memory_turns,
@@ -336,7 +313,7 @@ def main() -> None:
 
     all_rows = [completed[str(row["id"])] for row in question_entries if str(row["id"]) in completed]
     summary = {
-        "benchmark": "AIVA GraceMemory recent-window track on BFCL V4 memory QA",
+        "benchmark": "Mind ConversationStore recent-window track on BFCL V4 memory QA",
         "official_bfcl_memory_score": False,
         "model": args.model,
         "memory_turns": args.memory_turns,
@@ -344,9 +321,8 @@ def main() -> None:
         "correct": sum(bool(row.get("valid")) for row in all_rows),
         "accuracy": round(sum(bool(row.get("valid")) for row in all_rows) / len(all_rows), 4)
         if all_rows else 0.0,
-        "aiva_memory_implementation": "GraceMemory.recent/add_exchange",
-        "aiva_memory_source_sha256": aiva_memory_hash,
-        "mind_conversation_source_sha256": mind_memory_hash,
+        "memory_implementation": "Mind ConversationStore.recent/add_exchange",
+        "memory_source_sha256": memory_hash,
         "run_signature": result_signature,
         "bfcl_questions_sha256": questions_hash,
         "bfcl_prerequisite_sha256": prereq_hashes,

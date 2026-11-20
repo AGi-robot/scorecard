@@ -16,9 +16,10 @@ Contestants are OpenAI-compatible endpoints, e.g.:
 The configured contestant label should identify the exact model build; an
 endpoint may continue to use a shorter API model ID.
 
-The system prompt defaults to Grace's SOUL.md plus the current timestamp --
-the same context aiva_chat/node.py builds -- so this tests the deployment,
-not the bare model. Pass --bare to test models without the persona.
+This runner calls OpenAI-compatible model endpoints directly. By default it
+sends no system prompt, so the comparison is independent of Grace's runtime
+and persona. Pass a versioned prompt snapshot explicitly for a separate
+persona/product-fit comparison.
 
 Nothing runs until you invoke it; generation needs the servers up.
 """
@@ -42,15 +43,6 @@ import scripts as SCRIPTS_MOD  # noqa: E402
 OUT_DIR = HERE / "results"
 DIMENSIONS = ["warmth", "coherence", "persona", "overall"]
 CHOICES = {"a": "A", "b": "B", "t": "tie", "s": "skip"}
-
-
-def load_soul():
-    for cand in [
-        Path("/home/oppa-ai/AGi/AIVA/shell/persona/SOUL.md"),
-    ]:
-        if cand.is_file():
-            return cand.read_text(encoding="utf-8")
-    return "You are Grace, a warm, honest AI companion."
 
 
 def chat(base_url, model, messages, temperature=0.7, max_tokens=512,
@@ -79,7 +71,7 @@ def parse_contestant(spec):
 
 
 def play_script(script, contestant, system, temperature, think_off):
-    messages = [{"role": "system", "content": system}]
+    messages = ([{"role": "system", "content": system}] if system else [])
     transcript = []
     for turn in script["turns"]:
         if "user" not in turn:
@@ -102,12 +94,16 @@ def cmd_generate(args):
     contestants = [parse_contestant(s) for s in args.contestant]
     if len(contestants) < 1:
         raise SystemExit("need at least one --contestant entry")
-    soul = "" if args.bare else load_soul()
     stamp = datetime.datetime.now(datetime.timezone.utc).strftime(
         "%A, %B %d, %Y at %I:%M %p UTC")
-    system = (soul + f"\n\nCurrent local date and time: {stamp}. "
-              "Use this as the authoritative current time.").strip()
-    batch = {"created": stamp, "bare": args.bare, "temperature": args.temperature,
+    system = args.system_prompt_file.read_text(encoding="utf-8").strip() \
+        if args.system_prompt_file else ""
+    system_hash = hashlib.sha256(system.encode("utf-8")).hexdigest() if system else None
+    batch = {"created": stamp, "bare": not bool(system),
+             "system_prompt_sha256": system_hash,
+             "system_prompt_file": args.system_prompt_file.name
+             if args.system_prompt_file else None,
+             "temperature": args.temperature,
              "think_off": args.think_off, "contestants": [c["name"] for c in contestants],
              "scripts": {}}
     for script in SCRIPTS_MOD.SCRIPTS:
@@ -267,8 +263,8 @@ def main():
     gen.add_argument("--temperature", type=float, default=0.7)
     gen.add_argument("--think-off", action="store_true", default=False,
                      help="disable thinking on Qwen models (BFCL protocol parity)")
-    gen.add_argument("--bare", action="store_true", default=False,
-                     help="no SOUL persona; bare-model comparison")
+    gen.add_argument("--system-prompt-file", type=Path, default=None,
+                     help="optional frozen prompt snapshot for a separate persona comparison; omit for bare models")
     rate = sub.add_parser("rate", help="blind human rating")
     rate.add_argument("--batch", default=None)
     score = sub.add_parser("score", help="win rates + Elo standings")
