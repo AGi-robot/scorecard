@@ -17,9 +17,9 @@ The configured contestant label should identify the exact model build; an
 endpoint may continue to use a shorter API model ID.
 
 This runner calls OpenAI-compatible model endpoints directly. By default it
-sends no system prompt, so the comparison is independent of Grace's runtime
-and persona. Pass a versioned prompt snapshot explicitly for a separate
-persona/product-fit comparison.
+uses the versioned Grace persona snapshot and the scripted conversation
+history. This is a prompt-level Grace harness, not the full running Grace
+runtime. Use --bare-model for a model-only comparison.
 
 Nothing runs until you invoke it; generation needs the servers up.
 """
@@ -41,6 +41,7 @@ sys.path.insert(0, str(HERE))
 import scripts as SCRIPTS_MOD  # noqa: E402
 
 OUT_DIR = HERE / "results"
+DEFAULT_SYSTEM_PROMPT = HERE / "prompts" / "grace-persona-v1.md"
 DIMENSIONS = ["warmth", "coherence", "persona", "overall"]
 CHOICES = {"a": "A", "b": "B", "t": "tie", "s": "skip"}
 
@@ -96,13 +97,16 @@ def cmd_generate(args):
         raise SystemExit("need at least one --contestant entry")
     stamp = datetime.datetime.now(datetime.timezone.utc).strftime(
         "%A, %B %d, %Y at %I:%M %p UTC")
-    system = args.system_prompt_file.read_text(encoding="utf-8").strip() \
-        if args.system_prompt_file else ""
+    prompt_file = None if args.bare_model else (args.system_prompt_file or DEFAULT_SYSTEM_PROMPT)
+    persona = prompt_file.read_text(encoding="utf-8").strip() if prompt_file else ""
+    system = (persona + f"\n\nCurrent date and time: {stamp}. "
+              "Use this as the authoritative current time.").strip() if persona else ""
     system_hash = hashlib.sha256(system.encode("utf-8")).hexdigest() if system else None
-    batch = {"created": stamp, "bare": not bool(system),
+    persona_hash = hashlib.sha256(persona.encode("utf-8")).hexdigest() if persona else None
+    batch = {"created": stamp, "bare_model": args.bare_model,
              "system_prompt_sha256": system_hash,
-             "system_prompt_file": args.system_prompt_file.name
-             if args.system_prompt_file else None,
+             "persona_prompt_sha256": persona_hash,
+             "system_prompt_file": prompt_file.name if prompt_file else None,
              "temperature": args.temperature,
              "think_off": args.think_off, "contestants": [c["name"] for c in contestants],
              "scripts": {}}
@@ -263,8 +267,11 @@ def main():
     gen.add_argument("--temperature", type=float, default=0.7)
     gen.add_argument("--think-off", action="store_true", default=False,
                      help="disable thinking on Qwen models (BFCL protocol parity)")
-    gen.add_argument("--system-prompt-file", type=Path, default=None,
-                     help="optional frozen prompt snapshot for a separate persona comparison; omit for bare models")
+    prompt_mode = gen.add_mutually_exclusive_group()
+    prompt_mode.add_argument("--bare-model", action="store_true",
+                             help="omit Grace's persona and timestamp; compare model endpoints directly")
+    prompt_mode.add_argument("--system-prompt-file", type=Path, default=None,
+                             help="use this prompt snapshot instead of the bundled Grace persona")
     rate = sub.add_parser("rate", help="blind human rating")
     rate.add_argument("--batch", default=None)
     score = sub.add_parser("score", help="win rates + Elo standings")
