@@ -205,3 +205,12 @@
 8.18.227.392 I slot print_timing: id  0 | task 6023 | n_gen =   2834, tg =  18.08 t/s, tg_3s =  17.40 t/s
 8.21.259.272 I slot print_timing: id  0 | task 6023 | n_gen =   2888, tg =  18.08 t/s, tg_3s =  17.81 t/s
 8.24.297.026 I slot print_timing: id  0 | task 6023 | n_gen =   2942, tg =  18.07 t/s, tg_3s =  17.78 t/s
+8.27.300.417 I slot print_timing: id  0 | task 6023 | n_gen =   2995, tg =  18.06 t/s, tg_3s =  17.65 t/s
+8.30.319.161 I slot print_timing: id  0 | task 6023 | n_gen =   3048, tg =  18.05 t/s, tg_3s =  17.56 t/s
+8.33.339.643 I slot print_timing: id  0 | task 6023 | n_gen =   3101, tg =  18.04 t/s, tg_3s =  17.55 t/s
+8.36.394.705 I slot print_timing: id  0 | task 6023 | n_gen =   3155, tg =  18.04 t/s, tg_3s =  17.68 t/s
+8.39.418.582 I slot print_timing: id  0 | task 6023 | n_gen =   3209, tg =  18.03 t/s, tg_3s =  17.86 t/s
+8.42.455.308 I slot print_timing: id  0 | task 6023 | n_gen =   3263, tg =  18.03 t/s, tg_3s =  17.78 t/s
+8.45.498.012 I slot print_timing: id  0 | task 6023 | n_gen =   3317, tg =  18.03 t/s, tg_3s =  17.75 t/s
+8.48.546.455 I slot print_timing: id  0 | task 6023 | n_gen =   3371, tg =  18.02 t/s, tg_3s =  17.71 t/s
+8.51.581.481 I slot print_timing: id  0 | task 6023 | n_gen =   3425, tg =  18.02 t/s, tg_3s =  17.79 t/s
