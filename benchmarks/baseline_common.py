@@ -69,12 +69,18 @@ def parser(description, default_n=1, temperature=0.0, max_tokens=8192):
     p.add_argument("--temperature", type=float, default=temperature)
     p.add_argument("--max-tokens", type=int, default=max_tokens)
     p.add_argument("--request-timeout", type=int, default=300)
+    # Grace roster convention: Qwen thinking models run with thinking disabled so
+    # format-sensitive scores are comparable with IFEval. Recorded in the manifest.
+    p.add_argument("--think-off", action="store_true",
+                   help="Send chat_template_kwargs.enable_thinking=false (Qwen models)")
     return p
 
 
 def complete(args, messages, top_p=1.0):
     body = {"model": args.model, "messages": messages, "temperature": args.temperature,
             "top_p": top_p, "max_tokens": args.max_tokens, "n": 1, "stream": False}
+    if getattr(args, "think_off", False):
+        body["chat_template_kwargs"] = {"enable_thinking": False}
     headers = {"Content-Type": "application/json"}
     if os.environ.get("OPENAI_API_KEY"):
         headers["Authorization"] = "Bearer " + os.environ["OPENAI_API_KEY"]
@@ -110,7 +116,8 @@ def initialize(args, protocol, data_path, total):
     args.output.mkdir(parents=True, exist_ok=True)
     config = {"protocol": protocol, "data_sha256": digest(data_path), "total": total,
               "limit": args.limit, "model": args.model, "base_url": args.base_url,
-              "n": args.n, "temperature": args.temperature, "max_tokens": args.max_tokens}
+              "n": args.n, "temperature": args.temperature, "max_tokens": args.max_tokens,
+              "think_off": bool(getattr(args, "think_off", False))}
     path = args.output / "manifest.json"
     if path.exists() and json.loads(path.read_text()) != config:
         raise ValueError("Output configuration differs; use a new directory and identical flags for every stage")

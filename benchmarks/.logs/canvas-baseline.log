@@ -1,0 +1,31 @@
+[Thu Nov 19 11:14:51 PM MST 2026] Loading ministral-3-8b-uncensored
+[Thu Nov 19 11:14:53 PM MST 2026] ===== Canvas eval (effort medium): ministral3-8b (ministral-3-8b-uncensored) =====
+[Thu Nov 19 11:14:53 PM MST 2026] Holding shutdown/sleep inhibitor for: /home/oppa-ai/.venvs/grace-canvas-eval/bin/python /home/oppa-ai/AGi/diagnostic/scorecard/benchmarks/grace_canvas_eval/grace_canvas_eval.py --base-url http://127.0.0.1:8090/v1 --model ministral-3-8b-uncensored --label ministral3-8b --reasoning-effort medium --max-tokens 6144 --single-pass --out /home/oppa-ai/AGi/diagnostic/scorecard/benchmarks/grace_canvas_eval/results/ministral3-8b.json --out-dir /home/oppa-ai/AGi/diagnostic/scorecard/benchmarks/grace_canvas_eval/renders/ministral3-8b
+Grace Canvas Eval: ministral3-8b (8 tasks)
+    pass1 5/6  valid=True rendered=True steps=16  more=False img=False  45.69s
+  T1-apple               5/6  valid=True rendered=True  steps=16  45.74s
+    pass1 3/5  valid=True rendered=True steps=16  more=False img=False  116.52s
+  T1-lighthouse          3/5  valid=True rendered=True  steps=16  116.59s
+    pass1 4/6  valid=True rendered=True steps=12  more=False img=False  89.8s
+  T2-still-life          4/6  valid=True rendered=True  steps=12  89.87s
+    pass1 4/5  valid=True rendered=True steps=16  more=True img=False  38.83s
+  T2-robot-mascot        4/5  valid=True rendered=True  steps=16  38.87s
+    pass1 2/7  valid=True rendered=True steps=2  more=False img=False  15.05s
+  T3-navbar              2/7  valid=True rendered=True  steps=2  15.08s
+    pass1 2/5  valid=True rendered=True steps=3  more=False img=False  9.67s
+  T3-poster              2/5  valid=True rendered=True  steps=3  9.72s
+    pass1 4/4  valid=True rendered=True steps=1  more=False img=False  2.8s
+  T4-recolour-leaf       4/4  valid=True rendered=True  steps=1  2.83s
+    pass1 2/4  valid=True rendered=True steps=16  more=False img=False  42.96s
+  T5-critique-self       2/4  valid=True rendered=True  steps=16  43.0s
+
+SUMMARY {"label": "ministral3-8b", "model": "ministral-3-8b-uncensored", "schema_hint": false, "base_url": "http://127.0.0.1:8090/v1", "protocol_version": 3, "temperature": 0.0, "transport": "response_format_json_schema", "think_off": false, "force_tool": false, "reasoning_effort": "medium", "vision_passes": false, "single_pass": true, "pass_budgets": [16], "tasks": 8, "check_score": 0.619, "tasks_fully_satisfied": 1, "fully_satisfied_rate": 0.125, "valid_rate": 1.0, "render_rate": 1.0, "truncated_rate": 0.0, "mean_steps": 10.25, "total_wall_s": 361.7, "refinement_delta": 0.0}
+[Thu Nov 19 11:20:55 PM MST 2026] Canvas eval done: ministral3-8b
+[Thu Nov 19 11:20:59 PM MST 2026] Loading swift15-qwen3.8-27b
+[Thu Nov 19 11:21:03 PM MST 2026] ===== Canvas eval (effort medium): swift15-qwen3.8-27b-local (swift15-qwen3.8-27b) =====
+[Thu Nov 19 11:21:03 PM MST 2026] Holding shutdown/sleep inhibitor for: /home/oppa-ai/.venvs/grace-canvas-eval/bin/python /home/oppa-ai/AGi/diagnostic/scorecard/benchmarks/grace_canvas_eval/grace_canvas_eval.py --base-url http://127.0.0.1:8090/v1 --model swift15-qwen3.8-27b --label swift15-qwen3.8-27b-local --reasoning-effort medium --max-tokens 6144 --single-pass --out /home/oppa-ai/AGi/diagnostic/scorecard/benchmarks/grace_canvas_eval/results/swift15-qwen3.8-27b-local.json --out-dir /home/oppa-ai/AGi/diagnostic/scorecard/benchmarks/grace_canvas_eval/renders/swift15-qwen3.8-27b-local
+Grace Canvas Eval: swift15-qwen3.8-27b-local (8 tasks)
+    pass1 5/6  valid=True rendered=True steps=7  more=False img=False  210.53s
+  T1-apple               5/6  valid=True rendered=True  steps=7  210.57s
+    pass1 5/5  valid=True rendered=True steps=16  more=True img=False  126.36s
+  T1-lighthouse          5/5  valid=True rendered=True  steps=16  126.4s

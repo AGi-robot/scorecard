@@ -1,0 +1,12 @@
+[Thu Nov 19 10:23:39 PM MST 2026] Holding shutdown/sleep inhibitor for: /home/oppa-ai/.venvs/grace-canvas-eval/bin/python /home/oppa-ai/AGi/diagnostic/scorecard/benchmarks/grace_canvas_eval/grace_canvas_eval.py --base-url http://127.0.0.1:8090/v1 --model saluki-27b --label saluki-27b --reasoning-effort medium --max-tokens 6144 --out /home/oppa-ai/AGi/diagnostic/scorecard/benchmarks/grace_canvas_eval/results/saluki-27b.json --out-dir /home/oppa-ai/AGi/diagnostic/scorecard/benchmarks/grace_canvas_eval/renders/saluki-27b
+Grace Canvas Eval: saluki-27b (8 tasks)
+  T1-apple               4/6  valid=False rendered=True  steps=5  153.85s
+  T1-lighthouse          4/5  valid=True rendered=True  steps=15  212.84s
+  T2-still-life          3/6  valid=True rendered=True  steps=1  118.08s
+  T2-robot-mascot        2/5  valid=True rendered=True  steps=2  131.02s
+  T3-navbar              2/7  valid=True rendered=True  steps=1  104.59s
+  T3-poster              2/5  valid=True rendered=True  steps=3  73.04s
+  T4-recolour-leaf       4/4  valid=True rendered=True  steps=1  9.75s
+  T5-critique-self       1/4  valid=True rendered=True  steps=1  444.95s
+
+SUMMARY {"label": "saluki-27b", "model": "saluki-27b", "schema_hint": false, "base_url": "http://127.0.0.1:8090/v1", "protocol_version": 2, "temperature": 0.0, "think_off": false, "force_tool": false, "reasoning_effort": "medium", "tasks": 8, "check_score": 0.5238, "tasks_fully_satisfied": 1, "fully_satisfied_rate": 0.125, "valid_rate": 0.875, "render_rate": 1.0, "truncated_rate": 0.0, "mean_steps": 3.62, "total_wall_s": 1248.1, "critique_delta": 0.5}

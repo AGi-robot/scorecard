@@ -1,0 +1,13 @@
+{
+ "label": "ministral3-8b",
+ "model": "ministral-3-8b-uncensored",
+ "n": 541,
+ "think_off": false,
+ "run_fingerprint": "c8463a3a0244f13fe1504c96bc159e66a117cf0c07184db3dd662564be13cbbf",
+ "limit": 0,
+ "smoke": false,
+ "truncated": 6,
+ "strict": 0.5767,
+ "loose": 0.6229,
+ "elapsed_s": 466.1
+}

@@ -42,6 +42,8 @@ def run(multiturn=None):
                 "nltk_data_revision": NLTK_REVISION,
                 "history": "released messages including fixed assistant turn" if multiturn else "single user prompt",
                 "primary_metric": "prompt_loose"}
+    if getattr(args, "think_off", False):
+        protocol["thinking"] = "disabled via chat_template_kwargs.enable_thinking=false"
     if multiturn:
         path = download(f"https://huggingface.co/datasets/allenai/IFBench_multi-turn/resolve/{MULTITURN_REVISION}/ifbench_constraints/test-00000-of-00001.parquet",
                         HERE / ".cache" / f"ifbench-multiturn-{MULTITURN_REVISION}.parquet")

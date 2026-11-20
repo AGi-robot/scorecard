@@ -1,0 +1,4 @@
+[Thu Nov 19 09:54:44 PM MST 2026] Loading ministral-3-8b-uncensored
+[Thu Nov 19 09:54:46 PM MST 2026] ===== IFBench: ministral3-8b (ministral-3-8b-uncensored) =====
+[Thu Nov 19 09:54:46 PM MST 2026] Holding shutdown/sleep inhibitor for: /home/oppa-ai/AGi/diagnostic/scorecard/.venv/bin/python /home/oppa-ai/AGi/diagnostic/scorecard/benchmarks/ifbench/ifbench_run.py --base-url http://127.0.0.1:8091/v1 --model ministral-3-8b-uncensored --output /home/oppa-ai/AGi/diagnostic/scorecard/benchmarks/ifbench/results/ministral3-8b --request-timeout 900
+Terminated

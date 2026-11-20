@@ -1,0 +1,18 @@
+[Thu Nov 19 10:06:19 PM MST 2026] Holding shutdown/sleep inhibitor for: /home/oppa-ai/.venvs/grace-canvas-eval/bin/python /home/oppa-ai/AGi/diagnostic/scorecard/benchmarks/grace_canvas_eval/grace_canvas_eval.py --base-url http://127.0.0.1:8090/v1 --model swift15-qwen3.8-27b --label swift15-qwen3.8-27b-local --reasoning-effort medium --max-tokens 6144 --out /home/oppa-ai/AGi/diagnostic/scorecard/benchmarks/grace_canvas_eval/results/swift15-qwen3.8-27b-local.json --out-dir /home/oppa-ai/AGi/diagnostic/scorecard/benchmarks/grace_canvas_eval/renders/swift15-qwen3.8-27b-local
+Grace Canvas Eval: swift15-qwen3.8-27b-local (8 tasks)
+  T1-apple               2/6  valid=True rendered=True  steps=1  146.18s
+  T1-lighthouse          4/5  valid=True rendered=True  steps=16  192.71s
+  T2-still-life          4/6  valid=True rendered=True  steps=1  137.37s
+  T2-robot-mascot        1/5  valid=True rendered=True  steps=1  28.91s
+  T3-navbar              2/7  valid=True rendered=True  steps=1  91.33s
+  T3-poster              2/5  valid=True rendered=True  steps=3  54.58s
+  T4-recolour-leaf       4/4  valid=True rendered=True  steps=1  10.48s
+  T5-critique-self       2/4  valid=False rendered=True  steps=16  368.62s
+
+SUMMARY {"label": "swift15-qwen3.8-27b-local", "model": "swift15-qwen3.8-27b", "schema_hint": false, "base_url": "http://127.0.0.1:8090/v1", "protocol_version": 2, "temperature": 0.0, "think_off": false, "force_tool": false, "reasoning_effort": "medium", "tasks": 8, "check_score": 0.5, "tasks_fully_satisfied": 1, "fully_satisfied_rate": 0.125, "valid_rate": 0.875, "render_rate": 1.0, "truncated_rate": 0.0, "mean_steps": 5.0, "total_wall_s": 1030.2, "critique_delta": 0.0}
+[Thu Nov 19 11:21:03 PM MST 2026] Holding shutdown/sleep inhibitor for: /home/oppa-ai/.venvs/grace-canvas-eval/bin/python /home/oppa-ai/AGi/diagnostic/scorecard/benchmarks/grace_canvas_eval/grace_canvas_eval.py --base-url http://127.0.0.1:8090/v1 --model swift15-qwen3.8-27b --label swift15-qwen3.8-27b-local --reasoning-effort medium --max-tokens 6144 --single-pass --out /home/oppa-ai/AGi/diagnostic/scorecard/benchmarks/grace_canvas_eval/results/swift15-qwen3.8-27b-local.json --out-dir /home/oppa-ai/AGi/diagnostic/scorecard/benchmarks/grace_canvas_eval/renders/swift15-qwen3.8-27b-local
+Grace Canvas Eval: swift15-qwen3.8-27b-local (8 tasks)
+    pass1 5/6  valid=True rendered=True steps=7  more=False img=False  210.53s
+  T1-apple               5/6  valid=True rendered=True  steps=7  210.57s
+    pass1 5/5  valid=True rendered=True steps=16  more=True img=False  126.36s
+  T1-lighthouse          5/5  valid=True rendered=True  steps=16  126.4s

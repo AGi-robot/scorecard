@@ -1,0 +1,12 @@
+[Thu Nov 19 09:48:39 PM MST 2026] Holding shutdown/sleep inhibitor for: /home/oppa-ai/.venvs/grace-canvas-eval/bin/python /home/oppa-ai/AGi/diagnostic/scorecard/benchmarks/grace_canvas_eval/grace_canvas_eval.py --base-url http://127.0.0.1:8090/v1 --model deepseek-v4-pro-qwen3.5-9b --label deepseek-v4-pro-qwen3.5-9b --out /home/oppa-ai/AGi/diagnostic/scorecard/benchmarks/grace_canvas_eval/results/deepseek-v4-pro-qwen3.5-9b.json --out-dir /home/oppa-ai/AGi/diagnostic/scorecard/benchmarks/grace_canvas_eval/renders/deepseek-v4-pro-qwen3.5-9b
+Grace Canvas Eval: deepseek-v4-pro-qwen3.5-9b (8 tasks)
+  T1-apple               3/6  valid=True rendered=True  steps=1  75.15s
+  T1-lighthouse          2/5  valid=True rendered=True  steps=1  11.94s
+  T2-still-life          4/6  valid=True rendered=True  steps=2  14.45s
+  T2-robot-mascot        4/5  valid=False rendered=True  steps=5  45.84s
+  T3-navbar              4/7  valid=True rendered=True  steps=5  24.46s
+  T3-poster              2/5  valid=False rendered=True  steps=3  10.04s
+  T4-recolour-leaf       4/4  valid=True rendered=True  steps=1  4.79s
+  T5-critique-self       3/4  valid=False rendered=True  steps=5  97.57s
+
+SUMMARY {"label": "deepseek-v4-pro-qwen3.5-9b", "model": "deepseek-v4-pro-qwen3.5-9b", "schema_hint": false, "base_url": "http://127.0.0.1:8090/v1", "protocol_version": 2, "temperature": 0.0, "think_off": false, "force_tool": false, "reasoning_effort": null, "tasks": 8, "check_score": 0.619, "tasks_fully_satisfied": 1, "fully_satisfied_rate": 0.125, "valid_rate": 0.625, "render_rate": 1.0, "truncated_rate": 0.0, "mean_steps": 2.88, "total_wall_s": 284.2, "critique_delta": 0.0}

@@ -1,0 +1,9 @@
+[Thu Nov 19 10:44:38 PM MST 2026] Holding shutdown/sleep inhibitor for: /home/oppa-ai/.venvs/grace-canvas-eval/bin/python /home/oppa-ai/AGi/diagnostic/scorecard/benchmarks/grace_canvas_eval/grace_canvas_eval.py --base-url http://127.0.0.1:8090/v1 --model deepseek-v4-pro-qwen3.5-9b --label deepseek-v4-pro-qwen3.5-9b --reasoning-effort medium --max-tokens 6144 --out /home/oppa-ai/AGi/diagnostic/scorecard/benchmarks/grace_canvas_eval/results/deepseek-v4-pro-qwen3.5-9b.json --out-dir /home/oppa-ai/AGi/diagnostic/scorecard/benchmarks/grace_canvas_eval/renders/deepseek-v4-pro-qwen3.5-9b
+Grace Canvas Eval: deepseek-v4-pro-qwen3.5-9b (8 tasks)
+  T1-apple               3/6  valid=True rendered=True  steps=1  62.59s
+  T1-lighthouse          2/5  valid=True rendered=True  steps=1  12.0s
+  T2-still-life          4/6  valid=True rendered=True  steps=2  14.56s
+  T2-robot-mascot        4/5  valid=False rendered=True  steps=5  46.19s
+  T3-navbar              4/7  valid=True rendered=True  steps=5  24.66s
+  T3-poster              2/5  valid=False rendered=True  steps=3  10.13s
+  T4-recolour-leaf       4/4  valid=True rendered=True  steps=1  4.82s
