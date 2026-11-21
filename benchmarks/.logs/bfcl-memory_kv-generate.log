@@ -1092,3 +1092,119 @@ Failed to decode the model response. Proceed to next turn.
 ----------------------------------------------------------------------------------------------------
 ID: memory_kv_prereq_13-healthcare-3, Turn: 2, Step: 0
 Failed to decode the model response. Proceed to next turn.Generating results for AGi/ministral-3-14b-instruct-2512:  19%|█▉        | 36/187 [10:16<56:29, 22.45s/it]Generating results for AGi/ministral-3-14b-instruct-2512:  20%|█▉        | 37/187 [10:26<53:06, 21.24s/it]Generating results for AGi/ministral-3-14b-instruct-2512:  20%|██        | 38/187 [11:55<1:09:54, 28.15s/it]Generating results for AGi/ministral-3-14b-instruct-2512:  21%|██        | 39/187 [12:15<1:07:25, 27.33s/it]
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_18-finance-3, Turn: 1, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_25-student-3, Turn: 1, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_3-customer-3, Turn: 2, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_13-healthcare-3, Turn: 3, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_18-finance-3, Turn: 2, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_25-student-3, Turn: 2, Step: 0
+Failed to decode the model response. Proceed to next turn.
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_3-customer-3, Turn: 3, Step: 0
+Failed to decode the model response. Proceed to next turn.
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_13-healthcare-3, Turn: 4, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_25-student-3, Turn: 3, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_13-healthcare-3, Turn: 5, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_25-student-3, Turn: 4, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_18-finance-3, Turn: 3, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_3-customer-3, Turn: 4, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_13-healthcare-3, Turn: 6, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_13-healthcare-3, Turn: 7, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_25-student-3, Turn: 5, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_3-customer-3, Turn: 5, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_13-healthcare-3, Turn: 8, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_18-finance-3, Turn: 4, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_13-healthcare-3, Turn: 9, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_3-customer-3, Turn: 6, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_25-student-3, Turn: 6, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_19-finance-4, Turn: 0, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_25-student-3, Turn: 7, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_3-customer-3, Turn: 7, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_25-student-3, Turn: 8, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_14-healthcare-4, Turn: 0, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_3-customer-3, Turn: 8, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_19-finance-4, Turn: 1, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_14-healthcare-4, Turn: 1, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_25-student-3, Turn: 9, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_3-customer-3, Turn: 9, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_19-finance-4, Turn: 2, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_25-student-3, Turn: 10, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_3-customer-3, Turn: 10, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_25-student-3, Turn: 11, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_19-finance-4, Turn: 3, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_14-healthcare-4, Turn: 2, Step: 0
+Failed to decode the model response. Proceed to next turn.
