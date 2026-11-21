@@ -1,9 +1,0 @@
-{
- "label": "agents-a1-4b",
- "model": "any",
- "n": 541,
- "think_off": true,
- "strict": 0.7634,
- "loose": 0.8115,
- "elapsed_s": 7022.6
-}

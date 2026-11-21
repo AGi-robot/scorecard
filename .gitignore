@@ -5,8 +5,26 @@ __pycache__/
 /results/
 /renders/
 benchmarks/.cache/
-benchmarks/ifbench/results/
+
+# Benchmark results: bulk artifacts (per-task renders, full response dumps,
+# snapshots) stay out of git; small score summaries are tracked. The keepers:
+#   ifbench: results/<label>/{summary.json,manifest.json}
+#   ifeval:  results/ifeval_*.json  (score files; responses_*.jsonl ignored)
+#   bfcl:    results/**/score/*.csv (overall + component tables)
+#   canvas:  grace_canvas_eval/results/*.json are the scores themselves
+#            (renders/ bulk ignored separately below).
+benchmarks/ifbench/results/*
+!benchmarks/ifbench/results/*/
+benchmarks/ifbench/results/*/*
+!benchmarks/ifbench/results/*/summary.json
+!benchmarks/ifbench/results/*/manifest.json
+benchmarks/ifeval/results/*
+!benchmarks/ifeval/results/ifeval_*.json
 benchmarks/livecodebench/results/
+benchmarks/grace_canvas_eval/renders/
+benchmarks/bfcl/results/**/BFCL_*.json
+benchmarks/bfcl/results/**/memory_snapshot/
+benchmarks/bfcl/results/**/seed_cache/
 
 # New judged benchmarks retain raw artifacts outside source control.
 benchmarks/eqbench/results/
@@ -15,3 +33,6 @@ benchmarks/eqbench/.env
 
 # LongMemEval source datasets are large and should stay local.
 benchmarks/longmemeval/data/*.json
+
+# Local benchmark run logs (per-run server/harness output, never committed).
+benchmarks/.logs/

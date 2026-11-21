@@ -1,9 +1,0 @@
-{
- "label": "ministral3-14b",
- "model": "any",
- "n": 541,
- "think_off": false,
- "strict": 0.6506,
- "loose": 0.7153,
- "elapsed_s": 13124.7
-}
