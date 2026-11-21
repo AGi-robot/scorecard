@@ -1,0 +1,40 @@
+[
+ {
+  "kind": "rectangle",
+  "color": "#E8EAF3",
+  "fill_color": "#E8EAF3",
+  "fill": true,
+  "width": 0,
+  "height": 0,
+  "x": 0,
+  "y": 0
+ },
+ {
+  "kind": "text",
+  "color": "#2C3E50",
+  "fill_color": "#2C3E50",
+  "fill": false
+ },
+ {
+  "kind": "line",
+  "color": "#2C3E50",
+  "fill_color": "#2C3E50",
+  "fill": false,
+  "points": [
+   [
+    200,
+    120
+   ],
+   [
+    800,
+    120
+   ]
+  ]
+ },
+ {
+  "kind": "text",
+  "color": "#2C3E50",
+  "fill_color": "#2C3E50",
+  "fill": false
+ }
+]

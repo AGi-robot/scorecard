@@ -1,0 +1,38 @@
+[
+ {
+  "kind": "text",
+  "size": 120,
+  "line_height": 1,
+  "align": "center",
+  "text": "EVENT",
+  "color": "#000000",
+  "fill_color": "#000000",
+  "fill": true
+ },
+ {
+  "kind": "path",
+  "color": "#000000",
+  "fill_color": "#000000",
+  "fill": false,
+  "points": [
+   [
+    100,
+    180
+   ],
+   [
+    900,
+    180
+   ]
+  ]
+ },
+ {
+  "kind": "text",
+  "size": 40,
+  "line_height": 1,
+  "align": "center",
+  "text": "OCTOBER 15",
+  "color": "#000000",
+  "fill_color": "#000000",
+  "fill": true
+ }
+]

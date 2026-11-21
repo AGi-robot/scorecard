@@ -1,0 +1,12 @@
+[
+ {
+  "kind": "rectangle",
+  "x": 0,
+  "y": 0,
+  "width": 1000,
+  "height": 650,
+  "color": "#1a1a2e",
+  "fill_color": "#1a1a2e",
+  "fill": false
+ }
+]

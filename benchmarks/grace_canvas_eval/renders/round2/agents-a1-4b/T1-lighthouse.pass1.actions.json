@@ -1,0 +1,122 @@
+[
+ {
+  "kind": "rectangle",
+  "color": "#1a2b4c",
+  "fill_color": "#1a2b4c",
+  "fill": true,
+  "width": 0,
+  "height": 0,
+  "x": 0,
+  "y": 0
+ },
+ {
+  "kind": "curve",
+  "color": "#2c2c2c",
+  "fill_color": "#2c2c2c",
+  "fill": true,
+  "points": [
+   [
+    100,
+    500
+   ],
+   [
+    200,
+    400
+   ],
+   [
+    300,
+    300
+   ],
+   [
+    400,
+    250
+   ],
+   [
+    500,
+    300
+   ],
+   [
+    600,
+    400
+   ],
+   [
+    700,
+    500
+   ],
+   [
+    800,
+    600
+   ],
+   [
+    900,
+    550
+   ],
+   [
+    1000,
+    500
+   ]
+  ]
+ },
+ {
+  "kind": "path",
+  "smooth": true,
+  "color": "#e0e0e0",
+  "fill_color": "#e0e0e0",
+  "fill": true,
+  "points": [
+   [
+    480,
+    250
+   ],
+   [
+    500,
+    150
+   ],
+   [
+    520,
+    250
+   ]
+  ]
+ },
+ {
+  "kind": "path",
+  "smooth": true,
+  "color": "#ffcc00",
+  "fill_color": "#ffcc00",
+  "fill": true,
+  "points": [
+   [
+    500,
+    100
+   ],
+   [
+    500,
+    50
+   ]
+  ]
+ },
+ {
+  "kind": "curve",
+  "color": "#0f1f3f",
+  "fill_color": "#0f1f3f",
+  "fill": true,
+  "points": [
+   [
+    0,
+    500
+   ],
+   [
+    1000,
+    500
+   ],
+   [
+    1000,
+    650
+   ],
+   [
+    0,
+    650
+   ]
+  ]
+ }
+]

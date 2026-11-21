@@ -1,0 +1,35 @@
+[
+ {
+  "kind": "text",
+  "text": "EVENT",
+  "stroke": false,
+  "color": "#C8102E",
+  "fill_color": "#C8102E",
+  "fill": true
+ },
+ {
+  "kind": "line",
+  "stroke": true,
+  "color": "#333333",
+  "fill_color": "#333333",
+  "fill": false,
+  "points": [
+   [
+    50,
+    200
+   ],
+   [
+    950,
+    200
+   ]
+  ]
+ },
+ {
+  "kind": "text",
+  "text": "DATE: 2024-06-15",
+  "stroke": false,
+  "color": "#666666",
+  "fill_color": "#666666",
+  "fill": true
+ }
+]

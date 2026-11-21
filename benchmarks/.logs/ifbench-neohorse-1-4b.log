@@ -1,0 +1,30 @@
+[Fri Nov 20 11:29:38 PM MST 2026] Holding shutdown/sleep inhibitor for: /home/oppa-ai/AGi/diagnostic/scorecard/.venv/bin/python /home/oppa-ai/AGi/diagnostic/scorecard/benchmarks/ifbench/ifbench_run.py --base-url http://127.0.0.1:8095/v1 --model neohorse-1-4b --output /home/oppa-ai/AGi/diagnostic/scorecard/benchmarks/ifbench/results/neohorse-1-4b --think-off
+Traceback (most recent call last):
+  File "/home/oppa-ai/AGi/diagnostic/scorecard/benchmarks/ifbench/ifbench_run.py", line 10, in <module>
+    run()
+  File "/home/oppa-ai/AGi/diagnostic/scorecard/benchmarks/ifbench_baseline.py", line 82, in run
+    outputs = responses(args, tasks, messages)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/oppa-ai/AGi/diagnostic/scorecard/benchmarks/baseline_common.py", line 151, in responses
+    text = complete(args, prompt_messages, top_p)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/oppa-ai/AGi/diagnostic/scorecard/benchmarks/baseline_common.py", line 101, in complete
+    raise RuntimeError(f"Endpoint HTTP {error.code}; no score written") from None
+RuntimeError: Endpoint HTTP 400; no score written
+/home/oppa-ai/AGi/diagnostic/scorecard/.venv/bin/python failed with exit status 1.
+[Fri Nov 20 11:49:27 PM MST 2026] Holding shutdown/sleep inhibitor for: /home/oppa-ai/AGi/diagnostic/scorecard/.venv/bin/python /home/oppa-ai/AGi/diagnostic/scorecard/benchmarks/ifbench/ifbench_run.py --base-url http://127.0.0.1:8095/v1 --model neohorse-1-4b --output /home/oppa-ai/AGi/diagnostic/scorecard/benchmarks/ifbench/results/neohorse-1-4b --think-off
+Saved 1/300
+Saved 2/300
+Traceback (most recent call last):
+  File "/home/oppa-ai/AGi/diagnostic/scorecard/benchmarks/ifbench/ifbench_run.py", line 10, in <module>
+    run()
+  File "/home/oppa-ai/AGi/diagnostic/scorecard/benchmarks/ifbench_baseline.py", line 82, in run
+    outputs = responses(args, tasks, messages)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/oppa-ai/AGi/diagnostic/scorecard/benchmarks/baseline_common.py", line 151, in responses
+    text = complete(args, prompt_messages, top_p)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/oppa-ai/AGi/diagnostic/scorecard/benchmarks/baseline_common.py", line 97, in complete
+    raise ValueError("Incomplete completion; increase --max-tokens in a new output directory")
+ValueError: Incomplete completion; increase --max-tokens in a new output directory
+/home/oppa-ai/AGi/diagnostic/scorecard/.venv/bin/python failed with exit status 1.

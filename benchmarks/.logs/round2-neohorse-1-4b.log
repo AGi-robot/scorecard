@@ -1,0 +1,20 @@
+[Fri Nov 20 11:16:38 PM MST 2026] Holding shutdown/sleep inhibitor for: /home/oppa-ai/.venvs/grace-canvas-eval/bin/python /home/oppa-ai/AGi/diagnostic/scorecard/benchmarks/grace_canvas_eval/grace_canvas_eval.py --base-url http://127.0.0.1:8090/v1 --model neohorse-1-4b --label neohorse-1-4b --reasoning-effort medium --max-tokens 6144 --vision-passes --out /home/oppa-ai/AGi/diagnostic/scorecard/benchmarks/grace_canvas_eval/results/round2/neohorse-1-4b.json --out-dir /home/oppa-ai/AGi/diagnostic/scorecard/benchmarks/grace_canvas_eval/renders/round2/neohorse-1-4b
+Grace Canvas Eval: neohorse-1-4b (8 tasks)
+    pass1 5/6  valid=True rendered=True steps=5  more=False img=False  41.76s
+  T1-apple               5/6  valid=True rendered=True  steps=5  41.8s
+    pass1 5/5  valid=True rendered=True steps=12  more=False img=False  54.67s
+  T1-lighthouse          5/5  valid=True rendered=True  steps=12  54.71s
+    pass1 5/6  valid=True rendered=True steps=6  more=False img=False  50.66s
+  T2-still-life          5/6  valid=True rendered=True  steps=6  50.72s
+    pass1 5/5  valid=True rendered=True steps=16  more=False img=False  66.09s
+  T2-robot-mascot        5/5  valid=True rendered=True  steps=16  66.16s
+    pass1 0/7  valid=True rendered=True steps=7  more=False img=False  39.21s
+  T3-navbar              0/7  valid=True rendered=True  steps=7  39.24s
+    pass1 2/5  valid=True rendered=True steps=3  more=False img=False  17.11s
+  T3-poster              2/5  valid=True rendered=True  steps=3  17.16s
+    pass1 4/4  valid=True rendered=True steps=1  more=False img=False  3.12s
+  T4-recolour-leaf       4/4  valid=True rendered=True  steps=1  3.15s
+    pass1 0/4  valid=True rendered=True steps=1  more=False img=False  38.47s
+  T5-critique-self       0/4  valid=True rendered=True  steps=1  38.5s
+
+SUMMARY {"label": "neohorse-1-4b", "model": "neohorse-1-4b", "schema_hint": false, "base_url": "http://127.0.0.1:8090/v1", "protocol_version": 3, "temperature": 0.0, "transport": "response_format_json_schema", "think_off": false, "force_tool": false, "reasoning_effort": "medium", "vision_passes": true, "single_pass": false, "pass_budgets": [16, 10, 8, 6], "tasks": 8, "check_score": 0.619, "tasks_fully_satisfied": 3, "fully_satisfied_rate": 0.375, "valid_rate": 1.0, "render_rate": 1.0, "truncated_rate": 0.0, "mean_steps": 6.38, "total_wall_s": 311.4, "refinement_delta": 0.0}

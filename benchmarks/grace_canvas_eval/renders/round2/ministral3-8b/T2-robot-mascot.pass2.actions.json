@@ -1,0 +1,228 @@
+[
+ {
+  "kind": "delete",
+  "color": "#008B8B",
+  "fill_color": "#008B8B",
+  "fill": false
+ },
+ {
+  "kind": "rectangle",
+  "x": 300,
+  "y": 550,
+  "width": 400,
+  "height": 100,
+  "stroke": false,
+  "color": "#5A5A5A",
+  "fill_color": "#5A5A5A",
+  "fill": true
+ },
+ {
+  "kind": "rectangle",
+  "x": 310,
+  "y": 500,
+  "width": 380,
+  "height": 50,
+  "stroke": false,
+  "color": "#5A5A5A",
+  "fill_color": "#5A5A5A",
+  "fill": true
+ },
+ {
+  "kind": "rectangle",
+  "x": 400,
+  "y": 350,
+  "width": 200,
+  "height": 300,
+  "stroke": false,
+  "color": "#008B8B",
+  "fill_color": "#008B8B",
+  "fill": true
+ },
+ {
+  "kind": "rectangle",
+  "x": 450,
+  "y": 400,
+  "width": 80,
+  "height": 150,
+  "stroke": false,
+  "color": "#008B8B",
+  "fill_color": "#008B8B",
+  "fill": true
+ },
+ {
+  "kind": "rectangle",
+  "x": 350,
+  "y": 400,
+  "width": 80,
+  "height": 150,
+  "stroke": false,
+  "color": "#008B8B",
+  "fill_color": "#008B8B",
+  "fill": true
+ },
+ {
+  "kind": "rectangle",
+  "x": 420,
+  "y": 350,
+  "width": 40,
+  "height": 100,
+  "stroke": false,
+  "color": "#008B8B",
+  "fill_color": "#008B8B",
+  "fill": true
+ },
+ {
+  "kind": "rectangle",
+  "x": 380,
+  "y": 350,
+  "width": 40,
+  "height": 100,
+  "stroke": false,
+  "color": "#008B8B",
+  "fill_color": "#008B8B",
+  "fill": true
+ },
+ {
+  "kind": "rectangle",
+  "x": 420,
+  "y": 300,
+  "width": 20,
+  "height": 20,
+  "stroke": false,
+  "color": "#FF8C00",
+  "fill_color": "#FF8C00",
+  "fill": true
+ },
+ {
+  "kind": "curve",
+  "color": "#008B8B",
+  "fill_color": "#008B8B",
+  "fill": false,
+  "points": [
+   [
+    400,
+    650
+   ],
+   [
+    380,
+    620
+   ],
+   [
+    350,
+    600
+   ],
+   [
+    320,
+    620
+   ],
+   [
+    300,
+    650
+   ],
+   [
+    310,
+    650
+   ],
+   [
+    330,
+    650
+   ],
+   [
+    350,
+    650
+   ],
+   [
+    400,
+    650
+   ],
+   [
+    380,
+    620
+   ],
+   [
+    350,
+    600
+   ],
+   [
+    320,
+    620
+   ],
+   [
+    300,
+    650
+   ],
+   [
+    310,
+    650
+   ],
+   [
+    330,
+    650
+   ],
+   [
+    350,
+    650
+   ],
+   [
+    400,
+    650
+   ],
+   [
+    380,
+    620
+   ],
+   [
+    350,
+    600
+   ],
+   [
+    320,
+    620
+   ],
+   [
+    300,
+    650
+   ],
+   [
+    310,
+    650
+   ],
+   [
+    330,
+    650
+   ],
+   [
+    350,
+    650
+   ],
+   [
+    400,
+    650
+   ],
+   [
+    380,
+    620
+   ],
+   [
+    350,
+    600
+   ],
+   [
+    320,
+    620
+   ],
+   [
+    300,
+    650
+   ],
+   [
+    310,
+    650
+   ],
+   [
+    330,
+    650
+   ]
+  ]
+ }
+]

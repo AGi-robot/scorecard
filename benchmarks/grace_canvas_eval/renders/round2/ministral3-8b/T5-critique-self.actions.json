@@ -1,0 +1,406 @@
+[
+ {
+  "kind": "rectangle",
+  "x": 35,
+  "y": 30,
+  "width": 930,
+  "height": 620,
+  "color": "#0a1a2a",
+  "fill_color": "#0a1a2a",
+  "fill": false
+ },
+ {
+  "kind": "path",
+  "smooth": true,
+  "color": "#0a1a2a",
+  "fill_color": "#0a1a2a",
+  "fill": false,
+  "points": [
+   [
+    100,
+    500
+   ],
+   [
+    120,
+    450
+   ],
+   [
+    180,
+    400
+   ],
+   [
+    250,
+    420
+   ],
+   [
+    300,
+    450
+   ],
+   [
+    320,
+    500
+   ],
+   [
+    300,
+    550
+   ],
+   [
+    250,
+    580
+   ],
+   [
+    180,
+    560
+   ],
+   [
+    120,
+    520
+   ],
+   [
+    100,
+    500
+   ]
+  ]
+ },
+ {
+  "kind": "curve",
+  "color": "#0a1a2a",
+  "fill_color": "#0a1a2a",
+  "fill": false,
+  "points": [
+   [
+    150,
+    400
+   ],
+   [
+    180,
+    380
+   ],
+   [
+    220,
+    350
+   ],
+   [
+    280,
+    370
+   ],
+   [
+    320,
+    350
+   ],
+   [
+    350,
+    380
+   ],
+   [
+    380,
+    400
+   ]
+  ]
+ },
+ {
+  "kind": "path",
+  "smooth": true,
+  "color": "#0a1a2a",
+  "fill_color": "#0a1a2a",
+  "fill": false,
+  "points": [
+   [
+    200,
+    350
+   ],
+   [
+    220,
+    330
+   ],
+   [
+    250,
+    320
+   ],
+   [
+    280,
+    330
+   ],
+   [
+    300,
+    350
+   ],
+   [
+    320,
+    330
+   ],
+   [
+    340,
+    320
+   ],
+   [
+    360,
+    330
+   ],
+   [
+    380,
+    350
+   ]
+  ]
+ },
+ {
+  "kind": "path",
+  "smooth": true,
+  "color": "#0a1a2a",
+  "fill_color": "#0a1a2a",
+  "fill": false,
+  "points": [
+   [
+    250,
+    320
+   ],
+   [
+    270,
+    300
+   ],
+   [
+    300,
+    310
+   ],
+   [
+    330,
+    300
+   ],
+   [
+    350,
+    320
+   ]
+  ]
+ },
+ {
+  "kind": "path",
+  "smooth": true,
+  "color": "#0a1a2a",
+  "fill_color": "#0a1a2a",
+  "fill": false,
+  "points": [
+   [
+    280,
+    300
+   ],
+   [
+    300,
+    280
+   ],
+   [
+    320,
+    300
+   ]
+  ]
+ },
+ {
+  "kind": "path",
+  "smooth": true,
+  "color": "#0a1a2a",
+  "fill_color": "#0a1a2a",
+  "fill": false,
+  "points": [
+   [
+    300,
+    280
+   ],
+   [
+    320,
+    260
+   ],
+   [
+    340,
+    280
+   ]
+  ]
+ },
+ {
+  "kind": "path",
+  "smooth": true,
+  "color": "#0a1a2a",
+  "fill_color": "#0a1a2a",
+  "fill": false,
+  "points": [
+   [
+    320,
+    260
+   ],
+   [
+    340,
+    240
+   ],
+   [
+    360,
+    260
+   ]
+  ]
+ },
+ {
+  "kind": "path",
+  "smooth": true,
+  "color": "#0a1a2a",
+  "fill_color": "#0a1a2a",
+  "fill": false,
+  "points": [
+   [
+    340,
+    240
+   ],
+   [
+    360,
+    220
+   ],
+   [
+    380,
+    240
+   ]
+  ]
+ },
+ {
+  "kind": "path",
+  "smooth": true,
+  "color": "#0a1a2a",
+  "fill_color": "#0a1a2a",
+  "fill": false,
+  "points": [
+   [
+    360,
+    220
+   ],
+   [
+    380,
+    200
+   ],
+   [
+    400,
+    220
+   ]
+  ]
+ },
+ {
+  "kind": "path",
+  "smooth": true,
+  "color": "#0a1a2a",
+  "fill_color": "#0a1a2a",
+  "fill": false,
+  "points": [
+   [
+    400,
+    220
+   ],
+   [
+    420,
+    200
+   ],
+   [
+    440,
+    220
+   ]
+  ]
+ },
+ {
+  "kind": "path",
+  "smooth": true,
+  "color": "#0a1a2a",
+  "fill_color": "#0a1a2a",
+  "fill": false,
+  "points": [
+   [
+    420,
+    200
+   ],
+   [
+    440,
+    180
+   ],
+   [
+    460,
+    200
+   ]
+  ]
+ },
+ {
+  "kind": "path",
+  "smooth": true,
+  "color": "#0a1a2a",
+  "fill_color": "#0a1a2a",
+  "fill": false,
+  "points": [
+   [
+    440,
+    180
+   ],
+   [
+    460,
+    160
+   ],
+   [
+    480,
+    180
+   ]
+  ]
+ },
+ {
+  "kind": "path",
+  "smooth": true,
+  "color": "#0a1a2a",
+  "fill_color": "#0a1a2a",
+  "fill": false,
+  "points": [
+   [
+    460,
+    160
+   ],
+   [
+    480,
+    140
+   ],
+   [
+    500,
+    160
+   ]
+  ]
+ },
+ {
+  "kind": "path",
+  "smooth": true,
+  "color": "#0a1a2a",
+  "fill_color": "#0a1a2a",
+  "fill": false,
+  "points": [
+   [
+    500,
+    160
+   ],
+   [
+    520,
+    140
+   ],
+   [
+    540,
+    160
+   ]
+  ]
+ },
+ {
+  "kind": "path",
+  "smooth": true,
+  "color": "#0a1a2a",
+  "fill_color": "#0a1a2a",
+  "fill": false,
+  "points": [
+   [
+    520,
+    140
+   ],
+   [
+    540,
+    120
+   ],
+   [
+    560,
+    140
+   ]
+  ]
+ }
+]

@@ -1,0 +1,44 @@
+[
+ {
+  "kind": "style",
+  "id": "nav_bar",
+  "color": "#1a1f2c",
+  "fill_color": "#1a1f2c"
+ },
+ {
+  "kind": "style",
+  "id": "logo_circle",
+  "color": "#e8e8f0",
+  "fill_color": "#e8e8f0"
+ },
+ {
+  "kind": "style",
+  "id": "logo_mark",
+  "color": "#c4a888",
+  "fill_color": "#c4a888"
+ },
+ {
+  "kind": "style",
+  "id": "home_text",
+  "color": "#c4a888",
+  "fill_color": "#c4a888"
+ },
+ {
+  "kind": "style",
+  "id": "work_text",
+  "color": "#c4a888",
+  "fill_color": "#c4a888"
+ },
+ {
+  "kind": "style",
+  "id": "journal_text",
+  "color": "#c4a888",
+  "fill_color": "#c4a888"
+ },
+ {
+  "kind": "style",
+  "id": "contact_text",
+  "color": "#c4a888",
+  "fill_color": "#c4a888"
+ }
+]
