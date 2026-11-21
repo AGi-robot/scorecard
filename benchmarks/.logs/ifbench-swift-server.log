@@ -784,3 +784,9 @@
 19.50.554.112 I slot print_timing: id  2 | task 21508 | n_gen =    269, tg =  18.66 t/s, tg_3s =  18.65 t/s
 19.53.556.878 I slot print_timing: id  2 | task 21508 | n_gen =    325, tg =  18.66 t/s, tg_3s =  18.65 t/s
 19.56.608.229 I slot print_timing: id  2 | task 21508 | n_gen =    382, tg =  18.66 t/s, tg_3s =  18.68 t/s
+19.59.632.154 I slot print_timing: id  2 | task 21508 | n_gen =    438, tg =  18.64 t/s, tg_3s =  18.52 t/s
+20.02.648.773 I slot print_timing: id  2 | task 21508 | n_gen =    494, tg =  18.63 t/s, tg_3s =  18.56 t/s
+20.05.652.866 I slot print_timing: id  2 | task 21508 | n_gen =    550, tg =  18.63 t/s, tg_3s =  18.64 t/s
+20.08.696.007 I slot print_timing: id  2 | task 21508 | n_gen =    607, tg =  18.64 t/s, tg_3s =  18.73 t/s
+20.11.723.272 I slot print_timing: id  2 | task 21508 | n_gen =    664, tg =  18.66 t/s, tg_3s =  18.83 t/s
+20.14.726.495 I slot print_timing: id  2 | task 21508 | n_gen =    720, tg =  18.66 t/s, tg_3s =  18.65 t/s
