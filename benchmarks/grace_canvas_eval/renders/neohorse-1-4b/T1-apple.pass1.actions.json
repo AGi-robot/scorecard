@@ -1,0 +1,139 @@
+[
+ {
+  "kind": "style",
+  "color": "#F5E6D3",
+  "fill_color": "#F5E6D3",
+  "gradient_color": "#E8D5C4",
+  "gradient_stops": [
+   {
+    "offset": 0,
+    "color": "#F5E6D3"
+   },
+   {
+    "offset": 1,
+    "color": "#E8D5C4"
+   }
+  ],
+  "fill": true
+ },
+ {
+  "kind": "path",
+  "smooth": true,
+  "color": "#C44536",
+  "fill_color": "#C44536",
+  "fill": false,
+  "points": [
+   [
+    330,
+    510
+   ],
+   [
+    290,
+    455
+   ],
+   [
+    315,
+    405
+   ],
+   [
+    355,
+    390
+   ],
+   [
+    375,
+    405
+   ],
+   [
+    420,
+    435
+   ],
+   [
+    445,
+    480
+   ],
+   [
+    330,
+    510
+   ]
+  ]
+ },
+ {
+  "kind": "curve",
+  "color": "#8B5A2B",
+  "fill_color": "#8B5A2B",
+  "fill": false,
+  "points": [
+   [
+    355,
+    390
+   ],
+   [
+    350,
+    360
+   ],
+   [
+    350,
+    350
+   ],
+   [
+    350,
+    340
+   ]
+  ]
+ },
+ {
+  "kind": "curve",
+  "color": "#6B9E5C",
+  "fill_color": "#6B9E5C",
+  "fill": false,
+  "points": [
+   [
+    350,
+    340
+   ],
+   [
+    335,
+    320
+   ],
+   [
+    310,
+    310
+   ],
+   [
+    300,
+    325
+   ]
+  ]
+ },
+ {
+  "kind": "ellipse",
+  "x": 360,
+  "y": 520,
+  "width": 110,
+  "height": 35,
+  "color": "#5A3020",
+  "fill_color": "#5A3020",
+  "fill": false
+ },
+ {
+  "kind": "style",
+  "color": "#E88877",
+  "fill_color": "#E88877",
+  "gradient_color": "#FFFFFF",
+  "gradient_stops": [
+   {
+    "offset": 0,
+    "color": "#E88877"
+   },
+   {
+    "offset": 0.5,
+    "color": "#FFFFFF"
+   },
+   {
+    "offset": 1,
+    "color": "#C44536"
+   }
+  ],
+  "fill": true
+ }
+]

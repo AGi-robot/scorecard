@@ -1,0 +1,47 @@
+[
+ {
+  "kind": "delete",
+  "color": "#6b7280",
+  "fill_color": "#6b7280",
+  "fill": true
+ },
+ {
+  "kind": "delete",
+  "line_height": 1,
+  "color": "#8b7355",
+  "fill_color": "#8b7355",
+  "fill": true
+ },
+ {
+  "kind": "delete",
+  "line_height": 1,
+  "color": "#6b5540",
+  "fill_color": "#6b5540",
+  "fill": true
+ },
+ {
+  "kind": "delete",
+  "line_height": 1,
+  "color": "#5a4535",
+  "fill_color": "#5a4535",
+  "fill": true
+ },
+ {
+  "kind": "delete",
+  "line_height": 1,
+  "color": "#5a4535",
+  "fill_color": "#5a4535",
+  "fill": true
+ },
+ {
+  "kind": "rectangle",
+  "line_height": 1,
+  "color": "#8a6644",
+  "fill_color": "#8a6644",
+  "fill": true,
+  "width": 0,
+  "height": 0,
+  "x": 0,
+  "y": 0
+ }
+]

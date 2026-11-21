@@ -1,0 +1,20 @@
+[Fri Nov 20 12:01:50 AM MST 2026] Holding shutdown/sleep inhibitor for: /home/oppa-ai/.venvs/grace-canvas-eval/bin/python /home/oppa-ai/AGi/diagnostic/scorecard/benchmarks/grace_canvas_eval/grace_canvas_eval.py --base-url http://127.0.0.1:8090/v1 --model minicpm5-2b --label minicpm5-2b --reasoning-effort medium --max-tokens 6144 --single-pass --out /home/oppa-ai/AGi/diagnostic/scorecard/benchmarks/grace_canvas_eval/results/minicpm5-2b.json --out-dir /home/oppa-ai/AGi/diagnostic/scorecard/benchmarks/grace_canvas_eval/renders/minicpm5-2b
+Grace Canvas Eval: minicpm5-2b (8 tasks)
+    pass1 2/6  valid=True rendered=True steps=1  more=False img=False  27.29s
+  T1-apple               2/6  valid=True rendered=True  steps=1  27.33s
+    pass1 1/5  valid=False rendered=True steps=0  more=False img=False  26.13s
+  T1-lighthouse          1/5  valid=False rendered=True  steps=0  26.16s
+    pass1 5/6  valid=True rendered=True steps=5  more=False img=False  29.65s
+  T2-still-life          5/6  valid=True rendered=True  steps=5  29.69s
+    pass1 2/5  valid=True rendered=True steps=1  more=False img=False  23.62s
+  T2-robot-mascot        2/5  valid=True rendered=True  steps=1  23.65s
+    pass1 0/7  valid=True rendered=True steps=4  more=False img=False  28.3s
+  T3-navbar              0/7  valid=True rendered=True  steps=4  28.33s
+    pass1 2/5  valid=True rendered=True steps=1  more=False img=False  27.23s
+  T3-poster              2/5  valid=True rendered=True  steps=1  27.27s
+    pass1 4/4  valid=True rendered=True steps=1  more=False img=False  6.97s
+  T4-recolour-leaf       4/4  valid=True rendered=True  steps=1  7.0s
+    pass1 1/4  valid=True rendered=True steps=1  more=False img=False  18.11s
+  T5-critique-self       1/4  valid=True rendered=True  steps=1  18.14s
+
+SUMMARY {"label": "minicpm5-2b", "model": "minicpm5-2b", "schema_hint": false, "base_url": "http://127.0.0.1:8090/v1", "protocol_version": 3, "temperature": 0.0, "transport": "response_format_json_schema", "think_off": false, "force_tool": false, "reasoning_effort": "medium", "vision_passes": false, "single_pass": true, "pass_budgets": [16], "tasks": 8, "check_score": 0.4048, "tasks_fully_satisfied": 1, "fully_satisfied_rate": 0.125, "valid_rate": 0.875, "render_rate": 1.0, "truncated_rate": 0.0, "mean_steps": 1.75, "total_wall_s": 187.6, "refinement_delta": 0.0}

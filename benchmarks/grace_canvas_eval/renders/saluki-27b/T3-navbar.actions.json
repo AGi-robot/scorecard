@@ -1,0 +1,41 @@
+[
+ {
+  "kind": "rectangle",
+  "line_height": 1,
+  "color": "#faf8f5",
+  "fill_color": "#faf8f5",
+  "fill": true,
+  "width": 0,
+  "height": 0,
+  "x": 0,
+  "y": 0
+ },
+ {
+  "kind": "line",
+  "line_height": 1,
+  "color": "#e0d8d0",
+  "fill_color": "#e0d8d0",
+  "fill": true,
+  "points": [
+   [
+    0,
+    90
+   ],
+   [
+    1000,
+    90
+   ]
+  ]
+ },
+ {
+  "kind": "ellipse",
+  "line_height": 1,
+  "color": "#d4714a",
+  "fill_color": "#d4714a",
+  "fill": true,
+  "width": 0,
+  "height": 0,
+  "x": 0,
+  "y": 0
+ }
+]

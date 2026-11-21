@@ -10,3 +10,23 @@ Grace Canvas Eval: saluki-27b (8 tasks)
   T5-critique-self       1/4  valid=True rendered=True  steps=1  444.95s
 
 SUMMARY {"label": "saluki-27b", "model": "saluki-27b", "schema_hint": false, "base_url": "http://127.0.0.1:8090/v1", "protocol_version": 2, "temperature": 0.0, "think_off": false, "force_tool": false, "reasoning_effort": "medium", "tasks": 8, "check_score": 0.5238, "tasks_fully_satisfied": 1, "fully_satisfied_rate": 0.125, "valid_rate": 0.875, "render_rate": 1.0, "truncated_rate": 0.0, "mean_steps": 3.62, "total_wall_s": 1248.1, "critique_delta": 0.5}
+[Thu Nov 19 11:38:34 PM MST 2026] Holding shutdown/sleep inhibitor for: /home/oppa-ai/.venvs/grace-canvas-eval/bin/python /home/oppa-ai/AGi/diagnostic/scorecard/benchmarks/grace_canvas_eval/grace_canvas_eval.py --base-url http://127.0.0.1:8090/v1 --model saluki-27b --label saluki-27b --reasoning-effort medium --max-tokens 6144 --single-pass --out /home/oppa-ai/AGi/diagnostic/scorecard/benchmarks/grace_canvas_eval/results/saluki-27b.json --out-dir /home/oppa-ai/AGi/diagnostic/scorecard/benchmarks/grace_canvas_eval/renders/saluki-27b
+Grace Canvas Eval: saluki-27b (8 tasks)
+    pass1 5/6  valid=True rendered=True steps=7  more=True img=False  130.27s
+  T1-apple               5/6  valid=True rendered=True  steps=7  130.32s
+    pass1 5/5  valid=True rendered=True steps=15  more=False img=False  166.1s
+  T1-lighthouse          5/5  valid=True rendered=True  steps=15  166.15s
+    pass1 5/6  valid=True rendered=True steps=16  more=False img=False  165.55s
+  T2-still-life          5/6  valid=True rendered=True  steps=16  165.6s
+    pass1 5/5  valid=True rendered=True steps=16  more=True img=False  155.54s
+  T2-robot-mascot        5/5  valid=True rendered=True  steps=16  155.58s
+    pass1 1/7  valid=True rendered=True steps=3  more=False img=False  101.1s
+  T3-navbar              1/7  valid=True rendered=True  steps=3  101.13s
+    pass1 2/5  valid=True rendered=True steps=3  more=False img=False  62.21s
+  T3-poster              2/5  valid=True rendered=True  steps=3  62.26s
+    pass1 4/4  valid=True rendered=True steps=1  more=False img=False  9.15s
+  T4-recolour-leaf       4/4  valid=True rendered=True  steps=1  9.18s
+    pass1 3/4  valid=True rendered=True steps=16  more=False img=False  166.41s
+  T5-critique-self       3/4  valid=True rendered=True  steps=16  166.47s
+
+SUMMARY {"label": "saluki-27b", "model": "saluki-27b", "schema_hint": false, "base_url": "http://127.0.0.1:8090/v1", "protocol_version": 3, "temperature": 0.0, "transport": "response_format_json_schema", "think_off": false, "force_tool": false, "reasoning_effort": "medium", "vision_passes": false, "single_pass": true, "pass_budgets": [16], "tasks": 8, "check_score": 0.7143, "tasks_fully_satisfied": 3, "fully_satisfied_rate": 0.375, "valid_rate": 1.0, "render_rate": 1.0, "truncated_rate": 0.0, "mean_steps": 9.62, "total_wall_s": 956.7, "refinement_delta": 0.0}

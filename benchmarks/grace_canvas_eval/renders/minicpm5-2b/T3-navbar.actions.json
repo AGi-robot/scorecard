@@ -1,0 +1,46 @@
+[
+ {
+  "kind": "move",
+  "x": 30,
+  "y": 30,
+  "width": 80,
+  "height": 80,
+  "id": "logo",
+  "color": "#648c55",
+  "fill_color": "#648c55",
+  "fill": false
+ },
+ {
+  "kind": "move",
+  "x": 30,
+  "y": 30,
+  "width": 80,
+  "height": 80,
+  "id": "logo_stem",
+  "color": "#648c55",
+  "fill_color": "#648c55",
+  "fill": false
+ },
+ {
+  "kind": "move",
+  "x": 30,
+  "y": 30,
+  "width": 940,
+  "height": 60,
+  "id": "menu_bar",
+  "color": "#648c55",
+  "fill_color": "#648c55",
+  "fill": false
+ },
+ {
+  "kind": "move",
+  "x": 30,
+  "y": 30,
+  "width": 940,
+  "height": 60,
+  "id": "menu_items",
+  "color": "#648c55",
+  "fill_color": "#648c55",
+  "fill": false
+ }
+]

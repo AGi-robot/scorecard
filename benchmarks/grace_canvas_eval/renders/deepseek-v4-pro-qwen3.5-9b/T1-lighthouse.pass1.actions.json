@@ -1,0 +1,98 @@
+[
+ {
+  "kind": "style",
+  "color": "#1a2b4c",
+  "fill_color": "#1a2b4c",
+  "fill": true
+ },
+ {
+  "kind": "style",
+  "color": "#2a3b5c",
+  "fill_color": "#2a3b5c",
+  "fill": true
+ },
+ {
+  "kind": "style",
+  "color": "#3a4b6c",
+  "fill_color": "#3a4b6c",
+  "fill": true
+ },
+ {
+  "kind": "style",
+  "color": "#4a5b7c",
+  "fill_color": "#4a5b7c",
+  "fill": true
+ },
+ {
+  "kind": "style",
+  "color": "#5a6b8c",
+  "fill_color": "#5a6b8c",
+  "fill": true
+ },
+ {
+  "kind": "style",
+  "color": "#6a7b9c",
+  "fill_color": "#6a7b9c",
+  "fill": true
+ },
+ {
+  "kind": "style",
+  "color": "#7a8b0c",
+  "fill_color": "#7a8b0c",
+  "fill": true
+ },
+ {
+  "kind": "style",
+  "color": "#8a9b1c",
+  "fill_color": "#8a9b1c",
+  "fill": true
+ },
+ {
+  "kind": "style",
+  "color": "#9a0b2c",
+  "fill_color": "#9a0b2c",
+  "fill": true
+ },
+ {
+  "kind": "style",
+  "color": "#0a3b4c",
+  "fill_color": "#0a3b4c",
+  "fill": true
+ },
+ {
+  "kind": "style",
+  "color": "#1a4b5c",
+  "fill_color": "#1a4b5c",
+  "fill": true
+ },
+ {
+  "kind": "style",
+  "color": "#2a5b6c",
+  "fill_color": "#2a5b6c",
+  "fill": true
+ },
+ {
+  "kind": "style",
+  "color": "#3a6b7c",
+  "fill_color": "#3a6b7c",
+  "fill": true
+ },
+ {
+  "kind": "style",
+  "color": "#4a7b8c",
+  "fill_color": "#4a7b8c",
+  "fill": true
+ },
+ {
+  "kind": "style",
+  "color": "#5a8b9c",
+  "fill_color": "#5a8b9c",
+  "fill": true
+ },
+ {
+  "kind": "style",
+  "color": "#6a9b0c",
+  "fill_color": "#6a9b0c",
+  "fill": true
+ }
+]

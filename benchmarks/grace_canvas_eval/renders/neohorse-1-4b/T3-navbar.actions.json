@@ -1,0 +1,49 @@
+[
+ {
+  "kind": "rectangle",
+  "x": 0,
+  "y": 30,
+  "width": 1000,
+  "height": 40,
+  "line_height": 1,
+  "color": "#1a1f2c",
+  "fill_color": "#1a1f2c",
+  "fill": true
+ },
+ {
+  "kind": "curve",
+  "color": "#3b82f6",
+  "fill_color": "#3b82f6",
+  "fill": false,
+  "points": [
+   [
+    40,
+    50
+   ],
+   [
+    60,
+    30
+   ],
+   [
+    80,
+    40
+   ],
+   [
+    100,
+    50
+   ],
+   [
+    80,
+    60
+   ],
+   [
+    60,
+    70
+   ],
+   [
+    40,
+    50
+   ]
+  ]
+ }
+]

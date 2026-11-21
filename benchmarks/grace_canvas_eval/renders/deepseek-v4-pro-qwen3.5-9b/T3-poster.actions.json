@@ -1,0 +1,32 @@
+[
+ {
+  "kind": "text",
+  "text": "GALA",
+  "color": "#333333",
+  "fill_color": "#333333",
+  "fill": true
+ },
+ {
+  "kind": "line",
+  "color": "#555555",
+  "fill_color": "#555555",
+  "fill": false,
+  "points": [
+   [
+    50,
+    120
+   ],
+   [
+    950,
+    120
+   ]
+  ]
+ },
+ {
+  "kind": "text",
+  "text": "October 15, 2025",
+  "color": "#333333",
+  "fill_color": "#333333",
+  "fill": true
+ }
+]

@@ -1,0 +1,457 @@
+{
+ "judge_label": "deepseek-9b",
+ "judge_model": "deepseek-v4-pro-qwen3.5-9b",
+ "n": 56,
+ "n_scored": 56,
+ "judge_mean": 5.46,
+ "evaluations": [
+  {
+   "score": 10,
+   "text": "10",
+   "label": "ministral3-8b",
+   "task": "T1-apple",
+   "png": "/home/oppa-ai/AGi/diagnostic/scorecard/benchmarks/grace_canvas_eval/renders/ministral3-8b/T1-apple.png",
+   "elapsed_s": 0.9
+  },
+  {
+   "score": 0,
+   "text": "0",
+   "label": "ministral3-8b",
+   "task": "T1-lighthouse",
+   "png": "/home/oppa-ai/AGi/diagnostic/scorecard/benchmarks/grace_canvas_eval/renders/ministral3-8b/T1-lighthouse.png",
+   "elapsed_s": 0.8
+  },
+  {
+   "score": 0,
+   "text": "0",
+   "label": "ministral3-8b",
+   "task": "T2-still-life",
+   "png": "/home/oppa-ai/AGi/diagnostic/scorecard/benchmarks/grace_canvas_eval/renders/ministral3-8b/T2-still-life.png",
+   "elapsed_s": 0.8
+  },
+  {
+   "score": 10,
+   "text": "10",
+   "label": "ministral3-8b",
+   "task": "T2-robot-mascot",
+   "png": "/home/oppa-ai/AGi/diagnostic/scorecard/benchmarks/grace_canvas_eval/renders/ministral3-8b/T2-robot-mascot.png",
+   "elapsed_s": 0.8
+  },
+  {
+   "score": 10,
+   "text": "10",
+   "label": "ministral3-8b",
+   "task": "T3-navbar",
+   "png": "/home/oppa-ai/AGi/diagnostic/scorecard/benchmarks/grace_canvas_eval/renders/ministral3-8b/T3-navbar.png",
+   "elapsed_s": 0.8
+  },
+  {
+   "score": 10,
+   "text": "10",
+   "label": "ministral3-8b",
+   "task": "T3-poster",
+   "png": "/home/oppa-ai/AGi/diagnostic/scorecard/benchmarks/grace_canvas_eval/renders/ministral3-8b/T3-poster.png",
+   "elapsed_s": 0.8
+  },
+  {
+   "score": 10,
+   "text": "10",
+   "label": "ministral3-8b",
+   "task": "T4-recolour-leaf",
+   "png": "/home/oppa-ai/AGi/diagnostic/scorecard/benchmarks/grace_canvas_eval/renders/ministral3-8b/T4-recolour-leaf.png",
+   "elapsed_s": 0.8
+  },
+  {
+   "score": 0,
+   "text": "0",
+   "label": "ministral3-8b",
+   "task": "T5-critique-self",
+   "png": "/home/oppa-ai/AGi/diagnostic/scorecard/benchmarks/grace_canvas_eval/renders/ministral3-8b/T5-critique-self.png",
+   "elapsed_s": 0.8
+  },
+  {
+   "score": 10,
+   "text": "10",
+   "label": "swift15-qwen3.8-27b-local",
+   "task": "T1-apple",
+   "png": "/home/oppa-ai/AGi/diagnostic/scorecard/benchmarks/grace_canvas_eval/renders/swift15-qwen3.8-27b-local/T1-apple.png",
+   "elapsed_s": 0.8
+  },
+  {
+   "score": 8,
+   "text": "8/10",
+   "label": "swift15-qwen3.8-27b-local",
+   "task": "T1-lighthouse",
+   "png": "/home/oppa-ai/AGi/diagnostic/scorecard/benchmarks/grace_canvas_eval/renders/swift15-qwen3.8-27b-local/T1-lighthouse.png",
+   "elapsed_s": 0.9
+  },
+  {
+   "score": 4,
+   "text": "4/10",
+   "label": "swift15-qwen3.8-27b-local",
+   "task": "T2-still-life",
+   "png": "/home/oppa-ai/AGi/diagnostic/scorecard/benchmarks/grace_canvas_eval/renders/swift15-qwen3.8-27b-local/T2-still-life.png",
+   "elapsed_s": 0.9
+  },
+  {
+   "score": 4,
+   "text": "4/10",
+   "label": "swift15-qwen3.8-27b-local",
+   "task": "T2-robot-mascot",
+   "png": "/home/oppa-ai/AGi/diagnostic/scorecard/benchmarks/grace_canvas_eval/renders/swift15-qwen3.8-27b-local/T2-robot-mascot.png",
+   "elapsed_s": 0.9
+  },
+  {
+   "score": 0,
+   "text": "0",
+   "label": "swift15-qwen3.8-27b-local",
+   "task": "T3-navbar",
+   "png": "/home/oppa-ai/AGi/diagnostic/scorecard/benchmarks/grace_canvas_eval/renders/swift15-qwen3.8-27b-local/T3-navbar.png",
+   "elapsed_s": 0.8
+  },
+  {
+   "score": 10,
+   "text": "10",
+   "label": "swift15-qwen3.8-27b-local",
+   "task": "T3-poster",
+   "png": "/home/oppa-ai/AGi/diagnostic/scorecard/benchmarks/grace_canvas_eval/renders/swift15-qwen3.8-27b-local/T3-poster.png",
+   "elapsed_s": 0.8
+  },
+  {
+   "score": 10,
+   "text": "10",
+   "label": "swift15-qwen3.8-27b-local",
+   "task": "T4-recolour-leaf",
+   "png": "/home/oppa-ai/AGi/diagnostic/scorecard/benchmarks/grace_canvas_eval/renders/swift15-qwen3.8-27b-local/T4-recolour-leaf.png",
+   "elapsed_s": 0.8
+  },
+  {
+   "score": 4,
+   "text": "4/10",
+   "label": "swift15-qwen3.8-27b-local",
+   "task": "T5-critique-self",
+   "png": "/home/oppa-ai/AGi/diagnostic/scorecard/benchmarks/grace_canvas_eval/renders/swift15-qwen3.8-27b-local/T5-critique-self.png",
+   "elapsed_s": 0.9
+  },
+  {
+   "score": 10,
+   "text": "10",
+   "label": "saluki-27b",
+   "task": "T1-apple",
+   "png": "/home/oppa-ai/AGi/diagnostic/scorecard/benchmarks/grace_canvas_eval/renders/saluki-27b/T1-apple.png",
+   "elapsed_s": 0.8
+  },
+  {
+   "score": 8,
+   "text": "8/10",
+   "label": "saluki-27b",
+   "task": "T1-lighthouse",
+   "png": "/home/oppa-ai/AGi/diagnostic/scorecard/benchmarks/grace_canvas_eval/renders/saluki-27b/T1-lighthouse.png",
+   "elapsed_s": 0.9
+  },
+  {
+   "score": 8,
+   "text": "8",
+   "label": "saluki-27b",
+   "task": "T2-still-life",
+   "png": "/home/oppa-ai/AGi/diagnostic/scorecard/benchmarks/grace_canvas_eval/renders/saluki-27b/T2-still-life.png",
+   "elapsed_s": 0.8
+  },
+  {
+   "score": 10,
+   "text": "10",
+   "label": "saluki-27b",
+   "task": "T2-robot-mascot",
+   "png": "/home/oppa-ai/AGi/diagnostic/scorecard/benchmarks/grace_canvas_eval/renders/saluki-27b/T2-robot-mascot.png",
+   "elapsed_s": 0.8
+  },
+  {
+   "score": 0,
+   "text": "0",
+   "label": "saluki-27b",
+   "task": "T3-navbar",
+   "png": "/home/oppa-ai/AGi/diagnostic/scorecard/benchmarks/grace_canvas_eval/renders/saluki-27b/T3-navbar.png",
+   "elapsed_s": 0.8
+  },
+  {
+   "score": 10,
+   "text": "10",
+   "label": "saluki-27b",
+   "task": "T3-poster",
+   "png": "/home/oppa-ai/AGi/diagnostic/scorecard/benchmarks/grace_canvas_eval/renders/saluki-27b/T3-poster.png",
+   "elapsed_s": 0.8
+  },
+  {
+   "score": 10,
+   "text": "10",
+   "label": "saluki-27b",
+   "task": "T4-recolour-leaf",
+   "png": "/home/oppa-ai/AGi/diagnostic/scorecard/benchmarks/grace_canvas_eval/renders/saluki-27b/T4-recolour-leaf.png",
+   "elapsed_s": 0.8
+  },
+  {
+   "score": 4,
+   "text": "4/10",
+   "label": "saluki-27b",
+   "task": "T5-critique-self",
+   "png": "/home/oppa-ai/AGi/diagnostic/scorecard/benchmarks/grace_canvas_eval/renders/saluki-27b/T5-critique-self.png",
+   "elapsed_s": 0.9
+  },
+  {
+   "score": 8,
+   "text": "8",
+   "label": "deepseek-v4-pro-qwen3.5-9b",
+   "task": "T1-apple",
+   "png": "/home/oppa-ai/AGi/diagnostic/scorecard/benchmarks/grace_canvas_eval/renders/deepseek-v4-pro-qwen3.5-9b/T1-apple.png",
+   "elapsed_s": 0.8
+  },
+  {
+   "score": 0,
+   "text": "0",
+   "label": "deepseek-v4-pro-qwen3.5-9b",
+   "task": "T1-lighthouse",
+   "png": "/home/oppa-ai/AGi/diagnostic/scorecard/benchmarks/grace_canvas_eval/renders/deepseek-v4-pro-qwen3.5-9b/T1-lighthouse.png",
+   "elapsed_s": 0.8
+  },
+  {
+   "score": 0,
+   "text": "0",
+   "label": "deepseek-v4-pro-qwen3.5-9b",
+   "task": "T2-still-life",
+   "png": "/home/oppa-ai/AGi/diagnostic/scorecard/benchmarks/grace_canvas_eval/renders/deepseek-v4-pro-qwen3.5-9b/T2-still-life.png",
+   "elapsed_s": 0.8
+  },
+  {
+   "score": 4,
+   "text": "4/10",
+   "label": "deepseek-v4-pro-qwen3.5-9b",
+   "task": "T2-robot-mascot",
+   "png": "/home/oppa-ai/AGi/diagnostic/scorecard/benchmarks/grace_canvas_eval/renders/deepseek-v4-pro-qwen3.5-9b/T2-robot-mascot.png",
+   "elapsed_s": 0.9
+  },
+  {
+   "score": 0,
+   "text": "0",
+   "label": "deepseek-v4-pro-qwen3.5-9b",
+   "task": "T3-navbar",
+   "png": "/home/oppa-ai/AGi/diagnostic/scorecard/benchmarks/grace_canvas_eval/renders/deepseek-v4-pro-qwen3.5-9b/T3-navbar.png",
+   "elapsed_s": 0.8
+  },
+  {
+   "score": 10,
+   "text": "10",
+   "label": "deepseek-v4-pro-qwen3.5-9b",
+   "task": "T3-poster",
+   "png": "/home/oppa-ai/AGi/diagnostic/scorecard/benchmarks/grace_canvas_eval/renders/deepseek-v4-pro-qwen3.5-9b/T3-poster.png",
+   "elapsed_s": 0.8
+  },
+  {
+   "score": 10,
+   "text": "10",
+   "label": "deepseek-v4-pro-qwen3.5-9b",
+   "task": "T4-recolour-leaf",
+   "png": "/home/oppa-ai/AGi/diagnostic/scorecard/benchmarks/grace_canvas_eval/renders/deepseek-v4-pro-qwen3.5-9b/T4-recolour-leaf.png",
+   "elapsed_s": 0.8
+  },
+  {
+   "score": 0,
+   "text": "0",
+   "label": "deepseek-v4-pro-qwen3.5-9b",
+   "task": "T5-critique-self",
+   "png": "/home/oppa-ai/AGi/diagnostic/scorecard/benchmarks/grace_canvas_eval/renders/deepseek-v4-pro-qwen3.5-9b/T5-critique-self.png",
+   "elapsed_s": 0.8
+  },
+  {
+   "score": 0,
+   "text": "0",
+   "label": "minicpm5-2b",
+   "task": "T1-apple",
+   "png": "/home/oppa-ai/AGi/diagnostic/scorecard/benchmarks/grace_canvas_eval/renders/minicpm5-2b/T1-apple.png",
+   "elapsed_s": 0.8
+  },
+  {
+   "score": 0,
+   "text": "0",
+   "label": "minicpm5-2b",
+   "task": "T1-lighthouse",
+   "png": "/home/oppa-ai/AGi/diagnostic/scorecard/benchmarks/grace_canvas_eval/renders/minicpm5-2b/T1-lighthouse.png",
+   "elapsed_s": 0.8
+  },
+  {
+   "score": 0,
+   "text": "0",
+   "label": "minicpm5-2b",
+   "task": "T2-still-life",
+   "png": "/home/oppa-ai/AGi/diagnostic/scorecard/benchmarks/grace_canvas_eval/renders/minicpm5-2b/T2-still-life.png",
+   "elapsed_s": 0.8
+  },
+  {
+   "score": 0,
+   "text": "0",
+   "label": "minicpm5-2b",
+   "task": "T2-robot-mascot",
+   "png": "/home/oppa-ai/AGi/diagnostic/scorecard/benchmarks/grace_canvas_eval/renders/minicpm5-2b/T2-robot-mascot.png",
+   "elapsed_s": 0.8
+  },
+  {
+   "score": 0,
+   "text": "0",
+   "label": "minicpm5-2b",
+   "task": "T3-navbar",
+   "png": "/home/oppa-ai/AGi/diagnostic/scorecard/benchmarks/grace_canvas_eval/renders/minicpm5-2b/T3-navbar.png",
+   "elapsed_s": 0.8
+  },
+  {
+   "score": 10,
+   "text": "10",
+   "label": "minicpm5-2b",
+   "task": "T3-poster",
+   "png": "/home/oppa-ai/AGi/diagnostic/scorecard/benchmarks/grace_canvas_eval/renders/minicpm5-2b/T3-poster.png",
+   "elapsed_s": 0.8
+  },
+  {
+   "score": 10,
+   "text": "10",
+   "label": "minicpm5-2b",
+   "task": "T4-recolour-leaf",
+   "png": "/home/oppa-ai/AGi/diagnostic/scorecard/benchmarks/grace_canvas_eval/renders/minicpm5-2b/T4-recolour-leaf.png",
+   "elapsed_s": 0.1
+  },
+  {
+   "score": 0,
+   "text": "0",
+   "label": "minicpm5-2b",
+   "task": "T5-critique-self",
+   "png": "/home/oppa-ai/AGi/diagnostic/scorecard/benchmarks/grace_canvas_eval/renders/minicpm5-2b/T5-critique-self.png",
+   "elapsed_s": 0.8
+  },
+  {
+   "score": 8,
+   "text": "8/10",
+   "label": "neohorse-1-4b",
+   "task": "T1-apple",
+   "png": "/home/oppa-ai/AGi/diagnostic/scorecard/benchmarks/grace_canvas_eval/renders/neohorse-1-4b/T1-apple.png",
+   "elapsed_s": 0.9
+  },
+  {
+   "score": 0,
+   "text": "0",
+   "label": "neohorse-1-4b",
+   "task": "T1-lighthouse",
+   "png": "/home/oppa-ai/AGi/diagnostic/scorecard/benchmarks/grace_canvas_eval/renders/neohorse-1-4b/T1-lighthouse.png",
+   "elapsed_s": 0.8
+  },
+  {
+   "score": 4,
+   "text": "4/10",
+   "label": "neohorse-1-4b",
+   "task": "T2-still-life",
+   "png": "/home/oppa-ai/AGi/diagnostic/scorecard/benchmarks/grace_canvas_eval/renders/neohorse-1-4b/T2-still-life.png",
+   "elapsed_s": 0.9
+  },
+  {
+   "score": 10,
+   "text": "10",
+   "label": "neohorse-1-4b",
+   "task": "T2-robot-mascot",
+   "png": "/home/oppa-ai/AGi/diagnostic/scorecard/benchmarks/grace_canvas_eval/renders/neohorse-1-4b/T2-robot-mascot.png",
+   "elapsed_s": 0.8
+  },
+  {
+   "score": 10,
+   "text": "10",
+   "label": "neohorse-1-4b",
+   "task": "T3-navbar",
+   "png": "/home/oppa-ai/AGi/diagnostic/scorecard/benchmarks/grace_canvas_eval/renders/neohorse-1-4b/T3-navbar.png",
+   "elapsed_s": 0.8
+  },
+  {
+   "score": 10,
+   "text": "10",
+   "label": "neohorse-1-4b",
+   "task": "T3-poster",
+   "png": "/home/oppa-ai/AGi/diagnostic/scorecard/benchmarks/grace_canvas_eval/renders/neohorse-1-4b/T3-poster.png",
+   "elapsed_s": 0.8
+  },
+  {
+   "score": 10,
+   "text": "10",
+   "label": "neohorse-1-4b",
+   "task": "T4-recolour-leaf",
+   "png": "/home/oppa-ai/AGi/diagnostic/scorecard/benchmarks/grace_canvas_eval/renders/neohorse-1-4b/T4-recolour-leaf.png",
+   "elapsed_s": 0.8
+  },
+  {
+   "score": 4,
+   "text": "4/10",
+   "label": "neohorse-1-4b",
+   "task": "T5-critique-self",
+   "png": "/home/oppa-ai/AGi/diagnostic/scorecard/benchmarks/grace_canvas_eval/renders/neohorse-1-4b/T5-critique-self.png",
+   "elapsed_s": 0.9
+  },
+  {
+   "score": 10,
+   "text": "10",
+   "label": "agents-a1-4b",
+   "task": "T1-apple",
+   "png": "/home/oppa-ai/AGi/diagnostic/scorecard/benchmarks/grace_canvas_eval/renders/agents-a1-4b/T1-apple.png",
+   "elapsed_s": 0.8
+  },
+  {
+   "score": 0,
+   "text": "0",
+   "label": "agents-a1-4b",
+   "task": "T1-lighthouse",
+   "png": "/home/oppa-ai/AGi/diagnostic/scorecard/benchmarks/grace_canvas_eval/renders/agents-a1-4b/T1-lighthouse.png",
+   "elapsed_s": 0.8
+  },
+  {
+   "score": 4,
+   "text": "4/10",
+   "label": "agents-a1-4b",
+   "task": "T2-still-life",
+   "png": "/home/oppa-ai/AGi/diagnostic/scorecard/benchmarks/grace_canvas_eval/renders/agents-a1-4b/T2-still-life.png",
+   "elapsed_s": 0.9
+  },
+  {
+   "score": 4,
+   "text": "4/10",
+   "label": "agents-a1-4b",
+   "task": "T2-robot-mascot",
+   "png": "/home/oppa-ai/AGi/diagnostic/scorecard/benchmarks/grace_canvas_eval/renders/agents-a1-4b/T2-robot-mascot.png",
+   "elapsed_s": 0.9
+  },
+  {
+   "score": 0,
+   "text": "0",
+   "label": "agents-a1-4b",
+   "task": "T3-navbar",
+   "png": "/home/oppa-ai/AGi/diagnostic/scorecard/benchmarks/grace_canvas_eval/renders/agents-a1-4b/T3-navbar.png",
+   "elapsed_s": 0.8
+  },
+  {
+   "score": 10,
+   "text": "10",
+   "label": "agents-a1-4b",
+   "task": "T3-poster",
+   "png": "/home/oppa-ai/AGi/diagnostic/scorecard/benchmarks/grace_canvas_eval/renders/agents-a1-4b/T3-poster.png",
+   "elapsed_s": 0.8
+  },
+  {
+   "score": 10,
+   "text": "10",
+   "label": "agents-a1-4b",
+   "task": "T4-recolour-leaf",
+   "png": "/home/oppa-ai/AGi/diagnostic/scorecard/benchmarks/grace_canvas_eval/renders/agents-a1-4b/T4-recolour-leaf.png",
+   "elapsed_s": 0.2
+  },
+  {
+   "score": 0,
+   "text": "0",
+   "label": "agents-a1-4b",
+   "task": "T5-critique-self",
+   "png": "/home/oppa-ai/AGi/diagnostic/scorecard/benchmarks/grace_canvas_eval/renders/agents-a1-4b/T5-critique-self.png",
+   "elapsed_s": 0.8
+  }
+ ]
+}

@@ -16,3 +16,17 @@ Grace Canvas Eval: swift15-qwen3.8-27b-local (8 tasks)
   T1-apple               5/6  valid=True rendered=True  steps=7  210.57s
     pass1 5/5  valid=True rendered=True steps=16  more=True img=False  126.36s
   T1-lighthouse          5/5  valid=True rendered=True  steps=16  126.4s
+    pass1 5/6  valid=True rendered=True steps=16  more=True img=False  223.0s
+  T2-still-life          5/6  valid=True rendered=True  steps=16  223.06s
+    pass1 5/5  valid=True rendered=True steps=16  more=True img=False  209.74s
+  T2-robot-mascot        5/5  valid=True rendered=True  steps=16  209.8s
+    pass1 0/7  valid=True rendered=True steps=3  more=False img=False  93.22s
+  T3-navbar              0/7  valid=True rendered=True  steps=3  93.25s
+    pass1 2/5  valid=True rendered=True steps=3  more=False img=False  89.36s
+  T3-poster              2/5  valid=True rendered=True  steps=3  89.41s
+    pass1 4/4  valid=True rendered=True steps=1  more=False img=False  8.73s
+  T4-recolour-leaf       4/4  valid=True rendered=True  steps=1  8.76s
+    pass1 4/4  valid=True rendered=True steps=14  more=False img=False  78.37s
+  T5-critique-self       4/4  valid=True rendered=True  steps=14  78.42s
+
+SUMMARY {"label": "swift15-qwen3.8-27b-local", "model": "swift15-qwen3.8-27b", "schema_hint": false, "base_url": "http://127.0.0.1:8090/v1", "protocol_version": 3, "temperature": 0.0, "transport": "response_format_json_schema", "think_off": false, "force_tool": false, "reasoning_effort": "medium", "vision_passes": false, "single_pass": true, "pass_budgets": [16], "tasks": 8, "check_score": 0.7143, "tasks_fully_satisfied": 4, "fully_satisfied_rate": 0.5, "valid_rate": 1.0, "render_rate": 1.0, "truncated_rate": 0.0, "mean_steps": 9.5, "total_wall_s": 1039.7, "refinement_delta": 0.0}

@@ -344,7 +344,8 @@ def render_png(actions):
 
 
 # ------------------------------------------------------------------ judge ---
-def judge_image(judge_url, judge_model, png_bytes, brief, timeout=300):
+def judge_image(judge_url, judge_model, png_bytes, brief, timeout=300,
+                think_off=True):
     encoded = base64.b64encode(png_bytes).decode()
     body = {"model": judge_model, "temperature": 0.0, "max_tokens": 120,
             "messages": [{"role": "user", "content": [
@@ -354,9 +355,17 @@ def judge_image(judge_url, judge_model, png_bytes, brief, timeout=300):
                     f'The image was drawn for this request: "{brief}"\n'
                     "Does the image fulfil the request? Answer with a score from 0 to 10, "
                     "then one short sentence of justification."}]}]}
+    if think_off:
+        # Rating needs no reasoning trace; on thinking models the trace can
+        # consume the output budget and leave content empty.
+        body["chat_template_kwargs"] = {"enable_thinking": False}
     try:
         data = urllib_request(judge_url, body, timeout)
-        text = (data["choices"][0]["message"].get("content") or "").strip()
+        message = data["choices"][0]["message"]
+        text = (message.get("content") or "").strip()
+        if not text:
+            # Thinking-enabled endpoint: the verdict may sit in the trace.
+            text = (message.get("reasoning_content") or "").strip()
         score = None
         digits = ""
         for char in text:

@@ -7,3 +7,23 @@ Grace Canvas Eval: deepseek-v4-pro-qwen3.5-9b (8 tasks)
   T3-navbar              4/7  valid=True rendered=True  steps=5  24.66s
   T3-poster              2/5  valid=False rendered=True  steps=3  10.13s
   T4-recolour-leaf       4/4  valid=True rendered=True  steps=1  4.82s
+[Thu Nov 19 11:54:41 PM MST 2026] Holding shutdown/sleep inhibitor for: /home/oppa-ai/.venvs/grace-canvas-eval/bin/python /home/oppa-ai/AGi/diagnostic/scorecard/benchmarks/grace_canvas_eval/grace_canvas_eval.py --base-url http://127.0.0.1:8090/v1 --model deepseek-v4-pro-qwen3.5-9b --label deepseek-v4-pro-qwen3.5-9b --reasoning-effort medium --max-tokens 6144 --single-pass --out /home/oppa-ai/AGi/diagnostic/scorecard/benchmarks/grace_canvas_eval/results/deepseek-v4-pro-qwen3.5-9b.json --out-dir /home/oppa-ai/AGi/diagnostic/scorecard/benchmarks/grace_canvas_eval/renders/deepseek-v4-pro-qwen3.5-9b
+Grace Canvas Eval: deepseek-v4-pro-qwen3.5-9b (8 tasks)
+    pass1 5/6  valid=True rendered=True steps=5  more=False img=False  65.84s
+  T1-apple               5/6  valid=True rendered=True  steps=5  65.88s
+    pass1 1/5  valid=True rendered=True steps=16  more=True img=False  79.58s
+  T1-lighthouse          1/5  valid=True rendered=True  steps=16  79.61s
+    pass1 4/6  valid=True rendered=True steps=4  more=False img=False  63.65s
+  T2-still-life          4/6  valid=True rendered=True  steps=4  63.68s
+    pass1 5/5  valid=True rendered=True steps=16  more=False img=False  36.43s
+  T2-robot-mascot        5/5  valid=True rendered=True  steps=16  36.48s
+    pass1 0/7  valid=True rendered=True steps=1  more=False img=False  62.17s
+  T3-navbar              0/7  valid=True rendered=True  steps=1  62.2s
+    pass1 2/5  valid=True rendered=True steps=3  more=False img=False  18.37s
+  T3-poster              2/5  valid=True rendered=True  steps=3  18.42s
+    pass1 4/4  valid=True rendered=True steps=1  more=False img=False  4.2s
+  T4-recolour-leaf       4/4  valid=True rendered=True  steps=1  4.23s
+    pass1 2/4  valid=True rendered=True steps=16  more=False img=False  81.1s
+  T5-critique-self       2/4  valid=True rendered=True  steps=16  81.28s
+
+SUMMARY {"label": "deepseek-v4-pro-qwen3.5-9b", "model": "deepseek-v4-pro-qwen3.5-9b", "schema_hint": false, "base_url": "http://127.0.0.1:8090/v1", "protocol_version": 3, "temperature": 0.0, "transport": "response_format_json_schema", "think_off": false, "force_tool": false, "reasoning_effort": "medium", "vision_passes": false, "single_pass": true, "pass_budgets": [16], "tasks": 8, "check_score": 0.5476, "tasks_fully_satisfied": 2, "fully_satisfied_rate": 0.25, "valid_rate": 1.0, "render_rate": 1.0, "truncated_rate": 0.0, "mean_steps": 7.75, "total_wall_s": 411.8, "refinement_delta": 0.0}
