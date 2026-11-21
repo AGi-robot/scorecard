@@ -42,6 +42,15 @@ BACKOFF = float(os.environ.get("IF_EVAL_BACKOFF", "5"))
 RETRYABLE = (429, 500, 502, 503, 504)
 
 
+def _auth_headers():
+    # Bearer token for gated endpoints (e.g. Modal-tunneled llama-server
+    # launched with --api-key). Unset locally = current behavior.
+    headers = {"Content-Type": "application/json"}
+    if os.environ.get("OPENAI_API_KEY"):
+        headers["Authorization"] = "Bearer " + os.environ["OPENAI_API_KEY"]
+    return headers
+
+
 def ask(args, prompt, timeout=900):
     body = {"model": args.model,
             "messages": [{"role": "user", "content": prompt}],
@@ -50,7 +59,7 @@ def ask(args, prompt, timeout=900):
         body["chat_template_kwargs"] = {"enable_thinking": False}
     req = urllib.request.Request(
         args.base_url + "/chat/completions", data=json.dumps(body).encode(),
-        headers={"Content-Type": "application/json"})
+        headers=_auth_headers())
     t0 = time.time()
     last = None
     for attempt in range(RETRIES + 1):

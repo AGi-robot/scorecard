@@ -177,6 +177,15 @@ def chat(base_url, model, messages, tools=None, json_schema=None,
     return req
 
 
+def _auth_headers():
+    # Bearer token for gated endpoints (e.g. Modal-tunneled llama-server
+    # launched with --api-key). Unset locally = current behavior.
+    headers = {"Content-Type": "application/json"}
+    if os.environ.get("OPENAI_API_KEY"):
+        headers["Authorization"] = "Bearer " + os.environ["OPENAI_API_KEY"]
+    return headers
+
+
 def urllib_request(base_url, body, timeout):
     import urllib.error
     import random
@@ -185,7 +194,7 @@ def urllib_request(base_url, body, timeout):
     if not url.endswith("/chat/completions"):
         url += "/chat/completions"
     req = urllib.request.Request(url, data=json.dumps(body).encode(),
-                                 headers={"Content-Type": "application/json"})
+                                 headers=_auth_headers())
     t0 = time.time()
     # Hosted endpoints rate-limit hard; a local llama-server never trips
     # these. Without a retry a 429 fails the task outright and silently
