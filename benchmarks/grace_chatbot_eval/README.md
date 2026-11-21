@@ -29,13 +29,26 @@ python preference_bench.py rate
 python preference_bench.py score
 ```
 
+Generation calls each model's OpenAI-compatible endpoint directly. It does not
+start or import Grace's runtime. By default, the harness sends the bundled
+`prompts/grace-persona-v1.md` snapshot, the run timestamp, and each script's
+conversation history. The batch records both the persona hash and the hash of
+the exact system prompt sent. This keeps the evaluation stable when Grace's
+live prompt or runtime changes. A deliberate persona revision should be saved
+as a new snapshot and passed with `--system-prompt-file`.
+
+For bare model comparisons, add `--bare-model` to the `generate` command. This
+omits the persona and timestamp; the scripted conversation history remains.
+The two modes are recorded separately in each batch.
+
 ## What's tested
 
-The system prompt is Grace's `AIVA/shell/persona/SOUL.md` plus the current
-timestamp -- the same context `aiva_chat/node.py` builds -- so this tests the
-deployment, not the bare model. (`--bare` drops the persona for a pure model
-comparison. `--think-off` disables thinking on Qwen models for protocol
-parity with Ministral, which has no thinking mode.)
+The default Grace-prompt mode tests the persona prompt and conversation-history
+handling around each endpoint. It does not test Grace's running chat service,
+memory database, tools, or router. `--bare-model` compares the model endpoints
+without the persona. `--think-off` disables thinking on Qwen models for protocol
+parity with Ministral, which has no thinking mode. Keep the setting fixed across
+contestants and record the serving-model revision and quantization with each run.
 
 The endpoint may still expose its API model ID as `swift`; the contestant label
 above identifies the exact Swift 1.5 Qwen 3.8 27B build.
