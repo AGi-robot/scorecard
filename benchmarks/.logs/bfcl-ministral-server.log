@@ -188,3 +188,17 @@
 1.15.860.083 I slot       select: id  0 | task -1 | selected slot by LRU, n_tokens = 4343, t_last = 19655523968
 1.15.889.942 W check_double_bos_eos: Added a BOS token to the prompt as specified by the model but the prompt also starts with a BOS token. So now the final prompt starts with 2 BOS tokens. Are you sure this is what you want?
 1.15.907.822 I slot launch_slot_: id  0 | task 533 | processing task, is_child = 0
+1.18.472.580 I slot print_timing: id  2 | task 426 | n_gen =    100, tg =   7.59 t/s, tg_3s =   7.66 t/s
+1.18.681.100 I slot print_timing: id  1 | task 464 | prompt eval time =    3022.52 ms /  4459 tokens (    0.68 ms per token,  1475.26 tokens per second)
+1.18.681.103 I slot print_timing: id  1 | task 464 |        eval time =    9832.83 ms /    94 tokens (  105.73 ms per token,     9.46 tokens per second)
+1.18.681.103 I slot print_timing: id  1 | task 464 |       total time =   12855.35 ms /  4553 tokens
+1.18.681.104 I slot print_timing: id  1 | task 464 |    graphs reused =          0
+1.18.681.105 I slot print_timing: id  1 | task 464 |   graph reallocs =          0    /     0        (same size) / (changed size)
+1.18.681.229 I slot      release: id  1 | task 464 | stop processing: n_tokens = 4555, truncated = 0
+1.18.681.654 I slot       select: id  1 | task -1 | selected slot by LRU, n_tokens = 4555, t_last = 19658345770
+1.18.712.508 W check_double_bos_eos: Added a BOS token to the prompt as specified by the model but the prompt also starts with a BOS token. So now the final prompt starts with 2 BOS tokens. Are you sure this is what you want?
+1.18.731.864 I slot launch_slot_: id  1 | task 561 | processing task, is_child = 0
+1.21.879.221 I slot print_timing: id  2 | task 426 | n_gen =    107, tg =   6.44 t/s, tg_3s =   2.05 t/s
+1.24.906.732 I slot print_timing: id  2 | task 426 | n_gen =    165, tg =   8.42 t/s, tg_3s =  19.16 t/s
+1.25.011.243 I slot print_timing: id  3 | task 475 | n_gen =    100, tg =   9.51 t/s, tg_3s =   9.60 t/s
+1.26.368.694 I slot print_timing: id  0 | task 533 | n_gen =    100, tg =  12.06 t/s, tg_3s =  12.18 t/s
