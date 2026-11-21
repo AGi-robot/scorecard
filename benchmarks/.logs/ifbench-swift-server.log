@@ -778,3 +778,5 @@
 19.35.863.051 I slot       select: id  2 | task -1 | selected slot by LRU, n_tokens = 0, t_last = 15772470130
 19.35.863.105 I slot launch_slot_: id  2 | task 21508 | processing task, is_child = 0
 19.35.863.133 W srv         alloc:  - making room for prompt cache entry, removing oldest entry (size = 300.780 MiB)
+19.41.501.709 I slot print_timing: id  2 | task 21508 | n_gen =    100, tg =  18.64 t/s, tg_3s =  18.83 t/s
+19.44.502.363 I slot print_timing: id  2 | task 21508 | n_gen =    156, tg =  18.65 t/s, tg_3s =  18.66 t/s
