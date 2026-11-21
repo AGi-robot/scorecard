@@ -191,4 +191,84 @@ Traceback (most recent call last):
   File "/home/oppa-ai/.venvs/bfcl/lib/python3.12/site-packages/openai/_base_client.py", line 1248, in request
     raise self._make_status_error_from_response(err.response) from None
 openai.InternalServerError: Error code: 500 - Context size has been exceeded.
-----------------------------------------------------------------------------------------------------Generating results for AGi/ministral-3-14b-instruct-2512:   2%|▏         | 4/192 [06:02<4:40:22, 89.48s/it]Generating results for AGi/ministral-3-14b-instruct-2512:   3%|▎         | 5/192 [06:02<3:34:18, 68.76s/it]                                                                                                           Generating results for AGi/ministral-3-14b-instruct-2512:   3%|▎         | 5/192 [08:24<3:34:18, 68.76s/it]Generating results for AGi/ministral-3-14b-instruct-2512:   3%|▎         | 6/192 [08:24<4:17:26, 83.05s/it]
+----------------------------------------------------------------------------------------------------Generating results for AGi/ministral-3-14b-instruct-2512:   2%|▏         | 4/192 [06:02<4:40:22, 89.48s/it]Generating results for AGi/ministral-3-14b-instruct-2512:   3%|▎         | 5/192 [06:02<3:34:18, 68.76s/it]                                                                                                           Generating results for AGi/ministral-3-14b-instruct-2512:   3%|▎         | 5/192 [08:24<3:34:18, 68.76s/it]Generating results for AGi/ministral-3-14b-instruct-2512:   3%|▎         | 6/192 [08:24<4:17:26, 83.05s/it]                                                                                                           
+⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️
+Warning: Not first memory entry, but no snapshot file found in this path: /home/oppa-ai/AGi/diagnostic/scorecard/benchmarks/bfcl/results/v4-parallel/result/AGi_ministral-3-14b-instruct-2512/agentic/memory/kv/memory_snapshot/healthcare_final.json. The memory will start empty for memory_kv_prereq_11-healthcare-1.
+⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_11-healthcare-1, Turn: 0, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_33-notetaker-1, Turn: 1, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_11-healthcare-1, Turn: 1, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_23-student-1, Turn: 1, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_16-finance-1, Turn: 1, Step: 0
+----------------------------------------------------------------------------------------------------
+❗️❗️ Error occurred during inference. Continuing to next test case.
+❗️❗️ Test case ID: memory_kv_prereq_1-customer-1, Error: Error code: 500 - Context size has been exceeded.
+Traceback (most recent call last):
+  File "/tmp/gorilla-bfcl/berkeley-function-call-leaderboard/bfcl_eval/_llm_response_generation.py", line 194, in multi_threaded_inference
+    result, metadata = handler.inference(
+                       ^^^^^^^^^^^^^^^^^^
+  File "/tmp/gorilla-bfcl/berkeley-function-call-leaderboard/bfcl_eval/model_handler/local_inference/base_oss_handler.py", line 60, in inference
+    return self.inference_multi_turn_prompting(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/gorilla-bfcl/berkeley-function-call-leaderboard/bfcl_eval/model_handler/base_handler.py", line 512, in inference_multi_turn_prompting
+    api_response, query_latency = self._query_prompting(inference_data)
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/gorilla-bfcl/berkeley-function-call-leaderboard/bfcl_eval/model_handler/local_inference/base_oss_handler.py", line 355, in _query_prompting
+    api_response = self.client.completions.create(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/oppa-ai/.venvs/bfcl/lib/python3.12/site-packages/openai/_utils/_utils.py", line 298, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/oppa-ai/.venvs/bfcl/lib/python3.12/site-packages/openai/resources/completions.py", line 555, in create
+    return self._post(
+           ^^^^^^^^^^^
+  File "/home/oppa-ai/.venvs/bfcl/lib/python3.12/site-packages/openai/_base_client.py", line 1474, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/oppa-ai/.venvs/bfcl/lib/python3.12/site-packages/openai/_base_client.py", line 1248, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.InternalServerError: Error code: 500 - Context size has been exceeded.
+----------------------------------------------------------------------------------------------------
+⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️
+Warning: Not first memory entry, but no snapshot file found in this path: /home/oppa-ai/AGi/diagnostic/scorecard/benchmarks/bfcl/results/v4-parallel/result/AGi_ministral-3-14b-instruct-2512/agentic/memory/kv/memory_snapshot/customer_final.json. The memory will start empty for memory_kv_prereq_2-customer-2.
+⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_2-customer-2, Turn: 0, Step: 0
+----------------------------------------------------------------------------------------------------
+❗️❗️ Error occurred during inference. Continuing to next test case.
+❗️❗️ Test case ID: memory_kv_prereq_23-student-1, Error: Error code: 500 - Context size has been exceeded.
+Traceback (most recent call last):
+  File "/tmp/gorilla-bfcl/berkeley-function-call-leaderboard/bfcl_eval/_llm_response_generation.py", line 194, in multi_threaded_inference
+    result, metadata = handler.inference(
+                       ^^^^^^^^^^^^^^^^^^
+  File "/tmp/gorilla-bfcl/berkeley-function-call-leaderboard/bfcl_eval/model_handler/local_inference/base_oss_handler.py", line 60, in inference
+    return self.inference_multi_turn_prompting(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/gorilla-bfcl/berkeley-function-call-leaderboard/bfcl_eval/model_handler/base_handler.py", line 512, in inference_multi_turn_prompting
+    api_response, query_latency = self._query_prompting(inference_data)
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/gorilla-bfcl/berkeley-function-call-leaderboard/bfcl_eval/model_handler/local_inference/base_oss_handler.py", line 355, in _query_prompting
+    api_response = self.client.completions.create(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/oppa-ai/.venvs/bfcl/lib/python3.12/site-packages/openai/_utils/_utils.py", line 298, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/oppa-ai/.venvs/bfcl/lib/python3.12/site-packages/openai/resources/completions.py", line 555, in create
+    return self._post(
+           ^^^^^^^^^^^
+  File "/home/oppa-ai/.venvs/bfcl/lib/python3.12/site-packages/openai/_base_client.py", line 1474, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/oppa-ai/.venvs/bfcl/lib/python3.12/site-packages/openai/_base_client.py", line 1248, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.InternalServerError: Error code: 500 - Context size has been exceeded.
+----------------------------------------------------------------------------------------------------Generating results for AGi/ministral-3-14b-instruct-2512:   3%|▎         | 6/192 [09:38<4:17:26, 83.05s/it]Generating results for AGi/ministral-3-14b-instruct-2512:   4%|▎         | 7/192 [09:38<4:11:08, 81.45s/it]
