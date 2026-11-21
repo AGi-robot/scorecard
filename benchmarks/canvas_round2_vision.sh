@@ -18,7 +18,6 @@ SERVER=/home/oppa-ai/llama.cpp/build/bin/llama-server
 PORT=8090
 URL=http://127.0.0.1:$PORT/v1
 MMPROJ_SWIFT=/home/oppa-ai/AGi/models/swift15-qwen3.8-27b/mmproj-Swift-1.5-Qwen3.8-27B-Uncensored-MTP-BF16.gguf
-MMPROJ_DEEPSEEK=/home/oppa-ai/AGi/models/deepseek-v4-pro-qwen3.5-9b/DeepSeek-V4-Pro-Qwen3.5-9B-UNCENSORED-heretic.mmproj-f16.gguf
 SERVER_PID=
 
 mkdir -p "$OUT" "$RENDERS" "$OUT2" "$RENDERS2" "$LOGDIR"
@@ -80,27 +79,8 @@ run_round2() {
 trap 'stop_server' EXIT
 
 # ---- Round 1b: judges (vision servers) ----
-if [ ! -f "$OUT/judge-saluki-27b.json" ]; then
-  log "Loading saluki-27b as judge"
-  start_server "$LOGDIR/judge-saluki-server.log" \
-    --alias saluki-27b \
-    --model /home/oppa-ai/AGi/models/saluki-27b/Underdog-Saluki-27B-1.0-IQ2-mix-MTP-abliterated.gguf \
-    --mmproj "$MMPROJ_SWIFT" --jinja --reasoning-effort medium --reasoning-budget 2048 \
-    --ctx-size 32768 --cache-type-k q8_0 --cache-type-v q8_0 && \
-    run_judge saluki-27b saluki-27b
-  stop_server
-fi
-
-if [ ! -f "$OUT/judge-deepseek-9b.json" ]; then
-  log "Loading deepseek as judge"
-  CUDA_VISIBLE_DEVICES=0 start_server "$LOGDIR/judge-deepseek-server.log" \
-    --alias deepseek-v4-pro-qwen3.5-9b \
-    --model /home/oppa-ai/AGi/models/deepseek-v4-pro-qwen3.5-9b/DeepSeek-V4-Pro-Qwen3.5-9B-UNCENSORED-heretic.i1-Q4_K_M.gguf \
-    --mmproj "$MMPROJ_DEEPSEEK" --jinja --reasoning-effort medium --reasoning-budget 2048 \
-    --ctx-size 32768 --cache-type-k q8_0 --cache-type-v q8_0 && \
-    run_judge deepseek-v4-pro-qwen3.5-9b deepseek-9b
-  stop_server
-fi
+# NOTE: Saluki judging is complete (judge-saluki-27b.json). Agent A1 judges
+# separately via judge_agents_watcher.sh after round 2.
 
 # ---- Round 2: multi-pass, top 6 (MiniCPM benched at 0.4048) ----
 if [ ! -f "$OUT2/swift15-qwen3.8-27b-local.json" ]; then
@@ -133,17 +113,6 @@ if [ ! -f "$OUT2/ministral3-8b.json" ]; then
     --mmproj /home/oppa-ai/AGi/models/ministral3-8b/mmproj-BF16.gguf \
     --ctx-size 24576 --cache-type-k q4_0 --cache-type-v q4_0 && \
     run_round2 ministral-3-8b-uncensored ministral3-8b
-  stop_server
-fi
-
-if [ ! -f "$OUT2/deepseek-v4-pro-qwen3.5-9b.json" ]; then
-  log "Loading deepseek for round 2"
-  CUDA_VISIBLE_DEVICES=0 start_server "$LOGDIR/round2-deepseek-server.log" \
-    --alias deepseek-v4-pro-qwen3.5-9b \
-    --model /home/oppa-ai/AGi/models/deepseek-v4-pro-qwen3.5-9b/DeepSeek-V4-Pro-Qwen3.5-9B-UNCENSORED-heretic.i1-Q4_K_M.gguf \
-    --mmproj "$MMPROJ_DEEPSEEK" --jinja --reasoning-effort medium --reasoning-budget 2048 \
-    --ctx-size 32768 --cache-type-k q8_0 --cache-type-v q8_0 && \
-    run_round2 deepseek-v4-pro-qwen3.5-9b deepseek-v4-pro-qwen3.5-9b
   stop_server
 fi
 

@@ -17,8 +17,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from grace_canvas_eval import judge_image  # noqa: E402
 
 LABELS = ["ministral3-8b", "swift15-qwen3.8-27b-local", "saluki-27b",
-          "deepseek-v4-pro-qwen3.5-9b", "minicpm5-2b", "neohorse-1-4b",
-          "agents-a1-4b"]
+          "minicpm5-2b", "neohorse-1-4b", "agents-a1-4b"]
 
 
 def main():
