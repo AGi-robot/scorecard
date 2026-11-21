@@ -742,4 +742,353 @@ ID: memory_kv_prereq_23-student-1, Turn: 0, Step: 0
 ⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️
 Warning: Not first memory entry, but no snapshot file found in this path: /home/oppa-ai/AGi/diagnostic/scorecard/benchmarks/bfcl/results/v4/result/AGi_ministral-3-14b-instruct-2512/agentic/memory/kv/memory_snapshot/notetaker_final.json. The memory will start empty for memory_kv_prereq_33-notetaker-1.
 ⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️
-----------------------------------------------------------------------------------------------------Generating results for AGi/ministral-3-14b-instruct-2512:   1%|          | 1/187 [00:55<2:52:35, 55.67s/it]
+----------------------------------------------------------------------------------------------------Generating results for AGi/ministral-3-14b-instruct-2512:   1%|          | 1/187 [00:55<2:52:35, 55.67s/it]Generating results for AGi/ministral-3-14b-instruct-2512:   1%|          | 2/187 [02:52<4:30:33, 87.75s/it]Generating results for AGi/ministral-3-14b-instruct-2512:   2%|▏         | 3/187 [02:58<2:56:21, 57.51s/it]
+ID: memory_kv_prereq_33-notetaker-1, Turn: 0, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_33-notetaker-1, Turn: 1, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_1-customer-1, Turn: 1, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_33-notetaker-1, Turn: 2, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_16-finance-1, Turn: 1, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_23-student-1, Turn: 1, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_11-healthcare-1, Turn: 1, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_1-customer-1, Turn: 2, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_33-notetaker-1, Turn: 3, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_1-customer-1, Turn: 3, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_23-student-1, Turn: 2, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_16-finance-1, Turn: 2, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_1-customer-1, Turn: 4, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_34-notetaker-2, Turn: 0, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_11-healthcare-1, Turn: 2, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_34-notetaker-2, Turn: 1, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_23-student-1, Turn: 3, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_1-customer-1, Turn: 5, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_34-notetaker-2, Turn: 2, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_23-student-1, Turn: 4, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_11-healthcare-1, Turn: 3, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_16-finance-1, Turn: 3, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_1-customer-1, Turn: 6, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_23-student-1, Turn: 5, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_34-notetaker-2, Turn: 3, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_1-customer-1, Turn: 7, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_11-healthcare-1, Turn: 4, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_23-student-1, Turn: 6, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_1-customer-1, Turn: 8, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_11-healthcare-1, Turn: 5, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_34-notetaker-2, Turn: 4, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_23-student-1, Turn: 7, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_16-finance-1, Turn: 4, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_1-customer-1, Turn: 9, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_11-healthcare-1, Turn: 6, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_23-student-1, Turn: 8, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_35-notetaker-3, Turn: 0, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_2-customer-2, Turn: 0, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_11-healthcare-1, Turn: 7, Step: 0
+Failed to decode the model response. Proceed to next turn.Generating results for AGi/ministral-3-14b-instruct-2512:   2%|▏         | 4/187 [03:06<2:11:31, 43.12s/it]Generating results for AGi/ministral-3-14b-instruct-2512:   3%|▎         | 5/187 [03:08<1:40:46, 33.22s/it]Generating results for AGi/ministral-3-14b-instruct-2512:   3%|▎         | 6/187 [03:39<1:38:28, 32.64s/it]Generating results for AGi/ministral-3-14b-instruct-2512:   4%|▎         | 7/187 [03:44<1:22:07, 27.37s/it]Generating results for AGi/ministral-3-14b-instruct-2512:   4%|▍         | 8/187 [04:48<1:40:50, 33.80s/it]
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_35-notetaker-3, Turn: 1, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_24-student-2, Turn: 0, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_17-finance-2, Turn: 0, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_35-notetaker-3, Turn: 2, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_2-customer-2, Turn: 1, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_11-healthcare-1, Turn: 8, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_35-notetaker-3, Turn: 3, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_24-student-2, Turn: 1, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_17-finance-2, Turn: 1, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_35-notetaker-3, Turn: 4, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_2-customer-2, Turn: 2, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_12-healthcare-2, Turn: 0, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_24-student-2, Turn: 2, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_36-notetaker-4, Turn: 0, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_12-healthcare-2, Turn: 1, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_24-student-2, Turn: 3, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_36-notetaker-4, Turn: 1, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_2-customer-2, Turn: 3, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_36-notetaker-4, Turn: 2, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_12-healthcare-2, Turn: 2, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_24-student-2, Turn: 4, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_36-notetaker-4, Turn: 3, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_12-healthcare-2, Turn: 3, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_2-customer-2, Turn: 4, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_24-student-2, Turn: 5, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_36-notetaker-4, Turn: 4, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_17-finance-2, Turn: 2, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_130-notetaker-0, Turn: 0, Step: 0
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_131-notetaker-1, Turn: 0, Step: 0
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_132-notetaker-2, Turn: 0, Step: 0
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_135-notetaker-5, Turn: 0, Step: 0
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_133-notetaker-3, Turn: 0, Step: 0
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_134-notetaker-4, Turn: 0, Step: 0
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_136-notetaker-6, Turn: 0, Step: 0
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_137-notetaker-7, Turn: 0, Step: 0
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_138-notetaker-8, Turn: 0, Step: 0
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_141-notetaker-11, Turn: 0, Step: 0
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_139-notetaker-9, Turn: 0, Step: 0
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_140-notetaker-10, Turn: 0, Step: 0
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_144-notetaker-14, Turn: 0, Step: 0
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_142-notetaker-12, Turn: 0, Step: 0
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_143-notetaker-13, Turn: 0, Step: 0
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_145-notetaker-15, Turn: 0, Step: 0
+----------------------------------------------------------------------------------------------------Generating results for AGi/ministral-3-14b-instruct-2512:   5%|▍         | 9/187 [04:52<1:25:48, 28.92s/it]Generating results for AGi/ministral-3-14b-instruct-2512:   5%|▌         | 10/187 [04:55<1:13:45, 25.00s/it]Generating results for AGi/ministral-3-14b-instruct-2512:   6%|▌         | 11/187 [04:57<1:03:33, 21.67s/it]Generating results for AGi/ministral-3-14b-instruct-2512:   6%|▋         | 12/187 [05:04<57:07, 19.59s/it]  Generating results for AGi/ministral-3-14b-instruct-2512:   7%|▋         | 13/187 [05:12<52:19, 18.04s/it]Generating results for AGi/ministral-3-14b-instruct-2512:   7%|▋         | 14/187 [05:14<45:59, 15.95s/it]Generating results for AGi/ministral-3-14b-instruct-2512:   8%|▊         | 15/187 [05:17<40:55, 14.28s/it]Generating results for AGi/ministral-3-14b-instruct-2512:   9%|▊         | 16/187 [05:19<36:23, 12.77s/it]Generating results for AGi/ministral-3-14b-instruct-2512:   9%|▉         | 17/187 [05:23<33:10, 11.71s/it]Generating results for AGi/ministral-3-14b-instruct-2512:  10%|▉         | 18/187 [05:25<29:44, 10.56s/it]Generating results for AGi/ministral-3-14b-instruct-2512:  10%|█         | 19/187 [05:33<28:44, 10.26s/it]Generating results for AGi/ministral-3-14b-instruct-2512:  11%|█         | 20/187 [05:36<26:25,  9.49s/it]Generating results for AGi/ministral-3-14b-instruct-2512:  11%|█         | 21/187 [05:37<23:34,  8.52s/it]Generating results for AGi/ministral-3-14b-instruct-2512:  12%|█▏        | 22/187 [05:39<21:35,  7.85s/it]Generating results for AGi/ministral-3-14b-instruct-2512:  12%|█▏        | 23/187 [05:40<19:11,  7.02s/it]Generating results for AGi/ministral-3-14b-instruct-2512:  13%|█▎        | 24/187 [05:46<18:50,  6.93s/it]Generating results for AGi/ministral-3-14b-instruct-2512:  13%|█▎        | 25/187 [05:47<17:09,  6.36s/it]Generating results for AGi/ministral-3-14b-instruct-2512:  14%|█▍        | 26/187 [05:50<15:50,  5.90s/it]Generating results for AGi/ministral-3-14b-instruct-2512:  14%|█▍        | 27/187 [05:51<14:31,  5.45s/it]Generating results for AGi/ministral-3-14b-instruct-2512:  15%|█▍        | 28/187 [05:53<13:25,  5.07s/it]Generating results for AGi/ministral-3-14b-instruct-2512:  16%|█▌        | 29/187 [05:56<12:44,  4.84s/it]Generating results for AGi/ministral-3-14b-instruct-2512:  16%|█▌        | 30/187 [05:58<11:55,  4.56s/it]Generating results for AGi/ministral-3-14b-instruct-2512:  17%|█▋        | 31/187 [06:10<13:44,  5.28s/it]Generating results for AGi/ministral-3-14b-instruct-2512:  17%|█▋        | 32/187 [08:02<42:26, 16.43s/it]Generating results for AGi/ministral-3-14b-instruct-2512:  18%|█▊        | 33/187 [08:49<50:10, 19.55s/it]Generating results for AGi/ministral-3-14b-instruct-2512:  18%|█▊        | 34/187 [09:07<49:21, 19.36s/it]Generating results for AGi/ministral-3-14b-instruct-2512:  19%|█▊        | 35/187 [09:25<48:41, 19.22s/it]
+ID: memory_kv_148-notetaker-18, Turn: 0, Step: 0
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_147-notetaker-17, Turn: 0, Step: 0
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_146-notetaker-16, Turn: 0, Step: 0
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_149-notetaker-19, Turn: 0, Step: 0
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_153-notetaker-23, Turn: 0, Step: 0
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_150-notetaker-20, Turn: 0, Step: 0
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_152-notetaker-22, Turn: 0, Step: 0
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_151-notetaker-21, Turn: 0, Step: 0
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_154-notetaker-24, Turn: 0, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_12-healthcare-2, Turn: 4, Step: 0
+Failed to decode the model response. Proceed to next turn.
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_24-student-2, Turn: 6, Step: 0
+Failed to decode the model response. Proceed to next turn.
+Failed to decode the model response. Proceed to next turn.
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_2-customer-2, Turn: 5, Step: 0
+Failed to decode the model response. Proceed to next turn.
+Failed to decode the model response. Proceed to next turn.
+Failed to decode the model response. Proceed to next turn.
+Failed to decode the model response. Proceed to next turn.
+Failed to decode the model response. Proceed to next turn.
+Failed to decode the model response. Proceed to next turn.
+Failed to decode the model response. Proceed to next turn.
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_17-finance-2, Turn: 3, Step: 0
+Failed to decode the model response. Proceed to next turn.
+Failed to decode the model response. Proceed to next turn.
+Failed to decode the model response. Proceed to next turn.
+Failed to decode the model response. Proceed to next turn.
+Failed to decode the model response. Proceed to next turn.
+Failed to decode the model response. Proceed to next turn.
+Failed to decode the model response. Proceed to next turn.
+Failed to decode the model response. Proceed to next turn.
+Failed to decode the model response. Proceed to next turn.
+Failed to decode the model response. Proceed to next turn.
+Failed to decode the model response. Proceed to next turn.
+Failed to decode the model response. Proceed to next turn.
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_12-healthcare-2, Turn: 5, Step: 0
+Failed to decode the model response. Proceed to next turn.
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_24-student-2, Turn: 7, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_2-customer-2, Turn: 6, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_12-healthcare-2, Turn: 6, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_24-student-2, Turn: 8, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_17-finance-2, Turn: 4, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_12-healthcare-2, Turn: 7, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_2-customer-2, Turn: 7, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_24-student-2, Turn: 9, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_12-healthcare-2, Turn: 8, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_2-customer-2, Turn: 8, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_24-student-2, Turn: 10, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_13-healthcare-3, Turn: 0, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_2-customer-2, Turn: 9, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_24-student-2, Turn: 11, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_13-healthcare-3, Turn: 1, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_3-customer-3, Turn: 0, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_24-student-2, Turn: 12, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_18-finance-3, Turn: 0, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_3-customer-3, Turn: 1, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_25-student-3, Turn: 0, Step: 0
+Failed to decode the model response. Proceed to next turn.
+----------------------------------------------------------------------------------------------------
+ID: memory_kv_prereq_13-healthcare-3, Turn: 2, Step: 0
+Failed to decode the model response. Proceed to next turn.Generating results for AGi/ministral-3-14b-instruct-2512:  19%|█▉        | 36/187 [10:16<56:29, 22.45s/it]Generating results for AGi/ministral-3-14b-instruct-2512:  20%|█▉        | 37/187 [10:26<53:06, 21.24s/it]Generating results for AGi/ministral-3-14b-instruct-2512:  20%|██        | 38/187 [11:55<1:09:54, 28.15s/it]Generating results for AGi/ministral-3-14b-instruct-2512:  21%|██        | 39/187 [12:15<1:07:25, 27.33s/it]

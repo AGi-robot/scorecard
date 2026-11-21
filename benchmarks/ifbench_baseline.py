@@ -13,6 +13,17 @@ MULTITURN_REVISION = "e1ea65c5178fbeac522a26d12b8c71a298e9846d"
 NLTK_REVISION = "550b6625bcef1f2abff2ff770a5a0d272c9c6b2a"
 
 
+def configure_limits(args):
+    """Choose fixed budgets before generation, independent of test outcomes."""
+    ministral = "ministral" in (args.model or "").lower()
+    if args.max_tokens is None:
+        args.max_tokens = 4096 if ministral else 8192
+    if args.request_timeout is None:
+        args.request_timeout = 600 if ministral else 1200
+    if args.request_timeout <= 0:
+        raise ValueError("request-timeout must be positive")
+
+
 def prepare_nltk():
     """Supply immutable resources before upstream's automatic downloader runs."""
     import nltk
@@ -29,8 +40,10 @@ def prepare_nltk():
 
 def run(multiturn=None):
     cli = parser("IFBench single-turn and released fixed-history multi-turn")
+    cli.set_defaults(max_tokens=None, request_timeout=None)
     cli.add_argument("--suite", choices=["single", "multiturn"], default="single")
     args = cli.parse_args()
+    configure_limits(args)
     if multiturn is None:
         multiturn = args.suite == "multiturn"
     if args.n != 1 or args.temperature != 0:
@@ -41,7 +54,12 @@ def run(multiturn=None):
                 "official_revision": REVISION, "temperature": 0, "top_p": 1,
                 "nltk_data_revision": NLTK_REVISION,
                 "history": "released messages including fixed assistant turn" if multiturn else "single user prompt",
-                "primary_metric": "prompt_loose"}
+                "primary_metric": "prompt_loose",
+                "generation_policy": "bounded-v1",
+                "request_timeout_seconds": args.request_timeout,
+                "token_limit_policy": "score returned final text; continue",
+                "timeout_policy": "score empty response; continue; report separately",
+                "answer_extraction": "message.content only; reasoning_content saved separately"}
     if getattr(args, "think_off", False):
         protocol["thinking"] = "disabled via chat_template_kwargs.enable_thinking=false"
     if multiturn:
@@ -79,7 +97,7 @@ def run(multiturn=None):
             raise ValueError("Unexpected released multi-turn schema")
         return turns
 
-    outputs = responses(args, tasks, messages)
+    outputs = responses(args, tasks, messages, bounded=True)
     if outputs is None:
         return
     prepare_nltk()
@@ -90,7 +108,14 @@ def run(multiturn=None):
     if not str(registry.__file__).startswith(str(official) + "/"):
         raise ValueError("IFBench registry was imported from outside the pinned checkout")
     result = {"suite": protocol["suite"], "model": args.model, "n": len(rows),
-              "full_run": len(rows) == total, "protocol": protocol}
+              "full_run": len(rows) == total, "protocol": protocol,
+              "max_tokens": args.max_tokens, "request_timeout_seconds": args.request_timeout}
+    records = read_jsonl(args.output / "responses.jsonl")
+    result["generation"] = {
+        "token_limited": sum(r["finish_reason"] == "length" for r in records),
+        "timed_out": sum(r["finish_reason"] == "timeout" for r in records),
+        "empty_answers": sum(not r["response"].strip() for r in records),
+    }
     for mode in ("strict", "loose"):
         graded = []
         for row, output in zip(rows, outputs):
