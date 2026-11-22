@@ -182,7 +182,7 @@ In another terminal, with `cairosvg` and `pillow` installed:
 ```bash
 python diagnostic/scorecard/benchmarks/grace_canvas_eval/grace_canvas_eval.py \
   --base-url http://127.0.0.1:8096/v1 --model swift-local-canvas \
-  --label swift-local-geometry --strict-geometry --single-pass \
+  --label swift-local-geometry --strict-geometry --single-pass --no-vision-passes \
   --task T1-lighthouse --task T2-still-life \
   --task T2-robot-mascot --task T5-critique-self \
   --out diagnostic/scorecard/benchmarks/grace_canvas_eval/results/swift-local-geometry.json \
@@ -191,13 +191,16 @@ python diagnostic/scorecard/benchmarks/grace_canvas_eval/grace_canvas_eval.py \
 
 This uses the original briefs and canvas engine, constrained JSON with explicit
 colors, temperature 0, and 6144 output tokens per pass. The server caps thinking
-at 2048 tokens. `--strict-geometry` is an opt-in local experiment: it requires
+at 2048 tokens. `--strict-geometry` is now the default shared production/eval schema: it requires
 stable IDs, hex paints, and each kind's geometry, and adds a short geometry
-contract to the drawing instructions. This differs from the production schema.
+contract to the shared drawing instructions. Production and eval use the same schema builder.
 Without it the local baseline omitted rectangle/ellipse geometry and edit IDs;
 requiring geometry alone also allowed `color="none"`, which the engine rejects.
-The single-pass command gives a 16-action draft. To allow up to four passes
-with screenshots, replace `--single-pass` with `--vision-passes`.
+The single-pass command gives a 16-action draft. For up to four passes with
+screenshot review, remove `--single-pass`; vision is enabled by default.
+Use `--no-strict-geometry --no-vision-passes` for legacy comparisons.
+The `swift-local-geometry.json` results below retain their original single-pass,
+vision-disabled configuration; changing defaults does not update old scores.
 Raw actions and intermediate PNGs are saved per pass. Structural checks alone
 do not establish API visual parity.
 
@@ -215,3 +218,29 @@ Offline pipeline checks (requires pytest, cairosvg, and pillow):
 ```bash
 AGI_REPO=/path/to/AGi python -m pytest -q benchmarks/grace_canvas_eval/test_canvas_pipeline.py
 ```
+
+
+### Geometry and animated fill update (2026-11-22)
+
+Production and eval now share `canvas.engine.build_draw_schema`: stable IDs,
+hex paints, positive shape dimensions and kind-specific coordinates/points.
+The production pass budgets remain 16/10/8/6. Eval defaults to strict geometry
+and rendered screenshots, and forces one visual review of the first pass even
+when the model returns `more=false`. A server that rejects images falls back
+to text and the report marks that pass as not having used vision.
+
+Browser replay traces outlines and reveals colour from top to bottom, including
+shapes with `stroke=false`. Both phases fit the existing 600 ms per-shape replay;
+reduced-motion users get immediate results. Replay runs in the browser while
+model inference runs on the server. A visual review deliberately waits for the
+completed replay so its screenshot includes all actions from that pass.
+
+
+Fresh run: [`swift-local-geometry-vision.json`](results/swift-local-geometry-vision.json)
+(protocol 4, 2026-11-22) used strict geometry and 14 image-bearing passes across
+all four scenes. All prepared passes validated and rendered, with no image
+fallback or stream truncation. The final score was 18/20 structural checks;
+the still life and cabin exceeded their coverage caps. Each scene finished
+within the production 600-second limit. These checks do not measure visual
+quality; no image judge was configured. The active production Swift preset now
+also caps thinking at 2048 tokens per pass, matching this local eval recipe.

@@ -1,0 +1,4432 @@
+{
+ "summary": {
+  "label": "swift-local-geometry-vision",
+  "model": "swift-local-canvas",
+  "schema_hint": false,
+  "strict_geometry": true,
+  "base_url": "http://127.0.0.1:18097/v1",
+  "protocol_version": 4,
+  "temperature": 0.0,
+  "transport": "response_format_json_schema",
+  "think_off": false,
+  "force_tool": false,
+  "reasoning_effort": "medium",
+  "vision_passes": true,
+  "single_pass": false,
+  "pass_budgets": [
+   16,
+   10,
+   8,
+   6
+  ],
+  "tasks": 4,
+  "check_score": 0.9,
+  "tasks_fully_satisfied": 2,
+  "fully_satisfied_rate": 0.5,
+  "valid_rate": 1.0,
+  "render_rate": 1.0,
+  "truncated_rate": 0.0,
+  "mean_steps": 33.75,
+  "total_wall_s": 1710.8,
+  "refinement_delta": -0.0417
+ },
+ "results": [
+  {
+   "task": "T1-lighthouse",
+   "tier": 1,
+   "tier_name": "single subject",
+   "brief": "Draw a lighthouse standing on a rocky headland at dusk, with a warm lamp glow at the top.",
+   "actions_returned": 40,
+   "steps": 40,
+   "valid": true,
+   "validation_error": null,
+   "clamped_fields": 0,
+   "rendered": true,
+   "render_error": null,
+   "truncated_stream": false,
+   "meta": {
+    "vision_fallback": false,
+    "elapsed_s": 111.22,
+    "completion_tokens": 2016,
+    "prompt_tokens": 3651,
+    "truncated": false,
+    "raw_len": 1204,
+    "raw_tail": "",
+    "finish_reason": "stop",
+    "response": "Refined the light beams from flat ovals into tapered ray shapes that emanate from the lamp room, added a subtle warm glow reflection on the rocky base, and placed a small star in the dusk sky for atmosphere. The lighthouse now reads clearly with proper light direction and a finished composition.",
+    "more": false
+   },
+   "meta_passes": [
+    {
+     "vision_fallback": false,
+     "elapsed_s": 178.19,
+     "completion_tokens": 2969,
+     "prompt_tokens": 2090,
+     "truncated": false,
+     "raw_len": 3622,
+     "raw_tail": "",
+     "finish_reason": "stop",
+     "response": "Here's the first pass: a dusk sky gradient from deep indigo to warm coral, layered clouds, a dark rocky headland, and a cream lighthouse tower with red bands, a glowing lamp room, and light beams radiating outward. The warm lamp glow anchors the focal point at the top.",
+     "more": true
+    },
+    {
+     "vision_fallback": false,
+     "elapsed_s": 112.16,
+     "completion_tokens": 2024,
+     "prompt_tokens": 3905,
+     "truncated": false,
+     "raw_len": 2017,
+     "raw_tail": "",
+     "finish_reason": "stop",
+     "response": "Refining the scene: enlarged the lamp glow with a warm outer halo, added a rocky pedestal at the tower base, scattered lighter rock patches across the headland for texture, boosted the light beam opacity, added a warm light pool on the ground, a gallery railing around the lamp room, and subtle shadow/highlight strips on the tower for dimensional depth.",
+     "more": true
+    },
+    {
+     "vision_fallback": false,
+     "elapsed_s": 132.16,
+     "completion_tokens": 2423,
+     "prompt_tokens": 3586,
+     "truncated": false,
+     "raw_len": 1434,
+     "raw_tail": "",
+     "finish_reason": "stop",
+     "response": "Refining the light beams into proper conical shapes radiating from the lamp, replacing the mechanical tower shadow with an organic curve, and adding a warm halo glow around the lamp for a more atmospheric dusk feel.",
+     "more": true
+    },
+    {
+     "vision_fallback": false,
+     "elapsed_s": 111.22,
+     "completion_tokens": 2016,
+     "prompt_tokens": 3651,
+     "truncated": false,
+     "raw_len": 1204,
+     "raw_tail": "",
+     "finish_reason": "stop",
+     "response": "Refined the light beams from flat ovals into tapered ray shapes that emanate from the lamp room, added a subtle warm glow reflection on the rocky base, and placed a small star in the dusk sky for atmosphere. The lighthouse now reads clearly with proper light direction and a finished composition.",
+     "more": false
+    }
+   ],
+   "passes": [
+    {
+     "pass": 1,
+     "budget": 16,
+     "actions_returned": 16,
+     "valid": true,
+     "validation_error": null,
+     "clamped_fields": 0,
+     "rendered": true,
+     "render_error": null,
+     "with_image": true,
+     "truncated_stream": false,
+     "meta": {
+      "vision_fallback": false,
+      "elapsed_s": 178.19,
+      "completion_tokens": 2969,
+      "prompt_tokens": 2090,
+      "truncated": false,
+      "raw_len": 3622,
+      "raw_tail": "",
+      "finish_reason": "stop",
+      "response": "Here's the first pass: a dusk sky gradient from deep indigo to warm coral, layered clouds, a dark rocky headland, and a cream lighthouse tower with red bands, a glowing lamp room, and light beams radiating outward. The warm lamp glow anchors the focal point at the top.",
+      "more": true
+     },
+     "actions": [
+      {
+       "kind": "rectangle",
+       "x": 0,
+       "y": 0,
+       "width": 1000,
+       "height": 650,
+       "gradient_angle": 90,
+       "id": "sky",
+       "gradient": "linear",
+       "stroke": false,
+       "color": "#1a1a3e",
+       "fill_color": "#1a1a3e",
+       "gradient_stops": [
+        {
+         "offset": 0,
+         "color": "#12122e"
+        },
+        {
+         "offset": 0.35,
+         "color": "#2d1f4e"
+        },
+        {
+         "offset": 0.6,
+         "color": "#6b3a5a"
+        },
+        {
+         "offset": 0.8,
+         "color": "#c0546a"
+        },
+        {
+         "offset": 1,
+         "color": "#e8875a"
+        }
+       ],
+       "fill": true
+      },
+      {
+       "kind": "path",
+       "id": "cloud1",
+       "stroke": false,
+       "smooth": true,
+       "color": "#4a3060",
+       "fill_color": "#4a3060",
+       "fill": true,
+       "points": [
+        [
+         120,
+         180
+        ],
+        [
+         200,
+         150
+        ],
+        [
+         320,
+         140
+        ],
+        [
+         400,
+         160
+        ],
+        [
+         380,
+         190
+        ],
+        [
+         280,
+         200
+        ],
+        [
+         160,
+         195
+        ],
+        [
+         120,
+         180
+        ]
+       ]
+      },
+      {
+       "kind": "path",
+       "id": "cloud2",
+       "stroke": false,
+       "smooth": true,
+       "color": "#5a3868",
+       "fill_color": "#5a3868",
+       "fill": true,
+       "points": [
+        [
+         550,
+         120
+        ],
+        [
+         650,
+         100
+        ],
+        [
+         780,
+         110
+        ],
+        [
+         850,
+         130
+        ],
+        [
+         820,
+         155
+        ],
+        [
+         700,
+         160
+        ],
+        [
+         580,
+         150
+        ],
+        [
+         550,
+         120
+        ]
+       ]
+      },
+      {
+       "kind": "path",
+       "id": "cloud3",
+       "stroke": false,
+       "smooth": true,
+       "color": "#3d2850",
+       "fill_color": "#3d2850",
+       "fill": true,
+       "points": [
+        [
+         700,
+         220
+        ],
+        [
+         800,
+         200
+        ],
+        [
+         920,
+         210
+        ],
+        [
+         960,
+         235
+        ],
+        [
+         900,
+         255
+        ],
+        [
+         780,
+         250
+        ],
+        [
+         710,
+         240
+        ],
+        [
+         700,
+         220
+        ]
+       ]
+      },
+      {
+       "kind": "path",
+       "id": "headland",
+       "stroke": false,
+       "smooth": true,
+       "color": "#1a1a2a",
+       "fill_color": "#1a1a2a",
+       "fill": true,
+       "points": [
+        [
+         0,
+         420
+        ],
+        [
+         80,
+         390
+        ],
+        [
+         180,
+         400
+        ],
+        [
+         280,
+         370
+        ],
+        [
+         380,
+         385
+        ],
+        [
+         480,
+         365
+        ],
+        [
+         580,
+         380
+        ],
+        [
+         680,
+         360
+        ],
+        [
+         780,
+         375
+        ],
+        [
+         880,
+         355
+        ],
+        [
+         965,
+         370
+        ],
+        [
+         1000,
+         390
+        ],
+        [
+         1000,
+         650
+        ],
+        [
+         0,
+         650
+        ],
+        [
+         0,
+         420
+        ]
+       ]
+      },
+      {
+       "kind": "curve",
+       "id": "rock-detail",
+       "stroke": false,
+       "color": "#252538",
+       "fill_color": "#252538",
+       "fill": true,
+       "points": [
+        [
+         50,
+         450
+        ],
+        [
+         150,
+         430
+        ],
+        [
+         250,
+         445
+        ],
+        [
+         350,
+         425
+        ],
+        [
+         450,
+         440
+        ],
+        [
+         550,
+         420
+        ],
+        [
+         650,
+         435
+        ],
+        [
+         750,
+         415
+        ],
+        [
+         850,
+         430
+        ],
+        [
+         950,
+         420
+        ],
+        [
+         965,
+         460
+        ],
+        [
+         900,
+         480
+        ],
+        [
+         750,
+         470
+        ],
+        [
+         600,
+         485
+        ],
+        [
+         450,
+         475
+        ],
+        [
+         300,
+         490
+        ],
+        [
+         150,
+         480
+        ],
+        [
+         50,
+         495
+        ],
+        [
+         50,
+         450
+        ]
+       ]
+      },
+      {
+       "kind": "path",
+       "id": "tower",
+       "stroke": false,
+       "smooth": true,
+       "color": "#f5f0e8",
+       "fill_color": "#f5f0e8",
+       "fill": true,
+       "points": [
+        [
+         375,
+         410
+        ],
+        [
+         378,
+         350
+        ],
+        [
+         385,
+         250
+        ],
+        [
+         392,
+         170
+        ],
+        [
+         395,
+         140
+        ],
+        [
+         445,
+         140
+        ],
+        [
+         448,
+         170
+        ],
+        [
+         455,
+         250
+        ],
+        [
+         462,
+         350
+        ],
+        [
+         465,
+         410
+        ],
+        [
+         375,
+         410
+        ]
+       ]
+      },
+      {
+       "kind": "rectangle",
+       "x": 382,
+       "y": 310,
+       "width": 76,
+       "height": 35,
+       "id": "band-lower",
+       "stroke": false,
+       "color": "#c0392b",
+       "fill_color": "#c0392b",
+       "fill": true
+      },
+      {
+       "kind": "rectangle",
+       "x": 390,
+       "y": 210,
+       "width": 60,
+       "height": 30,
+       "id": "band-upper",
+       "stroke": false,
+       "color": "#c0392b",
+       "fill_color": "#c0392b",
+       "fill": true
+      },
+      {
+       "kind": "curve",
+       "id": "lamp-room",
+       "stroke": false,
+       "color": "#e8e0d0",
+       "fill_color": "#e8e0d0",
+       "fill": true,
+       "points": [
+        [
+         388,
+         140
+        ],
+        [
+         388,
+         115
+        ],
+        [
+         395,
+         105
+        ],
+        [
+         445,
+         105
+        ],
+        [
+         452,
+         115
+        ],
+        [
+         452,
+         140
+        ],
+        [
+         388,
+         140
+        ]
+       ]
+      },
+      {
+       "kind": "ellipse",
+       "x": 395,
+       "y": 95,
+       "width": 50,
+       "height": 30,
+       "opacity": 0.9,
+       "id": "lamp-glow",
+       "gradient": "radial",
+       "stroke": false,
+       "color": "#ffd700",
+       "fill_color": "#ffd700",
+       "gradient_stops": [
+        {
+         "offset": 0,
+         "color": "#fff8d0"
+        },
+        {
+         "offset": 0.4,
+         "color": "#ffd700"
+        },
+        {
+         "offset": 1,
+         "color": "#ff8c00"
+        }
+       ],
+       "fill": true
+      },
+      {
+       "kind": "curve",
+       "opacity": 0.35,
+       "id": "beam-left",
+       "stroke": false,
+       "color": "#ffd700",
+       "fill_color": "#ffd700",
+       "fill": true,
+       "points": [
+        [
+         400,
+         110
+        ],
+        [
+         300,
+         80
+        ],
+        [
+         180,
+         60
+        ],
+        [
+         160,
+         100
+        ],
+        [
+         280,
+         120
+        ],
+        [
+         400,
+         125
+        ],
+        [
+         400,
+         110
+        ]
+       ]
+      },
+      {
+       "kind": "curve",
+       "opacity": 0.35,
+       "id": "beam-right",
+       "stroke": false,
+       "color": "#ffd700",
+       "fill_color": "#ffd700",
+       "fill": true,
+       "points": [
+        [
+         440,
+         110
+        ],
+        [
+         540,
+         75
+        ],
+        [
+         680,
+         55
+        ],
+        [
+         700,
+         95
+        ],
+        [
+         560,
+         115
+        ],
+        [
+         440,
+         125
+        ],
+        [
+         440,
+         110
+        ]
+       ]
+      },
+      {
+       "kind": "rectangle",
+       "x": 408,
+       "y": 370,
+       "width": 24,
+       "height": 40,
+       "id": "door",
+       "stroke": false,
+       "color": "#3a2a2a",
+       "fill_color": "#3a2a2a",
+       "fill": true
+      },
+      {
+       "kind": "ellipse",
+       "x": 412,
+       "y": 260,
+       "width": 16,
+       "height": 22,
+       "opacity": 0.8,
+       "id": "window1",
+       "stroke": false,
+       "color": "#ffd700",
+       "fill_color": "#ffd700",
+       "fill": true
+      },
+      {
+       "kind": "ellipse",
+       "x": 412,
+       "y": 180,
+       "width": 14,
+       "height": 20,
+       "opacity": 0.7,
+       "id": "window2",
+       "stroke": false,
+       "color": "#ffd700",
+       "fill_color": "#ffd700",
+       "fill": true
+      }
+     ],
+     "checks_passed": 5,
+     "checks_total": 5
+    },
+    {
+     "pass": 2,
+     "budget": 10,
+     "actions_returned": 10,
+     "valid": true,
+     "validation_error": null,
+     "clamped_fields": 0,
+     "rendered": true,
+     "render_error": null,
+     "with_image": true,
+     "truncated_stream": false,
+     "meta": {
+      "vision_fallback": false,
+      "elapsed_s": 112.16,
+      "completion_tokens": 2024,
+      "prompt_tokens": 3905,
+      "truncated": false,
+      "raw_len": 2017,
+      "raw_tail": "",
+      "finish_reason": "stop",
+      "response": "Refining the scene: enlarged the lamp glow with a warm outer halo, added a rocky pedestal at the tower base, scattered lighter rock patches across the headland for texture, boosted the light beam opacity, added a warm light pool on the ground, a gallery railing around the lamp room, and subtle shadow/highlight strips on the tower for dimensional depth.",
+      "more": true
+     },
+     "actions": [
+      {
+       "kind": "ellipse",
+       "x": 380,
+       "y": 78,
+       "width": 80,
+       "height": 50,
+       "opacity": 0.3,
+       "id": "outer-glow",
+       "stroke": false,
+       "color": "#ffb347",
+       "fill_color": "#ffb347",
+       "fill": true
+      },
+      {
+       "kind": "curve",
+       "id": "rocky-base",
+       "stroke": false,
+       "color": "#2a2a3e",
+       "fill_color": "#2a2a3e",
+       "fill": true,
+       "points": [
+        [
+         360,
+         420
+        ],
+        [
+         355,
+         405
+        ],
+        [
+         370,
+         395
+        ],
+        [
+         400,
+         390
+        ],
+        [
+         430,
+         390
+        ],
+        [
+         460,
+         395
+        ],
+        [
+         475,
+         405
+        ],
+        [
+         478,
+         420
+        ],
+        [
+         460,
+         430
+        ],
+        [
+         430,
+         435
+        ],
+        [
+         400,
+         435
+        ],
+        [
+         370,
+         430
+        ],
+        [
+         360,
+         420
+        ]
+       ]
+      },
+      {
+       "kind": "path",
+       "id": "rock-patch1",
+       "stroke": false,
+       "color": "#35354a",
+       "fill_color": "#35354a",
+       "fill": true,
+       "points": [
+        [
+         100,
+         440
+        ],
+        [
+         160,
+         425
+        ],
+        [
+         230,
+         435
+        ],
+        [
+         280,
+         420
+        ],
+        [
+         320,
+         440
+        ],
+        [
+         280,
+         460
+        ],
+        [
+         200,
+         465
+        ],
+        [
+         130,
+         455
+        ],
+        [
+         100,
+         440
+        ]
+       ]
+      },
+      {
+       "kind": "path",
+       "id": "rock-patch2",
+       "stroke": false,
+       "color": "#30304a",
+       "fill_color": "#30304a",
+       "fill": true,
+       "points": [
+        [
+         550,
+         430
+        ],
+        [
+         620,
+         415
+        ],
+        [
+         700,
+         425
+        ],
+        [
+         760,
+         410
+        ],
+        [
+         800,
+         430
+        ],
+        [
+         760,
+         455
+        ],
+        [
+         680,
+         460
+        ],
+        [
+         590,
+         450
+        ],
+        [
+         550,
+         430
+        ]
+       ]
+      },
+      {
+       "kind": "style",
+       "opacity": 0.5,
+       "id": "beam-left",
+       "color": "#ffd700",
+       "fill_color": "#ffd700"
+      },
+      {
+       "kind": "style",
+       "opacity": 0.5,
+       "id": "beam-right",
+       "color": "#ffd700",
+       "fill_color": "#ffd700"
+      },
+      {
+       "kind": "ellipse",
+       "x": 370,
+       "y": 415,
+       "width": 110,
+       "height": 25,
+       "opacity": 0.25,
+       "id": "light-pool",
+       "stroke": false,
+       "color": "#e8875a",
+       "fill_color": "#e8875a",
+       "fill": true
+      },
+      {
+       "kind": "rectangle",
+       "x": 378,
+       "y": 136,
+       "width": 84,
+       "height": 6,
+       "id": "gallery-rail",
+       "stroke": false,
+       "color": "#d4c8b0",
+       "fill_color": "#d4c8b0",
+       "fill": true
+      },
+      {
+       "kind": "rectangle",
+       "x": 445,
+       "y": 142,
+       "width": 20,
+       "height": 268,
+       "opacity": 0.4,
+       "id": "tower-shadow",
+       "stroke": false,
+       "color": "#c8b8a0",
+       "fill_color": "#c8b8a0",
+       "fill": true
+      },
+      {
+       "kind": "rectangle",
+       "x": 375,
+       "y": 142,
+       "width": 18,
+       "height": 268,
+       "opacity": 0.3,
+       "id": "tower-highlight",
+       "stroke": false,
+       "color": "#fffef5",
+       "fill_color": "#fffef5",
+       "fill": true
+      }
+     ],
+     "checks_passed": 5,
+     "checks_total": 5
+    },
+    {
+     "pass": 3,
+     "budget": 8,
+     "actions_returned": 8,
+     "valid": true,
+     "validation_error": null,
+     "clamped_fields": 0,
+     "rendered": true,
+     "render_error": null,
+     "with_image": true,
+     "truncated_stream": false,
+     "meta": {
+      "vision_fallback": false,
+      "elapsed_s": 132.16,
+      "completion_tokens": 2423,
+      "prompt_tokens": 3586,
+      "truncated": false,
+      "raw_len": 1434,
+      "raw_tail": "",
+      "finish_reason": "stop",
+      "response": "Refining the light beams into proper conical shapes radiating from the lamp, replacing the mechanical tower shadow with an organic curve, and adding a warm halo glow around the lamp for a more atmospheric dusk feel.",
+      "more": true
+     },
+     "actions": [
+      {
+       "kind": "delete",
+       "id": "beam-left",
+       "color": "#ffd700",
+       "fill_color": "#ffd700",
+       "fill": false
+      },
+      {
+       "kind": "delete",
+       "id": "beam-right",
+       "color": "#ffd700",
+       "fill_color": "#ffd700",
+       "fill": false
+      },
+      {
+       "kind": "curve",
+       "opacity": 0.45,
+       "id": "beam-left-v2",
+       "stroke": false,
+       "color": "#ffd700",
+       "fill_color": "#ffd700",
+       "fill": true,
+       "points": [
+        [
+         395,
+         102
+        ],
+        [
+         290,
+         72
+        ],
+        [
+         185,
+         68
+        ],
+        [
+         155,
+         95
+        ],
+        [
+         185,
+         128
+        ],
+        [
+         290,
+         122
+        ],
+        [
+         395,
+         118
+        ]
+       ]
+      },
+      {
+       "kind": "curve",
+       "opacity": 0.45,
+       "id": "beam-right-v2",
+       "stroke": false,
+       "color": "#ffd700",
+       "fill_color": "#ffd700",
+       "fill": true,
+       "points": [
+        [
+         445,
+         102
+        ],
+        [
+         550,
+         72
+        ],
+        [
+         655,
+         68
+        ],
+        [
+         685,
+         95
+        ],
+        [
+         655,
+         128
+        ],
+        [
+         550,
+         122
+        ],
+        [
+         445,
+         118
+        ]
+       ]
+      },
+      {
+       "kind": "delete",
+       "id": "tower-shadow",
+       "color": "#c8b8a0",
+       "fill_color": "#c8b8a0",
+       "fill": false
+      },
+      {
+       "kind": "curve",
+       "opacity": 0.35,
+       "id": "tower-shadow-v2",
+       "stroke": false,
+       "color": "#c8b8a0",
+       "fill_color": "#c8b8a0",
+       "fill": true,
+       "points": [
+        [
+         448,
+         148
+        ],
+        [
+         458,
+         250
+        ],
+        [
+         456,
+         400
+        ],
+        [
+         448,
+         408
+        ],
+        [
+         442,
+         250
+        ],
+        [
+         442,
+         148
+        ],
+        [
+         448,
+         148
+        ]
+       ]
+      },
+      {
+       "kind": "style",
+       "opacity": 0.95,
+       "id": "lamp-glow",
+       "color": "#ffe066",
+       "fill_color": "#ffe066"
+      },
+      {
+       "kind": "ellipse",
+       "x": 375,
+       "y": 72,
+       "width": 90,
+       "height": 55,
+       "line_height": 1.2,
+       "opacity": 0.25,
+       "id": "lamp-halo",
+       "stroke": false,
+       "smooth": true,
+       "color": "#ffb347",
+       "fill_color": "#ffb347",
+       "fill": true
+      }
+     ],
+     "checks_passed": 5,
+     "checks_total": 5
+    },
+    {
+     "pass": 4,
+     "budget": 6,
+     "actions_returned": 6,
+     "valid": true,
+     "validation_error": null,
+     "clamped_fields": 0,
+     "rendered": true,
+     "render_error": null,
+     "with_image": true,
+     "truncated_stream": false,
+     "meta": {
+      "vision_fallback": false,
+      "elapsed_s": 111.22,
+      "completion_tokens": 2016,
+      "prompt_tokens": 3651,
+      "truncated": false,
+      "raw_len": 1204,
+      "raw_tail": "",
+      "finish_reason": "stop",
+      "response": "Refined the light beams from flat ovals into tapered ray shapes that emanate from the lamp room, added a subtle warm glow reflection on the rocky base, and placed a small star in the dusk sky for atmosphere. The lighthouse now reads clearly with proper light direction and a finished composition.",
+      "more": false
+     },
+     "actions": [
+      {
+       "kind": "delete",
+       "id": "beam-left-v2",
+       "color": "#ffd700",
+       "fill_color": "#ffd700",
+       "fill": false
+      },
+      {
+       "kind": "delete",
+       "id": "beam-right-v2",
+       "color": "#ffd700",
+       "fill_color": "#ffd700",
+       "fill": false
+      },
+      {
+       "kind": "curve",
+       "opacity": 0.4,
+       "id": "beam-left-new",
+       "stroke": false,
+       "color": "#ffd700",
+       "fill_color": "#ffd700",
+       "fill": true,
+       "points": [
+        [
+         400,
+         95
+        ],
+        [
+         280,
+         62
+        ],
+        [
+         150,
+         68
+        ],
+        [
+         110,
+         100
+        ],
+        [
+         150,
+         138
+        ],
+        [
+         280,
+         142
+        ],
+        [
+         400,
+         115
+        ]
+       ]
+      },
+      {
+       "kind": "curve",
+       "opacity": 0.4,
+       "id": "beam-right-new",
+       "stroke": false,
+       "color": "#ffd700",
+       "fill_color": "#ffd700",
+       "fill": true,
+       "points": [
+        [
+         440,
+         95
+        ],
+        [
+         560,
+         62
+        ],
+        [
+         690,
+         68
+        ],
+        [
+         730,
+         100
+        ],
+        [
+         690,
+         138
+        ],
+        [
+         560,
+         142
+        ],
+        [
+         440,
+         115
+        ]
+       ]
+      },
+      {
+       "kind": "ellipse",
+       "x": 385,
+       "y": 420,
+       "width": 80,
+       "height": 18,
+       "opacity": 0.2,
+       "id": "rock-warm-glow",
+       "stroke": false,
+       "color": "#e8875a",
+       "fill_color": "#e8875a",
+       "fill": true
+      },
+      {
+       "kind": "ellipse",
+       "x": 180,
+       "y": 55,
+       "width": 4,
+       "height": 4,
+       "opacity": 0.6,
+       "id": "star1",
+       "stroke": false,
+       "color": "#ffffff",
+       "fill_color": "#ffffff",
+       "fill": true
+      }
+     ],
+     "checks_passed": 5,
+     "checks_total": 5
+    }
+   ],
+   "refinement_delta": 0.0,
+   "scene": {
+    "objects": 27,
+    "kinds": [
+     "rectangle",
+     "path",
+     "path",
+     "path",
+     "path",
+     "curve",
+     "path",
+     "rectangle",
+     "rectangle",
+     "curve",
+     "ellipse",
+     "rectangle",
+     "ellipse",
+     "ellipse",
+     "ellipse",
+     "curve",
+     "path",
+     "path",
+     "ellipse",
+     "rectangle",
+     "rectangle",
+     "curve",
+     "ellipse",
+     "curve",
+     "curve",
+     "ellipse",
+     "ellipse"
+    ],
+    "colours": [
+     "#1a1a3e",
+     "#1a1a3e",
+     "#4a3060",
+     "#4a3060",
+     "#5a3868",
+     "#5a3868",
+     "#3d2850",
+     "#3d2850",
+     "#1a1a2a",
+     "#1a1a2a",
+     "#252538",
+     "#252538",
+     "#f5f0e8",
+     "#f5f0e8",
+     "#c0392b",
+     "#c0392b",
+     "#c0392b",
+     "#c0392b",
+     "#e8e0d0",
+     "#e8e0d0",
+     "#ffe066",
+     "#ffe066",
+     "#3a2a2a",
+     "#3a2a2a",
+     "#ffd700",
+     "#ffd700",
+     "#ffd700",
+     "#ffd700",
+     "#ffb347",
+     "#ffb347",
+     "#2a2a3e",
+     "#2a2a3e",
+     "#35354a",
+     "#35354a",
+     "#30304a",
+     "#30304a",
+     "#e8875a",
+     "#e8875a",
+     "#d4c8b0",
+     "#d4c8b0",
+     "#fffef5",
+     "#fffef5",
+     "#c8b8a0",
+     "#c8b8a0",
+     "#ffb347",
+     "#ffb347",
+     "#ffd700",
+     "#ffd700",
+     "#ffd700",
+     "#ffd700",
+     "#e8875a",
+     "#e8875a",
+     "#ffffff",
+     "#ffffff"
+    ],
+    "texts": [],
+    "coverage": 0.8436,
+    "mean_overlap": 0.0193,
+    "shared_baseline": 5,
+    "even_spacing_run": 22
+   },
+   "checks": [
+    {
+     "check": "objects_at_least_4",
+     "ok": true,
+     "detail": "27 objects (need >= 4)"
+    },
+    {
+     "check": "has_hue_warm lamp",
+     "ok": true,
+     "detail": "colours=['#1a1a3e', '#1a1a3e', '#4a3060', '#4a3060', '#5a3868', '#5a3868', '#3d2850', '#3d2850', '#1a1a2a', '#1a1a2a', '#252538', '#252538', '#f5f0e8', '#f5f0e8', '#c0392b', '#c0392b', '#c0392b', '#c0392b', '#e8e0d0', '#e8e0d0', '#ffe066', '#ffe066', '#3a2a2a', '#3a2a2a', '#ffd700', '#ffd700', '#ffd700', '#ffd700', '#ffb347', '#ffb347', '#2a2a3e', '#2a2a3e', '#35354a', '#35354a', '#30304a', '#30304a', '#e8875a', '#e8875a', '#d4c8b0', '#d4c8b0', '#fffef5', '#fffef5', '#c8b8a0', '#c8b8a0', '#ffb347', '#ffb347', '#ffd700', '#ffd700', '#ffd700', '#ffd700', '#e8875a', '#e8875a', '#ffffff', '#ffffff'] (warm lamp band 20-50)"
+    },
+    {
+     "check": "has_hue_cool dusk",
+     "ok": true,
+     "detail": "colours=['#1a1a3e', '#1a1a3e', '#4a3060', '#4a3060', '#5a3868', '#5a3868', '#3d2850', '#3d2850', '#1a1a2a', '#1a1a2a', '#252538', '#252538', '#f5f0e8', '#f5f0e8', '#c0392b', '#c0392b', '#c0392b', '#c0392b', '#e8e0d0', '#e8e0d0', '#ffe066', '#ffe066', '#3a2a2a', '#3a2a2a', '#ffd700', '#ffd700', '#ffd700', '#ffd700', '#ffb347', '#ffb347', '#2a2a3e', '#2a2a3e', '#35354a', '#35354a', '#30304a', '#30304a', '#e8875a', '#e8875a', '#d4c8b0', '#d4c8b0', '#fffef5', '#fffef5', '#c8b8a0', '#c8b8a0', '#ffb347', '#ffb347', '#ffd700', '#ffd700', '#ffd700', '#ffd700', '#e8875a', '#e8875a', '#ffffff', '#ffffff'] (cool dusk band 200-260)"
+    },
+    {
+     "check": "coverage_between",
+     "ok": true,
+     "detail": "coverage 84.4% (want 2%-95%)"
+    },
+    {
+     "check": "overlap_below",
+     "ok": true,
+     "detail": "mean bbox overlap 0.02 (limit 0.5)"
+    }
+   ],
+   "checks_passed": 5,
+   "checks_total": 5,
+   "score": 1.0,
+   "wall_s": 533.99
+  },
+  {
+   "task": "T2-still-life",
+   "tier": 2,
+   "tier_name": "multi-object scene",
+   "brief": "A still life: a red apple and a ceramic cup on a wooden table, soft morning light from the left casting a warm shadow to the right.",
+   "actions_returned": 26,
+   "steps": 26,
+   "valid": true,
+   "validation_error": null,
+   "clamped_fields": 1,
+   "rendered": true,
+   "render_error": null,
+   "truncated_stream": false,
+   "meta": {
+    "vision_fallback": false,
+    "elapsed_s": 94.97,
+    "completion_tokens": 1708,
+    "prompt_tokens": 3509,
+    "truncated": false,
+    "raw_len": 1162,
+    "raw_tail": "",
+    "finish_reason": "stop",
+    "response": "Polished the still life with a few final touches: a subtle warm wash on the left side of the table to reinforce the morning light direction, a small bright catch on the cup's rim where the light hits, a soft warm glow on the apple's left flank, and a tight contact shadow at the apple's base to ground it firmly on the wood. The composition reads as a complete, lit still life with clear left-to-righ",
+    "more": false
+   },
+   "meta_passes": [
+    {
+     "vision_fallback": false,
+     "elapsed_s": 188.95,
+     "completion_tokens": 3598,
+     "prompt_tokens": 2098,
+     "truncated": false,
+     "raw_len": 3387,
+     "raw_tail": "",
+     "finish_reason": "stop",
+     "response": "Setting up the still life with a warm morning-light background, wooden table surface, and the two main objects \u2014 a lobed red apple with stem and leaf on the left, and a cream ceramic cup with handle on the right. Light comes from the left, so highlights sit on the left faces and warm shadows fall to the right. Next pass I'll refine the wood grain, add a soft ambient glow, and polish the modeling o",
+     "more": true
+    },
+    {
+     "vision_fallback": false,
+     "elapsed_s": 70.48,
+     "completion_tokens": 1221,
+     "prompt_tokens": 3708,
+     "truncated": false,
+     "raw_len": 1350,
+     "raw_tail": "",
+     "finish_reason": "stop",
+     "response": "Refining the scene with a soft warm morning-light wash from the left, additional wood-grain texture on the table, a small top indentation on the apple for proper anatomy, an interior shadow beneath the cup rim for depth, and a subtle warm reflection on the table surface to tie the lighting together.",
+     "more": true
+    },
+    {
+     "vision_fallback": false,
+     "elapsed_s": 94.97,
+     "completion_tokens": 1708,
+     "prompt_tokens": 3509,
+     "truncated": false,
+     "raw_len": 1162,
+     "raw_tail": "",
+     "finish_reason": "stop",
+     "response": "Polished the still life with a few final touches: a subtle warm wash on the left side of the table to reinforce the morning light direction, a small bright catch on the cup's rim where the light hits, a soft warm glow on the apple's left flank, and a tight contact shadow at the apple's base to ground it firmly on the wood. The composition reads as a complete, lit still life with clear left-to-righ",
+     "more": false
+    }
+   ],
+   "passes": [
+    {
+     "pass": 1,
+     "budget": 16,
+     "actions_returned": 16,
+     "valid": true,
+     "validation_error": null,
+     "clamped_fields": 0,
+     "rendered": true,
+     "render_error": null,
+     "with_image": true,
+     "truncated_stream": false,
+     "meta": {
+      "vision_fallback": false,
+      "elapsed_s": 188.95,
+      "completion_tokens": 3598,
+      "prompt_tokens": 2098,
+      "truncated": false,
+      "raw_len": 3387,
+      "raw_tail": "",
+      "finish_reason": "stop",
+      "response": "Setting up the still life with a warm morning-light background, wooden table surface, and the two main objects \u2014 a lobed red apple with stem and leaf on the left, and a cream ceramic cup with handle on the right. Light comes from the left, so highlights sit on the left faces and warm shadows fall to the right. Next pass I'll refine the wood grain, add a soft ambient glow, and polish the modeling o",
+      "more": true
+     },
+     "actions": [
+      {
+       "kind": "rectangle",
+       "x": 0,
+       "y": 0,
+       "width": 1000,
+       "height": 650,
+       "gradient_angle": 0,
+       "id": "bg",
+       "stroke": false,
+       "color": "#f5e8d3",
+       "fill_color": "#f5e8d3",
+       "gradient_color": "#dfc4a0",
+       "fill": true
+      },
+      {
+       "kind": "rectangle",
+       "x": 0,
+       "y": 330,
+       "width": 1000,
+       "height": 320,
+       "gradient_angle": 0,
+       "id": "table",
+       "stroke": false,
+       "color": "#9b7434",
+       "fill_color": "#9b7434",
+       "gradient_color": "#7a5a28",
+       "fill": true
+      },
+      {
+       "kind": "rectangle",
+       "x": 0,
+       "y": 600,
+       "width": 1000,
+       "height": 50,
+       "id": "table-edge",
+       "stroke": false,
+       "color": "#6b4a1e",
+       "fill_color": "#6b4a1e",
+       "fill": true
+      },
+      {
+       "kind": "curve",
+       "id": "apple-body",
+       "stroke": false,
+       "color": "#c0392b",
+       "fill_color": "#c0392b",
+       "fill": true,
+       "points": [
+        [
+         350,
+         370
+        ],
+        [
+         305,
+         368
+        ],
+        [
+         272,
+         400
+        ],
+        [
+         268,
+         445
+        ],
+        [
+         278,
+         490
+        ],
+        [
+         310,
+         515
+        ],
+        [
+         350,
+         520
+        ],
+        [
+         390,
+         515
+        ],
+        [
+         422,
+         490
+        ],
+        [
+         432,
+         445
+        ],
+        [
+         428,
+         400
+        ],
+        [
+         395,
+         368
+        ],
+        [
+         350,
+         370
+        ]
+       ]
+      },
+      {
+       "kind": "path",
+       "id": "apple-highlight",
+       "stroke": false,
+       "smooth": true,
+       "color": "#e86350",
+       "fill_color": "#e86350",
+       "fill": true,
+       "points": [
+        [
+         315,
+         395
+        ],
+        [
+         288,
+         405
+        ],
+        [
+         280,
+         440
+        ],
+        [
+         285,
+         475
+        ],
+        [
+         305,
+         500
+        ],
+        [
+         325,
+         485
+        ],
+        [
+         320,
+         445
+        ],
+        [
+         315,
+         395
+        ]
+       ]
+      },
+      {
+       "kind": "path",
+       "id": "apple-shadow",
+       "stroke": false,
+       "smooth": true,
+       "color": "#8b1a1a",
+       "fill_color": "#8b1a1a",
+       "fill": true,
+       "points": [
+        [
+         395,
+         395
+        ],
+        [
+         420,
+         410
+        ],
+        [
+         428,
+         445
+        ],
+        [
+         422,
+         485
+        ],
+        [
+         400,
+         505
+        ],
+        [
+         380,
+         490
+        ],
+        [
+         385,
+         445
+        ],
+        [
+         395,
+         395
+        ]
+       ]
+      },
+      {
+       "kind": "line",
+       "width": 4,
+       "id": "apple-stem",
+       "stroke": true,
+       "color": "#5d3a1a",
+       "fill_color": "#5d3a1a",
+       "fill": false,
+       "points": [
+        [
+         350,
+         370
+        ],
+        [
+         345,
+         345
+        ]
+       ]
+      },
+      {
+       "kind": "path",
+       "id": "apple-leaf",
+       "stroke": false,
+       "smooth": true,
+       "color": "#5a8c3a",
+       "fill_color": "#5a8c3a",
+       "fill": true,
+       "points": [
+        [
+         345,
+         348
+        ],
+        [
+         320,
+         325
+        ],
+        [
+         340,
+         305
+        ],
+        [
+         365,
+         315
+        ],
+        [
+         355,
+         340
+        ],
+        [
+         345,
+         348
+        ]
+       ]
+      },
+      {
+       "kind": "ellipse",
+       "x": 370,
+       "y": 505,
+       "width": 120,
+       "height": 25,
+       "opacity": 0.35,
+       "id": "apple-cast-shadow",
+       "stroke": false,
+       "color": "#5a3d1e",
+       "fill_color": "#5a3d1e",
+       "fill": true
+      },
+      {
+       "kind": "curve",
+       "id": "cup-body",
+       "stroke": false,
+       "color": "#f0e8dc",
+       "fill_color": "#f0e8dc",
+       "fill": true,
+       "points": [
+        [
+         565,
+         355
+        ],
+        [
+         558,
+         365
+        ],
+        [
+         552,
+         420
+        ],
+        [
+         558,
+         475
+        ],
+        [
+         572,
+         488
+        ],
+        [
+         620,
+         492
+        ],
+        [
+         668,
+         488
+        ],
+        [
+         682,
+         475
+        ],
+        [
+         688,
+         420
+        ],
+        [
+         682,
+         365
+        ],
+        [
+         675,
+         355
+        ],
+        [
+         620,
+         350
+        ],
+        [
+         565,
+         355
+        ]
+       ]
+      },
+      {
+       "kind": "path",
+       "id": "cup-highlight",
+       "stroke": false,
+       "smooth": true,
+       "color": "#faf5ee",
+       "fill_color": "#faf5ee",
+       "fill": true,
+       "points": [
+        [
+         570,
+         370
+        ],
+        [
+         562,
+         380
+        ],
+        [
+         558,
+         420
+        ],
+        [
+         562,
+         465
+        ],
+        [
+         575,
+         480
+        ],
+        [
+         590,
+         470
+        ],
+        [
+         585,
+         420
+        ],
+        [
+         580,
+         375
+        ],
+        [
+         570,
+         370
+        ]
+       ]
+      },
+      {
+       "kind": "path",
+       "id": "cup-shadow",
+       "stroke": false,
+       "smooth": true,
+       "color": "#c4b49e",
+       "fill_color": "#c4b49e",
+       "fill": true,
+       "points": [
+        [
+         665,
+         370
+        ],
+        [
+         678,
+         385
+        ],
+        [
+         682,
+         420
+        ],
+        [
+         678,
+         465
+        ],
+        [
+         665,
+         480
+        ],
+        [
+         650,
+         470
+        ],
+        [
+         655,
+         420
+        ],
+        [
+         660,
+         375
+        ],
+        [
+         665,
+         370
+        ]
+       ]
+      },
+      {
+       "kind": "path",
+       "id": "cup-handle",
+       "stroke": false,
+       "smooth": true,
+       "color": "#e8ddd0",
+       "fill_color": "#e8ddd0",
+       "fill": true,
+       "points": [
+        [
+         682,
+         385
+        ],
+        [
+         712,
+         378
+        ],
+        [
+         728,
+         400
+        ],
+        [
+         728,
+         435
+        ],
+        [
+         712,
+         455
+        ],
+        [
+         682,
+         448
+        ]
+       ]
+      },
+      {
+       "kind": "ellipse",
+       "x": 640,
+       "y": 485,
+       "width": 110,
+       "height": 22,
+       "opacity": 0.3,
+       "id": "cup-cast-shadow",
+       "stroke": false,
+       "color": "#5a3d1e",
+       "fill_color": "#5a3d1e",
+       "fill": true
+      },
+      {
+       "kind": "ellipse",
+       "x": 558,
+       "y": 348,
+       "width": 124,
+       "height": 18,
+       "id": "cup-rim",
+       "stroke": false,
+       "color": "#d4c5b0",
+       "fill_color": "#d4c5b0",
+       "fill": true
+      },
+      {
+       "kind": "line",
+       "width": 1.5,
+       "opacity": 0.3,
+       "id": "wood-grain-1",
+       "stroke": true,
+       "color": "#7a5a28",
+       "fill_color": "#7a5a28",
+       "fill": false,
+       "points": [
+        [
+         50,
+         380
+        ],
+        [
+         950,
+         375
+        ]
+       ]
+      }
+     ],
+     "checks_passed": 6,
+     "checks_total": 6
+    },
+    {
+     "pass": 2,
+     "budget": 10,
+     "actions_returned": 6,
+     "valid": true,
+     "validation_error": null,
+     "clamped_fields": 1,
+     "rendered": true,
+     "render_error": null,
+     "with_image": true,
+     "truncated_stream": false,
+     "meta": {
+      "vision_fallback": false,
+      "elapsed_s": 70.48,
+      "completion_tokens": 1221,
+      "prompt_tokens": 3708,
+      "truncated": false,
+      "raw_len": 1350,
+      "raw_tail": "",
+      "finish_reason": "stop",
+      "response": "Refining the scene with a soft warm morning-light wash from the left, additional wood-grain texture on the table, a small top indentation on the apple for proper anatomy, an interior shadow beneath the cup rim for depth, and a subtle warm reflection on the table surface to tie the lighting together.",
+      "more": true
+     },
+     "actions": [
+      {
+       "kind": "ellipse",
+       "x": 0,
+       "y": 180,
+       "width": 520,
+       "height": 420,
+       "opacity": 0.12,
+       "id": "morning-light",
+       "stroke": false,
+       "color": "#f5d89a",
+       "fill_color": "#f5d89a",
+       "fill": true
+      },
+      {
+       "kind": "line",
+       "width": 1.2,
+       "opacity": 0.22,
+       "id": "wood-grain-2",
+       "stroke": true,
+       "color": "#7a5a28",
+       "fill_color": "#7a5a28",
+       "fill": false,
+       "points": [
+        [
+         80,
+         440
+        ],
+        [
+         920,
+         435
+        ]
+       ]
+      },
+      {
+       "kind": "line",
+       "width": 1,
+       "opacity": 0.18,
+       "id": "wood-grain-3",
+       "stroke": true,
+       "color": "#6b4a1e",
+       "fill_color": "#6b4a1e",
+       "fill": false,
+       "points": [
+        [
+         120,
+         510
+        ],
+        [
+         780,
+         505
+        ]
+       ]
+      },
+      {
+       "kind": "curve",
+       "id": "apple-top-dip",
+       "stroke": false,
+       "color": "#8b1a1a",
+       "fill_color": "#8b1a1a",
+       "fill": true,
+       "points": [
+        [
+         338,
+         372
+        ],
+        [
+         342,
+         365
+        ],
+        [
+         350,
+         362
+        ],
+        [
+         358,
+         365
+        ],
+        [
+         362,
+         372
+        ],
+        [
+         350,
+         375
+        ],
+        [
+         338,
+         372
+        ]
+       ]
+      },
+      {
+       "kind": "ellipse",
+       "x": 572,
+       "y": 352,
+       "width": 96,
+       "height": 10,
+       "opacity": 0.45,
+       "id": "cup-interior-shadow",
+       "stroke": false,
+       "color": "#b8a890",
+       "fill_color": "#b8a890",
+       "fill": true
+      },
+      {
+       "kind": "ellipse",
+       "x": 380,
+       "y": 520,
+       "width": 280,
+       "height": 30,
+       "opacity": 0.08,
+       "id": "table-warm-reflection",
+       "stroke": false,
+       "color": "#c4944a",
+       "fill_color": "#c4944a",
+       "fill": true
+      }
+     ],
+     "checks_passed": 5,
+     "checks_total": 6
+    },
+    {
+     "pass": 3,
+     "budget": 8,
+     "actions_returned": 4,
+     "valid": true,
+     "validation_error": null,
+     "clamped_fields": 0,
+     "rendered": true,
+     "render_error": null,
+     "with_image": true,
+     "truncated_stream": false,
+     "meta": {
+      "vision_fallback": false,
+      "elapsed_s": 94.97,
+      "completion_tokens": 1708,
+      "prompt_tokens": 3509,
+      "truncated": false,
+      "raw_len": 1162,
+      "raw_tail": "",
+      "finish_reason": "stop",
+      "response": "Polished the still life with a few final touches: a subtle warm wash on the left side of the table to reinforce the morning light direction, a small bright catch on the cup's rim where the light hits, a soft warm glow on the apple's left flank, and a tight contact shadow at the apple's base to ground it firmly on the wood. The composition reads as a complete, lit still life with clear left-to-righ",
+      "more": false
+     },
+     "actions": [
+      {
+       "kind": "ellipse",
+       "x": 0,
+       "y": 330,
+       "width": 420,
+       "height": 270,
+       "opacity": 0.07,
+       "id": "table-morning-wash",
+       "stroke": false,
+       "color": "#d4a855",
+       "fill_color": "#d4a855",
+       "fill": true
+      },
+      {
+       "kind": "ellipse",
+       "x": 562,
+       "y": 346,
+       "width": 50,
+       "height": 10,
+       "opacity": 0.6,
+       "id": "cup-rim-light",
+       "stroke": false,
+       "color": "#fff8ee",
+       "fill_color": "#fff8ee",
+       "fill": true
+      },
+      {
+       "kind": "path",
+       "opacity": 0.35,
+       "id": "apple-warm-glow",
+       "stroke": false,
+       "color": "#f0a070",
+       "fill_color": "#f0a070",
+       "fill": true,
+       "points": [
+        [
+         285,
+         410
+        ],
+        [
+         278,
+         440
+        ],
+        [
+         282,
+         475
+        ],
+        [
+         295,
+         490
+        ],
+        [
+         305,
+         470
+        ],
+        [
+         308,
+         435
+        ],
+        [
+         298,
+         410
+        ],
+        [
+         285,
+         410
+        ]
+       ]
+      },
+      {
+       "kind": "ellipse",
+       "x": 310,
+       "y": 512,
+       "width": 80,
+       "height": 12,
+       "opacity": 0.25,
+       "id": "apple-base-contact",
+       "stroke": false,
+       "color": "#4a2a10",
+       "fill_color": "#4a2a10",
+       "fill": true
+      }
+     ],
+     "checks_passed": 5,
+     "checks_total": 6
+    }
+   ],
+   "refinement_delta": -0.16666666666666666,
+   "scene": {
+    "objects": 26,
+    "kinds": [
+     "rectangle",
+     "rectangle",
+     "rectangle",
+     "curve",
+     "path",
+     "path",
+     "line",
+     "path",
+     "ellipse",
+     "curve",
+     "path",
+     "path",
+     "path",
+     "ellipse",
+     "ellipse",
+     "line",
+     "ellipse",
+     "line",
+     "line",
+     "curve",
+     "ellipse",
+     "ellipse",
+     "ellipse",
+     "ellipse",
+     "path",
+     "ellipse"
+    ],
+    "colours": [
+     "#f5e8d3",
+     "#f5e8d3",
+     "#dfc4a0",
+     "#9b7434",
+     "#9b7434",
+     "#7a5a28",
+     "#6b4a1e",
+     "#6b4a1e",
+     "#c0392b",
+     "#c0392b",
+     "#e86350",
+     "#e86350",
+     "#8b1a1a",
+     "#8b1a1a",
+     "#5d3a1a",
+     "#5d3a1a",
+     "#5a8c3a",
+     "#5a8c3a",
+     "#5a3d1e",
+     "#5a3d1e",
+     "#f0e8dc",
+     "#f0e8dc",
+     "#faf5ee",
+     "#faf5ee",
+     "#c4b49e",
+     "#c4b49e",
+     "#e8ddd0",
+     "#e8ddd0",
+     "#5a3d1e",
+     "#5a3d1e",
+     "#d4c5b0",
+     "#d4c5b0",
+     "#7a5a28",
+     "#7a5a28",
+     "#f5d89a",
+     "#f5d89a",
+     "#7a5a28",
+     "#7a5a28",
+     "#6b4a1e",
+     "#6b4a1e",
+     "#8b1a1a",
+     "#8b1a1a",
+     "#b8a890",
+     "#b8a890",
+     "#c4944a",
+     "#c4944a",
+     "#d4a855",
+     "#d4a855",
+     "#fff8ee",
+     "#fff8ee",
+     "#f0a070",
+     "#f0a070",
+     "#4a2a10",
+     "#4a2a10"
+    ],
+    "texts": [],
+    "coverage": 1.2336,
+    "mean_overlap": 0.0205,
+    "shared_baseline": 6,
+    "even_spacing_run": 24
+   },
+   "checks": [
+    {
+     "check": "objects_at_least_4",
+     "ok": true,
+     "detail": "26 objects (need >= 4)"
+    },
+    {
+     "check": "has_hue_apple red",
+     "ok": true,
+     "detail": "colours=['#f5e8d3', '#f5e8d3', '#dfc4a0', '#9b7434', '#9b7434', '#7a5a28', '#6b4a1e', '#6b4a1e', '#c0392b', '#c0392b', '#e86350', '#e86350', '#8b1a1a', '#8b1a1a', '#5d3a1a', '#5d3a1a', '#5a8c3a', '#5a8c3a', '#5a3d1e', '#5a3d1e', '#f0e8dc', '#f0e8dc', '#faf5ee', '#faf5ee', '#c4b49e', '#c4b49e', '#e8ddd0', '#e8ddd0', '#5a3d1e', '#5a3d1e', '#d4c5b0', '#d4c5b0', '#7a5a28', '#7a5a28', '#f5d89a', '#f5d89a', '#7a5a28', '#7a5a28', '#6b4a1e', '#6b4a1e', '#8b1a1a', '#8b1a1a', '#b8a890', '#b8a890', '#c4944a', '#c4944a', '#d4a855', '#d4a855', '#fff8ee', '#fff8ee', '#f0a070', '#f0a070', '#4a2a10', '#4a2a10'] (apple red band 340-20)"
+    },
+    {
+     "check": "has_hue_warm wood",
+     "ok": true,
+     "detail": "colours=['#f5e8d3', '#f5e8d3', '#dfc4a0', '#9b7434', '#9b7434', '#7a5a28', '#6b4a1e', '#6b4a1e', '#c0392b', '#c0392b', '#e86350', '#e86350', '#8b1a1a', '#8b1a1a', '#5d3a1a', '#5d3a1a', '#5a8c3a', '#5a8c3a', '#5a3d1e', '#5a3d1e', '#f0e8dc', '#f0e8dc', '#faf5ee', '#faf5ee', '#c4b49e', '#c4b49e', '#e8ddd0', '#e8ddd0', '#5a3d1e', '#5a3d1e', '#d4c5b0', '#d4c5b0', '#7a5a28', '#7a5a28', '#f5d89a', '#f5d89a', '#7a5a28', '#7a5a28', '#6b4a1e', '#6b4a1e', '#8b1a1a', '#8b1a1a', '#b8a890', '#b8a890', '#c4944a', '#c4944a', '#d4a855', '#d4a855', '#fff8ee', '#fff8ee', '#f0a070', '#f0a070', '#4a2a10', '#4a2a10'] (warm wood band 20-45)"
+    },
+    {
+     "check": "wide_element",
+     "ok": true,
+     "detail": "7 element(s) spanning >= 45% of width"
+    },
+    {
+     "check": "coverage_between",
+     "ok": false,
+     "detail": "coverage 123.4% (want 3%-70%)"
+    },
+    {
+     "check": "overlap_below",
+     "ok": true,
+     "detail": "mean bbox overlap 0.02 (limit 0.5)"
+    }
+   ],
+   "checks_passed": 5,
+   "checks_total": 6,
+   "score": 0.8333333333333334,
+   "wall_s": 354.57
+  },
+  {
+   "task": "T2-robot-mascot",
+   "tier": 2,
+   "tier_name": "multi-object scene",
+   "brief": "A friendly little robot mascot standing on a workbench in a garage, with a teal body, an amber status light and cables trailing off the bench.",
+   "actions_returned": 39,
+   "steps": 39,
+   "valid": true,
+   "validation_error": null,
+   "clamped_fields": 0,
+   "rendered": true,
+   "render_error": null,
+   "truncated_stream": false,
+   "meta": {
+    "vision_fallback": false,
+    "elapsed_s": 88.48,
+    "completion_tokens": 1570,
+    "prompt_tokens": 3793,
+    "truncated": false,
+    "raw_len": 1319,
+    "raw_tail": "",
+    "finish_reason": "stop",
+    "response": "Final polish: removed the scratchy seam line and replaced it with a subtle curved panel line lower on the body. Added a small neck connector to unify head and torso, a little wrench on the bench for garage context, a soft shadow on the robot's right side for depth, and a warm highlight strip on the bench top. The composition now reads as a finished friendly robot mascot scene.",
+    "more": false
+   },
+   "meta_passes": [
+    {
+     "vision_fallback": false,
+     "elapsed_s": 138.67,
+     "completion_tokens": 2623,
+     "prompt_tokens": 2098,
+     "truncated": false,
+     "raw_len": 2697,
+     "raw_tail": "",
+     "finish_reason": "stop",
+     "response": "Here's the draft: a teal robot mascot with a friendly face and amber chest light, standing on a wooden workbench in a warm garage, with red and blue cables trailing off the edges. I'll add the amber glow, highlights and a couple more cable details next.",
+     "more": true
+    },
+    {
+     "vision_fallback": false,
+     "elapsed_s": 104.01,
+     "completion_tokens": 1892,
+     "prompt_tokens": 3299,
+     "truncated": false,
+     "raw_len": 1945,
+     "raw_tail": "",
+     "finish_reason": "stop",
+     "response": "Adding the missing amber status light on the chest, simple arms with a small hand to make the robot read as a friendly mascot, soft highlights on the body and head for depth, tiny eye sparkles for friendliness, and a subtle floor shadow under the bench to ground the scene.",
+     "more": true
+    },
+    {
+     "vision_fallback": false,
+     "elapsed_s": 144.4,
+     "completion_tokens": 2674,
+     "prompt_tokens": 3688,
+     "truncated": false,
+     "raw_len": 1424,
+     "raw_tail": "",
+     "finish_reason": "stop",
+     "response": "Tidying up the scene: replaced the thin scribble cables with proper filled tube shapes so they read as real cables trailing off the bench, added a matching hand to the robot's right arm, placed a small jar on the shelf to ground the garage setting, and added a subtle chest seam line to reinforce the robot's mechanical character.",
+     "more": true
+    },
+    {
+     "vision_fallback": false,
+     "elapsed_s": 88.48,
+     "completion_tokens": 1570,
+     "prompt_tokens": 3793,
+     "truncated": false,
+     "raw_len": 1319,
+     "raw_tail": "",
+     "finish_reason": "stop",
+     "response": "Final polish: removed the scratchy seam line and replaced it with a subtle curved panel line lower on the body. Added a small neck connector to unify head and torso, a little wrench on the bench for garage context, a soft shadow on the robot's right side for depth, and a warm highlight strip on the bench top. The composition now reads as a finished friendly robot mascot scene.",
+     "more": false
+    }
+   ],
+   "passes": [
+    {
+     "pass": 1,
+     "budget": 16,
+     "actions_returned": 16,
+     "valid": true,
+     "validation_error": null,
+     "clamped_fields": 0,
+     "rendered": true,
+     "render_error": null,
+     "with_image": true,
+     "truncated_stream": false,
+     "meta": {
+      "vision_fallback": false,
+      "elapsed_s": 138.67,
+      "completion_tokens": 2623,
+      "prompt_tokens": 2098,
+      "truncated": false,
+      "raw_len": 2697,
+      "raw_tail": "",
+      "finish_reason": "stop",
+      "response": "Here's the draft: a teal robot mascot with a friendly face and amber chest light, standing on a wooden workbench in a warm garage, with red and blue cables trailing off the edges. I'll add the amber glow, highlights and a couple more cable details next.",
+      "more": true
+     },
+     "actions": [
+      {
+       "kind": "rectangle",
+       "x": 0,
+       "y": 0,
+       "width": 1000,
+       "height": 650,
+       "id": "wall",
+       "stroke": false,
+       "color": "#d9cfc0",
+       "fill_color": "#d9cfc0",
+       "fill": true
+      },
+      {
+       "kind": "rectangle",
+       "x": 0,
+       "y": 560,
+       "width": 1000,
+       "height": 90,
+       "id": "floor",
+       "stroke": false,
+       "color": "#b0a08a",
+       "fill_color": "#b0a08a",
+       "fill": true
+      },
+      {
+       "kind": "rectangle",
+       "x": 120,
+       "y": 120,
+       "width": 300,
+       "height": 18,
+       "id": "shelf",
+       "stroke": false,
+       "color": "#b8a88f",
+       "fill_color": "#b8a88f",
+       "fill": true
+      },
+      {
+       "kind": "polygon",
+       "id": "bench_top",
+       "stroke": false,
+       "color": "#a87b4f",
+       "fill_color": "#a87b4f",
+       "fill": true,
+       "points": [
+        [
+         180,
+         420
+        ],
+        [
+         820,
+         420
+        ],
+        [
+         860,
+         470
+        ],
+        [
+         140,
+         470
+        ]
+       ]
+      },
+      {
+       "kind": "rectangle",
+       "x": 140,
+       "y": 470,
+       "width": 720,
+       "height": 60,
+       "id": "bench_front",
+       "stroke": false,
+       "color": "#8a6239",
+       "fill_color": "#8a6239",
+       "fill": true
+      },
+      {
+       "kind": "rectangle",
+       "x": 180,
+       "y": 530,
+       "width": 40,
+       "height": 90,
+       "id": "leg_l",
+       "stroke": false,
+       "color": "#6e4d2c",
+       "fill_color": "#6e4d2c",
+       "fill": true
+      },
+      {
+       "kind": "rectangle",
+       "x": 780,
+       "y": 530,
+       "width": 40,
+       "height": 90,
+       "id": "leg_r",
+       "stroke": false,
+       "color": "#6e4d2c",
+       "fill_color": "#6e4d2c",
+       "fill": true
+      },
+      {
+       "kind": "curve",
+       "id": "cable_red",
+       "stroke": true,
+       "color": "#d9534f",
+       "fill_color": "#d9534f",
+       "fill": false,
+       "points": [
+        [
+         820,
+         450
+        ],
+        [
+         900,
+         470
+        ],
+        [
+         920,
+         540
+        ],
+        [
+         880,
+         600
+        ]
+       ]
+      },
+      {
+       "kind": "curve",
+       "id": "cable_blue",
+       "stroke": true,
+       "color": "#4a90d9",
+       "fill_color": "#4a90d9",
+       "fill": false,
+       "points": [
+        [
+         180,
+         450
+        ],
+        [
+         110,
+         480
+        ],
+        [
+         90,
+         560
+        ],
+        [
+         130,
+         610
+        ]
+       ]
+      },
+      {
+       "kind": "ellipse",
+       "x": 440,
+       "y": 412,
+       "width": 130,
+       "height": 22,
+       "opacity": 0.15,
+       "id": "robot_shadow",
+       "stroke": false,
+       "color": "#000000",
+       "fill_color": "#000000",
+       "fill": true
+      },
+      {
+       "kind": "curve",
+       "id": "robot_body",
+       "stroke": false,
+       "color": "#3a9e9e",
+       "fill_color": "#3a9e9e",
+       "fill": true,
+       "points": [
+        [
+         430,
+         420
+        ],
+        [
+         420,
+         300
+        ],
+        [
+         440,
+         250
+        ],
+        [
+         500,
+         240
+        ],
+        [
+         560,
+         250
+        ],
+        [
+         580,
+         300
+        ],
+        [
+         570,
+         420
+        ]
+       ]
+      },
+      {
+       "kind": "curve",
+       "id": "robot_head",
+       "stroke": false,
+       "color": "#3a9e9e",
+       "fill_color": "#3a9e9e",
+       "fill": true,
+       "points": [
+        [
+         450,
+         250
+        ],
+        [
+         445,
+         190
+        ],
+        [
+         470,
+         160
+        ],
+        [
+         500,
+         155
+        ],
+        [
+         530,
+         160
+        ],
+        [
+         555,
+         190
+        ],
+        [
+         550,
+         250
+        ]
+       ]
+      },
+      {
+       "kind": "ellipse",
+       "x": 460,
+       "y": 180,
+       "width": 80,
+       "height": 60,
+       "id": "face_plate",
+       "stroke": false,
+       "color": "#6fc4c4",
+       "fill_color": "#6fc4c4",
+       "fill": true
+      },
+      {
+       "kind": "ellipse",
+       "x": 470,
+       "y": 195,
+       "width": 22,
+       "height": 26,
+       "id": "eye_l",
+       "stroke": false,
+       "color": "#ffffff",
+       "fill_color": "#ffffff",
+       "fill": true
+      },
+      {
+       "kind": "ellipse",
+       "x": 508,
+       "y": 195,
+       "width": 22,
+       "height": 26,
+       "id": "eye_r",
+       "stroke": false,
+       "color": "#ffffff",
+       "fill_color": "#ffffff",
+       "fill": true
+      },
+      {
+       "kind": "ellipse",
+       "x": 477,
+       "y": 203,
+       "width": 9,
+       "height": 11,
+       "id": "pupil_l",
+       "stroke": false,
+       "color": "#2b2b2b",
+       "fill_color": "#2b2b2b",
+       "fill": true
+      }
+     ],
+     "checks_passed": 5,
+     "checks_total": 5
+    },
+    {
+     "pass": 2,
+     "budget": 10,
+     "actions_returned": 10,
+     "valid": true,
+     "validation_error": null,
+     "clamped_fields": 0,
+     "rendered": true,
+     "render_error": null,
+     "with_image": true,
+     "truncated_stream": false,
+     "meta": {
+      "vision_fallback": false,
+      "elapsed_s": 104.01,
+      "completion_tokens": 1892,
+      "prompt_tokens": 3299,
+      "truncated": false,
+      "raw_len": 1945,
+      "raw_tail": "",
+      "finish_reason": "stop",
+      "response": "Adding the missing amber status light on the chest, simple arms with a small hand to make the robot read as a friendly mascot, soft highlights on the body and head for depth, tiny eye sparkles for friendliness, and a subtle floor shadow under the bench to ground the scene.",
+      "more": true
+     },
+     "actions": [
+      {
+       "kind": "curve",
+       "id": "arm_l",
+       "stroke": false,
+       "color": "#2e8a8a",
+       "fill_color": "#2e8a8a",
+       "fill": true,
+       "points": [
+        [
+         432,
+         300
+        ],
+        [
+         400,
+         310
+        ],
+        [
+         385,
+         340
+        ],
+        [
+         390,
+         370
+        ],
+        [
+         410,
+         375
+        ],
+        [
+         425,
+         350
+        ],
+        [
+         432,
+         320
+        ]
+       ]
+      },
+      {
+       "kind": "curve",
+       "id": "arm_r",
+       "stroke": false,
+       "color": "#2e8a8a",
+       "fill_color": "#2e8a8a",
+       "fill": true,
+       "points": [
+        [
+         568,
+         300
+        ],
+        [
+         600,
+         310
+        ],
+        [
+         615,
+         340
+        ],
+        [
+         610,
+         370
+        ],
+        [
+         590,
+         375
+        ],
+        [
+         575,
+         350
+        ],
+        [
+         568,
+         320
+        ]
+       ]
+      },
+      {
+       "kind": "ellipse",
+       "x": 488,
+       "y": 295,
+       "width": 24,
+       "height": 24,
+       "id": "amber_light",
+       "stroke": false,
+       "color": "#f5a623",
+       "fill_color": "#f5a623",
+       "fill": true
+      },
+      {
+       "kind": "ellipse",
+       "x": 493,
+       "y": 300,
+       "width": 12,
+       "height": 12,
+       "opacity": 0.6,
+       "id": "amber_glow",
+       "stroke": false,
+       "color": "#ffd54f",
+       "fill_color": "#ffd54f",
+       "fill": true
+      },
+      {
+       "kind": "ellipse",
+       "x": 445,
+       "y": 265,
+       "width": 50,
+       "height": 70,
+       "opacity": 0.35,
+       "id": "body_highlight",
+       "stroke": false,
+       "color": "#5bbfbf",
+       "fill_color": "#5bbfbf",
+       "fill": true
+      },
+      {
+       "kind": "ellipse",
+       "x": 462,
+       "y": 168,
+       "width": 35,
+       "height": 30,
+       "opacity": 0.35,
+       "id": "head_highlight",
+       "stroke": false,
+       "color": "#5bbfbf",
+       "fill_color": "#5bbfbf",
+       "fill": true
+      },
+      {
+       "kind": "ellipse",
+       "x": 473,
+       "y": 198,
+       "width": 7,
+       "height": 7,
+       "opacity": 0.8,
+       "id": "eye_hl_l",
+       "stroke": false,
+       "color": "#ffffff",
+       "fill_color": "#ffffff",
+       "fill": true
+      },
+      {
+       "kind": "ellipse",
+       "x": 511,
+       "y": 198,
+       "width": 7,
+       "height": 7,
+       "opacity": 0.8,
+       "id": "eye_hl_r",
+       "stroke": false,
+       "color": "#ffffff",
+       "fill_color": "#ffffff",
+       "fill": true
+      },
+      {
+       "kind": "ellipse",
+       "x": 160,
+       "y": 615,
+       "width": 680,
+       "height": 18,
+       "opacity": 0.25,
+       "id": "bench_floor_shadow",
+       "stroke": false,
+       "color": "#8a7a65",
+       "fill_color": "#8a7a65",
+       "fill": true
+      },
+      {
+       "kind": "path",
+       "id": "hand_l",
+       "stroke": false,
+       "smooth": true,
+       "color": "#2e8a8a",
+       "fill_color": "#2e8a8a",
+       "fill": true,
+       "points": [
+        [
+         390,
+         365
+        ],
+        [
+         380,
+         375
+        ],
+        [
+         385,
+         390
+        ],
+        [
+         400,
+         390
+        ],
+        [
+         410,
+         380
+        ],
+        [
+         405,
+         368
+        ]
+       ]
+      }
+     ],
+     "checks_passed": 5,
+     "checks_total": 5
+    },
+    {
+     "pass": 3,
+     "budget": 8,
+     "actions_returned": 7,
+     "valid": true,
+     "validation_error": null,
+     "clamped_fields": 0,
+     "rendered": true,
+     "render_error": null,
+     "with_image": true,
+     "truncated_stream": false,
+     "meta": {
+      "vision_fallback": false,
+      "elapsed_s": 144.4,
+      "completion_tokens": 2674,
+      "prompt_tokens": 3688,
+      "truncated": false,
+      "raw_len": 1424,
+      "raw_tail": "",
+      "finish_reason": "stop",
+      "response": "Tidying up the scene: replaced the thin scribble cables with proper filled tube shapes so they read as real cables trailing off the bench, added a matching hand to the robot's right arm, placed a small jar on the shelf to ground the garage setting, and added a subtle chest seam line to reinforce the robot's mechanical character.",
+      "more": true
+     },
+     "actions": [
+      {
+       "kind": "delete",
+       "id": "cable_red",
+       "color": "#c0392b",
+       "fill_color": "#c0392b",
+       "fill": false
+      },
+      {
+       "kind": "delete",
+       "id": "cable_blue",
+       "color": "#3a7bc8",
+       "fill_color": "#3a7bc8",
+       "fill": false
+      },
+      {
+       "kind": "path",
+       "id": "cable_red2",
+       "stroke": false,
+       "smooth": true,
+       "color": "#c0392b",
+       "fill_color": "#c0392b",
+       "fill": true,
+       "points": [
+        [
+         848,
+         462
+        ],
+        [
+         872,
+         505
+        ],
+        [
+         908,
+         548
+        ],
+        [
+         912,
+         588
+        ],
+        [
+         924,
+         588
+        ],
+        [
+         918,
+         545
+        ],
+        [
+         882,
+         502
+        ],
+        [
+         858,
+         462
+        ],
+        [
+         848,
+         462
+        ]
+       ]
+      },
+      {
+       "kind": "path",
+       "id": "cable_blue2",
+       "stroke": false,
+       "smooth": true,
+       "color": "#3a7bc8",
+       "fill_color": "#3a7bc8",
+       "fill": true,
+       "points": [
+        [
+         152,
+         462
+        ],
+        [
+         128,
+         508
+        ],
+        [
+         102,
+         552
+        ],
+        [
+         100,
+         592
+        ],
+        [
+         112,
+         592
+        ],
+        [
+         114,
+         550
+        ],
+        [
+         138,
+         508
+        ],
+        [
+         162,
+         462
+        ],
+        [
+         152,
+         462
+        ]
+       ]
+      },
+      {
+       "kind": "curve",
+       "id": "hand_r",
+       "stroke": false,
+       "color": "#2e8a8a",
+       "fill_color": "#2e8a8a",
+       "fill": true,
+       "points": [
+        [
+         572,
+         362
+        ],
+        [
+         565,
+         372
+        ],
+        [
+         570,
+         385
+        ],
+        [
+         585,
+         385
+        ],
+        [
+         592,
+         372
+        ],
+        [
+         588,
+         362
+        ],
+        [
+         572,
+         362
+        ]
+       ]
+      },
+      {
+       "kind": "curve",
+       "id": "shelf_jar",
+       "stroke": false,
+       "color": "#8b7355",
+       "fill_color": "#8b7355",
+       "fill": true,
+       "points": [
+        [
+         210,
+         120
+        ],
+        [
+         205,
+         105
+        ],
+        [
+         210,
+         92
+        ],
+        [
+         225,
+         92
+        ],
+        [
+         230,
+         105
+        ],
+        [
+         225,
+         120
+        ],
+        [
+         210,
+         120
+        ]
+       ]
+      },
+      {
+       "kind": "line",
+       "id": "body_seam",
+       "stroke": true,
+       "color": "#2e8a8a",
+       "fill_color": "#2e8a8a",
+       "fill": false,
+       "points": [
+        [
+         435,
+         310
+        ],
+        [
+         555,
+         310
+        ]
+       ]
+      }
+     ],
+     "checks_passed": 5,
+     "checks_total": 5
+    },
+    {
+     "pass": 4,
+     "budget": 6,
+     "actions_returned": 6,
+     "valid": true,
+     "validation_error": null,
+     "clamped_fields": 0,
+     "rendered": true,
+     "render_error": null,
+     "with_image": true,
+     "truncated_stream": false,
+     "meta": {
+      "vision_fallback": false,
+      "elapsed_s": 88.48,
+      "completion_tokens": 1570,
+      "prompt_tokens": 3793,
+      "truncated": false,
+      "raw_len": 1319,
+      "raw_tail": "",
+      "finish_reason": "stop",
+      "response": "Final polish: removed the scratchy seam line and replaced it with a subtle curved panel line lower on the body. Added a small neck connector to unify head and torso, a little wrench on the bench for garage context, a soft shadow on the robot's right side for depth, and a warm highlight strip on the bench top. The composition now reads as a finished friendly robot mascot scene.",
+      "more": false
+     },
+     "actions": [
+      {
+       "kind": "delete",
+       "id": "body_seam",
+       "color": "#2e8a8a",
+       "fill_color": "#2e8a8a",
+       "fill": false
+      },
+      {
+       "kind": "curve",
+       "opacity": 0.4,
+       "id": "panel_seam",
+       "stroke": true,
+       "color": "#2e8a8a",
+       "fill_color": "#2e8a8a",
+       "fill": false,
+       "points": [
+        [
+         445,
+         340
+        ],
+        [
+         470,
+         345
+        ],
+        [
+         500,
+         345
+        ],
+        [
+         525,
+         340
+        ]
+       ]
+      },
+      {
+       "kind": "rectangle",
+       "x": 485,
+       "y": 245,
+       "width": 30,
+       "height": 18,
+       "id": "neck",
+       "stroke": false,
+       "color": "#3a9e9e",
+       "fill_color": "#3a9e9e",
+       "fill": true
+      },
+      {
+       "kind": "path",
+       "id": "wrench",
+       "stroke": false,
+       "smooth": true,
+       "color": "#8a8a8a",
+       "fill_color": "#8a8a8a",
+       "fill": true,
+       "points": [
+        [
+         280,
+         445
+        ],
+        [
+         275,
+         430
+        ],
+        [
+         290,
+         425
+        ],
+        [
+         310,
+         430
+        ],
+        [
+         315,
+         445
+        ],
+        [
+         305,
+         450
+        ],
+        [
+         290,
+         448
+        ],
+        [
+         280,
+         445
+        ]
+       ]
+      },
+      {
+       "kind": "ellipse",
+       "x": 530,
+       "y": 270,
+       "width": 35,
+       "height": 100,
+       "opacity": 0.3,
+       "id": "body_shadow_r",
+       "stroke": false,
+       "color": "#2a7a7a",
+       "fill_color": "#2a7a7a",
+       "fill": true
+      },
+      {
+       "kind": "ellipse",
+       "x": 350,
+       "y": 425,
+       "width": 200,
+       "height": 12,
+       "opacity": 0.4,
+       "id": "bench_highlight",
+       "stroke": false,
+       "color": "#c49a6c",
+       "fill_color": "#c49a6c",
+       "fill": true
+      }
+     ],
+     "checks_passed": 5,
+     "checks_total": 5
+    }
+   ],
+   "refinement_delta": 0.0,
+   "scene": {
+    "objects": 33,
+    "kinds": [
+     "rectangle",
+     "rectangle",
+     "rectangle",
+     "polygon",
+     "rectangle",
+     "rectangle",
+     "rectangle",
+     "ellipse",
+     "curve",
+     "curve",
+     "ellipse",
+     "ellipse",
+     "ellipse",
+     "ellipse",
+     "curve",
+     "curve",
+     "ellipse",
+     "ellipse",
+     "ellipse",
+     "ellipse",
+     "ellipse",
+     "ellipse",
+     "ellipse",
+     "path",
+     "path",
+     "path",
+     "curve",
+     "curve",
+     "curve",
+     "rectangle",
+     "path",
+     "ellipse",
+     "ellipse"
+    ],
+    "colours": [
+     "#d9cfc0",
+     "#d9cfc0",
+     "#b0a08a",
+     "#b0a08a",
+     "#b8a88f",
+     "#b8a88f",
+     "#a87b4f",
+     "#a87b4f",
+     "#8a6239",
+     "#8a6239",
+     "#6e4d2c",
+     "#6e4d2c",
+     "#6e4d2c",
+     "#6e4d2c",
+     "#000000",
+     "#000000",
+     "#3a9e9e",
+     "#3a9e9e",
+     "#3a9e9e",
+     "#3a9e9e",
+     "#6fc4c4",
+     "#6fc4c4",
+     "#ffffff",
+     "#ffffff",
+     "#ffffff",
+     "#ffffff",
+     "#2b2b2b",
+     "#2b2b2b",
+     "#2e8a8a",
+     "#2e8a8a",
+     "#2e8a8a",
+     "#2e8a8a",
+     "#f5a623",
+     "#f5a623",
+     "#ffd54f",
+     "#ffd54f",
+     "#5bbfbf",
+     "#5bbfbf",
+     "#5bbfbf",
+     "#5bbfbf",
+     "#ffffff",
+     "#ffffff",
+     "#ffffff",
+     "#ffffff",
+     "#8a7a65",
+     "#8a7a65",
+     "#2e8a8a",
+     "#2e8a8a",
+     "#c0392b",
+     "#c0392b",
+     "#3a7bc8",
+     "#3a7bc8",
+     "#2e8a8a",
+     "#2e8a8a",
+     "#8b7355",
+     "#8b7355",
+     "#2e8a8a",
+     "#2e8a8a",
+     "#3a9e9e",
+     "#3a9e9e",
+     "#8a8a8a",
+     "#8a8a8a",
+     "#2a7a7a",
+     "#2a7a7a",
+     "#c49a6c",
+     "#c49a6c"
+    ],
+    "texts": [],
+    "coverage": 0.4341,
+    "mean_overlap": 0.0067,
+    "shared_baseline": 5,
+    "even_spacing_run": 30
+   },
+   "checks": [
+    {
+     "check": "objects_at_least_5",
+     "ok": true,
+     "detail": "33 objects (need >= 5)"
+    },
+    {
+     "check": "has_hue_teal",
+     "ok": true,
+     "detail": "colours=['#d9cfc0', '#d9cfc0', '#b0a08a', '#b0a08a', '#b8a88f', '#b8a88f', '#a87b4f', '#a87b4f', '#8a6239', '#8a6239', '#6e4d2c', '#6e4d2c', '#6e4d2c', '#6e4d2c', '#000000', '#000000', '#3a9e9e', '#3a9e9e', '#3a9e9e', '#3a9e9e', '#6fc4c4', '#6fc4c4', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#2b2b2b', '#2b2b2b', '#2e8a8a', '#2e8a8a', '#2e8a8a', '#2e8a8a', '#f5a623', '#f5a623', '#ffd54f', '#ffd54f', '#5bbfbf', '#5bbfbf', '#5bbfbf', '#5bbfbf', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#8a7a65', '#8a7a65', '#2e8a8a', '#2e8a8a', '#c0392b', '#c0392b', '#3a7bc8', '#3a7bc8', '#2e8a8a', '#2e8a8a', '#8b7355', '#8b7355', '#2e8a8a', '#2e8a8a', '#3a9e9e', '#3a9e9e', '#8a8a8a', '#8a8a8a', '#2a7a7a', '#2a7a7a', '#c49a6c', '#c49a6c'] (teal band 150-200)"
+    },
+    {
+     "check": "has_hue_amber",
+     "ok": true,
+     "detail": "colours=['#d9cfc0', '#d9cfc0', '#b0a08a', '#b0a08a', '#b8a88f', '#b8a88f', '#a87b4f', '#a87b4f', '#8a6239', '#8a6239', '#6e4d2c', '#6e4d2c', '#6e4d2c', '#6e4d2c', '#000000', '#000000', '#3a9e9e', '#3a9e9e', '#3a9e9e', '#3a9e9e', '#6fc4c4', '#6fc4c4', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#2b2b2b', '#2b2b2b', '#2e8a8a', '#2e8a8a', '#2e8a8a', '#2e8a8a', '#f5a623', '#f5a623', '#ffd54f', '#ffd54f', '#5bbfbf', '#5bbfbf', '#5bbfbf', '#5bbfbf', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#8a7a65', '#8a7a65', '#2e8a8a', '#2e8a8a', '#c0392b', '#c0392b', '#3a7bc8', '#3a7bc8', '#2e8a8a', '#2e8a8a', '#8b7355', '#8b7355', '#2e8a8a', '#2e8a8a', '#3a9e9e', '#3a9e9e', '#8a8a8a', '#8a8a8a', '#2a7a7a', '#2a7a7a', '#c49a6c', '#c49a6c'] (amber band 30-60)"
+    },
+    {
+     "check": "coverage_between",
+     "ok": true,
+     "detail": "coverage 43.4% (want 3%-70%)"
+    },
+    {
+     "check": "overlap_below",
+     "ok": true,
+     "detail": "mean bbox overlap 0.01 (limit 0.5)"
+    }
+   ],
+   "checks_passed": 5,
+   "checks_total": 5,
+   "score": 1.0,
+   "wall_s": 475.76
+  },
+  {
+   "task": "T5-critique-self",
+   "tier": 5,
+   "tier_name": "draft then self-critique",
+   "brief": "Draw a small cabin in a snowy pine forest at night, with warm light spilling from one window.",
+   "actions_returned": 30,
+   "steps": 30,
+   "valid": true,
+   "validation_error": null,
+   "clamped_fields": 0,
+   "rendered": true,
+   "render_error": null,
+   "truncated_stream": false,
+   "meta": {
+    "vision_fallback": false,
+    "elapsed_s": 58.83,
+    "completion_tokens": 1027,
+    "prompt_tokens": 3473,
+    "truncated": false,
+    "raw_len": 1002,
+    "raw_tail": "",
+    "finish_reason": "stop",
+    "response": "Refined the light spill to read as a soft translucent beam rather than a solid triangle, added a subtle ground shadow to anchor the cabin in the snow, placed a small chimney on the roof for character, and added a faint warm reflection on the snow beneath the window to tie the light source to the ground. The composition now reads as a cozy night scene with the glowing window as the clear focal poin",
+    "more": false
+   },
+   "meta_passes": [
+    {
+     "vision_fallback": false,
+     "elapsed_s": 163.66,
+     "completion_tokens": 3109,
+     "prompt_tokens": 2089,
+     "truncated": false,
+     "raw_len": 3116,
+     "raw_tail": "",
+     "finish_reason": "stop",
+     "response": "Here's a cozy night scene: a small wooden cabin nestled between dark pine silhouettes, its single window casting a warm amber glow onto the snow below. A pale moon hangs in the deep blue sky above the tree line.",
+     "more": true
+    },
+    {
+     "vision_fallback": false,
+     "elapsed_s": 123.84,
+     "completion_tokens": 2295,
+     "prompt_tokens": 3582,
+     "truncated": false,
+     "raw_len": 1681,
+     "raw_tail": "",
+     "finish_reason": "stop",
+     "response": "Refining the scene: thickened the roof snow cap so it reads as a proper accumulation, repositioned and warmed the light spill to emanate from the window, added a warm light cone projecting onto the snow, scattered a few subtle stars in the sky, and added a faint warm tint on the cabin wall near the window to sell the interior glow.",
+     "more": true
+    },
+    {
+     "vision_fallback": false,
+     "elapsed_s": 58.83,
+     "completion_tokens": 1027,
+     "prompt_tokens": 3473,
+     "truncated": false,
+     "raw_len": 1002,
+     "raw_tail": "",
+     "finish_reason": "stop",
+     "response": "Refined the light spill to read as a soft translucent beam rather than a solid triangle, added a subtle ground shadow to anchor the cabin in the snow, placed a small chimney on the roof for character, and added a faint warm reflection on the snow beneath the window to tie the light source to the ground. The composition now reads as a cozy night scene with the glowing window as the clear focal poin",
+     "more": false
+    }
+   ],
+   "passes": [
+    {
+     "pass": 1,
+     "budget": 16,
+     "actions_returned": 16,
+     "valid": true,
+     "validation_error": null,
+     "clamped_fields": 0,
+     "rendered": true,
+     "render_error": null,
+     "with_image": true,
+     "truncated_stream": false,
+     "meta": {
+      "vision_fallback": false,
+      "elapsed_s": 163.66,
+      "completion_tokens": 3109,
+      "prompt_tokens": 2089,
+      "truncated": false,
+      "raw_len": 3116,
+      "raw_tail": "",
+      "finish_reason": "stop",
+      "response": "Here's a cozy night scene: a small wooden cabin nestled between dark pine silhouettes, its single window casting a warm amber glow onto the snow below. A pale moon hangs in the deep blue sky above the tree line.",
+      "more": true
+     },
+     "actions": [
+      {
+       "kind": "rectangle",
+       "x": 0,
+       "y": 0,
+       "width": 1000,
+       "height": 650,
+       "gradient_angle": 90,
+       "id": "sky_bg",
+       "gradient": "linear",
+       "stroke": false,
+       "color": "#0a1628",
+       "fill_color": "#0a1628",
+       "gradient_stops": [
+        {
+         "offset": 0,
+         "color": "#060e1a"
+        },
+        {
+         "offset": 0.6,
+         "color": "#0f1e30"
+        },
+        {
+         "offset": 1,
+         "color": "#1a2a40"
+        }
+       ],
+       "fill": true
+      },
+      {
+       "kind": "rectangle",
+       "x": 0,
+       "y": 430,
+       "width": 1000,
+       "height": 220,
+       "id": "snow_ground",
+       "stroke": false,
+       "color": "#dce4ec",
+       "fill_color": "#dce4ec",
+       "fill": true
+      },
+      {
+       "kind": "polygon",
+       "id": "distant_trees",
+       "stroke": false,
+       "color": "#0c1a10",
+       "fill_color": "#0c1a10",
+       "fill": true,
+       "points": [
+        [
+         0,
+         430
+        ],
+        [
+         0,
+         370
+        ],
+        [
+         40,
+         340
+        ],
+        [
+         80,
+         365
+        ],
+        [
+         120,
+         330
+        ],
+        [
+         160,
+         360
+        ],
+        [
+         200,
+         325
+        ],
+        [
+         240,
+         355
+        ],
+        [
+         280,
+         320
+        ],
+        [
+         320,
+         350
+        ],
+        [
+         360,
+         335
+        ],
+        [
+         400,
+         355
+        ],
+        [
+         440,
+         340
+        ],
+        [
+         480,
+         360
+        ],
+        [
+         520,
+         345
+        ],
+        [
+         560,
+         365
+        ],
+        [
+         600,
+         340
+        ],
+        [
+         640,
+         360
+        ],
+        [
+         680,
+         330
+        ],
+        [
+         720,
+         355
+        ],
+        [
+         760,
+         325
+        ],
+        [
+         800,
+         350
+        ],
+        [
+         840,
+         335
+        ],
+        [
+         880,
+         360
+        ],
+        [
+         920,
+         340
+        ],
+        [
+         960,
+         365
+        ],
+        [
+         1000,
+         345
+        ],
+        [
+         1000,
+         430
+        ]
+       ]
+      },
+      {
+       "kind": "polygon",
+       "id": "pine_left_1",
+       "stroke": false,
+       "color": "#0e1f12",
+       "fill_color": "#0e1f12",
+       "fill": true,
+       "points": [
+        [
+         110,
+         120
+        ],
+        [
+         60,
+         430
+        ],
+        [
+         160,
+         430
+        ]
+       ]
+      },
+      {
+       "kind": "polygon",
+       "id": "pine_left_2",
+       "stroke": false,
+       "color": "#112418",
+       "fill_color": "#112418",
+       "fill": true,
+       "points": [
+        [
+         220,
+         180
+        ],
+        [
+         170,
+         430
+        ],
+        [
+         270,
+         430
+        ]
+       ]
+      },
+      {
+       "kind": "polygon",
+       "id": "pine_right_1",
+       "stroke": false,
+       "color": "#0e1f12",
+       "fill_color": "#0e1f12",
+       "fill": true,
+       "points": [
+        [
+         800,
+         140
+        ],
+        [
+         750,
+         430
+        ],
+        [
+         850,
+         430
+        ]
+       ]
+      },
+      {
+       "kind": "polygon",
+       "id": "pine_right_2",
+       "stroke": false,
+       "color": "#112418",
+       "fill_color": "#112418",
+       "fill": true,
+       "points": [
+        [
+         900,
+         200
+        ],
+        [
+         855,
+         430
+        ],
+        [
+         945,
+         430
+        ]
+       ]
+      },
+      {
+       "kind": "rectangle",
+       "x": 420,
+       "y": 340,
+       "width": 180,
+       "height": 110,
+       "id": "cabin_walls",
+       "stroke": false,
+       "color": "#3a2a1a",
+       "fill_color": "#3a2a1a",
+       "fill": true
+      },
+      {
+       "kind": "polygon",
+       "id": "cabin_roof",
+       "stroke": false,
+       "color": "#261a0e",
+       "fill_color": "#261a0e",
+       "fill": true,
+       "points": [
+        [
+         400,
+         340
+        ],
+        [
+         510,
+         262
+        ],
+        [
+         620,
+         340
+        ]
+       ]
+      },
+      {
+       "kind": "rectangle",
+       "x": 530,
+       "y": 375,
+       "width": 32,
+       "height": 32,
+       "id": "window",
+       "stroke": false,
+       "color": "#ffcc33",
+       "fill_color": "#ffcc33",
+       "fill": true
+      },
+      {
+       "kind": "ellipse",
+       "x": 490,
+       "y": 440,
+       "width": 110,
+       "height": 80,
+       "opacity": 0.3,
+       "id": "light_spill",
+       "stroke": false,
+       "smooth": true,
+       "color": "#ffdd55",
+       "fill_color": "#ffdd55",
+       "fill": true
+      },
+      {
+       "kind": "polygon",
+       "id": "roof_snow",
+       "stroke": false,
+       "color": "#e8eef4",
+       "fill_color": "#e8eef4",
+       "fill": true,
+       "points": [
+        [
+         405,
+         338
+        ],
+        [
+         510,
+         264
+        ],
+        [
+         615,
+         338
+        ],
+        [
+         600,
+         338
+        ],
+        [
+         510,
+         272
+        ],
+        [
+         420,
+         338
+        ]
+       ]
+      },
+      {
+       "kind": "ellipse",
+       "x": 810,
+       "y": 65,
+       "width": 42,
+       "height": 42,
+       "id": "moon",
+       "stroke": false,
+       "color": "#e8e4d0",
+       "fill_color": "#e8e4d0",
+       "fill": true
+      },
+      {
+       "kind": "rectangle",
+       "x": 455,
+       "y": 385,
+       "width": 28,
+       "height": 65,
+       "id": "door",
+       "stroke": false,
+       "color": "#221508",
+       "fill_color": "#221508",
+       "fill": true
+      },
+      {
+       "kind": "path",
+       "id": "snow_drift",
+       "stroke": false,
+       "smooth": true,
+       "color": "#e4ecf2",
+       "fill_color": "#e4ecf2",
+       "fill": true,
+       "points": [
+        [
+         0,
+         520
+        ],
+        [
+         150,
+         490
+        ],
+        [
+         350,
+         510
+        ],
+        [
+         550,
+         495
+        ],
+        [
+         750,
+         515
+        ],
+        [
+         900,
+         500
+        ],
+        [
+         1000,
+         520
+        ],
+        [
+         1000,
+         650
+        ],
+        [
+         0,
+         650
+        ]
+       ]
+      },
+      {
+       "kind": "ellipse",
+       "x": 515,
+       "y": 360,
+       "width": 62,
+       "height": 62,
+       "opacity": 0.15,
+       "id": "window_glow",
+       "stroke": false,
+       "smooth": true,
+       "color": "#ffaa22",
+       "fill_color": "#ffaa22",
+       "fill": true
+      }
+     ],
+     "checks_passed": 3,
+     "checks_total": 4
+    },
+    {
+     "pass": 2,
+     "budget": 10,
+     "actions_returned": 10,
+     "valid": true,
+     "validation_error": null,
+     "clamped_fields": 0,
+     "rendered": true,
+     "render_error": null,
+     "with_image": true,
+     "truncated_stream": false,
+     "meta": {
+      "vision_fallback": false,
+      "elapsed_s": 123.84,
+      "completion_tokens": 2295,
+      "prompt_tokens": 3582,
+      "truncated": false,
+      "raw_len": 1681,
+      "raw_tail": "",
+      "finish_reason": "stop",
+      "response": "Refining the scene: thickened the roof snow cap so it reads as a proper accumulation, repositioned and warmed the light spill to emanate from the window, added a warm light cone projecting onto the snow, scattered a few subtle stars in the sky, and added a faint warm tint on the cabin wall near the window to sell the interior glow.",
+      "more": true
+     },
+     "actions": [
+      {
+       "kind": "delete",
+       "id": "roof_snow",
+       "color": "#e8eef4",
+       "fill_color": "#e8eef4",
+       "fill": false
+      },
+      {
+       "kind": "polygon",
+       "id": "roof_snow_cap",
+       "stroke": false,
+       "color": "#e8eef4",
+       "fill_color": "#e8eef4",
+       "fill": true,
+       "points": [
+        [
+         393,
+         342
+        ],
+        [
+         510,
+         254
+        ],
+        [
+         627,
+         342
+        ],
+        [
+         608,
+         342
+        ],
+        [
+         510,
+         268
+        ],
+        [
+         412,
+         342
+        ]
+       ]
+      },
+      {
+       "kind": "move",
+       "dx": 30,
+       "dy": 12,
+       "id": "light_spill",
+       "color": "#ffdd55",
+       "fill_color": "#ffdd55",
+       "fill": false
+      },
+      {
+       "kind": "style",
+       "opacity": 0.22,
+       "id": "light_spill",
+       "color": "#ff9922",
+       "fill_color": "#ff9922"
+      },
+      {
+       "kind": "polygon",
+       "id": "warm_cone",
+       "stroke": false,
+       "color": "#ffaa33",
+       "fill_color": "#ffaa33",
+       "fill": true,
+       "points": [
+        [
+         530,
+         407
+        ],
+        [
+         562,
+         407
+        ],
+        [
+         590,
+         470
+        ],
+        [
+         502,
+         470
+        ]
+       ]
+      },
+      {
+       "kind": "ellipse",
+       "x": 180,
+       "y": 80,
+       "width": 4,
+       "height": 4,
+       "id": "star_1",
+       "stroke": false,
+       "color": "#c8d4e8",
+       "fill_color": "#c8d4e8",
+       "fill": true
+      },
+      {
+       "kind": "ellipse",
+       "x": 340,
+       "y": 55,
+       "width": 3,
+       "height": 3,
+       "id": "star_2",
+       "stroke": false,
+       "color": "#b8c8e0",
+       "fill_color": "#b8c8e0",
+       "fill": true
+      },
+      {
+       "kind": "ellipse",
+       "x": 680,
+       "y": 100,
+       "width": 4,
+       "height": 4,
+       "id": "star_3",
+       "stroke": false,
+       "color": "#c8d4e8",
+       "fill_color": "#c8d4e8",
+       "fill": true
+      },
+      {
+       "kind": "ellipse",
+       "x": 120,
+       "y": 150,
+       "width": 3,
+       "height": 3,
+       "id": "star_4",
+       "stroke": false,
+       "color": "#a8b8d0",
+       "fill_color": "#a8b8d0",
+       "fill": true
+      },
+      {
+       "kind": "rectangle",
+       "x": 520,
+       "y": 370,
+       "width": 45,
+       "height": 45,
+       "opacity": 0.12,
+       "id": "wall_warm_tint",
+       "stroke": false,
+       "color": "#ff8822",
+       "fill_color": "#ff8822",
+       "fill": true
+      }
+     ],
+     "checks_passed": 3,
+     "checks_total": 4
+    },
+    {
+     "pass": 3,
+     "budget": 8,
+     "actions_returned": 4,
+     "valid": true,
+     "validation_error": null,
+     "clamped_fields": 0,
+     "rendered": true,
+     "render_error": null,
+     "with_image": true,
+     "truncated_stream": false,
+     "meta": {
+      "vision_fallback": false,
+      "elapsed_s": 58.83,
+      "completion_tokens": 1027,
+      "prompt_tokens": 3473,
+      "truncated": false,
+      "raw_len": 1002,
+      "raw_tail": "",
+      "finish_reason": "stop",
+      "response": "Refined the light spill to read as a soft translucent beam rather than a solid triangle, added a subtle ground shadow to anchor the cabin in the snow, placed a small chimney on the roof for character, and added a faint warm reflection on the snow beneath the window to tie the light source to the ground. The composition now reads as a cozy night scene with the glowing window as the clear focal poin",
+      "more": false
+     },
+     "actions": [
+      {
+       "kind": "style",
+       "opacity": 0.32,
+       "id": "warm_cone",
+       "color": "#ffaa33",
+       "fill_color": "#ffaa33"
+      },
+      {
+       "kind": "ellipse",
+       "x": 410,
+       "y": 442,
+       "width": 200,
+       "height": 18,
+       "opacity": 0.4,
+       "id": "cabin_shadow",
+       "stroke": false,
+       "color": "#b8c4d0",
+       "fill_color": "#b8c4d0",
+       "fill": true
+      },
+      {
+       "kind": "rectangle",
+       "x": 555,
+       "y": 272,
+       "width": 18,
+       "height": 38,
+       "id": "chimney",
+       "stroke": false,
+       "color": "#2a1c10",
+       "fill_color": "#2a1c10",
+       "fill": true
+      },
+      {
+       "kind": "ellipse",
+       "x": 505,
+       "y": 455,
+       "width": 90,
+       "height": 22,
+       "opacity": 0.25,
+       "id": "snow_warm_reflect",
+       "stroke": false,
+       "color": "#f5c87a",
+       "fill_color": "#f5c87a",
+       "fill": true
+      }
+     ],
+     "checks_passed": 3,
+     "checks_total": 4
+    }
+   ],
+   "refinement_delta": 0.0,
+   "scene": {
+    "objects": 25,
+    "kinds": [
+     "rectangle",
+     "rectangle",
+     "polygon",
+     "polygon",
+     "polygon",
+     "polygon",
+     "polygon",
+     "rectangle",
+     "polygon",
+     "rectangle",
+     "ellipse",
+     "ellipse",
+     "rectangle",
+     "path",
+     "ellipse",
+     "polygon",
+     "polygon",
+     "ellipse",
+     "ellipse",
+     "ellipse",
+     "ellipse",
+     "rectangle",
+     "ellipse",
+     "rectangle",
+     "ellipse"
+    ],
+    "colours": [
+     "#0a1628",
+     "#0a1628",
+     "#dce4ec",
+     "#dce4ec",
+     "#0c1a10",
+     "#0c1a10",
+     "#0e1f12",
+     "#0e1f12",
+     "#112418",
+     "#112418",
+     "#0e1f12",
+     "#0e1f12",
+     "#112418",
+     "#112418",
+     "#3a2a1a",
+     "#3a2a1a",
+     "#261a0e",
+     "#261a0e",
+     "#ffcc33",
+     "#ffcc33",
+     "#ff9922",
+     "#ff9922",
+     "#e8e4d0",
+     "#e8e4d0",
+     "#221508",
+     "#221508",
+     "#e4ecf2",
+     "#e4ecf2",
+     "#ffaa22",
+     "#ffaa22",
+     "#e8eef4",
+     "#e8eef4",
+     "#ffaa33",
+     "#ffaa33",
+     "#c8d4e8",
+     "#c8d4e8",
+     "#b8c8e0",
+     "#b8c8e0",
+     "#c8d4e8",
+     "#c8d4e8",
+     "#a8b8d0",
+     "#a8b8d0",
+     "#ff8822",
+     "#ff8822",
+     "#b8c4d0",
+     "#b8c4d0",
+     "#2a1c10",
+     "#2a1c10",
+     "#f5c87a",
+     "#f5c87a"
+    ],
+    "texts": [],
+    "coverage": 1.0529,
+    "mean_overlap": 0.0217,
+    "shared_baseline": 3,
+    "even_spacing_run": 17
+   },
+   "checks": [
+    {
+     "check": "objects_at_least_4",
+     "ok": true,
+     "detail": "25 objects (need >= 4)"
+    },
+    {
+     "check": "has_hue_warm window light",
+     "ok": true,
+     "detail": "colours=['#0a1628', '#0a1628', '#dce4ec', '#dce4ec', '#0c1a10', '#0c1a10', '#0e1f12', '#0e1f12', '#112418', '#112418', '#0e1f12', '#0e1f12', '#112418', '#112418', '#3a2a1a', '#3a2a1a', '#261a0e', '#261a0e', '#ffcc33', '#ffcc33', '#ff9922', '#ff9922', '#e8e4d0', '#e8e4d0', '#221508', '#221508', '#e4ecf2', '#e4ecf2', '#ffaa22', '#ffaa22', '#e8eef4', '#e8eef4', '#ffaa33', '#ffaa33', '#c8d4e8', '#c8d4e8', '#b8c8e0', '#b8c8e0', '#c8d4e8', '#c8d4e8', '#a8b8d0', '#a8b8d0', '#ff8822', '#ff8822', '#b8c4d0', '#b8c4d0', '#2a1c10', '#2a1c10', '#f5c87a', '#f5c87a'] (warm window light band 20-55)"
+    },
+    {
+     "check": "has_hue_cold night",
+     "ok": true,
+     "detail": "colours=['#0a1628', '#0a1628', '#dce4ec', '#dce4ec', '#0c1a10', '#0c1a10', '#0e1f12', '#0e1f12', '#112418', '#112418', '#0e1f12', '#0e1f12', '#112418', '#112418', '#3a2a1a', '#3a2a1a', '#261a0e', '#261a0e', '#ffcc33', '#ffcc33', '#ff9922', '#ff9922', '#e8e4d0', '#e8e4d0', '#221508', '#221508', '#e4ecf2', '#e4ecf2', '#ffaa22', '#ffaa22', '#e8eef4', '#e8eef4', '#ffaa33', '#ffaa33', '#c8d4e8', '#c8d4e8', '#b8c8e0', '#b8c8e0', '#c8d4e8', '#c8d4e8', '#a8b8d0', '#a8b8d0', '#ff8822', '#ff8822', '#b8c4d0', '#b8c4d0', '#2a1c10', '#2a1c10', '#f5c87a', '#f5c87a'] (cold night band 200-265)"
+    },
+    {
+     "check": "coverage_between",
+     "ok": false,
+     "detail": "coverage 105.3% (want 2%-60%)"
+    }
+   ],
+   "checks_passed": 3,
+   "checks_total": 4,
+   "score": 0.75,
+   "wall_s": 346.49
+  }
+ ]
+}

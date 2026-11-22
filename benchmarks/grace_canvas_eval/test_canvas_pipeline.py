@@ -33,9 +33,10 @@ def test_request_preserves_controls(monkeypatch, image_fallback, use_tools):
         return {'choices': [{'message': {'tool_calls': [{'function': {
             'arguments': json.dumps({'actions': [], 'response': 'done'})}}]}}]}
     monkeypatch.setattr(eval, 'urllib_request', request)
-    eval.draw_actions('http://example.invalid', 'model', 'system', 'brief',
+    _, meta = eval.draw_actions('http://example.invalid', 'model', 'system', 'brief',
                       images=['fake'] if image_fallback else None,
                       force_tool=use_tools, use_tools=use_tools, reasoning_effort='low')
+    assert meta['vision_fallback'] == image_fallback
     assert len(requests) == (2 if image_fallback else 1)
     for body in requests:
         assert body['reasoning_effort'] == 'low'
@@ -44,12 +45,13 @@ def test_request_preserves_controls(monkeypatch, image_fallback, use_tools):
         else:
             assert body['response_format']['type'] == 'json_schema'
             schema = body['response_format']['json_schema']['schema']
-            assert schema['properties']['actions']['items']['required'] == ['kind', 'color', 'fill_color']
+            assert schema == eval.engine.build_draw_schema(16)
     assert requests[-1]['messages'][1]['content'][0]['type'] == 'text'
 
 
 def test_schema_hint_keeps_lines_and_triangles():
-    points = eval.build_tool(True)['function']['parameters']['properties']['actions']['items']['properties']['points']
+    variants = eval.build_tool(True)['function']['parameters']['properties']['actions']['items']['anyOf']
+    points = next(v for v in variants if v['properties']['kind']['enum'] == ['line'])['properties']['points']
     assert points.get('minItems', 0) <= 2
 
 
@@ -86,3 +88,20 @@ def test_scene_and_render_share_missing_color_fallback():
     assert scene['objects'][0]['fill_color'] == '#e8a87c'
     png, error = eval.render_png(actions)
     assert error is None and png.startswith(b'\x89PNG')
+
+
+def test_default_vision_reviews_even_when_first_pass_says_done(monkeypatch):
+    calls = []
+    def draw(*args, **kwargs):
+        calls.append(kwargs)
+        return [{'kind': 'ellipse', 'id': 'apple', 'x': 100, 'y': 100,
+                 'width': 200, 'height': 200, 'fill': True, 'fill_color': '#cc2222'}], {
+                     'truncated': False, 'elapsed_s': 0, 'more': False}
+    monkeypatch.setattr(eval, 'draw_actions', draw)
+    args = SimpleNamespace(base_url='unused', model='unused', schema_hint=False,
+                           temperature=0, think_off=False, force_tool=False,
+                           reasoning_effort='medium', judge_base_url=None, out_dir=None)
+    result = eval.run_task({'id': 'review', 'tier': 1, 'brief': 'Draw an apple', 'checks': []}, args)
+    assert len(calls) == 2
+    assert all(call['images'] and call['strict_geometry'] for call in calls)
+    assert all(p['with_image'] for p in result['passes'])

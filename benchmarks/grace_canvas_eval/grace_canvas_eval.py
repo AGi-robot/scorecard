@@ -107,71 +107,27 @@ TEXT_REQUEST = re.compile(
     re.IGNORECASE)
 
 
-def build_production_schema(action_limit, allow_paints=False, strict_geometry=False):
-    """Per-pass canvas_draw parameters, exactly as production builds them."""
-    schema = json.loads(json.dumps(DRAW_TOOL["function"]["parameters"]))
-    schema["properties"]["actions"]["maxItems"] = action_limit
-    schema["properties"]["actions"]["items"]["required"] = ["kind", "color",
-                                                           "fill_color"]
-    if not allow_paints:
-        kind_enum = schema["properties"]["actions"]["items"]["properties"]["kind"]["enum"]
-        if "image" in kind_enum:
-            kind_enum.remove("image")
-        schema["properties"]["actions"]["items"]["properties"].pop("prompt", None)
-    schema["required"] = ["actions", "more", "response"]
-    if strict_geometry:
-        item = schema["properties"]["actions"]["items"]
-        variants = []
-        for kind in item["properties"]["kind"]["enum"]:
-            variant = json.loads(json.dumps(item))
-            props = variant["properties"]
-            props["kind"] = {"type": "string", "enum": [kind]}
-            for name in ("color", "fill_color", "gradient_color"):
-                props[name]["pattern"] = "^#[0-9a-fA-F]{6}$"
-            props["id"].update({"minLength": 1, "maxLength": 64})
-            # llama.cpp's grammar orders object keys by schema order. Put
-            # paint before geometry so choosing a color cannot skip coordinates.
-            order = ["kind", "id", "color", "fill_color", "fill", "stroke"]
-            variant["properties"] = {k: props[k] for k in order if k in props}
-            variant["properties"].update({k: v for k, v in props.items() if k not in order})
-            required = ["kind", "id", "color", "fill_color"]
-            if kind in ("rectangle", "ellipse", "image", "text", "letter"):
-                required += ["x", "y"]
-            if kind in ("rectangle", "ellipse", "image"):
-                required += ["width", "height", "fill", "stroke"]
-                props["width"]["minimum"] = 1
-                props["height"]["minimum"] = 1
-            if kind in ("curve", "path", "polygon", "line"):
-                required += ["points", "fill", "stroke"]
-                props["points"]["minItems"] = 4 if kind == "curve" else (3 if kind == "polygon" else 2)
-                if kind == "line":
-                    props["points"]["maxItems"] = 2
-            if kind in ("text", "letter"):
-                required += ["text"]
-            if kind == "move":
-                required += ["dx", "dy"]
-            variant["required"] = required
-            variants.append(variant)
-        schema["properties"]["actions"]["items"] = {"anyOf": variants}
-    return schema
+def build_production_schema(action_limit, allow_paints=False, strict_geometry=True):
+    """Use exactly the same schema builder as production."""
+    return engine.build_draw_schema(action_limit, allow_paints, strict_geometry)
 
 
-def build_tool(schema_hint=False):
+def build_tool(schema_hint=False, action_limit=16, allow_paints=False, strict_geometry=True):
     """canvas_draw tool. With schema_hint the curve point constraint is made
     explicit in the shared points description without restricting line lengths."""
     tool = json.loads(json.dumps(DRAW_TOOL))
+    schema = build_production_schema(action_limit, allow_paints, strict_geometry)
+    tool["function"]["parameters"] = schema
     if schema_hint:
-        points = tool["function"]["parameters"]["properties"][
-            "actions"]["items"]["properties"]["points"]
-        # points is shared by curves, two-point lines, and polygons.
-        # A global minItems=4 would prohibit valid lines and triangles.
-        points["description"] = (
-            "Curve: start followed by control1, control2, endpoint for each "
-            "cubic segment. The count must be exactly one of "
-            f"{', '.join(map(str, CURVE_POINT_COUNTS))} points (start + "
-            "triples of control/endpoint). Other paths: connected points. "
-            "Max 31 points per pass."
-        )
+        item = schema["properties"]["actions"]["items"]
+        for variant in item.get("anyOf", [item]):
+            points = variant["properties"]["points"]
+            points["description"] = (
+                "Curve: start followed by control1, control2, endpoint for each "
+                "cubic segment. The count must be exactly one of "
+                f"{', '.join(map(str, CURVE_POINT_COUNTS))} points (start + "
+                "triples of control/endpoint). Other paths: connected points. "
+                "Max 31 points per pass.")
     return tool
 
 # ------------------------------------------------------------------ model ---
@@ -258,11 +214,11 @@ def urllib_request(base_url, body, timeout):
 def draw_actions(base_url, model, system, user, images=None, temperature=0.0,
                  schema_hint=False, think_off=False, force_tool=False,
                  reasoning_effort=None, action_limit=16, allow_paints=False,
-                 use_tools=False, strict_geometry=False):
+                 use_tools=False, strict_geometry=True):
     """One canvas_draw turn under the production protocol. Returns (actions, meta).
 
     Default transport is response_format=json_schema with the production
-    schema (required kind/color/fill_color, no image kind, no prompt).
+    schema (stable IDs, hex paints and kind-specific geometry).
     use_tools=True keeps the legacy tools-envelope transport for A/B work.
     """
     content = [{"type": "text", "text": user}]
@@ -272,11 +228,12 @@ def draw_actions(base_url, model, system, user, images=None, temperature=0.0,
     messages = [{"role": "system", "content": system},
                 {"role": "user", "content": content}]
     if use_tools:
-        send = {"tools": [build_tool(schema_hint)]}
+        send = {"tools": [build_tool(schema_hint, action_limit, allow_paints, strict_geometry)]}
     else:
         send = {"json_schema": build_production_schema(action_limit,
                                                        allow_paints=allow_paints,
                                                        strict_geometry=strict_geometry)}
+    vision_fallback = False
     try:
         data = chat(base_url, model, messages, temperature=temperature,
                     think_off=think_off, force_tool=force_tool,
@@ -286,6 +243,7 @@ def draw_actions(base_url, model, system, user, images=None, temperature=0.0,
         # the endpoint cannot take an image. llama.cpp reports that as 500
         # ("image input is not supported"), so 500 belongs in this set too.
         if images and e.code in (400, 404, 422, 500):
+            vision_fallback = True
             text_only = [{"type": "text", "text": user}]
             messages = [{"role": "system", "content": system},
                         {"role": "user", "content": text_only}]
@@ -318,6 +276,7 @@ def draw_actions(base_url, model, system, user, images=None, temperature=0.0,
             actions = recovered
 
     meta = {
+        "vision_fallback": vision_fallback,
         "elapsed_s": round(data.get("_elapsed", 0.0), 2),
         "completion_tokens": usage.get("completion_tokens"),
         "prompt_tokens": usage.get("prompt_tokens"),
@@ -430,22 +389,13 @@ def judge_image(judge_url, judge_model, png_bytes, brief, timeout=300,
 def run_task(task, args):
     """Production-protocol drawing: up to 4 passes, `more`-driven.
 
-    Pass 1 draws from the brief (blind on a blank canvas, exactly like
-    production: the canvas page has no snapshot to send yet). Later passes get
-    production's text followup (canvas_context of prepared work); a rendered
-    PNG is attached only when the canvas has seeded content or
-    --vision-passes is given, with production's text-only fallback when the
-    endpoint rejects images.
+    Pass 1 receives the current canvas render, including a blank canvas.
+    Later passes receive the updated render and object context. Strict geometry
+    and screenshot review default on, with a text-only fallback when the
+    endpoint rejects images. Use --no-vision-passes for text-only comparisons
+    on tasks without seeded artwork.
     """
     system = DRAW_INSTRUCTIONS + VECTOR_ONLY_SUFFIX
-    if getattr(args, "strict_geometry", False):
-        system += (
-            "\nGeometry contract: every action needs a stable id. Rectangle and ellipse "
-            "need explicit x,y,width,height with positive dimensions. A full-canvas "
-            "backdrop is a rectangle at x=0,y=0,width=1000,height=650. Use polygon "
-            "for a list of silhouette corners; curve points are cubic controls, "
-            "not polygon vertices. Set stroke=false to hide outlines, and still "
-            "supply hex color (never 'none' or 'transparent').")
     if getattr(args, "allow_image", False) and PAINT_INSTRUCTIONS:
         system = f"{DRAW_INSTRUCTIONS}\n\n{PAINT_INSTRUCTIONS}"
     seed = task.get("seed_actions") or []
@@ -466,6 +416,10 @@ def run_task(task, args):
             break
         if pass_index == 0:
             prompt, images = user, None
+            if vision_ok and (seed or getattr(args, "vision_passes", True)):
+                initial_png, _ = render_png(base)
+                if initial_png is not None:
+                    images = [base64.b64encode(initial_png).decode()]
         else:
             state = engine.canvas_context(build_scene(base + prepared)["objects"])
             prompt = ("Visually review the latest attached canvas render before acting. "
@@ -481,7 +435,7 @@ def run_task(task, args):
                       + f"\nVisual refinement pass {pass_index + 1} of 4.\n\n"
                       f"The request was: {task['brief']}")
             images = None
-            if vision_ok and (seed or getattr(args, "vision_passes", False)):
+            if vision_ok and (seed or getattr(args, "vision_passes", True)):
                 png_so_far, _ = render_png(base + prepared)
                 if png_so_far is not None:
                     images = [base64.b64encode(png_so_far).decode()]
@@ -494,7 +448,7 @@ def run_task(task, args):
                                      force_tool=args.force_tool,
                                      reasoning_effort=args.reasoning_effort,
                                      action_limit=budget,
-                                     strict_geometry=getattr(args, "strict_geometry", False),
+                                     strict_geometry=getattr(args, "strict_geometry", True),
                                      use_tools=args.force_tool)
         if not allow_text:
             # Production drops text/letter actions unless writing was requested.
@@ -506,6 +460,8 @@ def run_task(task, args):
             repaired = actions
         validated, valid, error, clamped = validate_and_measure(repaired)
         prepared.extend(validated)
+        if meta.get("vision_fallback"):
+            vision_ok = False
 
         scene = build_scene(base + prepared)
         png, render_error = render_png(base + prepared)
@@ -532,7 +488,7 @@ def run_task(task, args):
             "actions_returned": len(actions), "valid": valid,
             "validation_error": error, "clamped_fields": clamped,
             "rendered": png is not None, "render_error": render_error,
-            "with_image": images is not None,
+            "with_image": images is not None and not meta.get("vision_fallback", False),
             "truncated_stream": meta["truncated"], "meta": meta,
             "actions": validated,
             "checks_passed": sum(1 for c in checks if c["ok"]),
@@ -546,7 +502,7 @@ def run_task(task, args):
         # Production stop rule: the model's `more` flag decides; a vision
         # request always gets one look at the first pass; an empty draft that
         # still needs work forces another pass.
-        needs_visual_review = images is not None and pass_index == 0
+        needs_visual_review = vision_ok and images is not None and pass_index == 0
         more = meta["more"]
         if not validated and pass_index < len(budgets) - 1:
             more = True
@@ -618,7 +574,7 @@ def main():
     parser.add_argument("--schema-hint", action="store_true", default=False,
                         help="put the curve point-count rule in the tool schema "
                              "(machine-validated) instead of prose-only")
-    parser.add_argument("--strict-geometry", action="store_true",
+    parser.add_argument("--strict-geometry", action=argparse.BooleanOptionalAction, default=True,
                         help="require IDs and kind-specific geometry in constrained JSON")
     parser.add_argument("--out", default=None)
     parser.add_argument("--out-dir", default=None)
@@ -635,10 +591,10 @@ def main():
     parser.add_argument("--max-tokens", type=int, default=6144,
                         help="output token budget per drawing pass (production "
                              "uses 6144)")
-    parser.add_argument("--vision-passes", action="store_true", default=False,
-                        help="attach the rendered PNG on refinement passes even "
-                             "without seeded canvas content (production only "
-                             "sends screenshots when the canvas has content)")
+    parser.add_argument("--vision-passes", action=argparse.BooleanOptionalAction, default=True,
+                        help="attach current renders, including the initial canvas "
+                             "(default: enabled; --no-vision-passes disables "
+                             "screenshots for tasks without seeded content)")
     parser.add_argument("--single-pass", action="store_true", default=False,
                         help="one pass of 16 actions only (one-shot A/B "
                              "against the production multi-pass loop)")
@@ -648,8 +604,6 @@ def main():
                              "makes models describe pictures in prompt instead "
                              "of drawing vector shapes with fill_color")
     args = parser.parse_args()
-    if args.strict_geometry and args.force_tool:
-        parser.error("--strict-geometry requires JSON-schema transport; omit --force-tool")
 
     if args.think_off:
         # Explicit opt-out of thinking clears the production default.
@@ -693,7 +647,7 @@ def main():
         "label": args.label, "model": args.model, "schema_hint": args.schema_hint,
         "strict_geometry": args.strict_geometry,
         "base_url": args.base_url,
-        "protocol_version": 3, "temperature": args.temperature,
+        "protocol_version": 4, "temperature": args.temperature,
         "transport": "tools" if args.force_tool else "response_format_json_schema",
         "think_off": args.think_off, "force_tool": args.force_tool,
         "reasoning_effort": args.reasoning_effort,

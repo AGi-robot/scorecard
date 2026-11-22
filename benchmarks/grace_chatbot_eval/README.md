@@ -50,6 +50,20 @@ without the persona. `--think-off` disables thinking on Qwen models for protocol
 parity with Ministral, which has no thinking mode. Keep the setting fixed across
 contestants and record the serving-model revision and quantization with each run.
 
+## Prompt variants (anti-memorization)
+
+The six scripts are fixed by default -- the standard Arena setup, identical
+prompts for every contestant, blinded and shuffled at rate time. A single
+rater judging all 18 comparisons will inevitably start recognizing the
+conversations. `generate --variant` counters that without changing what is
+measured (same turn count, same probes, same rater notes):
+
+- `--variant a` (default): original scripts, full standard comparability.
+- `--variant b`: alternate user wordings for all six scripts.
+- `--variant alternate` (+ `--variant-seed`, default 7): each contestant play
+  randomly gets the a or b wording; the choice is recorded per transcript in
+  the batch, so any run stays auditable. Rate and score need no changes.
+
 The endpoint may still expose its API model ID as `swift`; the contestant label
 above identifies the exact Swift 1.5 Qwen 3.8 27B build.
 

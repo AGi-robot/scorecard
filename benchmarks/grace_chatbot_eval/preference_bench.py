@@ -71,10 +71,10 @@ def parse_contestant(spec):
     return {"name": name, "base_url": base_url, "model": model}
 
 
-def play_script(script, contestant, system, temperature, think_off):
+def play_script(script, contestant, system, temperature, think_off, variant="a"):
     messages = ([{"role": "system", "content": system}] if system else [])
     transcript = []
-    for turn in script["turns"]:
+    for turn in SCRIPTS_MOD.turns_for(script, variant):
         if "user" not in turn:
             continue
         messages.append({"role": "user", "content": turn["user"]})
@@ -109,7 +109,9 @@ def cmd_generate(args):
              "system_prompt_file": prompt_file.name if prompt_file else None,
              "temperature": args.temperature,
              "think_off": args.think_off, "contestants": [c["name"] for c in contestants],
+             "variant_mode": args.variant, "variant_seed": args.variant_seed,
              "scripts": {}}
+    vrng = random.Random(args.variant_seed)
     for script in SCRIPTS_MOD.SCRIPTS:
         if args.script and script["id"] not in args.script:
             continue
@@ -118,9 +120,15 @@ def cmd_generate(args):
             "title": script["title"], "probe": script["probe"],
             "transcripts": {}}
         for c in contestants:
-            print(f"    {c['name']} ...", flush=True)
-            t = play_script(script, c, system, args.temperature, args.think_off)
-            batch["scripts"][script["id"]]["transcripts"][c["name"]] = t
+            if args.variant == "alternate":
+                variant = vrng.choice(["a", "b"])
+            else:
+                variant = args.variant
+            print(f"    {c['name']} (variant {variant}) ...", flush=True)
+            t = play_script(script, c, system, args.temperature, args.think_off,
+                            variant=variant)
+            batch["scripts"][script["id"]]["transcripts"][c["name"]] = {
+                "variant": variant, "turns": t}
             time.sleep(1)
     digest = hashlib.sha256(json.dumps(batch, sort_keys=True).encode()).hexdigest()[:8]
     path = OUT_DIR / f"batch_{digest}.json"
@@ -167,16 +175,14 @@ def cmd_rate(args):
             flip = rng.random() < 0.5
             first, second = (right, left) if flip else (left, right)
             print(f"===== {script_id}: {script['title']}  (probe: {script['probe']}) =====")
-            for t in script["transcripts"][first]:
-                print(f"\n  you: {t['user']}")
-                print(f"  A : {t['reply']}")
-                if t.get("expect"):
-                    print(f"  >>> RATER NOTE: {t['expect']}")
-            for t in script["transcripts"][second]:
-                print(f"\n  you: {t['user']}")
-                print(f"  B : {t['reply']}")
-                if t.get("expect"):
-                    print(f"  >>> RATER NOTE: {t['expect']}")
+            for name, tag in ((first, "A"), (second, "B")):
+                tr = script["transcripts"][name]
+                turns = tr["turns"] if isinstance(tr, dict) else tr
+                for t in turns:
+                    print(f"\n  you: {t['user']}")
+                    print(f"  {tag} : {t['reply']}")
+                    if t.get("expect"):
+                        print(f"  >>> RATER NOTE: {t['expect']}")
             print()
             vote = {"script": script_id, "left": first, "right": second, "batch": batch_path.name}
             for dim in DIMENSIONS:
@@ -267,6 +273,12 @@ def main():
     gen.add_argument("--temperature", type=float, default=0.7)
     gen.add_argument("--think-off", action="store_true", default=False,
                      help="disable thinking on Qwen models (BFCL protocol parity)")
+    gen.add_argument("--variant", choices=["a", "b", "alternate"], default="a",
+                     help="prompt wording: a = original scripts (standard Arena setup), "
+                          "b = alternate wordings, alternate = random per play "
+                          "(seeded, recorded; fights rater memorization)")
+    gen.add_argument("--variant-seed", type=int, default=7,
+                     help="RNG seed for --variant alternate")
     prompt_mode = gen.add_mutually_exclusive_group()
     prompt_mode.add_argument("--bare-model", action="store_true",
                              help="omit Grace's persona and timestamp; compare model endpoints directly")
