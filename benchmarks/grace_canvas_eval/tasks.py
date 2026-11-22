@@ -33,7 +33,8 @@ def has_hue(colours, low, high, min_sat=0.15, min_light=0.06, max_light=0.97):
             continue
         if sat < min_sat or light < min_light or light > max_light:
             continue
-        if low <= hue <= high:
+        in_band = low <= hue <= high if low <= high else hue >= low or hue <= high
+        if in_band:
             return True
     return False
 

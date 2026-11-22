@@ -40,6 +40,7 @@ AGI_REPO=/path/to/AGi /tmp/grace-canvas-eval-venv/bin/python benchmarks/grace_ca
 ```
 
 Useful flags: `--tier 1` (repeatable) to run one tier, `--limit N`,
+`--task T1-lighthouse` (repeatable) to select exact scene IDs,
 `--temperature` (default 0), `--judge-base-url`/`--judge-model` to add an
 optional multimodal judge that scores the rendered image against the brief.
 When this scorecard checkout sits inside the AGi workspace, the harness finds
@@ -64,7 +65,7 @@ Grace uses in production -- so results transfer.
 |---|---|
 | `check_score` | fraction of per-task checks passed |
 | `tasks_fully_satisfied` | tasks where every check passed |
-| `valid_rate` | `canvas.engine.validate_actions()` accepted the raw actions |
+| `valid_rate` | `canvas.engine.validate_actions()` accepted the prepared actions after repair; inspect `.raw.actions.json` for raw validity |
 | `clamped_fields` | numeric fields the validator had to clamp into range |
 | `render_rate` | `canvas.svg.render()` produced an SVG (and a PNG) |
 | `truncated_rate` | the action JSON was cut off and needed recovery |
@@ -120,9 +121,9 @@ fails T1-lighthouse; the lighthouse ceiling is 0.95. Historical scores in
 
 - The renderer is Grace's own (`canvas.svg.Renderer`), so `objects` is the same
   ordered list the browser console shows.
-- Invalid actions are still rendered: the harness falls back to
-  `engine.repair_model_actions()` exactly like `aiva_chat.node` does, so the
-  visual metrics stay meaningful while `valid_rate` records the raw failure.
+- Actions pass through `engine.repair_model_actions()` before validation and
+  rendering, as in production. `valid_rate` measures the prepared actions;
+  raw per-pass artifacts retain model errors that repair converted or dropped.
 - `T3` checks are the CANVAS-style ones: rhythm and alignment rather than
   "is there a rectangle".
 
@@ -159,6 +160,55 @@ Historical results remain historical: review deltas from the old pipeline and
 runs labelled with reasoning effort need rerunning. Scene checks measure
 structure and palette; inspect the PNGs or configure the image judge to assess
 visual quality. These fixes do not establish a new model score.
+
+### Local Swift: the four API example scenes
+
+Start an isolated server from the AGi root (uses the existing local weights;
+port 8096 keeps this experiment separate from the app's router):
+
+```bash
+LD_LIBRARY_PATH=/home/oppa-ai/llama.cpp/build/bin \
+  /home/oppa-ai/llama.cpp/build/bin/llama-server \
+  -m models/swift15-qwen3.8-27b/Swift-1.5-Qwen3.8-27B-GSQ-RCO-IQ3_S-mtp.gguf \
+  --mmproj models/swift15-qwen3.8-27b/mmproj-Swift-1.5-Qwen3.8-27B-Uncensored-MTP-BF16.gguf \
+  --no-mmproj-offload -c 32768 -ngl 999 \
+  --cache-type-k q8_0 --cache-type-v q8_0 --parallel 1 --jinja \
+  --reasoning-effort medium --reasoning-budget 2048 \
+  --port 8096 --alias swift-local-canvas
+```
+
+In another terminal, with `cairosvg` and `pillow` installed:
+
+```bash
+python diagnostic/scorecard/benchmarks/grace_canvas_eval/grace_canvas_eval.py \
+  --base-url http://127.0.0.1:8096/v1 --model swift-local-canvas \
+  --label swift-local-geometry --strict-geometry --single-pass \
+  --task T1-lighthouse --task T2-still-life \
+  --task T2-robot-mascot --task T5-critique-self \
+  --out diagnostic/scorecard/benchmarks/grace_canvas_eval/results/swift-local-geometry.json \
+  --out-dir diagnostic/scorecard/benchmarks/grace_canvas_eval/renders/Swift-local-geometry
+```
+
+This uses the original briefs and canvas engine, constrained JSON with explicit
+colors, temperature 0, and 6144 output tokens per pass. The server caps thinking
+at 2048 tokens. `--strict-geometry` is an opt-in local experiment: it requires
+stable IDs, hex paints, and each kind's geometry, and adds a short geometry
+contract to the drawing instructions. This differs from the production schema.
+Without it the local baseline omitted rectangle/ellipse geometry and edit IDs;
+requiring geometry alone also allowed `color="none"`, which the engine rejects.
+The single-pass command gives a 16-action draft. To allow up to four passes
+with screenshots, replace `--single-pass` with `--vision-passes`.
+Raw actions and intermediate PNGs are saved per pass. Structural checks alone
+do not establish API visual parity.
+
+On 2026-11-21, the four single-pass local drafts all rendered without stream
+truncation and passed 18/20 scene checks after fixing red hue wraparound.
+The remaining failures were the still-life and cabin coverage caps. Several
+malformed cubic point lists used the engine's existing smooth-path repair.
+These are fresh local drawings, not reproductions of the API pixels. The
+robot and cabin also have separate screenshot-guided `.refined.png` outputs,
+with review prompts and actions in `.review.json`; those additional passes
+are not included in the single-pass score report.
 
 Offline pipeline checks (requires pytest, cairosvg, and pillow):
 

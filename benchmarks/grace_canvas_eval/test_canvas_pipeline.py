@@ -16,8 +16,15 @@ eval = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(eval)
 
 
+@pytest.mark.parametrize('color,expected', [
+    ('#c0392b', True), ('#cc2244', True), ('#228844', False), ('#888888', False)])
+def test_red_hue_band_wraps_through_zero(color, expected):
+    assert eval.T.has_hue([color], 340, 20) is expected
+
+
 @pytest.mark.parametrize('image_fallback', [False, True])
-def test_request_preserves_controls(monkeypatch, image_fallback):
+@pytest.mark.parametrize('use_tools', [False, True])
+def test_request_preserves_controls(monkeypatch, image_fallback, use_tools):
     requests = []
     def request(base_url, body, timeout):
         requests.append(body)
@@ -28,11 +35,16 @@ def test_request_preserves_controls(monkeypatch, image_fallback):
     monkeypatch.setattr(eval, 'urllib_request', request)
     eval.draw_actions('http://example.invalid', 'model', 'system', 'brief',
                       images=['fake'] if image_fallback else None,
-                      force_tool=True, reasoning_effort='low')
+                      force_tool=use_tools, use_tools=use_tools, reasoning_effort='low')
     assert len(requests) == (2 if image_fallback else 1)
     for body in requests:
         assert body['reasoning_effort'] == 'low'
-        assert body['tool_choice']['function']['name'] == 'canvas_draw'
+        if use_tools:
+            assert body['tool_choice']['function']['name'] == 'canvas_draw'
+        else:
+            assert body['response_format']['type'] == 'json_schema'
+            schema = body['response_format']['json_schema']['schema']
+            assert schema['properties']['actions']['items']['required'] == ['kind', 'color', 'fill_color']
     assert requests[-1]['messages'][1]['content'][0]['type'] == 'text'
 
 
@@ -50,7 +62,7 @@ def test_review_keeps_draft_and_seed_and_renders_color(monkeypatch, tmp_path):
     def draw(*args, **kwargs):
         calls.append(args)
         actions = [draft] if len(calls) == 1 else [{'kind': 'style', 'id': 'leaf', 'fill_color': '#22cc22'}]
-        return actions, {'truncated': False, 'elapsed_s': 0}
+        return actions, {'truncated': False, 'elapsed_s': 0, 'more': len(calls) == 1}
     monkeypatch.setattr(eval, 'draw_actions', draw)
     args = SimpleNamespace(base_url='unused', model='unused', schema_hint=False,
                            temperature=0, think_off=True, force_tool=True,
@@ -58,9 +70,9 @@ def test_review_keeps_draft_and_seed_and_renders_color(monkeypatch, tmp_path):
     task = {'id': 'offline-review', 'tier': 5, 'brief': 'Paint a leaf',
             'seed_actions': [seed], 'checks': [lambda scene: (len(scene['objects']) == 2, 'kept objects')]}
     result = eval.run_task(task, args)
-    assert result['pass2']['rendered'] and result['pass2']['score'] == 1
+    assert result['passes'][1]['rendered'] and result['score'] == 1
     assert 'leaf' in calls[1][3] and 'background' in calls[1][3]
-    final = json.loads((tmp_path / 'offline-review.final.actions.json').read_text())
+    final = [seed] + json.loads((tmp_path / 'offline-review.actions.json').read_text())
     png, error = eval.render_png(final)
     assert error is None
     r, g, b = Image.open(io.BytesIO(png)).convert('RGB').getpixel((150, 150))

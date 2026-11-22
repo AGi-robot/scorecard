@@ -107,7 +107,7 @@ TEXT_REQUEST = re.compile(
     re.IGNORECASE)
 
 
-def build_production_schema(action_limit, allow_paints=False):
+def build_production_schema(action_limit, allow_paints=False, strict_geometry=False):
     """Per-pass canvas_draw parameters, exactly as production builds them."""
     schema = json.loads(json.dumps(DRAW_TOOL["function"]["parameters"]))
     schema["properties"]["actions"]["maxItems"] = action_limit
@@ -119,6 +119,40 @@ def build_production_schema(action_limit, allow_paints=False):
             kind_enum.remove("image")
         schema["properties"]["actions"]["items"]["properties"].pop("prompt", None)
     schema["required"] = ["actions", "more", "response"]
+    if strict_geometry:
+        item = schema["properties"]["actions"]["items"]
+        variants = []
+        for kind in item["properties"]["kind"]["enum"]:
+            variant = json.loads(json.dumps(item))
+            props = variant["properties"]
+            props["kind"] = {"type": "string", "enum": [kind]}
+            for name in ("color", "fill_color", "gradient_color"):
+                props[name]["pattern"] = "^#[0-9a-fA-F]{6}$"
+            props["id"].update({"minLength": 1, "maxLength": 64})
+            # llama.cpp's grammar orders object keys by schema order. Put
+            # paint before geometry so choosing a color cannot skip coordinates.
+            order = ["kind", "id", "color", "fill_color", "fill", "stroke"]
+            variant["properties"] = {k: props[k] for k in order if k in props}
+            variant["properties"].update({k: v for k, v in props.items() if k not in order})
+            required = ["kind", "id", "color", "fill_color"]
+            if kind in ("rectangle", "ellipse", "image", "text", "letter"):
+                required += ["x", "y"]
+            if kind in ("rectangle", "ellipse", "image"):
+                required += ["width", "height", "fill", "stroke"]
+                props["width"]["minimum"] = 1
+                props["height"]["minimum"] = 1
+            if kind in ("curve", "path", "polygon", "line"):
+                required += ["points", "fill", "stroke"]
+                props["points"]["minItems"] = 4 if kind == "curve" else (3 if kind == "polygon" else 2)
+                if kind == "line":
+                    props["points"]["maxItems"] = 2
+            if kind in ("text", "letter"):
+                required += ["text"]
+            if kind == "move":
+                required += ["dx", "dy"]
+            variant["required"] = required
+            variants.append(variant)
+        schema["properties"]["actions"]["items"] = {"anyOf": variants}
     return schema
 
 
@@ -224,7 +258,7 @@ def urllib_request(base_url, body, timeout):
 def draw_actions(base_url, model, system, user, images=None, temperature=0.0,
                  schema_hint=False, think_off=False, force_tool=False,
                  reasoning_effort=None, action_limit=16, allow_paints=False,
-                 use_tools=False):
+                 use_tools=False, strict_geometry=False):
     """One canvas_draw turn under the production protocol. Returns (actions, meta).
 
     Default transport is response_format=json_schema with the production
@@ -241,7 +275,8 @@ def draw_actions(base_url, model, system, user, images=None, temperature=0.0,
         send = {"tools": [build_tool(schema_hint)]}
     else:
         send = {"json_schema": build_production_schema(action_limit,
-                                                       allow_paints=allow_paints)}
+                                                       allow_paints=allow_paints,
+                                                       strict_geometry=strict_geometry)}
     try:
         data = chat(base_url, model, messages, temperature=temperature,
                     think_off=think_off, force_tool=force_tool,
@@ -403,6 +438,14 @@ def run_task(task, args):
     endpoint rejects images.
     """
     system = DRAW_INSTRUCTIONS + VECTOR_ONLY_SUFFIX
+    if getattr(args, "strict_geometry", False):
+        system += (
+            "\nGeometry contract: every action needs a stable id. Rectangle and ellipse "
+            "need explicit x,y,width,height with positive dimensions. A full-canvas "
+            "backdrop is a rectangle at x=0,y=0,width=1000,height=650. Use polygon "
+            "for a list of silhouette corners; curve points are cubic controls, "
+            "not polygon vertices. Set stroke=false to hide outlines, and still "
+            "supply hex color (never 'none' or 'transparent').")
     if getattr(args, "allow_image", False) and PAINT_INSTRUCTIONS:
         system = f"{DRAW_INSTRUCTIONS}\n\n{PAINT_INSTRUCTIONS}"
     seed = task.get("seed_actions") or []
@@ -451,6 +494,7 @@ def run_task(task, args):
                                      force_tool=args.force_tool,
                                      reasoning_effort=args.reasoning_effort,
                                      action_limit=budget,
+                                     strict_geometry=getattr(args, "strict_geometry", False),
                                      use_tools=args.force_tool)
         if not allow_text:
             # Production drops text/letter actions unless writing was requested.
@@ -465,6 +509,13 @@ def run_task(task, args):
 
         scene = build_scene(base + prepared)
         png, render_error = render_png(base + prepared)
+        if args.out_dir:
+            out = Path(args.out_dir)
+            out.mkdir(parents=True, exist_ok=True)
+            (out / f"{task['id']}.pass{pass_index + 1}.raw.actions.json").write_text(
+                json.dumps(actions, indent=1))
+            if png:
+                (out / f"{task['id']}.pass{pass_index + 1}.png").write_bytes(png)
         checks = []
         for check in task["checks"]:
             try:
@@ -558,6 +609,8 @@ def main():
     parser.add_argument("--model", required=True)
     parser.add_argument("--label", default="model")
     parser.add_argument("--tier", type=int, action="append", default=None)
+    parser.add_argument("--task", action="append", choices=[t["id"] for t in T.TASKS],
+                        help="run a specific task ID (repeatable)")
     parser.add_argument("--limit", type=int, default=0)
     parser.add_argument("--temperature", type=float, default=0.0)
     parser.add_argument("--judge-base-url", default=None)
@@ -565,6 +618,8 @@ def main():
     parser.add_argument("--schema-hint", action="store_true", default=False,
                         help="put the curve point-count rule in the tool schema "
                              "(machine-validated) instead of prose-only")
+    parser.add_argument("--strict-geometry", action="store_true",
+                        help="require IDs and kind-specific geometry in constrained JSON")
     parser.add_argument("--out", default=None)
     parser.add_argument("--out-dir", default=None)
     parser.add_argument("--think-off", action="store_true", default=False,
@@ -593,6 +648,8 @@ def main():
                              "makes models describe pictures in prompt instead "
                              "of drawing vector shapes with fill_color")
     args = parser.parse_args()
+    if args.strict_geometry and args.force_tool:
+        parser.error("--strict-geometry requires JSON-schema transport; omit --force-tool")
 
     if args.think_off:
         # Explicit opt-out of thinking clears the production default.
@@ -605,6 +662,8 @@ def main():
     MAX_TOKENS = args.max_tokens
 
     selected = [t for t in T.TASKS if args.tier is None or t["tier"] in args.tier]
+    if args.task:
+        selected = [t for t in selected if t["id"] in args.task]
     if args.limit:
         selected = selected[:args.limit]
 
@@ -632,6 +691,7 @@ def main():
     deltas = [r["refinement_delta"] for r in results if "refinement_delta" in r]
     summary = {
         "label": args.label, "model": args.model, "schema_hint": args.schema_hint,
+        "strict_geometry": args.strict_geometry,
         "base_url": args.base_url,
         "protocol_version": 3, "temperature": args.temperature,
         "transport": "tools" if args.force_tool else "response_format_json_schema",
