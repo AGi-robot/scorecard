@@ -1,0 +1,13 @@
+{
+ "label": "ministral-modal-ifeval",
+ "model": "ministral-3-14b-instruct-2512",
+ "n": 541,
+ "think_off": false,
+ "run_fingerprint": "b8027bee7f5de5c99b2befa29dd8ae2ad37b9cc9673149352194a66c51d72e77",
+ "limit": 0,
+ "smoke": false,
+ "truncated": 56,
+ "strict": 0.573,
+ "loose": 0.6155,
+ "elapsed_s": 5686.6
+}

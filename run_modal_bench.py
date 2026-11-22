@@ -54,7 +54,8 @@ BENCHES = {
         "script": BENCH / "ifeval" / "ifeval_run.py",
         "desc": "541 prompts, official strict/loose scoring",
         "args": lambda m, o: [m["base_url"], m["model"], f"{m['label']}-ifeval"]
-        + (["--limit", str(o.limit)] if o.limit else []),
+        + (["--limit", str(o.limit)] if o.limit else [])
+        + (["--think-off"] if o.think_off else []),
         "env": {"IF_EVAL_RETRIES": "8"},
         "note": "Start here on ministral: cheapest full validation of the Modal path.",
     },
@@ -225,6 +226,8 @@ def main() -> None:
     p.add_argument("--model-id", help="model alias with --model custom")
     p.add_argument("--bench", choices=list(BENCHES))
     p.add_argument("--limit", type=int, default=0)
+    p.add_argument("--think-off", action="store_true",
+                   help="ifeval/canvas: disable thinking (parity for non-thinking models)")
     p.add_argument("--task", help="canvas task id, e.g. T1-lighthouse")
     p.add_argument("--single-pass", action="store_true", help="canvas: one pass (quick A/B)")
     p.add_argument("--input", help="longmemeval data file")
