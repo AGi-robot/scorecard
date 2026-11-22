@@ -35,14 +35,31 @@ preflight() {
   fi
 }
 
-run_both() { # $1 = bench, rest = extra args passed to run_modal_bench.py
+MODEL_SEL=""
+for a in "$@"; do
+  case "$a" in
+    --model=*) MODEL_SEL="${a#--model=}";;
+  esac
+done
+ARGS=()
+for a in "$@"; do
+  [[ "$a" == --model=* ]] || ARGS+=("$a")
+done
+if [[ -z "$MODEL_SEL" ]]; then
+  echo "Models: [both]/ministral/swift (benchmark-only Modal endpoints)"
+  read -rp "Models [both]: " MODEL_SEL
+  MODEL_SEL="${MODEL_SEL:-both}"
+fi
+
+run_sel() { # $1 = bench, rest = extra args; runs selected models
   local bench="$1"; shift
-  echo "### ministral (Modal) — $bench"
-  preflight "$MODAL_MINISTRAL_URL" || return 1
-  $RUN --model ministral --bench "$bench" "$@"
-  echo "### swift (Modal) — $bench"
-  preflight "$MODAL_SWIFT_URL" || return 1
-  $RUN --model swift --bench "$bench" "$@"
+  for m in ministral swift; do
+    if [[ "$MODEL_SEL" != "both" && "$MODEL_SEL" != "$m" ]]; then continue; fi
+    echo "### $m (Modal) — $bench"
+    local url_var="MODAL_${m^^}_URL"
+    preflight "${!url_var}" || return 1
+    $RUN --model "$m" --bench "$bench" "$@"
+  done
 }
 
 chat_generate() {
@@ -63,6 +80,7 @@ chat_generate() {
 run_evalplus() { # $1 = dataset
   local ds="$1"; shift
   for m in ministral swift; do
+    if [[ "$MODEL_SEL" != "both" && "$MODEL_SEL" != "$m" ]]; then continue; fi
     echo "### $m (Modal) — EvalPlus $ds"
     local url_var="MODAL_${m^^}_URL"
     preflight "${!url_var}" || return 1
@@ -89,16 +107,16 @@ echo "12) Chat rate (blind pairwise, interactive)"
 echo "13) Chat score (win rates + Elo)"
 read -rp "Choice: " choice
 case "$choice" in
-  1) run_both ifeval "$@" ;;
-  2) run_both ifbench "$@" ;;
-  3) run_both longmemeval "$@" ;;
-  4) run_both bfcl "$@" ;;
-  5) run_both livecodebench "$@" ;;
-  6) run_evalplus humaneval "$@" ;;
-  7) run_evalplus mbpp "$@" ;;
+  1) run_sel ifeval "${ARGS[@]}" ;;
+  2) run_sel ifbench "${ARGS[@]}" ;;
+  3) run_sel longmemeval "${ARGS[@]}" ;;
+  4) run_sel bfcl "${ARGS[@]}" ;;
+  5) run_sel livecodebench "${ARGS[@]}" ;;
+  6) run_evalplus humaneval "${ARGS[@]}" ;;
+  7) run_evalplus mbpp "${ARGS[@]}" ;;
   8) $RUN --model ministral --bench eqbench ;;
-  9) run_both canvas --task T1-lighthouse "$@" ;;
-  10) run_both canvas "$@" ;;
+  9) run_sel canvas --task T1-lighthouse "${ARGS[@]}" ;;
+  10) run_sel canvas "${ARGS[@]}" ;;
   11) chat_generate ;;
   12) $CHAT rate ;;
   13) $CHAT score ;;
