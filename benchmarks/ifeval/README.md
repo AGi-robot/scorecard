@@ -17,10 +17,13 @@ AI at least 3 times" won't follow Grace's output contracts either.
 
 - temperature 0.0, max_tokens 2048, plain user message (no system prompt —
   matches the official harness, which sends the raw prompt).
-- Qwen thinking models run with `chat_template_kwargs.enable_thinking=false`
-  (`--think-off`), consistent with every other Grace benchmark: thinking
-  traces would pollute format-sensitive scoring and Ministral has no
-  thinking mode to match against.
+- IFEval itself does not prescribe whether a model's thinking mode is on or
+  off; it scores the generated response text. The standard Scorecard protocol
+  uses each endpoint's normal default generation mode (for example, Swift's
+  Qwen thinking mode stays on by default; Ministral has no separate thinking
+  mode).
+- Use `--think-off` only for a separately labeled comparison variant. The
+  runner records this setting and prevents checkpoints from mixing modes.
 - Official `test_instruction_following_strict` / `_loose` on the results.
 
 ## Running it
@@ -32,10 +35,10 @@ python -m pip install -r requirements.txt
 # Run one model per process. API model IDs may differ from scorecard labels; this keeps the endpoint ID `swift`
 # but labels its output files with the exact Swift 1.5 Qwen 3.8 27B build.
 python ifeval_run.py http://127.0.0.1:8080/v1 ministral-3-14b-instruct-2512 ministral3-14b
-python ifeval_run.py http://127.0.0.1:8094/v1 swift swift1.5-qwen3.8-27B --think-off
-python ifeval_run.py http://127.0.0.1:8101/v1 a1-4b agents-a1-4b --think-off
+python ifeval_run.py http://127.0.0.1:8094/v1 swift swift1.5-qwen3.8-27B
+python ifeval_run.py http://127.0.0.1:8101/v1 a1-4b agents-a1-4b
 python ifeval_run.py http://127.0.0.1:8102/v1 minicpm minicpm5-2b
-python ifeval_run.py http://127.0.0.1:8103/v1 neo neohorse-1-4b --think-off
+python ifeval_run.py http://127.0.0.1:8103/v1 neo neohorse-1-4b
 ```
 
 Resumable: completed responses are appended to

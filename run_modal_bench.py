@@ -227,7 +227,7 @@ def main() -> None:
     p.add_argument("--bench", choices=list(BENCHES))
     p.add_argument("--limit", type=int, default=0)
     p.add_argument("--think-off", action="store_true",
-                   help="ifeval/canvas: disable thinking (parity for non-thinking models)")
+                   help="ifeval/canvas: run a separate thinking-disabled variant")
     p.add_argument("--task", help="canvas task id, e.g. T1-lighthouse")
     p.add_argument("--single-pass", action="store_true", help="canvas: one pass (quick A/B)")
     p.add_argument("--input", help="longmemeval data file")

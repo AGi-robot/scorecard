@@ -55,10 +55,13 @@ not full benchmark scores. Synthetic scorer fixtures and smoke tests are not
 benchmark results. INTIMA and AICompanionBench are research-readiness entries,
 not runnable integrations ([guide](benchmarks/companion_safety/README.md)).
 
-**Thinking mode.** All EQ-Bench and IFEval numbers are taken with thinking
-**off**, so every model is scored under one protocol. `ministral3-14b` has no
-thinking mode, so it is unaffected either way. Canvas is reported per arm
-because the arms disagree by more than any other benchmark here.
+**Thinking mode.** EQ-Bench results remain think-off. Official IFEval does
+not prescribe a thinking mode; the current Scorecard protocol uses each
+endpoint's normal default (Swift/Qwen on, Ministral with no separate thinking
+mode). `--think-off` is a separately recorded IFEval variant, and scores from
+different modes should not be compared as one protocol. IFEval scores below
+were collected under the previous think-off protocol. Canvas is reported per
+arm because the arms disagree by more than any other benchmark here.
 
 ---
 
