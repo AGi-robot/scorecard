@@ -38,6 +38,7 @@ MODELS = {
         "base_url": "https://oppa-ai-org--grace-llm-serve-serve-swift.us-east.modal.run/v1",
         "model": "swift15-qwen3.8-27b-local",
         "label": "swift-modal",
+        "ifeval_reasoning_effort": "low",
         "desc": "Modal 27B reasoning model (slow cold-start, MTP) — tools/canvas",
     },
     "local": {
@@ -54,8 +55,14 @@ BENCHES = {
         "name": "IFEval",
         "script": BENCH / "ifeval" / "ifeval_run.py",
         "desc": "541 prompts, official strict/loose scoring",
-        "args": lambda m, o: [m["base_url"], m["model"], f"{m['label']}-ifeval"]
+        "args": lambda m, o: [
+            m["base_url"], m["model"],
+            (f"{m['label']}-{m['ifeval_reasoning_effort']}-ifeval"
+             if m.get("ifeval_reasoning_effort") else f"{m['label']}-ifeval"),
+        ]
         + (["--limit", str(o.limit)] if o.limit else [])
+        + (["--reasoning-effort", m["ifeval_reasoning_effort"]]
+           if m.get("ifeval_reasoning_effort") else [])
         + (["--think-off"] if o.think_off else []),
         "env": {"IF_EVAL_RETRIES": "8"},
         "note": "Start here on ministral: cheapest full validation of the Modal path.",

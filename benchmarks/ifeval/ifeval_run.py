@@ -55,6 +55,8 @@ def ask(args, prompt, timeout=900):
     body = {"model": args.model,
             "messages": [{"role": "user", "content": prompt}],
             "temperature": TEMPERATURE, "max_tokens": MAX_TOKENS, "stream": False}
+    if args.reasoning_effort:
+        body["reasoning_effort"] = args.reasoning_effort
     if args.think_off:
         body["chat_template_kwargs"] = {"enable_thinking": False}
     req = urllib.request.Request(
@@ -96,6 +98,8 @@ def main():
     parser.add_argument("model")
     parser.add_argument("label", nargs="?")
     parser.add_argument("--think-off", action="store_true")
+    parser.add_argument("--reasoning-effort",
+                        choices=["minimal", "low", "medium", "high", "xhigh", "max"])
     parser.add_argument("--limit", type=int, default=0)
     args = parser.parse_args()
     args.base_url = args.base_url.rstrip("/")
@@ -114,6 +118,8 @@ def main():
         "model": args.model, "think_off": args.think_off, "limit": args.limit,
         "temperature": TEMPERATURE, "max_tokens": MAX_TOKENS,
     }
+    if args.reasoning_effort:
+        config["reasoning_effort"] = args.reasoning_effort
     fingerprint = hashlib.sha256(json.dumps(config, sort_keys=True).encode()).hexdigest()
 
     OUT.mkdir(parents=True, exist_ok=True)
