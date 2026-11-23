@@ -86,7 +86,7 @@ With a server already serving the corresponding model, from the scorecard root:
 
 ```bash
 .venv/bin/python benchmarks/ifbench/ifbench_run.py \
-  --base-url http://127.0.0.1:8095/v1 --model ministral-3-8b-uncensored \
+  --base-url http://127.0.0.1:8095/v1 --model ministral-3-8b-instruct-2512-abliterated \
   --output benchmarks/ifbench/results/ministral-bounded
 
 .venv/bin/python benchmarks/ifbench/ifbench_run.py \

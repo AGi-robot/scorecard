@@ -6,8 +6,8 @@
  "run_fingerprint": "b8027bee7f5de5c99b2befa29dd8ae2ad37b9cc9673149352194a66c51d72e77",
  "limit": 0,
  "smoke": false,
- "truncated": 56,
- "strict": 0.573,
+ "truncated": 0,
+ "strict": 0.5749,
  "loose": 0.6155,
- "elapsed_s": 5686.6
+ "elapsed_s": 1.1
 }

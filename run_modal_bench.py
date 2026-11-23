@@ -41,7 +41,7 @@ MODELS = {
     },
     "local": {
         "base_url": "http://127.0.0.1:8080/v1",
-        "model": "ministral-3-8b-uncensored",
+        "model": "ministral-3-8b-instruct-2512-abliterated",
         "label": "local-router",
         "desc": "Local AGi router (free, instant) — baseline comparison",
     },

@@ -121,7 +121,7 @@ class TransportTests(unittest.TestCase):
 
     def test_ifbench_default_budgets_and_explicit_overrides(self):
         import ifbench_baseline as runner
-        for model, tokens, timeout in [("ministral-3-8b-uncensored", 4096, 600),
+        for model, tokens, timeout in [("ministral-3-8b-instruct-2512-abliterated", 4096, 600),
                                        ("swift15-qwen3.8-27b-local", 8192, 1200)]:
             args = argparse.Namespace(model=model, max_tokens=None, request_timeout=None)
             runner.configure_limits(args)
