@@ -29,8 +29,8 @@ BENCH = HERE / "benchmarks"
 MODELS = {
     "ministral": {
         "base_url": "https://oppa-ai-org--grace-llm-serve-serve-ministral.us-east.modal.run/v1",
-        "model": "ministral-3-14b-instruct-2512",
-        "label": "ministral-modal",
+        "model": "ministral-3-8b-instruct-2512-abliterated",
+        "label": "ministral-modal-abliterated",
         "desc": "Modal 8B chat model (fast, cheap) — instruction-following first",
     },
     "swift": {
