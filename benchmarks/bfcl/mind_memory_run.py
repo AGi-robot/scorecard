@@ -20,6 +20,9 @@ import urllib.error
 import urllib.request
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+from benchmarks.model_aliases import MINISTRAL_ALIAS
+
 
 def read_jsonl(path: Path) -> list[dict]:
     return [json.loads(line) for line in path.read_text(encoding="utf-8").splitlines() if line.strip()]
@@ -185,7 +188,7 @@ def main() -> None:
         help="Pinned berkeley-function-call-leaderboard checkout root",
     )
     parser.add_argument("--base-url", default="http://127.0.0.1:8080/v1")
-    parser.add_argument("--model", default="ministral-3-14b-instruct-2512")
+    parser.add_argument("--model", default=MINISTRAL_ALIAS)
     parser.add_argument("--api-key", default=os.getenv("OPENAI_API_KEY", "EMPTY"))
     parser.add_argument("--memory-turns", type=int, default=8)
     parser.add_argument("--system-prompt-file", type=Path,
@@ -194,7 +197,7 @@ def main() -> None:
     parser.add_argument("--seed-max-tokens", type=int, default=256)
     parser.add_argument("--timeout", type=float, default=900)
     parser.add_argument("--limit", type=int, help="Score only the first N questions")
-    parser.add_argument("--label", default="ministral3-14b-memory8")
+    parser.add_argument("--label", default=f"{MINISTRAL_ALIAS}-memory8")
     parser.add_argument("--output", type=Path)
     parser.add_argument("--overwrite", action="store_true")
     args = parser.parse_args()

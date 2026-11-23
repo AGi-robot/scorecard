@@ -55,8 +55,8 @@ python benchmarks/eqbench/eqbench_run.py \
   --persona-models google/gemini-3.1-pro-preview \
   --pairwise-judges google/gemini-3.1-pro-preview,openai/gpt-5.5,claude-opus-4-6 \
   --pointwise-judges claude-opus-4-8 \
-  --parallel 2 --out "$EQ_WORK/eq4-results-grace/grace_ministral3_14b.json" \
-  --run-id grace_ministral3_14b --results-dir "$EQ_WORK/eq4-results-grace" --verbose
+  --parallel 2 --out "$EQ_WORK/eq4-results-grace/grace_ministral3_8b_abliterated.json" \
+  --run-id grace_ministral3_8b_abliterated --results-dir "$EQ_WORK/eq4-results-grace" --verbose
 ```
 
 Copy the reference pool only once, before the first run. Use the same output
@@ -81,7 +81,7 @@ python benchmarks/eqbench/eqbench_run.py \
   --test-model YOUR_MODEL_ID --judge-model claude-sonnet-4-6 \
   --runs-file creative_bench_runs.json \
   --creative-prompts-file data/creative_writing_prompts_v3.json \
-  --run-id grace_ministral3_14b --iterations 3 --threads 2 --verbosity INFO
+  --run-id grace_ministral3_8b_abliterated --iterations 3 --threads 2 --verbosity INFO
 ```
 
 The primary metric is official `elo_norm` from `elo_results.json`; retain

@@ -34,7 +34,7 @@ python -m pip install -r requirements.txt
 
 # Run one model per process. API model IDs may differ from scorecard labels; this keeps the endpoint ID `swift`
 # but labels its output files with the exact Swift 1.5 Qwen 3.8 27B build.
-python ifeval_run.py http://127.0.0.1:8080/v1 ministral-3-14b-instruct-2512 ministral3-14b
+python ifeval_run.py http://127.0.0.1:8080/v1 ministral-3-8b-instruct-2512-abliterated ministral3-8b-abliterated
 python ifeval_run.py http://127.0.0.1:8094/v1 swift swift1.5-qwen3.8-27B
 python ifeval_run.py http://127.0.0.1:8101/v1 a1-4b agents-a1-4b
 python ifeval_run.py http://127.0.0.1:8102/v1 minicpm minicpm5-2b

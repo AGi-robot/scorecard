@@ -22,7 +22,7 @@ use Grace's chat persona, tools, or memory.
 ```bash
 export OPENAI_API_KEY=EMPTY
 evalplus.codegen \
-  --model ministral-3-14b-instruct-2512 \
+  --model ministral-3-8b-instruct-2512-abliterated \
   --dataset humaneval \
   --backend openai \
   --base-url http://127.0.0.1:8080/v1 \
@@ -48,7 +48,7 @@ docker run --rm \
   ganler/evalplus:latest \
   evalplus.evaluate \
     --dataset humaneval \
-    --samples /app/results/humaneval/ministral-3-14b-instruct-2512_openai_temp_0.0.jsonl
+    --samples /app/results/humaneval/ministral-3-8b-instruct-2512-abliterated_openai_temp_0.0.jsonl
 ```
 
 Repeat with `--dataset mbpp` and the corresponding MBPP sample file. The

@@ -14,7 +14,9 @@ import unittest
 from unittest.mock import patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 import baseline_common as common
+import run_modal_bench as scorecard_runner
 
 
 class TransportTests(unittest.TestCase):
@@ -121,8 +123,8 @@ class TransportTests(unittest.TestCase):
 
     def test_ifbench_default_budgets_and_explicit_overrides(self):
         import ifbench_baseline as runner
-        for model, tokens, timeout in [("ministral-3-8b-instruct-2512-abliterated", 4096, 600),
-                                       ("swift15-qwen3.8-27b-local", 8192, 1200)]:
+        for model, tokens, timeout in [(scorecard_runner.MODELS["ministral"]["model"], 4096, 600),
+                                       (scorecard_runner.MODELS["swift"]["model"], 8192, 1200)]:
             args = argparse.Namespace(model=model, max_tokens=None, request_timeout=None)
             runner.configure_limits(args)
             self.assertEqual((args.max_tokens, args.request_timeout), (tokens, timeout))

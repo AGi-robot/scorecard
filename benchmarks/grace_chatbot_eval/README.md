@@ -18,7 +18,7 @@ Canvas Eval.
 # Needs the model servers up. Identities are sealed in the batch file;
 # raters only ever see anonymous A/B pairs.
 python preference_bench.py generate \
-    --contestant ministral=http://127.0.0.1:8080/v1/ministral-3-14b-instruct-2512 \
+    --contestant ministral=http://127.0.0.1:8080/v1/ministral-3-8b-instruct-2512-abliterated \
     --contestant saluki=http://127.0.0.1:8092/v1/saluki \
     --contestant swift1.5-qwen3.8-27B=http://127.0.0.1:8091/v1/swift
 

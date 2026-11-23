@@ -8,7 +8,7 @@ no reference images or human labels are needed.
 
 Usage:
     python grace_canvas_eval.py --base-url http://127.0.0.1:8080/v1 \\
-        --model ministral-3-14b-instruct-2512 --label ministral
+        --model <router-model-alias> --label <run-label>
 
 Options:
     --tier 1,2,3,4,5     only run these tiers (repeatable)

@@ -33,10 +33,10 @@ uv pip install --python /tmp/grace-canvas-eval-venv/bin/python cairosvg pillow
 # a model must be served with the canvas_draw tool available
 AGI_REPO=/path/to/AGi /tmp/grace-canvas-eval-venv/bin/python benchmarks/grace_canvas_eval/grace_canvas_eval.py \
     --base-url http://127.0.0.1:8080/v1 \
-    --model ministral-3-14b-instruct-2512 \
-    --label ministral3-14b \
-    --out results/ministral.json \
-    --out-dir renders/ministral
+    --model ministral-3-8b-instruct-2512-abliterated \
+    --label ministral3-8b-abliterated \
+    --out results/ministral3-8b-abliterated.json \
+    --out-dir renders/ministral3-8b-abliterated
 ```
 
 Useful flags: `--tier 1` (repeatable) to run one tier, `--limit N`,
@@ -107,7 +107,8 @@ constrained decoding, not a bigger quant. The working recipe:
    part of the plan and pays for itself (lighthouse judge ladder:
    effort off 7/10, low 8/10, medium 9/10 + 5/5 checks).
 
-Measured with this recipe (judge = Ministral3-14B, single sample):
+Historical 14B results (not the current configured 8B model), judge = Ministral3-14B,
+single sample:
 sunflower 9/10, lighthouse 9/10. Ministral3-14B (Q4_K_XL and Q8_0) emits
 correct hex colours under the same grammar but composes worse (8/10, muted
 palette) -- keep it on chat, not canvas.

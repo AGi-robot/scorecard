@@ -16,7 +16,6 @@ Key: sourced from ~/.config/agi/modal-bench.env (OPENAI_API_KEY) or env.
 from __future__ import annotations
 
 import argparse
-import configparser
 import json
 import os
 import subprocess
@@ -26,30 +25,7 @@ from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 BENCH = HERE / "benchmarks"
-ROUTER_INI = HERE.parents[1] / "models" / "llama-router.ini"
-
-
-def router_model_alias(model_path_fragment: str) -> str:
-    """Find the request alias for a configured GGUF in the shared router INI."""
-    config = configparser.ConfigParser(interpolation=None)
-    if not config.read(ROUTER_INI):
-        raise RuntimeError(f"could not read model router config: {ROUTER_INI}")
-    matches = [section for section in config.sections()
-               if model_path_fragment in config.get(section, "model", fallback="")]
-    if len(matches) != 1:
-        raise RuntimeError(
-            f"expected one router model containing {model_path_fragment!r}, "
-            f"found {matches} in {ROUTER_INI}"
-        )
-    return matches[0]
-
-
-MINISTRAL_ALIAS = router_model_alias(
-    "Ministral-3-8B-Instruct-2512-BF16-abliterated.i1-IQ3_S.gguf"
-)
-SWIFT_ALIAS = router_model_alias(
-    "Swift-1.5-Qwen3.8-27B-Uncensored-Dynamic-MTP-UD-IQ3_S.gguf"
-)
+from benchmarks.model_aliases import MINISTRAL_ALIAS
 
 MODELS = {
     "ministral": {

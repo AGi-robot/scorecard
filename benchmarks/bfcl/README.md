@@ -106,7 +106,7 @@ when BFCL itself runs in a container.
 ## Run V4 categories
 
 The model patch registers the AIVA served model alias
-`ministral-3-14b-instruct-2512`. For the OpenAI-compatible endpoint, set
+`ministral-3-8b-instruct-2512-abliterated`. For the OpenAI-compatible endpoint, set
 `REMOTE_OPENAI_BASE_URL`, `REMOTE_OPENAI_API_KEY`, and
 `REMOTE_OPENAI_TOKENIZER_PATH` to the Ministral tokenizer ID or local tokenizer
 path. Set `BFCL_PROJECT_ROOT` to a results directory outside this scorecard
@@ -119,10 +119,10 @@ tool backend; it is not Mind's SQLite conversation store:
 ```bash
 export REMOTE_OPENAI_BASE_URL=http://127.0.0.1:8080/v1
 export REMOTE_OPENAI_API_KEY=EMPTY
-export REMOTE_OPENAI_TOKENIZER_PATH=mistralai/Ministral-3-14B-Instruct-2512
+export REMOTE_OPENAI_TOKENIZER_PATH=mistralai/Ministral-3-8B-Instruct-2512
 export BFCL_PROJECT_ROOT=/path/to/results/bfcl-v4
-bfcl generate --model AGi/ministral-3-14b-instruct-2512 --test-category memory_kv --skip-server-setup
-bfcl evaluate --model AGi/ministral-3-14b-instruct-2512 --test-category memory_kv
+bfcl generate --model AGi/ministral-3-8b-instruct-2512-abliterated --test-category memory_kv --skip-server-setup
+bfcl evaluate --model AGi/ministral-3-8b-instruct-2512-abliterated --test-category memory_kv
 ```
 
 After that works, `--test-category memory` runs the full key-value, vector, and
@@ -134,8 +134,8 @@ Then run web search against the local SearXNG backend:
 ```bash
 export SEARXNG_BASE_URL=http://127.0.0.1:8888
 export SEARXNG_LANGUAGE=en
-bfcl generate --model AGi/ministral-3-14b-instruct-2512 --test-category web_search --skip-server-setup
-bfcl evaluate --model AGi/ministral-3-14b-instruct-2512 --test-category web_search
+bfcl generate --model AGi/ministral-3-8b-instruct-2512-abliterated --test-category web_search --skip-server-setup
+bfcl evaluate --model AGi/ministral-3-8b-instruct-2512-abliterated --test-category web_search
 ```
 
 For a first short run, use the upstream CLI's `--run-ids` workflow and a
@@ -163,9 +163,9 @@ python benchmarks/bfcl/mind_memory_run.py \
   --mind-root /path/to/AGi-Robot/mind \
   --bfcl-root /tmp/gorilla-bfcl/berkeley-function-call-leaderboard \
   --base-url http://127.0.0.1:8080/v1 \
-  --model ministral-3-14b-instruct-2512 \
+  --model ministral-3-8b-instruct-2512-abliterated \
   --memory-turns 8 \
-  --label ministral3-14b-memory8 \
+  --label ministral3-8b-abliterated-memory8 \
   --limit 5
 ```
 

@@ -6,7 +6,7 @@ index 961a4bb..a73c352 100644
  | MiniCPM3-4B-FC                         | Function Calling | Self-hosted 💻 | openbmb/MiniCPM3-4B-FC                                      |
  | MiniCPM-SALA                           | Function Calling | Self-hosted 💻 | openbmb/MiniCPM-SALA-FC                                     |
  | Ministral-8B-Instruct-2410             | Prompt           | Self-hosted 💻 | mistralai/Ministral-8B-Instruct-2410                        |
-+| Ministral-3-14B-Instruct-2512           | Prompt           | Self-hosted 💻 | AGi/ministral-3-14b-instruct-2512                           |
++| Ministral-3-8B-Instruct-2512 Abliterated | Prompt           | Self-hosted 💻 | AGi/ministral-3-8b-instruct-2512-abliterated                 |
  | mistral-large-2411                     | Function Calling | Mistral AI     | mistral-large-2411-FC                                       |
  | mistral-large-2411                     | Prompt           | Mistral AI     | mistral-large-2411                                          |
  | Mistral-Medium-2505                    | Function Calling | Mistral AI     | mistral-medium-2505-FC                                      |
@@ -19,10 +19,10 @@ index e42fe1c..cac21e7 100644
          underscore_to_dot=False,
      ),
 +    # AIVA serves this model through an OpenAI-compatible local endpoint.
-+    "AGi/ministral-3-14b-instruct-2512": ModelConfig(
-+        model_name="ministral-3-14b-instruct-2512",
-+        display_name="Ministral 3 14B Instruct 2512 (AIVA local prompt)",
-+        url="https://huggingface.co/mistralai/Ministral-3-14B-Instruct-2512",
++    "AGi/ministral-3-8b-instruct-2512-abliterated": ModelConfig(
++        model_name="ministral-3-8b-instruct-2512-abliterated",
++        display_name="Ministral 3 8B Instruct 2512 Abliterated (AIVA local prompt)",
++        url="https://huggingface.co/mistralai/Ministral-3-8B-Instruct-2512",
 +        org="Mistral AI",
 +        license="Mistral AI Research License",
 +        model_handler=QuickTestingOSSHandler,

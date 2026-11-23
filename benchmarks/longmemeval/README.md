@@ -23,9 +23,9 @@ Run the baseline with the S split; it downloads the file if it is missing:
 ```bash
 python benchmarks/longmemeval/full_history_run.py \
   --input data/longmemeval_s_cleaned.json \
-  --output results/longmemeval/ministral3-14b.jsonl \
+  --output results/longmemeval/ministral3-8b-abliterated.jsonl \
   --base-url http://127.0.0.1:8080/v1 \
-  --model ministral-3-14b-instruct-2512 \
+  --model ministral-3-8b-instruct-2512-abliterated \
   --limit 10
 ```
 
