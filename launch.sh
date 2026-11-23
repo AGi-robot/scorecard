@@ -18,7 +18,7 @@ if [[ -z "${OPENAI_API_KEY:-}" ]]; then
 fi
 
 MODAL_MINISTRAL_URL="https://oppa-ai-org--grace-llm-serve-serve-ministral.us-east.modal.run/v1"
-MODAL_MINISTRAL_MODEL="ministral-3-8b-instruct-2512-abliterated"
+MODAL_MINISTRAL_MODEL="$(python3 -c 'from run_modal_bench import MINISTRAL_ALIAS; print(MINISTRAL_ALIAS)')"
 MODAL_SWIFT_URL="https://oppa-ai-org--grace-llm-serve-serve-swift.us-east.modal.run/v1"
 MODAL_SWIFT_MODEL="swift15-qwen3.8-27b-local"
 RUN="python3 run_modal_bench.py"
