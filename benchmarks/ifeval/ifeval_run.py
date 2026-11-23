@@ -28,7 +28,9 @@ from instruction_following_eval import evaluation_lib as E  # noqa: E402
 
 DATA = HERE / "data" / "ifeval_input.jsonl"
 OUT = HERE / "results"
-MAX_TOKENS = 2048
+# Swift's Modal endpoint spends part of its generation budget on reasoning.
+# Leave room for both that reasoning and the visible instruction-following answer.
+MAX_TOKENS = 14_336
 TEMPERATURE = 0.0
 
 
@@ -71,7 +73,7 @@ def ask(args, prompt, timeout=900):
             choice = data["choices"][0]
             msg = (choice.get("message") or {}).get("content")
             finish_reason = choice.get("finish_reason")
-            # A model that runs into the 2048-token protocol cap still produced
+            # A model that runs into the configured generation cap still produced
             # an answer that the official scorer can evaluate; truncation is a
             # legitimate instruction-following failure, not a transport error.
             if finish_reason not in ("stop", "length") or not isinstance(msg, str) or not msg.strip():

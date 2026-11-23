@@ -15,7 +15,7 @@ AI at least 3 times" won't follow Grace's output contracts either.
 
 ## Protocol
 
-- temperature 0.0, max_tokens 2048, plain user message (no system prompt —
+- temperature 0.0, max_tokens 14336, plain user message (no system prompt —
   matches the official harness, which sends the raw prompt).
 - IFEval itself does not prescribe a thinking mode or reasoning-effort level;
   it scores the generated response text. Scorecard uses each model's
@@ -24,6 +24,9 @@ AI at least 3 times" won't follow Grace's output contracts either.
 - Use `--think-off` only for a separately labeled comparison variant. The
   runner records this setting and prevents checkpoints from mixing modes.
   Reasoning effort is also recorded in the checkpoint fingerprint.
+- The 14,336-token generation cap gives reasoning models room to finish their
+  reasoning and still return a scoreable answer. It changes the run fingerprint;
+  scores from the former 2,048-token cap are a different generation setup.
 - Official `test_instruction_following_strict` / `_loose` on the results.
 
 ## Running it
