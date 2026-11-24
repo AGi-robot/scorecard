@@ -32,6 +32,8 @@ OUT = HERE / "results"
 # Leave room for both that reasoning and the visible instruction-following answer.
 MAX_TOKENS = 14_336
 TEMPERATURE = 0.0
+# Hard cap on thinking tokens per request (matches local router reasoning-budget=2048).
+REASONING_BUDGET = int(os.environ.get("IF_EVAL_REASONING_BUDGET", "2048"))
 
 
 # Hosted endpoints (e.g. a shared research API) rate-limit hard; a local
@@ -61,6 +63,8 @@ def ask(args, prompt, timeout=900):
         body["reasoning_effort"] = args.reasoning_effort
     if args.think_off:
         body["chat_template_kwargs"] = {"enable_thinking": False}
+    if REASONING_BUDGET and not args.think_off:
+        body["reasoning_budget"] = REASONING_BUDGET
     req = urllib.request.Request(
         args.base_url + "/chat/completions", data=json.dumps(body).encode(),
         headers=_auth_headers())
@@ -119,6 +123,7 @@ def main():
         "base_url_sha256": hashlib.sha256(args.base_url.encode()).hexdigest(),
         "model": args.model, "think_off": args.think_off, "limit": args.limit,
         "temperature": TEMPERATURE, "max_tokens": MAX_TOKENS,
+        "reasoning_budget": REASONING_BUDGET,
     }
     if args.reasoning_effort:
         config["reasoning_effort"] = args.reasoning_effort
