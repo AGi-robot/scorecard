@@ -187,8 +187,13 @@ def main():
             have[item.prompt] = text
             if DELAY:
                 time.sleep(DELAY)
-            if i % 20 == 0:
-                print(f"  [{i}/{len(inputs)}] {elapsed:.0f}s", flush=True)
+            if i % 20 == 0 or i == len(inputs):
+                done = i
+                remaining = len(inputs) - done
+                rate = done / max(time.time() - t_start, 1e-6)
+                eta = remaining / rate if rate > 0 else float("inf")
+                pct = 100.0 * done / len(inputs)
+                print(f"  [{i}/{len(inputs)}] {pct:5.1f}%  {elapsed:.0f}s  ETA {eta/60:.1f}m", flush=True)
 
     missing = sum(item.prompt not in have for item in inputs)
     if missing:
