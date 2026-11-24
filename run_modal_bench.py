@@ -41,6 +41,13 @@ MODELS = {
         "ifeval_reasoning_effort": "low",
         "desc": "Modal 27B reasoning model (slow cold-start, MTP) — tools/canvas",
     },
+    "inkling": {
+        "base_url": "https://oppa-ai-org--grace-llm-serve-serve-inkling.us-east.modal.run/v1",
+        "model": "inkling-2-mini",
+        "label": "inkling-modal",
+        "ifeval_reasoning_effort": "low",
+        "desc": "Modal Inkling 2 Mini 26.4B MoE (A100, 4-bit) — coding/agentic",
+    },
     "local": {
         "base_url": "http://127.0.0.1:8080/v1",
         "model": MINISTRAL_ALIAS,
