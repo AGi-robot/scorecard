@@ -166,16 +166,17 @@ BENCHES = {
     },
     "bfcl": {
         "group": "official",
-        "name": "BFCL",
+        "name": "BFCL V4 memory component",
         "script": BENCH / "bfcl" / "mind_memory_run.py",
-        "desc": "Tool-calling, aiva v4 harness (needs --mind-root checkout)",
+        "desc": "Mind conversation-window component on BFCL V4 memory questions",
         "args": lambda m, o: [
             "--base-url", m["base_url"], "--model", m["model"],
             "--label", f"{m['label']}-bfcl",
         ] + (["--mind-root", o.mind_root] if o.mind_root else [])
+        + (["--bfcl-root", o.bfcl_root] if o.bfcl_root else [])
         + (["--limit", str(o.limit)] if o.limit else []),
         "env": {},
-        "note": "Requires a Mind repo checkout (--mind-root). Swift recommended.",
+        "note": "Component adapter, not the official BFCL tool-calling run; requires --mind-root and --bfcl-root.",
     },
 }
 
@@ -247,6 +248,7 @@ def main() -> None:
     p.add_argument("--single-pass", action="store_true", help="canvas: one pass (quick A/B)")
     p.add_argument("--input", help="longmemeval data file")
     p.add_argument("--mind-root", help="bfcl Mind checkout")
+    p.add_argument("--bfcl-root", help="pinned official BFCL checkout")
     p.add_argument("--dataset", default="humaneval",
                    help="evalplus dataset (humaneval|mbpp)")
     p.add_argument("--eq-suite", default="eqbench-v4",
@@ -262,7 +264,10 @@ def main() -> None:
              "label": "custom", "desc": "custom endpoint"}
     else:
         m = MODELS[o.model or pick(MODELS, "Which model endpoint?")]
-    b = BENCHES[o.bench or pick(BENCHES, "Which benchmark?")]
+    selected_bench = o.bench or pick(BENCHES, "Which benchmark?")
+    b = BENCHES[selected_bench]
+    if selected_bench == "bfcl" and not (o.mind_root and o.bfcl_root):
+        p.error("BFCL memory component requires --mind-root and --bfcl-root")
     if b.get("kind") not in ("guide", "module") and not b["script"].exists():
         sys.exit(f"harness missing: {b['script']}")
     if b.get("note"):
