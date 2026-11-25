@@ -28,6 +28,8 @@ import urllib.error
 import urllib.request
 from pathlib import Path
 
+HERE = Path(__file__).resolve().parent
+
 # Hosted endpoints rate-limit hard; a local llama-server never trips these.
 # DELAY paces the task stream and RETRIES turn a 429/5xx into a backoff
 # instead of a failed task that silently scores zero.
@@ -95,7 +97,7 @@ CURVE_POINT_COUNTS = [4, 7, 10, 13, 16, 19, 22, 25, 28, 31]
 
 # ------------------------------------------------------------------ protocol --
 # Production recipe (telepathy_receptor/node.py, default draw mode):
-# response_format=json_schema, required kind/color/fill_color, image kind
+# response_format=json_schema, per-kind required fields, image kind
 # removed + prompt popped, temperature 0, reasoning_effort medium,
 # max_tokens 6144, up to 4 passes with per-pass budgets, `more`-driven with a
 # canvas_context text followup (+ screenshot when the canvas has content).
@@ -217,8 +219,8 @@ def draw_actions(base_url, model, system, user, images=None, temperature=0.0,
                  use_tools=False, strict_geometry=True):
     """One canvas_draw turn under the production protocol. Returns (actions, meta).
 
-    Default transport is response_format=json_schema with the production
-    schema (stable IDs, hex paints and kind-specific geometry).
+    Default transport is response_format=json_schema with the selected
+    production schema mode and its per-kind action requirements.
     use_tools=True keeps the legacy tools-envelope transport for A/B work.
     """
     content = [{"type": "text", "text": user}]
@@ -338,6 +340,27 @@ def validate_and_measure(raw_actions):
     return validated, valid, error, clamped
 
 
+def add_loose_mode_ids(actions, task_id, pass_index, existing_count=0):
+    """Give newly drawn loose-mode objects stable IDs for later review passes.
+
+    The relaxed schema does not require IDs for new objects, matching the
+    Console's generated-ID behavior. The evaluator assigns deterministic IDs
+    after generation so a later visual-review pass can still edit the draft.
+    """
+    if not isinstance(actions, list):
+        return actions
+    drawable = {"curve", "path", "polygon", "erase", "line", "rectangle",
+                "ellipse", "text", "letter", "image"}
+    safe_task = re.sub(r"[^A-Za-z0-9_-]+", "-", str(task_id)).strip("-")[:32]
+    for index, action in enumerate(actions):
+        if not isinstance(action, dict) or action.get("kind") not in drawable:
+            continue
+        identifier = action.get("id")
+        if not isinstance(identifier, str) or not identifier.strip():
+            action["id"] = f"{safe_task}-p{pass_index + 1}-{existing_count + index + 1}"
+    return actions
+
+
 def render_png(actions):
     try:
         return browser_render.render_png(actions, AGI_REPO), None
@@ -386,13 +409,13 @@ def judge_image(judge_url, judge_model, png_bytes, brief, timeout=300,
 
 # ------------------------------------------------------------------- main ---
 def run_task(task, args):
-    """Production-protocol drawing: up to 4 passes, `more`-driven.
+    """Production-protocol drawing: one or up to four `more`-driven passes.
 
     Pass 1 receives the current canvas render, including a blank canvas.
-    Later passes receive the updated render and object context. Strict geometry
-    and screenshot review default on, with a text-only fallback when the
-    endpoint rejects images. Use --no-vision-passes for text-only comparisons
-    on tasks without seeded artwork.
+    Later passes receive the updated render and object context. The caller
+    selects strict or loose schema mode; screenshot review has a text-only
+    fallback when the endpoint rejects images. Use --no-vision-passes for
+    text-only comparisons on tasks without seeded artwork.
     """
     system = DRAW_INSTRUCTIONS + VECTOR_ONLY_SUFFIX
     if getattr(args, "allow_image", False) and PAINT_INSTRUCTIONS:
@@ -439,6 +462,7 @@ def run_task(task, args):
                 if png_so_far is not None:
                     images = [base64.b64encode(png_so_far).decode()]
 
+        strict_geometry = getattr(args, "strict_geometry", True)
         actions, meta = draw_actions(args.base_url, args.model, system, prompt,
                                      images=images,
                                      schema_hint=args.schema_hint,
@@ -447,14 +471,25 @@ def run_task(task, args):
                                      force_tool=args.force_tool,
                                      reasoning_effort=args.reasoning_effort,
                                      action_limit=budget,
-                                     strict_geometry=getattr(args, "strict_geometry", True),
+                                     strict_geometry=strict_geometry,
                                      use_tools=args.force_tool)
+        if not isinstance(actions, list):
+            actions = []
         if not allow_text:
             # Production drops text/letter actions unless writing was requested.
             actions = [a for a in actions
-                       if a.get("kind") not in ("text", "letter")]
+                       if isinstance(a, dict)
+                       and a.get("kind") not in ("text", "letter")]
+        else:
+            actions = [a for a in actions if isinstance(a, dict)]
+        actions_to_prepare = actions
+        if not strict_geometry:
+            # Keep the generated artifact untouched; stable IDs are a local
+            # normalization needed only so loose-mode visual review can edit it.
+            actions_to_prepare = add_loose_mode_ids(
+                json.loads(json.dumps(actions)), task["id"], pass_index, len(prepared))
         try:
-            repaired = engine.repair_model_actions(actions)
+            repaired = engine.repair_model_actions(actions_to_prepare)
         except Exception:
             repaired = actions
         validated, valid, error, clamped = validate_and_measure(repaired)
@@ -469,7 +504,7 @@ def run_task(task, args):
             out.mkdir(parents=True, exist_ok=True)
             (out / f"{task['id']}.pass{pass_index + 1}.raw.actions.json").write_text(
                 json.dumps(actions, indent=1))
-            if png:
+            if png and pass_index < len(budgets) - 1:
                 (out / f"{task['id']}.pass{pass_index + 1}.png").write_bytes(png)
         checks = []
         for check in task["checks"]:
@@ -558,6 +593,43 @@ def run_task(task, args):
     return result
 
 
+def summarize_run(args, results, renderer):
+    total_checks = sum(r.get("checks_total", 0) for r in results)
+    passed_checks = sum(r.get("checks_passed", 0) for r in results)
+    perfect = sum(1 for r in results if r.get("checks_total") and
+                  r.get("checks_passed") == r.get("checks_total"))
+    deltas = [r["refinement_delta"] for r in results if "refinement_delta" in r]
+    summary = {
+        "label": args.label, "model": args.model, "schema_hint": args.schema_hint,
+        "strict_geometry": args.strict_geometry,
+        "geometry_mode": "strict" if args.strict_geometry else "loose",
+        "pass_mode": "single" if args.single_pass else "multi",
+        "base_url": args.base_url,
+        "renderer": renderer,
+        "protocol_version": 5, "temperature": args.temperature,
+        "transport": "tools" if args.force_tool else "response_format_json_schema",
+        "think_off": args.think_off, "force_tool": args.force_tool,
+        "reasoning_effort": args.reasoning_effort,
+        "vision_passes": args.vision_passes, "single_pass": args.single_pass,
+        "pass_budgets": list((16,) if args.single_pass else PASS_BUDGETS),
+        "tasks": len(results),
+        "check_score": round(passed_checks / max(1, total_checks), 4),
+        "tasks_fully_satisfied": perfect,
+        "fully_satisfied_rate": round(perfect / max(1, len(results)), 4),
+        "valid_rate": round(sum(1 for r in results if r.get("valid")) / max(1, len(results)), 4),
+        "render_rate": round(sum(1 for r in results if r.get("rendered")) / max(1, len(results)), 4),
+        "truncated_rate": round(sum(1 for r in results if r.get("truncated_stream")) / max(1, len(results)), 4),
+        "mean_steps": round(sum(r.get("steps", 0) for r in results) / max(1, len(results)), 2),
+        "total_wall_s": round(sum(r.get("wall_s", 0) for r in results), 1),
+        "refinement_delta": round(sum(deltas) / len(deltas), 4) if deltas else None,
+    }
+    judge_scores = [r["judge"]["score"] for r in results
+                    if r.get("judge") and r["judge"].get("score") is not None]
+    if judge_scores:
+        summary["judge_mean"] = round(sum(judge_scores) / len(judge_scores), 2)
+    return summary
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--base-url", required=True)
@@ -573,8 +645,9 @@ def main():
     parser.add_argument("--schema-hint", action="store_true", default=False,
                         help="put the curve point-count rule in the tool schema "
                              "(machine-validated) instead of prose-only")
-    parser.add_argument("--strict-geometry", action=argparse.BooleanOptionalAction, default=True,
-                        help="require IDs and kind-specific geometry in constrained JSON")
+    parser.add_argument("--strict-geometry", action=argparse.BooleanOptionalAction, default=None,
+                        help="select strict only (--strict-geometry) or loose only "
+                             "(--no-strict-geometry); default runs both")
     parser.add_argument("--out", default=None)
     parser.add_argument("--out-dir", default=None)
     parser.add_argument("--think-off", action="store_true", default=False,
@@ -594,9 +667,9 @@ def main():
                         help="attach current renders, including the initial canvas "
                              "(default: enabled; --no-vision-passes disables "
                              "screenshots for tasks without seeded content)")
-    parser.add_argument("--single-pass", action="store_true", default=False,
-                        help="one pass of 16 actions only (one-shot A/B "
-                             "against the production multi-pass loop)")
+    parser.add_argument("--single-pass", action=argparse.BooleanOptionalAction, default=None,
+                        help="select single only (--single-pass) or multi-pass only "
+                             "(--no-single-pass); default runs both")
     parser.add_argument("--allow-image", action="store_true", default=False,
                         help="register the raster 'image' kind (adds a prompt "
                              "field and paint instructions). OFF by default: it "
@@ -626,60 +699,60 @@ def main():
     if args.limit:
         selected = selected[:args.limit]
 
-    print(f"Grace Canvas Eval: {args.label} ({len(selected)} tasks)", flush=True)
-    results = []
-    for task in selected:
-        started = time.time()
-        try:
-            result = run_task(task, args)
-        except Exception as exc:
-            result = {"task": task["id"], "tier": task["tier"], "error": str(exc),
-                      "score": 0.0, "checks_passed": 0, "checks_total": len(task["checks"])}
-        result["wall_s"] = round(time.time() - started, 2)
-        results.append(result)
-        print(f"  {task['id']:<22} {result.get('checks_passed', 0)}/{result.get('checks_total', 0)}"
-              f"  valid={result.get('valid')} rendered={result.get('rendered')}"
-              f"  steps={result.get('steps')}  {result['wall_s']}s", flush=True)
-        if DELAY:
-            time.sleep(DELAY)
+    strict_modes = ([args.strict_geometry] if args.strict_geometry is not None
+                    else [True, False])
+    pass_modes = ([args.single_pass] if args.single_pass is not None
+                  else [True, False])
+    variants = [(strict, single) for strict in strict_modes for single in pass_modes]
+    safe_label = re.sub(r"[^A-Za-z0-9_.-]+", "-", args.label).strip("-._") or "model"
+    multiple = len(variants) > 1
 
-    total_checks = sum(r.get("checks_total", 0) for r in results)
-    passed_checks = sum(r.get("checks_passed", 0) for r in results)
-    perfect = sum(1 for r in results if r.get("checks_total") and
-                  r.get("checks_passed") == r.get("checks_total"))
-    deltas = [r["refinement_delta"] for r in results if "refinement_delta" in r]
-    summary = {
-        "label": args.label, "model": args.model, "schema_hint": args.schema_hint,
-        "strict_geometry": args.strict_geometry,
-        "base_url": args.base_url,
-        "renderer": renderer,
-        "protocol_version": 4, "temperature": args.temperature,
-        "transport": "tools" if args.force_tool else "response_format_json_schema",
-        "think_off": args.think_off, "force_tool": args.force_tool,
-        "reasoning_effort": args.reasoning_effort,
-        "vision_passes": args.vision_passes, "single_pass": args.single_pass,
-        "pass_budgets": list((16,) if args.single_pass else PASS_BUDGETS),
-        "tasks": len(results),
-        "check_score": round(passed_checks / max(1, total_checks), 4),
-        "tasks_fully_satisfied": perfect,
-        "fully_satisfied_rate": round(perfect / max(1, len(results)), 4),
-        "valid_rate": round(sum(1 for r in results if r.get("valid")) / max(1, len(results)), 4),
-        "render_rate": round(sum(1 for r in results if r.get("rendered")) / max(1, len(results)), 4),
-        "truncated_rate": round(sum(1 for r in results if r.get("truncated_stream")) / max(1, len(results)), 4),
-        "mean_steps": round(sum(r.get("steps", 0) for r in results) / max(1, len(results)), 2),
-        "total_wall_s": round(sum(r.get("wall_s", 0) for r in results), 1),
-        "refinement_delta": round(sum(deltas) / len(deltas), 4) if deltas else None,
-    }
-    judge_scores = [r["judge"]["score"] for r in results
-                    if r.get("judge") and r["judge"].get("score") is not None]
-    if judge_scores:
-        summary["judge_mean"] = round(sum(judge_scores) / len(judge_scores), 2)
+    for strict, single in variants:
+        geometry_name = "strict" if strict else "loose"
+        pass_name = "single" if single else "multi"
+        variant = f"{geometry_name}-{pass_name}"
+        run_args = argparse.Namespace(**vars(args))
+        run_args.strict_geometry = strict
+        run_args.single_pass = single
+        run_args.label = f"{args.label}-{variant}"
 
-    report = {"summary": summary, "results": results}
-    if args.out:
-        Path(args.out).parent.mkdir(parents=True, exist_ok=True)
-        Path(args.out).write_text(json.dumps(report, indent=1))
-    print("\nSUMMARY " + json.dumps(summary), flush=True)
+        if args.out:
+            base_out = Path(args.out)
+            out_path = (base_out.with_name(f"{base_out.stem}.{variant}{base_out.suffix}")
+                        if multiple else base_out)
+        else:
+            out_path = HERE / "results" / f"{safe_label}.{variant}.json"
+        if args.out_dir:
+            base_out_dir = Path(args.out_dir)
+            out_dir = base_out_dir / variant if multiple else base_out_dir
+        else:
+            out_dir = HERE / "renders" / safe_label / variant
+        run_args.out = str(out_path)
+        run_args.out_dir = str(out_dir)
+
+        print(f"Grace Canvas Eval: {run_args.label} ({len(selected)} tasks; "
+              f"{geometry_name} geometry, {pass_name}-pass)", flush=True)
+        results = []
+        for task in selected:
+            started = time.time()
+            try:
+                result = run_task(task, run_args)
+            except Exception as exc:
+                result = {"task": task["id"], "tier": task["tier"], "error": str(exc),
+                          "score": 0.0, "checks_passed": 0, "checks_total": len(task["checks"])}
+            result["wall_s"] = round(time.time() - started, 2)
+            results.append(result)
+            print(f"  {task['id']:<22} {result.get('checks_passed', 0)}/{result.get('checks_total', 0)}"
+                  f"  valid={result.get('valid')} rendered={result.get('rendered')}"
+                  f"  steps={result.get('steps')}  {result['wall_s']}s", flush=True)
+            if DELAY:
+                time.sleep(DELAY)
+
+        summary = summarize_run(run_args, results, renderer)
+        out_path.parent.mkdir(parents=True, exist_ok=True)
+        out_path.write_text(json.dumps({"summary": summary, "results": results}, indent=1))
+        print("\nSUMMARY " + json.dumps(summary), flush=True)
+        print(f"Images: {out_dir}", flush=True)
 
 
 if __name__ == "__main__":
