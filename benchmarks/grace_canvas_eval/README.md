@@ -28,7 +28,8 @@ images and no human labels are needed.
 ```bash
 # one-off environment (does not touch the AIVA venv)
 uv venv /tmp/grace-canvas-eval-venv
-uv pip install --python /tmp/grace-canvas-eval-venv/bin/python cairosvg pillow
+uv pip install --python /tmp/grace-canvas-eval-venv/bin/python playwright pillow
+/tmp/grace-canvas-eval-venv/bin/python -m playwright install chromium
 
 # a model must be served with the canvas_draw tool available
 AGI_REPO=/path/to/AGi /tmp/grace-canvas-eval-venv/bin/python benchmarks/grace_canvas_eval/grace_canvas_eval.py \
@@ -45,6 +46,12 @@ Useful flags: `--tier 1` (repeatable) to run one tier, `--limit N`,
 optional multimodal judge that scores the rendered image against the brief.
 When this scorecard checkout sits inside the AGi workspace, the harness finds
 the AGi source checkout automatically; set `AGI_REPO` when it is elsewhere.
+Rendering also requires a Console checkout at `AGI_REPO/AIVA/console` containing
+the Canvas evaluation replay hook. Set `GRACE_CONSOLE_DIR` to its checkout if
+it lives elsewhere. Record the Console revision with each run: its browser
+renderer determines the generated PNGs. Network requests from the rendering
+browser are blocked. Prior SVG-rendered images should not be treated as the
+same rendering protocol.
 
 The system prompt is `canvas.engine.DRAW_INSTRUCTIONS` verbatim -- the same one
 Grace uses in production -- so results transfer.
@@ -67,7 +74,7 @@ Grace uses in production -- so results transfer.
 | `tasks_fully_satisfied` | tasks where every check passed |
 | `valid_rate` | `canvas.engine.validate_actions()` accepted the prepared actions after repair; inspect `.raw.actions.json` for raw validity |
 | `clamped_fields` | numeric fields the validator had to clamp into range |
-| `render_rate` | `canvas.svg.render()` produced an SVG (and a PNG) |
+| `render_rate` | Console Canvas replay produced a PNG in Chromium |
 | `truncated_rate` | the action JSON was cut off and needed recovery |
 | `coverage` | fraction of canvas area covered by object boxes |
 | `mean_overlap` | mean pairwise IoU of object boxes (excess = clutter) |
@@ -214,7 +221,7 @@ robot and cabin also have separate screenshot-guided `.refined.png` outputs,
 with review prompts and actions in `.review.json`; those additional passes
 are not included in the single-pass score report.
 
-Offline pipeline checks (requires pytest, cairosvg, and pillow):
+Offline pipeline checks (requires pytest, playwright, Chromium, and pillow):
 
 ```bash
 AGI_REPO=/path/to/AGi python -m pytest -q benchmarks/grace_canvas_eval/test_canvas_pipeline.py
