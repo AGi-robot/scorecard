@@ -61,7 +61,6 @@ AGI_REPO = find_agi_repo()
 sys.path.insert(0, str(AGI_REPO / "capability" / "canvas" / "src"))
 sys.path.insert(0, str(AGI_REPO / "capability" / "imaging" / "src"))
 
-import cairosvg  # noqa: E402
 from canvas import DRAW_INSTRUCTIONS, DRAW_TOOL, engine, svg  # noqa: E402
 
 # Output-token budget per drawing pass; overridden by --max-tokens.
@@ -69,6 +68,7 @@ MAX_TOKENS = 3072
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import tasks as T  # noqa: E402
+import browser_render  # noqa: E402
 
 # NOTE: the raster 'image' kind is NOT enabled by default. Registering it adds
 # a `prompt` property to every action in the tool schema; models then describe
@@ -340,8 +340,7 @@ def validate_and_measure(raw_actions):
 
 def render_png(actions):
     try:
-        markup = svg.render(actions, validate=False)
-        return cairosvg.svg2png(bytestring=markup.encode()), None
+        return browser_render.render_png(actions, AGI_REPO), None
     except Exception as exc:
         return None, str(exc)
 
@@ -612,6 +611,12 @@ def main():
     if args.allow_image:
         enable_image_kind()
 
+    try:
+        renderer = browser_render.renderer_metadata(AGI_REPO)
+        browser_render.render_png([], AGI_REPO)
+    except Exception as error:
+        parser.error(f"Canvas browser renderer unavailable: {error}")
+
     global MAX_TOKENS
     MAX_TOKENS = args.max_tokens
 
@@ -647,6 +652,7 @@ def main():
         "label": args.label, "model": args.model, "schema_hint": args.schema_hint,
         "strict_geometry": args.strict_geometry,
         "base_url": args.base_url,
+        "renderer": renderer,
         "protocol_version": 4, "temperature": args.temperature,
         "transport": "tools" if args.force_tool else "response_format_json_schema",
         "think_off": args.think_off, "force_tool": args.force_tool,

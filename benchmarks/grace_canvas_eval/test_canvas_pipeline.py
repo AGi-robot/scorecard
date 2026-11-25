@@ -90,6 +90,22 @@ def test_scene_and_render_share_missing_color_fallback():
     assert error is None and png.startswith(b'\x89PNG')
 
 
+def test_browser_render_erases_previous_art_but_preserves_later_art():
+    actions = [
+        {'kind': 'rectangle', 'id': 'red', 'x': 0, 'y': 0, 'width': 200, 'height': 200,
+         'fill': True, 'stroke': False, 'fill_color': '#ff0000'},
+        {'kind': 'erase', 'points': [[100, 20], [100, 180]], 'size': 40},
+        {'kind': 'rectangle', 'id': 'blue', 'x': 90, 'y': 90, 'width': 20, 'height': 20,
+         'fill': True, 'stroke': False, 'fill_color': '#0000ff'},
+    ]
+    png, error = eval.render_png(actions)
+    assert error is None, error
+    image = Image.open(io.BytesIO(png)).convert('RGB')
+    assert image.getpixel((100, 50)) == (255, 255, 255)
+    assert image.getpixel((100, 100)) == (0, 0, 255)
+    assert image.getpixel((40, 50)) == (255, 0, 0)
+
+
 def test_default_vision_reviews_even_when_first_pass_says_done(monkeypatch):
     calls = []
     def draw(*args, **kwargs):
