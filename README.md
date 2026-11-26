@@ -9,6 +9,7 @@ arguments, outputs, protocol, and scoring.
 
 ### Model and capability baselines
 
+- [Inference performance](benchmarks/inference_perf/README.md): streaming prefill/decode speeds, first-token latency, RAM/VRAM, and file sizes for llama.cpp or RustingStrata.
 - [BFCL](benchmarks/bfcl/README.md): official BFCL V4 across single-turn, multi-turn, live, agentic, and format-sensitivity tracks; AIVA's memory adapter is separate.
 - [Companion safety](benchmarks/companion_safety/README.md): INTIMA and AICompanionBench readiness and artifact requirements.
 - [EQ-Bench and Creative Writing](benchmarks/eqbench/README.md): pinned v4 and v3 protocols; historical v2 results remain labeled separately.

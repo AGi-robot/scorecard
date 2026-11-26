@@ -1,3 +1,0 @@
-{"script": "topic-change", "left": "ministral", "right": "swift", "batch": "batch_3way_f012b34a.json", "warmth": "B", "coherence": "B", "persona": "B", "overall": "B"}
-{"script": "memory-honesty", "left": "swift", "right": "ministral", "batch": "batch_3way_f012b34a.json", "warmth": "B", "coherence": "tie", "persona": "B", "overall": "B"}
-{"script": "casual-evening", "left": "swift", "right": "ministral", "batch": "batch_3way_f012b34a.json", "warmth": "B", "coherence": "A", "persona": "B", "overall": "B"}

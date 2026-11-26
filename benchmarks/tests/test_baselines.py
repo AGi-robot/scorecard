@@ -14,7 +14,9 @@ import unittest
 from unittest.mock import patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 import baseline_common as common
+import run_modal_bench as scorecard_runner
 
 
 class TransportTests(unittest.TestCase):
@@ -69,6 +71,73 @@ class TransportTests(unittest.TestCase):
                 common.responses(self.args, [{"id": "a"}], lambda t: [])
         self.assertEqual((self.root / "responses.jsonl").read_text(), "")
 
+    def test_bounded_run_keeps_capped_text_and_continues_without_retry(self):
+        capped = {"choices": [{"message": {"content": "partial answer",
+                   "reasoning_content": "private reasoning"}, "finish_reason": "length"}],
+                  "usage": {"completion_tokens": 50}}
+        stopped = {"choices": [{"message": {"content": "finished"}, "finish_reason": "stop"}]}
+        with patch.object(common.urllib.request, "urlopen", side_effect=[
+                io.BytesIO(json.dumps(capped).encode()), io.BytesIO(json.dumps(stopped).encode())]) as request:
+            outputs = common.responses(self.args, [{"id": "a"}, {"id": "b"}],
+                                       lambda t: [{"role": "user", "content": t["id"]}], bounded=True)
+        self.assertEqual(outputs, [["partial answer"], ["finished"]])
+        self.assertEqual(request.call_count, 2)
+        sent = json.loads(request.call_args_list[0].args[0].data)
+        self.assertEqual(sent["messages"], [{"role": "user", "content": "a"}])
+        self.assertEqual(sent["max_tokens"], 50)
+        record = common.read_jsonl(self.root / "responses.jsonl")[0]
+        self.assertEqual(record["finish_reason"], "length")
+        self.assertEqual(record["usage"]["completion_tokens"], 50)
+        self.assertEqual(record["reasoning_content"], "private reasoning")
+
+    def test_bounded_timeout_continues_and_resumes_without_reasking(self):
+        completion = {"choices": [{"message": {"content": "next answer"}, "finish_reason": "stop"}]}
+        for error in (TimeoutError("timed out"), common.urllib.error.URLError(TimeoutError())):
+            with self.subTest(error=type(error).__name__):
+                path = self.root / "responses.jsonl"
+                path.unlink(missing_ok=True)
+                with patch.object(common.urllib.request, "urlopen", side_effect=[
+                        error, io.BytesIO(json.dumps(completion).encode())]):
+                    output = common.responses(self.args, [{"id": "a"}, {"id": "b"}],
+                                              lambda t: [], bounded=True)
+                self.assertEqual(output, [[""], ["next answer"]])
+                self.assertEqual(common.read_jsonl(path)[0]["finish_reason"], "timeout")
+                with patch.object(common, "complete") as request:
+                    self.assertEqual(common.responses(self.args, [{"id": "a"}, {"id": "b"}],
+                                                      lambda t: [], bounded=True), output)
+                    request.assert_not_called()
+
+    def test_bounded_reasoning_only_response_scores_empty_answer(self):
+        payload = {"choices": [{"message": {"content": None, "reasoning_content": "still thinking"},
+                                "finish_reason": "length"}]}
+        with patch.object(common.urllib.request, "urlopen",
+                          return_value=io.BytesIO(json.dumps(payload).encode())):
+            self.assertEqual(common.responses(self.args, [{"id": "a"}], lambda t: [], bounded=True), [[""]])
+
+    def test_bounded_connection_failure_is_not_a_scored_timeout(self):
+        with patch.object(common.urllib.request, "urlopen",
+                          side_effect=common.urllib.error.URLError(ConnectionRefusedError())):
+            with self.assertRaises(common.urllib.error.URLError):
+                common.responses(self.args, [{"id": "a"}], lambda t: [], bounded=True)
+        self.assertEqual((self.root / "responses.jsonl").read_text(), "")
+
+    def test_ifbench_default_budgets_and_explicit_overrides(self):
+        import ifbench_baseline as runner
+        for model, tokens, timeout in [(scorecard_runner.MODELS["ministral"]["model"], 4096, 600),
+                                       (scorecard_runner.MODELS["swift"]["model"], 8192, 1200)]:
+            args = argparse.Namespace(model=model, max_tokens=None, request_timeout=None)
+            runner.configure_limits(args)
+            self.assertEqual((args.max_tokens, args.request_timeout), (tokens, timeout))
+        args = argparse.Namespace(model="ministral", max_tokens=1000, request_timeout=90)
+        runner.configure_limits(args)
+        self.assertEqual((args.max_tokens, args.request_timeout), (1000, 90))
+
+    def test_ifbench_timeout_changes_cannot_resume_old_manifest(self):
+        protocol = {"generation_policy": "bounded-v1", "request_timeout_seconds": 600}
+        common.initialize(self.args, protocol, self.data, 1)
+        with self.assertRaises(ValueError):
+            common.initialize(self.args, {**protocol, "request_timeout_seconds": 1200}, self.data, 1)
+
     def test_scorecard_keeps_suites_separate_and_excludes_smoke(self):
         import scorecard_all
         suites = [("ifbench", "IFBench single-turn"), ("ifbench", "IFBench multi-turn"),
@@ -102,24 +171,41 @@ class TransportTests(unittest.TestCase):
         with patch.object(scorecard_all, "HERE", self.root):
             self.assertTrue(all(r["loose"] == "50% win" for r in scorecard_all.rows()))
 
-    def test_bfcl_request_failure_is_not_scored_as_irrelevance(self):
-        import runpy
+    def test_bfcl_v4_mind_adapter_propagates_endpoint_failure(self):
         sys.path.insert(0, str(common.HERE / "bfcl"))
-        with patch.object(sys, "argv", ["bfcl_run", "http://localhost/v1", "fixture", "fixture"]):
-            module = runpy.run_path(str(common.HERE / "bfcl/bfcl_run.py"))
-        main = module["main"]
-        question = {"question": [{"role": "user", "content": "fixture"}], "function": []}
-        with patch.dict(main.__globals__, OUT=self.root, CATS=["irrelevance"],
-                        load_cat=lambda cat: ({"fixture": question}, {}),
-                        ask=lambda *args: (_ for _ in ()).throw(RuntimeError("offline"))):
-            with self.assertRaises(RuntimeError):
-                main()
-        self.assertFalse((self.root / "bfcl_fixture.json").exists())
-        self.assertEqual((self.root / "responses_fixture.jsonl").read_text(), "")
+        import mind_memory_run as runner
+
+        error = runner.urllib.error.HTTPError(
+            "http://localhost/v1/chat/completions", 503, "unavailable", {},
+            io.BytesIO(b"fixture endpoint unavailable"),
+        )
+        with patch.object(runner.urllib.request, "urlopen", side_effect=error):
+            with self.assertRaisesRegex(RuntimeError, "HTTP 503"):
+                runner.completion(
+                    "http://localhost/v1", "fixture", "EMPTY",
+                    [{"role": "user", "content": "fixture"}], 32, 1,
+                )
 
 
 @unittest.skipUnless(os.environ.get("IFBENCH_OFFICIAL"), "set IFBENCH_OFFICIAL for official fixture")
 class IFBenchOfficialTests(unittest.TestCase):
+    def test_capped_answer_and_timeout_reach_official_scorer(self):
+        import ifbench_baseline as runner
+        good = " ".join(["kaleidoscope"] + ["nebula"] * 2 + ["whisper"] * 3 + ["labyrinth"] * 5 + ["paradox"] * 7)
+        with tempfile.TemporaryDirectory() as directory:
+            argv = ["ifbench_run", "--official", os.environ["IFBENCH_OFFICIAL"],
+                    "--output", directory, "--limit", "2", "--model", "ministral-fixture",
+                    "--base-url", "http://localhost:8000/v1"]
+            with patch.object(sys, "argv", argv), patch.object(common, "complete", side_effect=[
+                    {"response": good, "finish_reason": "length"},
+                    {"response": "", "finish_reason": "timeout"}]):
+                runner.run()
+            result = json.loads((Path(directory) / "summary.json").read_text())
+            self.assertEqual(result["prompt_strict"], 0.5)
+            self.assertEqual(result["generation"], {"token_limited": 1, "timed_out": 1, "empty_answers": 1})
+            self.assertEqual(result["max_tokens"], 4096)
+            self.assertFalse(result["full_run"])
+
     def test_single_turn_official_positive_and_negative(self):
         import ifbench_baseline as runner
         runner.prepare_nltk()
@@ -136,12 +222,15 @@ class IFBenchOfficialTests(unittest.TestCase):
         import ifbench_baseline as runner
         import pyarrow.parquet as pq
         path = common.HERE / ".cache" / f"ifbench-multiturn-{runner.MULTITURN_REVISION}.parquet"
+        if not path.is_file():
+            self.skipTest("prepare the pinned multi-turn dataset to run this fixture")
         expected = pq.read_table(path).to_pylist()[0]["messages"]
         with tempfile.TemporaryDirectory() as directory:
             argv = ["ifbench_run", "--official", os.environ["IFBENCH_OFFICIAL"],
                     "--output", directory, "--limit", "1", "--model", "fixture",
                     "--base-url", "http://localhost:8000/v1"]
-            with patch.object(sys, "argv", argv), patch.object(common, "complete", return_value="Galaxies sparkle.") as request:
+            with patch.object(sys, "argv", argv), patch.object(common, "complete", return_value={
+                    "response": "Galaxies sparkle.", "finish_reason": "stop"}) as request:
                 runner.run(multiturn=True)
             self.assertEqual(request.call_args.args[1], expected)
             result = json.loads((Path(directory) / "summary.json").read_text())

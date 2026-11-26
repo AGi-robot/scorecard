@@ -33,7 +33,8 @@ def has_hue(colours, low, high, min_sat=0.15, min_light=0.06, max_light=0.97):
             continue
         if sat < min_sat or light < min_light or light > max_light:
             continue
-        if low <= hue <= high:
+        in_band = low <= hue <= high if low <= high else hue >= low or hue <= high
+        if in_band:
             return True
     return False
 
@@ -83,7 +84,15 @@ def scene_texts(scene):
 
 
 def coverage(scene):
-    """Fraction of the canvas covered by object bounding boxes (clipped)."""
+    """Fraction of the canvas covered by foreground bounding boxes (clipped).
+
+    Shapes that (nearly) fill the whole canvas are background layers
+    (sky, sea, backdrop fills), not content: they are excluded so a
+    deliberate full-bleed background does not dominate the metric.  A
+    scene made only of background fills scores 0 and still fails the
+    coverage minimum, which keeps the lazy single-fill case caught.
+    """
+    canvas_area = CANVAS_W * CANVAS_H
     total = 0.0
     for obj in scene["objects"]:
         b = bounds_of(obj)
@@ -93,8 +102,11 @@ def coverage(scene):
         x0, y0 = max(0.0, x), max(0.0, y)
         x1, y1 = min(CANVAS_W, x + w), min(CANVAS_H, y + h)
         if x1 > x0 and y1 > y0:
-            total += (x1 - x0) * (y1 - y0)
-    return total / (CANVAS_W * CANVAS_H)
+            area = (x1 - x0) * (y1 - y0)
+            if area >= 0.9 * canvas_area:
+                continue  # background layer, not foreground content
+            total += area
+    return total / canvas_area
 
 
 def mean_overlap(scene):
@@ -279,7 +291,9 @@ TASKS = [
             _objects_at_least(4),
             _has_hue(20, 50, "warm lamp"),
             _has_hue(200, 260, "cool dusk"),
-            _coverage_between(0.02, 0.6),
+            # Landscape brief: sky/sea/headland legitimately tile most of the
+            # canvas once background layers are excluded from coverage.
+            _coverage_between(0.02, 0.95),
             _overlap_below(0.5),
         ],
     },

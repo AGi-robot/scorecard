@@ -1,0 +1,13 @@
+{
+ "label": "ministral-iq4-local-ifeval",
+ "model": "ministral-iq4-local",
+ "n": 541,
+ "think_off": false,
+ "run_fingerprint": "11fb9a6a816736731e4f91da2063794358ec424f6351c5b36caeac8440894ad6",
+ "limit": 0,
+ "smoke": false,
+ "truncated": 0,
+ "strict": 0.5582,
+ "loose": 0.6377,
+ "elapsed_s": 1056.9
+}

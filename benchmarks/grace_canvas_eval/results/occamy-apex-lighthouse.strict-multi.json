@@ -1,0 +1,375 @@
+{
+ "summary": {
+  "label": "occamy-apex-lighthouse-strict-multi",
+  "model": "occamy-apex",
+  "schema_hint": false,
+  "strict_geometry": true,
+  "geometry_mode": "strict",
+  "pass_mode": "multi",
+  "base_url": "http://127.0.0.1:8081/v1",
+  "renderer": {
+   "renderer": "console-canvas-chromium-v1",
+   "drawing_js_sha256": "3b9e599699f7dc0a0d94754b3b06c162b5fc8888c8f7e6706dd73a50562e6090",
+   "canvas_html_sha256": "686ab2a857bbc468ce4f0b0e7d5f77d7194d5232dd5c7c34bbf04d08a16b7910",
+   "playwright_version": "1.63.0"
+  },
+  "protocol_version": 5,
+  "temperature": 0.0,
+  "transport": "response_format_json_schema",
+  "think_off": false,
+  "force_tool": false,
+  "reasoning_effort": "medium",
+  "vision_passes": true,
+  "single_pass": false,
+  "pass_budgets": [
+   16,
+   10,
+   8,
+   6
+  ],
+  "tasks": 1,
+  "check_score": 0.8,
+  "tasks_fully_satisfied": 0,
+  "fully_satisfied_rate": 0.0,
+  "valid_rate": 0.0,
+  "render_rate": 1.0,
+  "truncated_rate": 1.0,
+  "mean_steps": 2.0,
+  "total_wall_s": 427.3,
+  "refinement_delta": 0.2
+ },
+ "results": [
+  {
+   "task": "T1-lighthouse",
+   "tier": 1,
+   "tier_name": "single subject",
+   "brief": "Draw a lighthouse standing on a rocky headland at dusk, with a warm lamp glow at the top.",
+   "actions_returned": 2,
+   "steps": 2,
+   "valid": false,
+   "validation_error": null,
+   "clamped_fields": 0,
+   "rendered": true,
+   "render_error": null,
+   "truncated_stream": true,
+   "meta": {
+    "vision_fallback": false,
+    "elapsed_s": 83.86,
+    "completion_tokens": 6144,
+    "prompt_tokens": 1841,
+    "truncated": true,
+    "raw_len": 10992,
+    "raw_tail": "just try it and see. If it doesn't work, I can refine in the next pass. But since this is pass 4 of 4, I should be careful.\n\nLet me use a curve for the glow with a gradient:\n```json\n{\n  \"kind\": \"curve",
+    "finish_reason": "length",
+    "response": "",
+    "more": false
+   },
+   "meta_passes": [
+    {
+     "vision_fallback": false,
+     "elapsed_s": 82.35,
+     "completion_tokens": 2271,
+     "prompt_tokens": 2173,
+     "truncated": true,
+     "raw_len": 666,
+     "raw_tail": "lor\":\"#302b63\",\"gradient_stops\":[{\"offset\":0,\"color\":\"#0f0c29\"},{\"offset\":0.35,\"color\":\"#302b63\"},{\"offset\":0.65,\"color\":\"#7a3b5c\"},{\"offset\":0.85,\"color\":\"#c4667a\"},{\"offset\":1,\"color\":\"#e8a87c\"}]}]}",
+     "finish_reason": "stop",
+     "response": "",
+     "more": false
+    },
+    {
+     "vision_fallback": false,
+     "elapsed_s": 98.87,
+     "completion_tokens": 3479,
+     "prompt_tokens": 2464,
+     "truncated": true,
+     "raw_len": 4029,
+     "raw_tail": ", [560, 575], [530, 610], [560, 620], [600, 600], [660, 575], [720, 555], [780, 545], [850, 555], [910, 580], [960, 600]], \"fill\": false, \"stroke\": true, \"color\": \"#7a5a4a\", \"stroke_width\": 1.5}\n]\n```",
+     "finish_reason": "stop",
+     "response": "",
+     "more": false
+    },
+    {
+     "vision_fallback": true,
+     "elapsed_s": 76.81,
+     "completion_tokens": 6144,
+     "prompt_tokens": 1841,
+     "truncated": true,
+     "raw_len": 9338,
+     "raw_tail": "oints\": [[470, 170], [460, 120], [470, 100], [500, 100], [510, 120], [500, 170]], \"fill\": true, \"stroke\": false, \"fill_color\": \"#ffd700\", \"opacity\": 0.3}\n```\n\nWait, 6 points = 1+3n \u2192 n=5/3. Invalid!\n\n",
+     "finish_reason": "length",
+     "response": "",
+     "more": false
+    },
+    {
+     "vision_fallback": false,
+     "elapsed_s": 83.86,
+     "completion_tokens": 6144,
+     "prompt_tokens": 1841,
+     "truncated": true,
+     "raw_len": 10992,
+     "raw_tail": "just try it and see. If it doesn't work, I can refine in the next pass. But since this is pass 4 of 4, I should be careful.\n\nLet me use a curve for the glow with a gradient:\n```json\n{\n  \"kind\": \"curve",
+     "finish_reason": "length",
+     "response": "",
+     "more": false
+    }
+   ],
+   "passes": [
+    {
+     "pass": 1,
+     "budget": 16,
+     "actions_returned": 1,
+     "valid": true,
+     "validation_error": null,
+     "clamped_fields": 0,
+     "rendered": true,
+     "render_error": null,
+     "with_image": true,
+     "truncated_stream": true,
+     "meta": {
+      "vision_fallback": false,
+      "elapsed_s": 82.35,
+      "completion_tokens": 2271,
+      "prompt_tokens": 2173,
+      "truncated": true,
+      "raw_len": 666,
+      "raw_tail": "lor\":\"#302b63\",\"gradient_stops\":[{\"offset\":0,\"color\":\"#0f0c29\"},{\"offset\":0.35,\"color\":\"#302b63\"},{\"offset\":0.65,\"color\":\"#7a3b5c\"},{\"offset\":0.85,\"color\":\"#c4667a\"},{\"offset\":1,\"color\":\"#e8a87c\"}]}]}",
+      "finish_reason": "stop",
+      "response": "",
+      "more": false
+     },
+     "actions": [
+      {
+       "kind": "rectangle",
+       "x": 0,
+       "y": 0,
+       "width": 1000,
+       "height": 650,
+       "gradient_angle": 90,
+       "fill_color": "#0f0c29",
+       "gradient_color": "#302b63",
+       "gradient_stops": [
+        {
+         "offset": 0,
+         "color": "#0f0c29"
+        },
+        {
+         "offset": 0.35,
+         "color": "#302b63"
+        },
+        {
+         "offset": 0.65,
+         "color": "#7a3b5c"
+        },
+        {
+         "offset": 0.85,
+         "color": "#c4667a"
+        },
+        {
+         "offset": 1,
+         "color": "#e8a87c"
+        }
+       ],
+       "fill": true
+      }
+     ],
+     "checks_passed": 3,
+     "checks_total": 5
+    },
+    {
+     "pass": 2,
+     "budget": 10,
+     "actions_returned": 0,
+     "valid": false,
+     "validation_error": "Expected 1 to 100 canvas actions",
+     "clamped_fields": 0,
+     "rendered": true,
+     "render_error": null,
+     "with_image": true,
+     "truncated_stream": true,
+     "meta": {
+      "vision_fallback": false,
+      "elapsed_s": 98.87,
+      "completion_tokens": 3479,
+      "prompt_tokens": 2464,
+      "truncated": true,
+      "raw_len": 4029,
+      "raw_tail": ", [560, 575], [530, 610], [560, 620], [600, 600], [660, 575], [720, 555], [780, 545], [850, 555], [910, 580], [960, 600]], \"fill\": false, \"stroke\": true, \"color\": \"#7a5a4a\", \"stroke_width\": 1.5}\n]\n```",
+      "finish_reason": "stop",
+      "response": "",
+      "more": false
+     },
+     "actions": [],
+     "checks_passed": 3,
+     "checks_total": 5
+    },
+    {
+     "pass": 3,
+     "budget": 8,
+     "actions_returned": 0,
+     "valid": false,
+     "validation_error": "Expected 1 to 100 canvas actions",
+     "clamped_fields": 0,
+     "rendered": true,
+     "render_error": null,
+     "with_image": false,
+     "truncated_stream": true,
+     "meta": {
+      "vision_fallback": true,
+      "elapsed_s": 76.81,
+      "completion_tokens": 6144,
+      "prompt_tokens": 1841,
+      "truncated": true,
+      "raw_len": 9338,
+      "raw_tail": "oints\": [[470, 170], [460, 120], [470, 100], [500, 100], [510, 120], [500, 170]], \"fill\": true, \"stroke\": false, \"fill_color\": \"#ffd700\", \"opacity\": 0.3}\n```\n\nWait, 6 points = 1+3n \u2192 n=5/3. Invalid!\n\n",
+      "finish_reason": "length",
+      "response": "",
+      "more": false
+     },
+     "actions": [],
+     "checks_passed": 3,
+     "checks_total": 5
+    },
+    {
+     "pass": 4,
+     "budget": 6,
+     "actions_returned": 1,
+     "valid": true,
+     "validation_error": null,
+     "clamped_fields": 0,
+     "rendered": true,
+     "render_error": null,
+     "with_image": false,
+     "truncated_stream": true,
+     "meta": {
+      "vision_fallback": false,
+      "elapsed_s": 83.86,
+      "completion_tokens": 6144,
+      "prompt_tokens": 1841,
+      "truncated": true,
+      "raw_len": 10992,
+      "raw_tail": "just try it and see. If it doesn't work, I can refine in the next pass. But since this is pass 4 of 4, I should be careful.\n\nLet me use a curve for the glow with a gradient:\n```json\n{\n  \"kind\": \"curve",
+      "finish_reason": "length",
+      "response": "",
+      "more": false
+     },
+     "actions": [
+      {
+       "kind": "curve",
+       "id": "headland",
+       "stroke": false,
+       "fill_color": "#1a1525",
+       "fill": true,
+       "points": [
+        [
+         50,
+         620
+        ],
+        [
+         120,
+         520
+        ],
+        [
+         200,
+         490
+        ],
+        [
+         300,
+         485
+        ],
+        [
+         400,
+         495
+        ],
+        [
+         500,
+         510
+        ],
+        [
+         600,
+         495
+        ],
+        [
+         700,
+         485
+        ],
+        [
+         800,
+         490
+        ],
+        [
+         880,
+         520
+        ],
+        [
+         950,
+         620
+        ],
+        [
+         950,
+         620
+        ],
+        [
+         50,
+         620
+        ]
+       ]
+      }
+     ],
+     "checks_passed": 4,
+     "checks_total": 5
+    }
+   ],
+   "refinement_delta": 0.2,
+   "scene": {
+    "objects": 2,
+    "kinds": [
+     "rectangle",
+     "curve"
+    ],
+    "colours": [
+     "#0f0c29",
+     "#f2d5a0",
+     "#302b63",
+     "#1a1525"
+    ],
+    "texts": [],
+    "coverage": 0.1869,
+    "mean_overlap": 0.1869,
+    "shared_baseline": 1,
+    "even_spacing_run": 0
+   },
+   "checks": [
+    {
+     "check": "objects_at_least_4",
+     "ok": false,
+     "detail": "2 objects (need >= 4)"
+    },
+    {
+     "check": "has_hue_warm lamp",
+     "ok": true,
+     "detail": "colours=['#0f0c29', '#f2d5a0', '#302b63', '#1a1525'] (warm lamp band 20-50)"
+    },
+    {
+     "check": "has_hue_cool dusk",
+     "ok": true,
+     "detail": "colours=['#0f0c29', '#f2d5a0', '#302b63', '#1a1525'] (cool dusk band 200-260)"
+    },
+    {
+     "check": "coverage_between",
+     "ok": true,
+     "detail": "coverage 18.7% (want 2%-95%)"
+    },
+    {
+     "check": "overlap_below",
+     "ok": true,
+     "detail": "mean bbox overlap 0.19 (limit 0.5)"
+    }
+   ],
+   "checks_passed": 4,
+   "checks_total": 5,
+   "score": 0.8,
+   "wall_s": 427.31
+  }
+ ]
+}

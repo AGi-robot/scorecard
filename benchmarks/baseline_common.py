@@ -69,22 +69,39 @@ def parser(description, default_n=1, temperature=0.0, max_tokens=8192):
     p.add_argument("--temperature", type=float, default=temperature)
     p.add_argument("--max-tokens", type=int, default=max_tokens)
     p.add_argument("--request-timeout", type=int, default=300)
+    # Grace roster convention: Qwen thinking models run with thinking disabled so
+    # format-sensitive scores are comparable with IFEval. Recorded in the manifest.
+    p.add_argument("--think-off", action="store_true",
+                   help="Send chat_template_kwargs.enable_thinking=false (Qwen models)")
     return p
 
 
-def complete(args, messages, top_p=1.0):
+def complete(args, messages, top_p=1.0, *, bounded=False):
     body = {"model": args.model, "messages": messages, "temperature": args.temperature,
             "top_p": top_p, "max_tokens": args.max_tokens, "n": 1, "stream": False}
+    if getattr(args, "think_off", False):
+        body["chat_template_kwargs"] = {"enable_thinking": False}
     headers = {"Content-Type": "application/json"}
     if os.environ.get("OPENAI_API_KEY"):
         headers["Authorization"] = "Bearer " + os.environ["OPENAI_API_KEY"]
+    started = time.monotonic()
     for attempt in range(4):
         req = urllib.request.Request(args.base_url.rstrip("/") + "/chat/completions",
                                      data=json.dumps(body).encode(), headers=headers)
         try:
             with urllib.request.urlopen(req, timeout=args.request_timeout) as r:
-                choice = json.load(r)["choices"][0]
+                payload = json.load(r)
+            choice = payload["choices"][0]
             content = choice["message"]["content"]
+            if bounded:
+                if choice.get("finish_reason") not in ("stop", "length"):
+                    raise ValueError("Unexpected completion finish reason")
+                if content is not None and not isinstance(content, str):
+                    raise ValueError("Endpoint returned invalid final text")
+                return {"response": content or "", "finish_reason": choice["finish_reason"],
+                        "reasoning_content": choice["message"].get("reasoning_content"),
+                        "usage": payload.get("usage"),
+                        "elapsed_s": round(time.monotonic() - started, 3)}
             if not isinstance(content, str) or not content.strip():
                 raise ValueError("Endpoint returned no final text; configure reasoning output explicitly")
             if choice.get("finish_reason") != "stop":
@@ -94,6 +111,16 @@ def complete(args, messages, top_p=1.0):
             if error.code not in (429, 500, 502, 503, 504) or attempt == 3:
                 raise RuntimeError(f"Endpoint HTTP {error.code}; no score written") from None
             time.sleep(min(30, 2 ** attempt))
+        except (TimeoutError, urllib.error.URLError) as error:
+            timed_out = isinstance(error, TimeoutError) or isinstance(
+                getattr(error, "reason", None), TimeoutError)
+            if not bounded or not timed_out:
+                raise
+            # A non-streaming request has no answer available after timeout.
+            # Record this separately from a model that reached its token cap.
+            return {"response": "", "finish_reason": "timeout", "usage": None,
+                    "reasoning_content": None,
+                    "elapsed_s": round(time.monotonic() - started, 3)}
     raise RuntimeError("No completion")
 
 
@@ -110,7 +137,8 @@ def initialize(args, protocol, data_path, total):
     args.output.mkdir(parents=True, exist_ok=True)
     config = {"protocol": protocol, "data_sha256": digest(data_path), "total": total,
               "limit": args.limit, "model": args.model, "base_url": args.base_url,
-              "n": args.n, "temperature": args.temperature, "max_tokens": args.max_tokens}
+              "n": args.n, "temperature": args.temperature, "max_tokens": args.max_tokens,
+              "think_off": bool(getattr(args, "think_off", False))}
     path = args.output / "manifest.json"
     if path.exists() and json.loads(path.read_text()) != config:
         raise ValueError("Output configuration differs; use a new directory and identical flags for every stage")
@@ -118,8 +146,8 @@ def initialize(args, protocol, data_path, total):
     return config
 
 
-def responses(args, tasks, messages, top_p=1.0):
-    """Checkpoint successful samples only; reject stale, duplicate, or incomplete data."""
+def responses(args, tasks, messages, top_p=1.0, *, bounded=False):
+    """Checkpoint samples; bounded IFBench runs also retain caps and timeouts."""
     path = args.output / "responses.jsonl"
     records = read_jsonl(path) if path.exists() else []
     have = {}
@@ -128,7 +156,11 @@ def responses(args, tasks, messages, top_p=1.0):
         key = (str(row["id"]), row["sample"])
         if key in have or key[0] not in expected or not 0 <= key[1] < args.n:
             raise ValueError("Unexpected or duplicate response")
-        if not isinstance(row["response"], str) or not row["response"].strip():
+        if bounded and row.get("finish_reason") not in ("stop", "length", "timeout"):
+            raise ValueError("Missing or invalid bounded response metadata")
+        if bounded and row["finish_reason"] == "timeout" and row["response"] != "":
+            raise ValueError("A non-streaming timeout cannot have a response")
+        if not isinstance(row["response"], str) or (not bounded and not row["response"].strip()):
             raise ValueError("Invalid response")
         have[key] = row["response"]
     if args.stage in ("generate", "all"):
@@ -141,12 +173,17 @@ def responses(args, tasks, messages, top_p=1.0):
                         continue
                     if prompt_messages is None:
                         prompt_messages = messages(task)
-                    text = complete(args, prompt_messages, top_p)
-                    row = {"id": key[0], "sample": sample, "response": text}
+                    if bounded:
+                        completion = complete(args, prompt_messages, top_p, bounded=True)
+                        row = {"id": key[0], "sample": sample, **completion}
+                    else:
+                        row = {"id": key[0], "sample": sample,
+                               "response": complete(args, prompt_messages, top_p)}
                     out.write(json.dumps(row, ensure_ascii=False) + "\n")
                     out.flush()
-                    have[key] = text
-                    print(f"Saved {len(have)}/{len(tasks) * args.n}", flush=True)
+                    have[key] = row["response"]
+                    detail = f" ({row['finish_reason']})" if bounded else ""
+                    print(f"Saved {len(have)}/{len(tasks) * args.n}{detail}", flush=True)
     if args.stage in ("score", "all") and len(have) != len(tasks) * args.n:
         raise ValueError("Incomplete generation; refusing to score a partial run")
     return [[have[(str(t["id"]), i)] for i in range(args.n)] for t in tasks] if args.stage in ("score", "all") else None

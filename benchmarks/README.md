@@ -4,7 +4,8 @@ Choose benchmarks that exercise capabilities Grace has or is preparing to add. K
 
 ## Implemented benchmark suites
 
-- [BFCL](bfcl/README.md): official BFCL V4 across single-turn, multi-turn, live, agentic, and format-sensitivity tracks; AIVA's memory adapter is separate.
+- [Inference performance](inference_perf/README.md): cross-backend speed, latency, model file sizes and local RAM/VRAM measurements, independent of capability scores.
+- [BFCL](bfcl/README.md): official BFCL V4 across single-turn, multi-turn, live, agentic, and format-sensitivity tracks; Mind's conversation-window adapter is separate.
 - [Companion safety](companion_safety/README.md): INTIMA and AICompanionBench readiness, protocols, and artifact requirements.
 - [EQ-Bench and Creative Writing](eqbench/README.md): pinned EQ-Bench v4 and Creative Writing v3 plans; historical EQ-Bench v2 results remain separately labeled.
 - [EvalPlus](evalplus/README.md): HumanEval+ and MBPP+ code-generation correctness.

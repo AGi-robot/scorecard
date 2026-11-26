@@ -10,7 +10,6 @@ Usage:
 """
 import glob
 import json
-import os
 import sys
 from pathlib import Path
 
@@ -39,17 +38,21 @@ def rows():
             if not d or not d.get("full_run"):
                 continue
             coding = directory == "livecodebench"
+            notes = "pass@1 / pass@5" if coding else "prompt loose / strict"
+            if not coding and "generation" in d:
+                notes += (f"; cap {d['max_tokens']}; token-limited {d['generation']['token_limited']}"
+                          f"; timeouts {d['generation']['timed_out']}")
             out.append({
                 "bench": d["suite"], "model": d["model"], "n": d["n"],
                 "strict": pct(d.get("pass@1" if coding else "prompt_loose")),
                 "loose": pct(d.get("pass@5" if coding else "prompt_strict")),
-                "extra": "pass@1 / pass@5" if coding else "prompt loose / strict",
+                "extra": notes,
             })
 
     # --- IFEval: strict/loose accuracy -------------------------------
     for p in sorted(glob.glob(str(HERE / "ifeval" / "results" / "ifeval_*.json"))):
         d = load_json(p)
-        if not d:
+        if not d or d.get("smoke") or Path(p).name.startswith("ifeval_smoke_"):
             continue
         out.append({
             "bench": "IFEval",

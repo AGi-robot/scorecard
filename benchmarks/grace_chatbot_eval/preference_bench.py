@@ -10,12 +10,16 @@ Phase 3 --score: win rates per dimension plus Elo standings.
 
 Contestants are OpenAI-compatible endpoints, e.g.:
     python preference_bench.py --generate \\
-        --contestant ministral=http://127.0.0.1:8080/v1/ministral-3-14b-instruct-2512 \\
-        --contestant swift=http://127.0.0.1:8081/v1/swift
+        --contestant ministral=http://127.0.0.1:8080/v1/<router-model-alias> \\
+        --contestant swift1.5-qwen3.8-27B=http://127.0.0.1:8081/v1/swift
 
-The system prompt defaults to Grace's SOUL.md plus the current timestamp --
-the same context aiva_chat/node.py builds -- so this tests the deployment,
-not the bare model. Pass --bare to test models without the persona.
+The configured contestant label should identify the exact model build; an
+endpoint may continue to use a shorter API model ID.
+
+This runner calls OpenAI-compatible model endpoints directly. By default it
+uses the versioned Grace persona snapshot and the scripted conversation
+history. This is a prompt-level Grace harness, not the full running Grace
+runtime. Use --bare-model for a model-only comparison.
 
 Nothing runs until you invoke it; generation needs the servers up.
 """
@@ -37,17 +41,9 @@ sys.path.insert(0, str(HERE))
 import scripts as SCRIPTS_MOD  # noqa: E402
 
 OUT_DIR = HERE / "results"
+DEFAULT_SYSTEM_PROMPT = HERE / "prompts" / "grace-persona-v1.md"
 DIMENSIONS = ["warmth", "coherence", "persona", "overall"]
 CHOICES = {"a": "A", "b": "B", "t": "tie", "s": "skip"}
-
-
-def load_soul():
-    for cand in [
-        Path("/home/oppa-ai/AGi/AIVA/persona/SOUL.md"),
-    ]:
-        if cand.is_file():
-            return cand.read_text(encoding="utf-8")
-    return "You are Grace, a warm, honest AI companion."
 
 
 def chat(base_url, model, messages, temperature=0.7, max_tokens=512,
@@ -75,10 +71,10 @@ def parse_contestant(spec):
     return {"name": name, "base_url": base_url, "model": model}
 
 
-def play_script(script, contestant, system, temperature, think_off):
-    messages = [{"role": "system", "content": system}]
+def play_script(script, contestant, system, temperature, think_off, variant="a"):
+    messages = ([{"role": "system", "content": system}] if system else [])
     transcript = []
-    for turn in script["turns"]:
+    for turn in SCRIPTS_MOD.turns_for(script, variant):
         if "user" not in turn:
             continue
         messages.append({"role": "user", "content": turn["user"]})
@@ -99,14 +95,23 @@ def cmd_generate(args):
     contestants = [parse_contestant(s) for s in args.contestant]
     if len(contestants) < 1:
         raise SystemExit("need at least one --contestant entry")
-    soul = "" if args.bare else load_soul()
     stamp = datetime.datetime.now(datetime.timezone.utc).strftime(
         "%A, %B %d, %Y at %I:%M %p UTC")
-    system = (soul + f"\n\nCurrent local date and time: {stamp}. "
-              "Use this as the authoritative current time.").strip()
-    batch = {"created": stamp, "bare": args.bare, "temperature": args.temperature,
+    prompt_file = None if args.bare_model else (args.system_prompt_file or DEFAULT_SYSTEM_PROMPT)
+    persona = prompt_file.read_text(encoding="utf-8").strip() if prompt_file else ""
+    system = (persona + f"\n\nCurrent date and time: {stamp}. "
+              "Use this as the authoritative current time.").strip() if persona else ""
+    system_hash = hashlib.sha256(system.encode("utf-8")).hexdigest() if system else None
+    persona_hash = hashlib.sha256(persona.encode("utf-8")).hexdigest() if persona else None
+    batch = {"created": stamp, "bare_model": args.bare_model,
+             "system_prompt_sha256": system_hash,
+             "persona_prompt_sha256": persona_hash,
+             "system_prompt_file": prompt_file.name if prompt_file else None,
+             "temperature": args.temperature,
              "think_off": args.think_off, "contestants": [c["name"] for c in contestants],
+             "variant_mode": args.variant, "variant_seed": args.variant_seed,
              "scripts": {}}
+    vrng = random.Random(args.variant_seed)
     for script in SCRIPTS_MOD.SCRIPTS:
         if args.script and script["id"] not in args.script:
             continue
@@ -115,9 +120,15 @@ def cmd_generate(args):
             "title": script["title"], "probe": script["probe"],
             "transcripts": {}}
         for c in contestants:
-            print(f"    {c['name']} ...", flush=True)
-            t = play_script(script, c, system, args.temperature, args.think_off)
-            batch["scripts"][script["id"]]["transcripts"][c["name"]] = t
+            if args.variant == "alternate":
+                variant = vrng.choice(["a", "b"])
+            else:
+                variant = args.variant
+            print(f"    {c['name']} (variant {variant}) ...", flush=True)
+            t = play_script(script, c, system, args.temperature, args.think_off,
+                            variant=variant)
+            batch["scripts"][script["id"]]["transcripts"][c["name"]] = {
+                "variant": variant, "turns": t}
             time.sleep(1)
     digest = hashlib.sha256(json.dumps(batch, sort_keys=True).encode()).hexdigest()[:8]
     path = OUT_DIR / f"batch_{digest}.json"
@@ -164,16 +175,14 @@ def cmd_rate(args):
             flip = rng.random() < 0.5
             first, second = (right, left) if flip else (left, right)
             print(f"===== {script_id}: {script['title']}  (probe: {script['probe']}) =====")
-            for t in script["transcripts"][first]:
-                print(f"\n  you: {t['user']}")
-                print(f"  A : {t['reply']}")
-                if t.get("expect"):
-                    print(f"  >>> RATER NOTE: {t['expect']}")
-            for t in script["transcripts"][second]:
-                print(f"\n  you: {t['user']}")
-                print(f"  B : {t['reply']}")
-                if t.get("expect"):
-                    print(f"  >>> RATER NOTE: {t['expect']}")
+            for name, tag in ((first, "A"), (second, "B")):
+                tr = script["transcripts"][name]
+                turns = tr["turns"] if isinstance(tr, dict) else tr
+                for t in turns:
+                    print(f"\n  you: {t['user']}")
+                    print(f"  {tag} : {t['reply']}")
+                    if t.get("expect"):
+                        print(f"  >>> RATER NOTE: {t['expect']}")
             print()
             vote = {"script": script_id, "left": first, "right": second, "batch": batch_path.name}
             for dim in DIMENSIONS:
@@ -264,8 +273,17 @@ def main():
     gen.add_argument("--temperature", type=float, default=0.7)
     gen.add_argument("--think-off", action="store_true", default=False,
                      help="disable thinking on Qwen models (BFCL protocol parity)")
-    gen.add_argument("--bare", action="store_true", default=False,
-                     help="no SOUL persona; bare-model comparison")
+    gen.add_argument("--variant", choices=["a", "b", "alternate"], default="a",
+                     help="prompt wording: a = original scripts (standard Arena setup), "
+                          "b = alternate wordings, alternate = random per play "
+                          "(seeded, recorded; fights rater memorization)")
+    gen.add_argument("--variant-seed", type=int, default=7,
+                     help="RNG seed for --variant alternate")
+    prompt_mode = gen.add_mutually_exclusive_group()
+    prompt_mode.add_argument("--bare-model", action="store_true",
+                             help="omit Grace's persona and timestamp; compare model endpoints directly")
+    prompt_mode.add_argument("--system-prompt-file", type=Path, default=None,
+                             help="use this prompt snapshot instead of the bundled Grace persona")
     rate = sub.add_parser("rate", help="blind human rating")
     rate.add_argument("--batch", default=None)
     score = sub.add_parser("score", help="win rates + Elo standings")

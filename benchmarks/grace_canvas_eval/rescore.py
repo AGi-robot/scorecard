@@ -10,19 +10,12 @@ Usage:
     python rescore.py [--label LABEL] [--renders renders] [--results results]
 """
 import argparse
-import base64
 import json
-import os
 from pathlib import Path
 
 import sys
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-_HERE_PARENT = Path(__file__).resolve().parent
-_AGI = os.environ.get("AGI_REPO", "/home/oppa-ai/AGi")
-sys.path.insert(0, str(Path(_AGI) / "canvas" / "src"))
-sys.path.insert(0, str(Path(_AGI) / "imaging" / "src"))
 import tasks as T  # noqa: E402
-from canvas import engine, svg  # noqa: E402
 from grace_canvas_eval import (validate_and_measure, build_scene, render_png,
                                run_task  # noqa: F401  (keeps import surface stable)
                                )

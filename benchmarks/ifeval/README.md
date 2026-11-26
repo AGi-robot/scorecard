@@ -15,12 +15,18 @@ AI at least 3 times" won't follow Grace's output contracts either.
 
 ## Protocol
 
-- temperature 0.0, max_tokens 2048, plain user message (no system prompt —
+- temperature 0.0, max_tokens 14336, plain user message (no system prompt —
   matches the official harness, which sends the raw prompt).
-- Qwen thinking models run with `chat_template_kwargs.enable_thinking=false`
-  (`--think-off`), consistent with every other Grace benchmark: thinking
-  traces would pollute format-sensitive scoring and Ministral has no
-  thinking mode to match against.
+- IFEval itself does not prescribe a thinking mode or reasoning-effort level;
+  it scores the generated response text. Scorecard uses each model's
+  normal-task policy: Swift runs with `reasoning_effort=low`, while Ministral
+  uses its standard generation mode.
+- Use `--think-off` only for a separately labeled comparison variant. The
+  runner records this setting and prevents checkpoints from mixing modes.
+  Reasoning effort is also recorded in the checkpoint fingerprint.
+- The 14,336-token generation cap gives reasoning models room to finish their
+  reasoning and still return a scoreable answer. It changes the run fingerprint;
+  scores from the former 2,048-token cap are a different generation setup.
 - Official `test_instruction_following_strict` / `_loose` on the results.
 
 ## Running it
@@ -29,17 +35,22 @@ AI at least 3 times" won't follow Grace's output contracts either.
 # install the official evaluator's Python dependencies once
 python -m pip install -r requirements.txt
 
-# one model at a time (or several servers in parallel, one runner each)
-python ifeval_run.py http://127.0.0.1:8080/v1 ministral-3-14b-instruct-2512 ministral3-14b
-python ifeval_run.py http://127.0.0.1:8094/v1 swift swift15-qwen3.8-27b --think-off
-python ifeval_run.py http://127.0.0.1:8101/v1 a1-4b agents-a1-4b --think-off
+# Run one model per process. API model IDs may differ from scorecard labels; this keeps the endpoint ID `swift`
+# but labels its output files with the exact Swift 1.5 Qwen 3.8 27B build.
+python ifeval_run.py http://127.0.0.1:8080/v1 ministral-3-8b-instruct-2512-abliterated ministral3-8b-abliterated
+python ifeval_run.py http://127.0.0.1:8094/v1 swift swift1.5-qwen3.8-27B-low --reasoning-effort low
+python ifeval_run.py http://127.0.0.1:8101/v1 a1-4b agents-a1-4b
 python ifeval_run.py http://127.0.0.1:8102/v1 minicpm minicpm5-2b
-python ifeval_run.py http://127.0.0.1:8103/v1 neo neohorse-1-4b --think-off
+python ifeval_run.py http://127.0.0.1:8103/v1 neo neohorse-1-4b
 ```
 
 Resumable: completed responses are appended to
 `results/responses_<label>.jsonl`, so an interrupted run picks up where it
-left off. Score files land at `results/ifeval_<label>.json`.
+left off. Resume requires the same model, endpoint, dataset, limit, and
+thinking settings. Use a fresh label for older checkpoints or when changing
+these settings. A full score is written to `results/ifeval_<label>.json`
+only once every response is present. A limited run writes
+`results/ifeval_smoke_<label>.json`.
 
 If a run reports that NLTK's `punkt` tokenizer data is missing, install it
 once with `python -m nltk.downloader punkt`.

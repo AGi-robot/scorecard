@@ -9,7 +9,7 @@ is diagnostic and must not be presented as the complete V4 score.
 The repository's bundled V3 runner and existing V3 results are retained only
 for historical reference. They are not the active BFCL test and cannot be
 converted into V4 scores. Replace the displayed V3 score only after a complete
-V4 run is available. The AIVA recent-window adapter remains a separate custom
+V4 run is available. The Mind recent-window adapter remains a separate custom
 track; it is not part of the official BFCL overall score.
 
 ## Historical V3 results
@@ -24,31 +24,24 @@ local SearXNG service replacing the upstream SerpAPI search backend. Scores from
 this SearXNG run are **not directly comparable** to leaderboard results using
 SerpAPI; report the search backend and versions with every run.
 
-## Important: AIVA's current memory is a different capability
+## Official BFCL memory versus Mind's conversation window
 
-In AIVA `dev` commit `25fb7e1`, `GraceMemory` persists SQLite conversation
-turns and injects the latest eight exchanges into chat context. It does not
-expose BFCL's `memory_kv`, `memory_vector`, or `memory_rec_sum` tools. The official BFCL
-harness simulates those memory APIs itself. Therefore:
+The official BFCL harness simulates its `memory_kv`, `memory_vector`, and
+`memory_rec_sum` tools. Those categories measure the model/agent against BFCL's
+simulator; they do not test Grace's persistent conversation store. Therefore:
 
-- Running BFCL `memory_kv`, `memory_vector`, or `memory_rec_sum` measures the
-  model/agent against BFCL's own memory tools and simulator; it does **not**
-  exercise AIVA's `GraceMemory` implementation. The AIVA-specific runner
-  below provides that separate measurement.
-- Use [`aiva_memory_run.py`](aiva_memory_run.py) for the separate AIVA
-  recent-window track. It imports AIVA's actual `GraceMemory` class, replays
-  BFCL's prerequisite dialogue by calling the configured LLM and saving each
-  exchange through `add_exchange()`, then answers each BFCL memory question
-  using `recent()` and the official BFCL answer checker. It defaults to AIVA's
-  current 8-exchange window. It does not change or access the user's live
-  `~/.agi` database; each scenario uses a temporary SQLite file.
-- This adapter measures AIVA's conversation-history window, not the official
+- Use [`mind_memory_run.py`](mind_memory_run.py) for the separate Mind
+  recent-window track. It uses Mind's public `ConversationStore` API, replays
+  BFCL prerequisite dialogue through the configured OpenAI-compatible model
+  endpoint, then answers memory questions with the recent context returned by
+  Mind and the official BFCL answer checker. It defaults to an 8-exchange
+  window and a bare model prompt. Each scenario uses a temporary SQLite file;
+  the runner neither launches nor imports Grace's runtime.
+- This adapter measures Mind's conversation-history window, not the official
   BFCL memory-tool benchmark. Keep its score separate from `memory_kv`,
   `memory_vector`, and `memory_rec_sum` results.
-- In the current AIVA `aiva_chat` node, the WebUI `web_search` flag only prefixes
-  the prompt with `/web`; the node does not yet call SearXNG. BFCL's SearXNG
-  integration below tests the official BFCL web-search tool path, not AIVA's
-  WebUI path.
+- BFCL's SearXNG integration below belongs to the official BFCL harness. It is
+  independent of Grace's search or chat implementation.
 
 ## SearXNG: use Docker for this baseline
 
@@ -113,7 +106,7 @@ when BFCL itself runs in a container.
 ## Run V4 categories
 
 The model patch registers the AIVA served model alias
-`ministral-3-14b-instruct-2512`. For the OpenAI-compatible endpoint, set
+`ministral-3-8b-instruct-2512-abliterated`. For the OpenAI-compatible endpoint, set
 `REMOTE_OPENAI_BASE_URL`, `REMOTE_OPENAI_API_KEY`, and
 `REMOTE_OPENAI_TOKENIZER_PATH` to the Ministral tokenizer ID or local tokenizer
 path. Set `BFCL_PROJECT_ROOT` to a results directory outside this scorecard
@@ -121,15 +114,15 @@ checkout.
 
 With the model server already running, point the upstream OSS handler at it
 and run the lightweight key-value memory baseline. BFCL simulates this memory
-tool backend; it is not AIVA's SQLite implementation:
+tool backend; it is not Mind's SQLite conversation store:
 
 ```bash
 export REMOTE_OPENAI_BASE_URL=http://127.0.0.1:8080/v1
 export REMOTE_OPENAI_API_KEY=EMPTY
-export REMOTE_OPENAI_TOKENIZER_PATH=mistralai/Ministral-3-14B-Instruct-2512
+export REMOTE_OPENAI_TOKENIZER_PATH=mistralai/Ministral-3-8B-Instruct-2512
 export BFCL_PROJECT_ROOT=/path/to/results/bfcl-v4
-bfcl generate --model AGi/ministral-3-14b-instruct-2512 --test-category memory_kv --skip-server-setup
-bfcl evaluate --model AGi/ministral-3-14b-instruct-2512 --test-category memory_kv
+bfcl generate --model AGi/ministral-3-8b-instruct-2512-abliterated --test-category memory_kv --skip-server-setup
+bfcl evaluate --model AGi/ministral-3-8b-instruct-2512-abliterated --test-category memory_kv
 ```
 
 After that works, `--test-category memory` runs the full key-value, vector, and
@@ -141,8 +134,8 @@ Then run web search against the local SearXNG backend:
 ```bash
 export SEARXNG_BASE_URL=http://127.0.0.1:8888
 export SEARXNG_LANGUAGE=en
-bfcl generate --model AGi/ministral-3-14b-instruct-2512 --test-category web_search --skip-server-setup
-bfcl evaluate --model AGi/ministral-3-14b-instruct-2512 --test-category web_search
+bfcl generate --model AGi/ministral-3-8b-instruct-2512-abliterated --test-category web_search --skip-server-setup
+bfcl evaluate --model AGi/ministral-3-8b-instruct-2512-abliterated --test-category web_search
 ```
 
 For a first short run, use the upstream CLI's `--run-ids` workflow and a
@@ -151,41 +144,45 @@ model alias, endpoint/model revision, upstream BFCL commit, SearXNG image
 revision/settings, and raw outputs together. Do not combine these results with
 BFCL V3 AST accuracy or upstream SerpAPI scores into one number.
 
-## Run the AIVA recent-window memory track
+## Run the Mind recent-window memory track
 
-The AIVA runner reuses the actual `GraceMemory` source file, the AIVA `SOUL.md`,
-and the official BFCL V4 memory questions and answer checker. It uses a
-separate temporary SQLite file for each scenario. Seed replies are generated
-by the same configured model and cached under `results/seed_cache/`; this makes
-restarts resumable without repeating completed prerequisite turns. Use a new
-`--label` when the model, endpoint, system prompt, or memory window changes.
+The runner loads `ConversationStore` from the Mind checkout specified on the
+command line, and sends model requests directly to an OpenAI-compatible
+endpoint. It does not launch or call Grace's runtime API, and does not load a
+persona by default. A frozen prompt snapshot can be supplied explicitly for a
+separate configured run. Each scenario uses a temporary SQLite file. Seed
+replies are cached under `results/seed_cache/` to resume without repeating
+completed prerequisite turns. Use a new `--label` when the model, endpoint,
+prompt, or memory window changes.
 
-The pinned Gorilla checkout and AIVA checkout are required. Start the local AIVA
-LLM endpoint, then from the scorecard root run:
+The pinned Gorilla and Mind checkouts are required. Start the model endpoint,
+then from the scorecard root run:
 
 ```bash
-python benchmarks/bfcl/aiva_memory_run.py \
-  --aiva-root /path/to/AGi-Robot/AIVA \
+python benchmarks/bfcl/mind_memory_run.py \
+  --mind-root /path/to/AGi-Robot/mind \
   --bfcl-root /tmp/gorilla-bfcl/berkeley-function-call-leaderboard \
   --base-url http://127.0.0.1:8080/v1 \
-  --model ministral-3-14b-instruct-2512 \
+  --model ministral-3-8b-instruct-2512-abliterated \
   --memory-turns 8 \
-  --label ministral3-14b-memory8 \
+  --label ministral3-8b-abliterated-memory8 \
   --limit 5
 ```
 
 The runner writes per-question results and a summary under
 `benchmarks/bfcl/results/v4/`. A limited question run still replays the full
 prerequisite history for the selected scenario so it measures the configured
-memory window. It reports a BFCL-answer-checker accuracy for this AIVA-specific
-track; do not present it as the official BFCL `memory` category score.
+memory window. The summary records source/data/configuration hashes, and the
+runner rejects incompatible resumes. It reports BFCL-answer-checker accuracy for this
+Mind-specific track; do not present it as the official BFCL `memory` category
+score.
 
 ## V4 run sequence for Grace
 
 1. Run the official BFCL V4 standard categories together to obtain the current overall score. Then inspect category-level outcomes. It
-   uses BFCL's simulator, not AIVA's eight-exchange chat history.
+   uses BFCL's simulator, not Mind's persistent conversation store.
 2. Run memory and web-search categories using their official prerequisites and the pinned local SearXNG instance described above. Record any changed backend because SearXNG results differ from leaderboard SerpAPI.
-3. Preserve the V4 overall and component results. Report the AIVA recent-window adapter separately because it measures another system.
+3. Preserve the V4 overall and component results. Report the Mind recent-window adapter separately because it measures another component.
 
 ## Native SearXNG alternative
 

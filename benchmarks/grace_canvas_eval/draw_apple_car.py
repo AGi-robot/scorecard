@@ -7,9 +7,11 @@ import json
 import sys
 import time
 import urllib.request
+from pathlib import Path
 
-sys.path.insert(0, "/home/oppa-ai/AGi/canvas/src")
-sys.path.insert(0, "/home/oppa-ai/AGi/imaging/src")
+AGI_REPO = Path(__file__).resolve().parents[3]
+sys.path.insert(0, str(AGI_REPO / "capability" / "canvas" / "src"))
+sys.path.insert(0, str(AGI_REPO / "capability" / "imaging" / "src"))
 from canvas import DRAW_INSTRUCTIONS, DRAW_TOOL, engine, svg, completed_stream_actions
 import cairosvg
 
@@ -82,6 +84,6 @@ for name, brief in TASKS.items():
     except Exception as e:
         print(f"  INVALID: {e}")
     png = render_png(actions)
-    path = f"/home/oppa-ai/AGi/scorecard/benchmarks/grace_canvas_eval/renders/{PREFIX}_{name}.png"
-    open(path, "wb").write(png)
+    path = Path(__file__).resolve().parent / "renders" / f"{PREFIX}_{name}.png"
+    path.write_bytes(png)
     print(f"  saved {path} ({len(png)} bytes)")

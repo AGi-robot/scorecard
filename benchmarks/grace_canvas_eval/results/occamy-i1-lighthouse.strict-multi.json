@@ -1,0 +1,1101 @@
+{
+ "summary": {
+  "label": "occamy-i1-lighthouse-strict-multi",
+  "model": "occamy-i1",
+  "schema_hint": false,
+  "strict_geometry": true,
+  "geometry_mode": "strict",
+  "pass_mode": "multi",
+  "base_url": "http://127.0.0.1:8081/v1",
+  "renderer": {
+   "renderer": "console-canvas-chromium-v1",
+   "drawing_js_sha256": "3b9e599699f7dc0a0d94754b3b06c162b5fc8888c8f7e6706dd73a50562e6090",
+   "canvas_html_sha256": "686ab2a857bbc468ce4f0b0e7d5f77d7194d5232dd5c7c34bbf04d08a16b7910",
+   "playwright_version": "1.63.0"
+  },
+  "protocol_version": 5,
+  "temperature": 0.0,
+  "transport": "response_format_json_schema",
+  "think_off": false,
+  "force_tool": false,
+  "reasoning_effort": "medium",
+  "vision_passes": true,
+  "single_pass": false,
+  "pass_budgets": [
+   16,
+   10,
+   8,
+   6
+  ],
+  "tasks": 1,
+  "check_score": 0.8,
+  "tasks_fully_satisfied": 0,
+  "fully_satisfied_rate": 0.0,
+  "valid_rate": 1.0,
+  "render_rate": 1.0,
+  "truncated_rate": 1.0,
+  "mean_steps": 15.0,
+  "total_wall_s": 229.4,
+  "refinement_delta": -0.2
+ },
+ "results": [
+  {
+   "task": "T1-lighthouse",
+   "tier": 1,
+   "tier_name": "single subject",
+   "brief": "Draw a lighthouse standing on a rocky headland at dusk, with a warm lamp glow at the top.",
+   "actions_returned": 15,
+   "steps": 15,
+   "valid": true,
+   "validation_error": null,
+   "clamped_fields": 0,
+   "rendered": true,
+   "render_error": null,
+   "truncated_stream": true,
+   "meta": {
+    "vision_fallback": false,
+    "elapsed_s": 102.87,
+    "completion_tokens": 3497,
+    "prompt_tokens": 3475,
+    "truncated": true,
+    "raw_len": 2999,
+    "raw_tail": "0],\n        [600, 0],\n        [800, 0],\n        [1000, 0],\n        [1000, 350],\n        [800, 380],\n        [600, 390],\n        [400, 385],\n        [200, 370],\n        [0, 350]\n      ]\n    }\n  ]\n}\n```",
+    "finish_reason": "stop",
+    "response": "",
+    "more": false
+   },
+   "meta_passes": [
+    {
+     "vision_fallback": false,
+     "elapsed_s": 123.99,
+     "completion_tokens": 6144,
+     "prompt_tokens": 2173,
+     "truncated": true,
+     "raw_len": 9406,
+     "raw_tail": "00, 425]\n\nWait, that's 10 points but it doesn't close. Let me add the closing part. Actually, for a 3-segment curve (10 points), the shape goes from point 0 to point 3, then to point 6, then to point ",
+     "finish_reason": "length",
+     "response": "",
+     "more": false
+    },
+    {
+     "vision_fallback": false,
+     "elapsed_s": 102.87,
+     "completion_tokens": 3497,
+     "prompt_tokens": 3475,
+     "truncated": true,
+     "raw_len": 2999,
+     "raw_tail": "0],\n        [600, 0],\n        [800, 0],\n        [1000, 0],\n        [1000, 350],\n        [800, 380],\n        [600, 390],\n        [400, 385],\n        [200, 370],\n        [0, 350]\n      ]\n    }\n  ]\n}\n```",
+     "finish_reason": "stop",
+     "response": "",
+     "more": false
+    }
+   ],
+   "passes": [
+    {
+     "pass": 1,
+     "budget": 16,
+     "actions_returned": 10,
+     "valid": true,
+     "validation_error": null,
+     "clamped_fields": 0,
+     "rendered": true,
+     "render_error": null,
+     "with_image": true,
+     "truncated_stream": true,
+     "meta": {
+      "vision_fallback": false,
+      "elapsed_s": 123.99,
+      "completion_tokens": 6144,
+      "prompt_tokens": 2173,
+      "truncated": true,
+      "raw_len": 9406,
+      "raw_tail": "00, 425]\n\nWait, that's 10 points but it doesn't close. Let me add the closing part. Actually, for a 3-segment curve (10 points), the shape goes from point 0 to point 3, then to point 6, then to point ",
+      "finish_reason": "length",
+      "response": "",
+      "more": false
+     },
+     "actions": [
+      {
+       "kind": "path",
+       "gradient_angle": 90,
+       "id": "horizon_glow",
+       "stroke": false,
+       "smooth": true,
+       "fill_color": "#e8a87a",
+       "gradient_color": "#c86040",
+       "fill": true,
+       "points": [
+        [
+         0,
+         420
+        ],
+        [
+         200,
+         400
+        ],
+        [
+         400,
+         390
+        ],
+        [
+         600,
+         395
+        ],
+        [
+         800,
+         410
+        ],
+        [
+         1000,
+         425
+        ],
+        [
+         1000,
+         460
+        ],
+        [
+         800,
+         450
+        ],
+        [
+         600,
+         445
+        ],
+        [
+         400,
+         448
+        ],
+        [
+         200,
+         455
+        ],
+        [
+         0,
+         465
+        ]
+       ]
+      },
+      {
+       "kind": "curve",
+       "gradient_angle": 90,
+       "id": "clouds",
+       "stroke": false,
+       "fill_color": "#c87050",
+       "gradient_color": "#e8a87a",
+       "fill": true,
+       "points": [
+        [
+         120,
+         380
+        ],
+        [
+         180,
+         360
+        ],
+        [
+         250,
+         365
+        ],
+        [
+         320,
+         355
+        ],
+        [
+         380,
+         365
+        ],
+        [
+         440,
+         360
+        ],
+        [
+         500,
+         370
+        ],
+        [
+         560,
+         360
+        ],
+        [
+         620,
+         365
+        ],
+        [
+         680,
+         355
+        ],
+        [
+         750,
+         365
+        ],
+        [
+         820,
+         360
+        ],
+        [
+         880,
+         370
+        ],
+        [
+         940,
+         365
+        ],
+        [
+         1000,
+         380
+        ],
+        [
+         1000,
+         400
+        ],
+        [
+         940,
+         395
+        ],
+        [
+         880,
+         400
+        ],
+        [
+         820,
+         395
+        ],
+        [
+         750,
+         400
+        ],
+        [
+         680,
+         395
+        ],
+        [
+         620,
+         400
+        ],
+        [
+         560,
+         395
+        ],
+        [
+         500,
+         400
+        ],
+        [
+         440,
+         395
+        ],
+        [
+         380,
+         400
+        ],
+        [
+         320,
+         395
+        ],
+        [
+         250,
+         400
+        ],
+        [
+         180,
+         395
+        ],
+        [
+         120,
+         400
+        ],
+        [
+         0,
+         390
+        ]
+       ]
+      },
+      {
+       "kind": "path",
+       "id": "headland",
+       "stroke": false,
+       "smooth": true,
+       "fill_color": "#1e2838",
+       "fill": true,
+       "points": [
+        [
+         0,
+         650
+        ],
+        [
+         50,
+         620
+        ],
+        [
+         120,
+         560
+        ],
+        [
+         200,
+         500
+        ],
+        [
+         280,
+         460
+        ],
+        [
+         360,
+         440
+        ],
+        [
+         440,
+         435
+        ],
+        [
+         520,
+         440
+        ],
+        [
+         600,
+         455
+        ],
+        [
+         680,
+         490
+        ],
+        [
+         760,
+         530
+        ],
+        [
+         840,
+         580
+        ],
+        [
+         920,
+         620
+        ],
+        [
+         1000,
+         650
+        ]
+       ]
+      },
+      {
+       "kind": "path",
+       "id": "lighthouse_body",
+       "stroke": false,
+       "smooth": true,
+       "fill_color": "#d8c8a8",
+       "fill": true,
+       "points": [
+        [
+         440,
+         440
+        ],
+        [
+         445,
+         380
+        ],
+        [
+         455,
+         320
+        ],
+        [
+         465,
+         320
+        ],
+        [
+         475,
+         380
+        ],
+        [
+         480,
+         440
+        ]
+       ]
+      },
+      {
+       "kind": "ellipse",
+       "x": 455,
+       "y": 310,
+       "width": 50,
+       "height": 30,
+       "gradient_angle": 90,
+       "id": "lamp_glow",
+       "stroke": false,
+       "fill_color": "#ffb347",
+       "gradient_color": "#ff8c00",
+       "fill": true
+      },
+      {
+       "kind": "path",
+       "id": "lighthouse_shadow",
+       "stroke": false,
+       "smooth": true,
+       "fill_color": "#a09070",
+       "fill": true,
+       "points": [
+        [
+         440,
+         440
+        ],
+        [
+         445,
+         380
+        ],
+        [
+         455,
+         320
+        ],
+        [
+         460,
+         320
+        ],
+        [
+         460,
+         380
+        ],
+        [
+         455,
+         440
+        ]
+       ]
+      },
+      {
+       "kind": "path",
+       "id": "rock_detail1",
+       "stroke": false,
+       "smooth": true,
+       "fill_color": "#253040",
+       "fill": true,
+       "points": [
+        [
+         280,
+         460
+        ],
+        [
+         300,
+         445
+        ],
+        [
+         330,
+         440
+        ],
+        [
+         360,
+         445
+        ],
+        [
+         380,
+         460
+        ],
+        [
+         360,
+         470
+        ],
+        [
+         330,
+         475
+        ],
+        [
+         300,
+         470
+        ]
+       ]
+      },
+      {
+       "kind": "path",
+       "id": "rock_detail2",
+       "stroke": false,
+       "smooth": true,
+       "fill_color": "#253040",
+       "fill": true,
+       "points": [
+        [
+         600,
+         455
+        ],
+        [
+         620,
+         440
+        ],
+        [
+         650,
+         435
+        ],
+        [
+         680,
+         445
+        ],
+        [
+         700,
+         460
+        ],
+        [
+         680,
+         470
+        ],
+        [
+         650,
+         475
+        ],
+        [
+         620,
+         470
+        ]
+       ]
+      },
+      {
+       "kind": "curve",
+       "id": "water",
+       "stroke": false,
+       "fill_color": "#1a3050",
+       "fill": true,
+       "points": [
+        [
+         0,
+         580
+        ],
+        [
+         100,
+         575
+        ],
+        [
+         200,
+         580
+        ],
+        [
+         300,
+         575
+        ],
+        [
+         400,
+         580
+        ],
+        [
+         500,
+         575
+        ],
+        [
+         600,
+         580
+        ],
+        [
+         700,
+         575
+        ],
+        [
+         800,
+         580
+        ],
+        [
+         900,
+         575
+        ],
+        [
+         1000,
+         580
+        ],
+        [
+         1000,
+         650
+        ],
+        [
+         0,
+         650
+        ]
+       ]
+      }
+     ],
+     "checks_passed": 5,
+     "checks_total": 5
+    },
+    {
+     "pass": 2,
+     "budget": 10,
+     "actions_returned": 6,
+     "valid": true,
+     "validation_error": null,
+     "clamped_fields": 0,
+     "rendered": true,
+     "render_error": null,
+     "with_image": true,
+     "truncated_stream": true,
+     "meta": {
+      "vision_fallback": false,
+      "elapsed_s": 102.87,
+      "completion_tokens": 3497,
+      "prompt_tokens": 3475,
+      "truncated": true,
+      "raw_len": 2999,
+      "raw_tail": "0],\n        [600, 0],\n        [800, 0],\n        [1000, 0],\n        [1000, 350],\n        [800, 380],\n        [600, 390],\n        [400, 385],\n        [200, 370],\n        [0, 350]\n      ]\n    }\n  ]\n}\n```",
+      "finish_reason": "stop",
+      "response": "",
+      "more": false
+     },
+     "actions": [
+      {
+       "kind": "path",
+       "opacity": 0.35,
+       "gradient_angle": 0,
+       "id": "light_beam",
+       "stroke": false,
+       "fill_color": "#ffb347",
+       "gradient_color": "#ff8c00",
+       "fill": true,
+       "points": [
+        [
+         462,
+         310
+        ],
+        [
+         600,
+         285
+        ],
+        [
+         800,
+         270
+        ],
+        [
+         950,
+         295
+        ],
+        [
+         950,
+         335
+        ],
+        [
+         800,
+         360
+        ],
+        [
+         600,
+         370
+        ],
+        [
+         462,
+         350
+        ]
+       ]
+      },
+      {
+       "kind": "path",
+       "id": "gallery_deck",
+       "stroke": false,
+       "fill_color": "#b8a888",
+       "fill": true,
+       "points": [
+        [
+         438,
+         322
+        ],
+        [
+         440,
+         318
+        ],
+        [
+         480,
+         318
+        ],
+        [
+         482,
+         322
+        ],
+        [
+         480,
+         326
+        ],
+        [
+         440,
+         326
+        ]
+       ]
+      },
+      {
+       "kind": "path",
+       "opacity": 0.5,
+       "id": "headland_shadow",
+       "stroke": false,
+       "fill_color": "#152030",
+       "fill": true,
+       "points": [
+        [
+         0,
+         650
+        ],
+        [
+         50,
+         625
+        ],
+        [
+         120,
+         570
+        ],
+        [
+         200,
+         510
+        ],
+        [
+         280,
+         470
+        ],
+        [
+         360,
+         445
+        ],
+        [
+         440,
+         438
+        ],
+        [
+         440,
+         460
+        ],
+        [
+         360,
+         475
+        ],
+        [
+         280,
+         490
+        ],
+        [
+         200,
+         520
+        ],
+        [
+         120,
+         580
+        ],
+        [
+         50,
+         630
+        ],
+        [
+         0,
+         650
+        ]
+       ]
+      },
+      {
+       "kind": "curve",
+       "opacity": 0.15,
+       "id": "water_reflection",
+       "stroke": false,
+       "fill_color": "#ffb347",
+       "fill": true,
+       "points": [
+        [
+         400,
+         585
+        ],
+        [
+         420,
+         580
+        ],
+        [
+         440,
+         585
+        ],
+        [
+         460,
+         580
+        ],
+        [
+         480,
+         585
+        ],
+        [
+         500,
+         580
+        ],
+        [
+         520,
+         585
+        ],
+        [
+         540,
+         590
+        ],
+        [
+         560,
+         595
+        ],
+        [
+         580,
+         600
+        ],
+        [
+         600,
+         605
+        ],
+        [
+         620,
+         610
+        ],
+        [
+         640,
+         615
+        ],
+        [
+         660,
+         620
+        ],
+        [
+         680,
+         625
+        ],
+        [
+         700,
+         630
+        ],
+        [
+         720,
+         635
+        ],
+        [
+         740,
+         640
+        ],
+        [
+         760,
+         645
+        ],
+        [
+         780,
+         650
+        ],
+        [
+         800,
+         650
+        ],
+        [
+         820,
+         650
+        ],
+        [
+         840,
+         650
+        ],
+        [
+         860,
+         650
+        ],
+        [
+         880,
+         650
+        ],
+        [
+         900,
+         650
+        ],
+        [
+         920,
+         650
+        ],
+        [
+         940,
+         650
+        ],
+        [
+         960,
+         650
+        ],
+        [
+         980,
+         650
+        ],
+        [
+         1000,
+         650
+        ]
+       ]
+      },
+      {
+       "kind": "path",
+       "id": "rock_foreground",
+       "stroke": false,
+       "fill_color": "#152030",
+       "fill": true,
+       "points": [
+        [
+         80,
+         620
+        ],
+        [
+         100,
+         600
+        ],
+        [
+         130,
+         595
+        ],
+        [
+         160,
+         600
+        ],
+        [
+         180,
+         615
+        ],
+        [
+         170,
+         625
+        ],
+        [
+         140,
+         630
+        ],
+        [
+         110,
+         628
+        ],
+        [
+         90,
+         625
+        ]
+       ]
+      },
+      {
+       "kind": "path",
+       "opacity": 0.4,
+       "gradient_angle": 90,
+       "id": "sky_gradient",
+       "stroke": false,
+       "fill_color": "#2a3050",
+       "gradient_color": "#4a3050",
+       "fill": true,
+       "points": [
+        [
+         0,
+         0
+        ],
+        [
+         200,
+         0
+        ],
+        [
+         400,
+         0
+        ],
+        [
+         600,
+         0
+        ],
+        [
+         800,
+         0
+        ],
+        [
+         1000,
+         0
+        ],
+        [
+         1000,
+         350
+        ],
+        [
+         800,
+         380
+        ],
+        [
+         600,
+         390
+        ],
+        [
+         400,
+         385
+        ],
+        [
+         200,
+         370
+        ],
+        [
+         0,
+         350
+        ]
+       ]
+      }
+     ],
+     "checks_passed": 4,
+     "checks_total": 5
+    }
+   ],
+   "refinement_delta": -0.2,
+   "scene": {
+    "objects": 15,
+    "kinds": [
+     "path",
+     "curve",
+     "path",
+     "path",
+     "ellipse",
+     "path",
+     "path",
+     "path",
+     "curve",
+     "path",
+     "path",
+     "path",
+     "curve",
+     "path",
+     "path"
+    ],
+    "colours": [
+     "#e8a87a",
+     "#c86040",
+     "#c87050",
+     "#e8a87a",
+     "#1e2838",
+     "#d8c8a8",
+     "#ffb347",
+     "#ff8c00",
+     "#a09070",
+     "#253040",
+     "#253040",
+     "#1a3050",
+     "#ffb347",
+     "#ff8c00",
+     "#b8a888",
+     "#152030",
+     "#ffb347",
+     "#152030",
+     "#2a3050",
+     "#4a3050"
+    ],
+    "texts": [],
+    "coverage": 1.5448,
+    "mean_overlap": 0.0345,
+    "shared_baseline": 4,
+    "even_spacing_run": 12
+   },
+   "checks": [
+    {
+     "check": "objects_at_least_4",
+     "ok": true,
+     "detail": "15 objects (need >= 4)"
+    },
+    {
+     "check": "has_hue_warm lamp",
+     "ok": true,
+     "detail": "colours=['#e8a87a', '#c86040', '#c87050', '#e8a87a', '#1e2838', '#d8c8a8', '#ffb347', '#ff8c00', '#a09070', '#253040', '#253040', '#1a3050', '#ffb347', '#ff8c00', '#b8a888', '#152030', '#ffb347', '#152030', '#2a3050', '#4a3050'] (warm lamp band 20-50)"
+    },
+    {
+     "check": "has_hue_cool dusk",
+     "ok": true,
+     "detail": "colours=['#e8a87a', '#c86040', '#c87050', '#e8a87a', '#1e2838', '#d8c8a8', '#ffb347', '#ff8c00', '#a09070', '#253040', '#253040', '#1a3050', '#ffb347', '#ff8c00', '#b8a888', '#152030', '#ffb347', '#152030', '#2a3050', '#4a3050'] (cool dusk band 200-260)"
+    },
+    {
+     "check": "coverage_between",
+     "ok": false,
+     "detail": "coverage 154.5% (want 2%-95%)"
+    },
+    {
+     "check": "overlap_below",
+     "ok": true,
+     "detail": "mean bbox overlap 0.03 (limit 0.5)"
+    }
+   ],
+   "checks_passed": 4,
+   "checks_total": 5,
+   "score": 0.8,
+   "wall_s": 229.39
+  }
+ ]
+}
