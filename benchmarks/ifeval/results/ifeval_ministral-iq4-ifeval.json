@@ -1,0 +1,13 @@
+{
+ "label": "ministral-iq4-ifeval",
+ "model": "ministral-3-8b-instruct-2512-abliterated",
+ "n": 541,
+ "think_off": false,
+ "run_fingerprint": "98f2b0c7188cfb0b84c56aedf2cdb9430c0ca0c7b0df2b3850183b7695af5417",
+ "limit": 0,
+ "smoke": false,
+ "truncated": 1,
+ "strict": 0.5619,
+ "loose": 0.6636,
+ "elapsed_s": 4159.5
+}

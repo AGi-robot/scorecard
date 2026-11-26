@@ -1,0 +1,13 @@
+{
+  "label": "ministral-3-8b-instruct-2512-abliterated-modal-iq3s-ifeval",
+  "model": "ministral-3-8b-instruct-2512-abliterated",
+  "n": 541,
+  "think_off": false,
+  "run_fingerprint": "589300e3e6548bdbe9275b1bcc1d90c3875dfd4a5762d57cefe7ec9880d2291e",
+  "limit": 0,
+  "smoke": false,
+  "truncated": 39,
+  "strict": 0.4991,
+  "loose": 0.5638,
+  "elapsed_s": 5338.1
+}
