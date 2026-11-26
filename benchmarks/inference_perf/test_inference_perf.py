@@ -146,12 +146,20 @@ class CLITests(unittest.TestCase):
         self.addCleanup(server.shutdown)
         with tempfile.TemporaryDirectory() as tmp, contextlib.redirect_stdout(io.StringIO()):
             output = Path(tmp) / "run"
+            weight = Path(tmp) / "fixture.gguf"
+            weight.write_bytes(b"synthetic metadata fixture")
             args = ["--base-url", f"http://127.0.0.1:{server.server_port}/v1",
                     "--model", "fixture", "--label", "fixture", "--pid", str(os.getpid()),
+                    "--model-file", str(weight),
                     "--no-gpu", "--prompt-tokens", "128", "--output-tokens", "16",
                     "--repeats", "2", "--warmup", "1", "--output-dir", str(output)]
             self.assertEqual(perf.main(args), 0)
             report = json.loads((output / "summary.json").read_text())
+            self.assertEqual(report["file_bytes"], weight.stat().st_size)
+            self.assertEqual(len(report["model_files"][0]["sha256"]), 64)
+            table = perf.render_table([{**g, "label": report["label"], "file_bytes": report["file_bytes"]}
+                                       for g in report["groups"]], comparison=True)
+            self.assertEqual(len({line.count("|") for line in table.splitlines()}), 1)
             self.assertEqual(report["groups"][0]["successful"], 2)
             self.assertEqual(len((output / "requests.jsonl").read_text().splitlines()), 3)
             self.assertTrue((output / "summary.csv").is_file())

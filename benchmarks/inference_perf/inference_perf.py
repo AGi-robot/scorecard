@@ -203,11 +203,13 @@ def size_prompt(api, model, target):
     nonce = "0" * 32
     words = max(1, int(target * .7))
     try:
-        for _ in range(5):
+        for attempt in range(5):
             count = api.token_count(model, prompt_text(words, nonce))
             if abs(count - target) <= max(4, target * .01):
                 break
             if words == 1 and count > target:
+                break
+            if attempt == 4:
                 break
             words = max(1, int(words * target / max(count, 1)))
         return words, "tokenize", count
@@ -463,11 +465,11 @@ def fmt(value):
 
 def render_table(summary, comparison=False):
     prefix = "| Run | Files GiB " if comparison else ""
-    header = "| Target prompt | OK/fail | TTFT ms | Prefill tok/s (server) | Prefill est. tok/s | Decode tok/s (server) | Decode est. tok/s | Latency ms | RAM PSS MiB | VRAM MiB | GPU VRAM MiB |"
-    lines = [prefix + header.lstrip("|") if comparison else header,
-             "|" + "---:|" * (13 if comparison else 11)]
+    header = "| Target prompt | Actual prompt | OK/fail | TTFT ms | Prefill tok/s (server) | Prefill est. tok/s | Decode tok/s (server) | Decode est. tok/s | Latency ms | RAM PSS MiB | VRAM MiB | GPU VRAM MiB |"
+    lines = [prefix + header if comparison else header,
+             "|" + "---:|" * (14 if comparison else 12)]
     for group in summary:
-        values = [str(group["target_prompt_tokens"]), f'{group["successful"]}/{group["failed"]}']
+        values = [str(group["target_prompt_tokens"]), fmt(group["prompt_tokens"]["median"]), f'{group["successful"]}/{group["failed"]}']
         values += [fmt(group[k]["median"]) for k in ("ttft_ms", "server_prefill_tps", "prefill_estimate_tps", "server_decode_tps", "decode_estimate_tps", "latency_ms")]
         values += [fmt(group[k]) for k in ("pss_mib_peak", "vram_mib_peak")]
         values.append(", ".join(f'GPU{g["index"]}: {fmt(g.get("process_mib_peak"))}'
@@ -605,6 +607,8 @@ def main(argv=None):
     if paths:
         print("Hashing model artifacts…", flush=True)
     files = model_metadata(paths)
+    for file in files:
+        print(f'  {Path(file["path"]).name}: {file["bytes"]:,} bytes ({file["bytes"] / 2**30:.3f} GiB)', flush=True)
     generation = {"temperature": 0, "max_tokens": args.output_tokens, "stream": True,
                   "stream_options": {"include_usage": True}, "cache_prompt": False, **args.extra_body}
     if args.think_off:
