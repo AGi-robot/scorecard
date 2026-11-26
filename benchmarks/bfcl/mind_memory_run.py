@@ -94,12 +94,39 @@ def completion(
             "Authorization": f"Bearer {api_key}",
         },
     )
-    try:
-        with urllib.request.urlopen(request, timeout=timeout) as response:
-            body = json.loads(response.read().decode("utf-8"))
-    except urllib.error.HTTPError as error:
-        details = error.read().decode("utf-8", "replace")[:1000]
-        raise RuntimeError(f"LLM endpoint returned HTTP {error.code}: {details}") from error
+    body = None
+    max_attempts = 6
+    for attempt in range(1, max_attempts + 1):
+        try:
+            with urllib.request.urlopen(request, timeout=timeout) as response:
+                body = json.loads(response.read().decode("utf-8"))
+            break
+        except urllib.error.HTTPError as error:
+            details = error.read().decode("utf-8", "replace")[:1000]
+            retryable = error.code == 429 or 500 <= error.code < 600
+            if not retryable or attempt == max_attempts:
+                raise RuntimeError(
+                    f"LLM endpoint returned HTTP {error.code}: {details}"
+                ) from error
+            delay = min(2 ** (attempt - 1), 30)
+            print(
+                f"LLM endpoint returned HTTP {error.code}; retry "
+                f"{attempt}/{max_attempts - 1} in {delay}s",
+                flush=True,
+            )
+            time.sleep(delay)
+        except (urllib.error.URLError, TimeoutError) as error:
+            if attempt == max_attempts:
+                raise RuntimeError(
+                    f"LLM endpoint request failed after {max_attempts} attempts: {error}"
+                ) from error
+            delay = min(2 ** (attempt - 1), 30)
+            print(
+                f"LLM endpoint network error; retry "
+                f"{attempt}/{max_attempts - 1} in {delay}s ({error})",
+                flush=True,
+            )
+            time.sleep(delay)
     try:
         text = body["choices"][0]["message"].get("content", "")
     except (KeyError, IndexError, TypeError) as error:
