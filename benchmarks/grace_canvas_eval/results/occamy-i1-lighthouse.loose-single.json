@@ -1,0 +1,574 @@
+{
+ "summary": {
+  "label": "occamy-i1-lighthouse-loose-single",
+  "model": "occamy-i1",
+  "schema_hint": false,
+  "strict_geometry": false,
+  "geometry_mode": "loose",
+  "pass_mode": "single",
+  "base_url": "http://127.0.0.1:8081/v1",
+  "renderer": {
+   "renderer": "console-canvas-chromium-v1",
+   "drawing_js_sha256": "3b9e599699f7dc0a0d94754b3b06c162b5fc8888c8f7e6706dd73a50562e6090",
+   "canvas_html_sha256": "686ab2a857bbc468ce4f0b0e7d5f77d7194d5232dd5c7c34bbf04d08a16b7910",
+   "playwright_version": "1.63.0"
+  },
+  "protocol_version": 5,
+  "temperature": 0.0,
+  "transport": "response_format_json_schema",
+  "think_off": false,
+  "force_tool": false,
+  "reasoning_effort": "medium",
+  "vision_passes": true,
+  "single_pass": true,
+  "pass_budgets": [
+   16
+  ],
+  "tasks": 1,
+  "check_score": 1.0,
+  "tasks_fully_satisfied": 1,
+  "fully_satisfied_rate": 1.0,
+  "valid_rate": 1.0,
+  "render_rate": 1.0,
+  "truncated_rate": 1.0,
+  "mean_steps": 10.0,
+  "total_wall_s": 94.9,
+  "refinement_delta": 0.0
+ },
+ "results": [
+  {
+   "task": "T1-lighthouse",
+   "tier": 1,
+   "tier_name": "single subject",
+   "brief": "Draw a lighthouse standing on a rocky headland at dusk, with a warm lamp glow at the top.",
+   "actions_returned": 10,
+   "steps": 10,
+   "valid": true,
+   "validation_error": null,
+   "clamped_fields": 0,
+   "rendered": true,
+   "render_error": null,
+   "truncated_stream": true,
+   "meta": {
+    "vision_fallback": false,
+    "elapsed_s": 93.69,
+    "completion_tokens": 4183,
+    "prompt_tokens": 2173,
+    "truncated": true,
+    "raw_len": 4621,
+    "raw_tail": " the tapered lighthouse tower, the lantern room with warm glass, foreground rocks, and the initial warm glow at the top. Let me refine it in the next pass with more shadow, highlight, and glow detail.",
+    "finish_reason": "stop",
+    "response": "",
+    "more": false
+   },
+   "meta_passes": [
+    {
+     "vision_fallback": false,
+     "elapsed_s": 93.69,
+     "completion_tokens": 4183,
+     "prompt_tokens": 2173,
+     "truncated": true,
+     "raw_len": 4621,
+     "raw_tail": " the tapered lighthouse tower, the lantern room with warm glass, foreground rocks, and the initial warm glow at the top. Let me refine it in the next pass with more shadow, highlight, and glow detail.",
+     "finish_reason": "stop",
+     "response": "",
+     "more": false
+    }
+   ],
+   "passes": [
+    {
+     "pass": 1,
+     "budget": 16,
+     "actions_returned": 14,
+     "valid": true,
+     "validation_error": null,
+     "clamped_fields": 0,
+     "rendered": true,
+     "render_error": null,
+     "with_image": true,
+     "truncated_stream": true,
+     "meta": {
+      "vision_fallback": false,
+      "elapsed_s": 93.69,
+      "completion_tokens": 4183,
+      "prompt_tokens": 2173,
+      "truncated": true,
+      "raw_len": 4621,
+      "raw_tail": " the tapered lighthouse tower, the lantern room with warm glass, foreground rocks, and the initial warm glow at the top. Let me refine it in the next pass with more shadow, highlight, and glow detail.",
+      "finish_reason": "stop",
+      "response": "",
+      "more": false
+     },
+     "actions": [
+      {
+       "kind": "rectangle",
+       "x": 0,
+       "y": 0,
+       "width": 1000,
+       "height": 650,
+       "gradient_angle": 90,
+       "id": "T1-lighthouse-p1-1",
+       "gradient": "linear",
+       "stroke": false,
+       "fill_color": "#1a1535",
+       "gradient_color": "#e8a878",
+       "gradient_stops": [
+        {
+         "offset": 0,
+         "color": "#1a1535"
+        },
+        {
+         "offset": 0.3,
+         "color": "#2e2550"
+        },
+        {
+         "offset": 0.6,
+         "color": "#7a4a5a"
+        },
+        {
+         "offset": 0.85,
+         "color": "#c87a5a"
+        },
+        {
+         "offset": 1.0,
+         "color": "#e8a878"
+        }
+       ],
+       "fill": true
+      },
+      {
+       "kind": "curve",
+       "id": "distant-hills",
+       "stroke": false,
+       "fill_color": "#2a2040",
+       "fill": true,
+       "points": [
+        [
+         0,
+         440
+        ],
+        [
+         80,
+         425
+        ],
+        [
+         160,
+         435
+        ],
+        [
+         250,
+         420
+        ],
+        [
+         340,
+         430
+        ],
+        [
+         430,
+         418
+        ],
+        [
+         520,
+         428
+        ],
+        [
+         610,
+         415
+        ],
+        [
+         700,
+         425
+        ],
+        [
+         790,
+         418
+        ],
+        [
+         880,
+         430
+        ],
+        [
+         950,
+         422
+        ],
+        [
+         1000,
+         435
+        ]
+       ]
+      },
+      {
+       "kind": "rectangle",
+       "x": 0,
+       "y": 450,
+       "width": 1000,
+       "height": 120,
+       "gradient_angle": 90,
+       "id": "T1-lighthouse-p1-3",
+       "gradient": "linear",
+       "stroke": false,
+       "fill_color": "#1e2840",
+       "gradient_color": "#2a3850",
+       "gradient_stops": [
+        {
+         "offset": 0,
+         "color": "#2a3850"
+        },
+        {
+         "offset": 1.0,
+         "color": "#1e2840"
+        }
+       ],
+       "fill": true
+      },
+      {
+       "kind": "path",
+       "id": "headland",
+       "stroke": false,
+       "smooth": true,
+       "fill_color": "#15121f",
+       "fill": true,
+       "points": [
+        [
+         0,
+         650
+        ],
+        [
+         0,
+         540
+        ],
+        [
+         40,
+         520
+        ],
+        [
+         90,
+         535
+        ],
+        [
+         140,
+         505
+        ],
+        [
+         200,
+         520
+        ],
+        [
+         260,
+         495
+        ],
+        [
+         320,
+         510
+        ],
+        [
+         380,
+         485
+        ],
+        [
+         440,
+         500
+        ],
+        [
+         500,
+         480
+        ],
+        [
+         560,
+         495
+        ],
+        [
+         620,
+         475
+        ],
+        [
+         690,
+         495
+        ],
+        [
+         750,
+         510
+        ],
+        [
+         820,
+         490
+        ],
+        [
+         880,
+         510
+        ],
+        [
+         940,
+         525
+        ],
+        [
+         1000,
+         540
+        ],
+        [
+         1000,
+         650
+        ]
+       ]
+      },
+      {
+       "kind": "path",
+       "id": "lighthouse-tower",
+       "stroke": false,
+       "smooth": true,
+       "fill_color": "#d8d0c0",
+       "fill": true,
+       "points": [
+        [
+         465,
+         485
+        ],
+        [
+         470,
+         300
+        ],
+        [
+         482,
+         190
+        ],
+        [
+         490,
+         175
+        ],
+        [
+         510,
+         175
+        ],
+        [
+         518,
+         190
+        ],
+        [
+         528,
+         300
+        ],
+        [
+         535,
+         485
+        ],
+        [
+         520,
+         490
+        ],
+        [
+         480,
+         490
+        ],
+        [
+         465,
+         485
+        ]
+       ]
+      },
+      {
+       "kind": "ellipse",
+       "x": 500,
+       "y": 150,
+       "width": 60,
+       "height": 60,
+       "opacity": 0.6,
+       "id": "T1-lighthouse-p1-10",
+       "stroke": false,
+       "fill_color": "#ffd080",
+       "fill": true
+      },
+      {
+       "kind": "path",
+       "id": "rock-foreground-left",
+       "stroke": false,
+       "smooth": true,
+       "fill_color": "#0e0c15",
+       "fill": true,
+       "points": [
+        [
+         0,
+         650
+        ],
+        [
+         0,
+         580
+        ],
+        [
+         30,
+         570
+        ],
+        [
+         70,
+         585
+        ],
+        [
+         110,
+         560
+        ],
+        [
+         150,
+         575
+        ],
+        [
+         190,
+         555
+        ],
+        [
+         230,
+         570
+        ],
+        [
+         260,
+         650
+        ]
+       ]
+      },
+      {
+       "kind": "path",
+       "id": "rock-foreground-right",
+       "stroke": false,
+       "smooth": true,
+       "fill_color": "#0e0c15",
+       "fill": true,
+       "points": [
+        [
+         740,
+         650
+        ],
+        [
+         770,
+         560
+        ],
+        [
+         810,
+         575
+        ],
+        [
+         850,
+         555
+        ],
+        [
+         890,
+         570
+        ],
+        [
+         930,
+         560
+        ],
+        [
+         970,
+         580
+        ],
+        [
+         1000,
+         570
+        ],
+        [
+         1000,
+         650
+        ]
+       ]
+      },
+      {
+       "kind": "line",
+       "width": 3,
+       "opacity": 0.4,
+       "id": "light-beam",
+       "color": "#f0c060",
+       "fill": false,
+       "points": [
+        [
+         500,
+         145
+        ],
+        [
+         500,
+         60
+        ]
+       ]
+      },
+      {
+       "kind": "ellipse",
+       "x": 490,
+       "y": 140,
+       "width": 20,
+       "height": 20,
+       "id": "T1-lighthouse-p1-14",
+       "stroke": false,
+       "fill_color": "#ffe0a0",
+       "fill": true
+      }
+     ],
+     "checks_passed": 5,
+     "checks_total": 5
+    }
+   ],
+   "refinement_delta": 0.0,
+   "scene": {
+    "objects": 10,
+    "kinds": [
+     "rectangle",
+     "curve",
+     "rectangle",
+     "path",
+     "path",
+     "ellipse",
+     "path",
+     "path",
+     "line",
+     "ellipse"
+    ],
+    "colours": [
+     "#1a1535",
+     "#e8a878",
+     "#2a2040",
+     "#1e2840",
+     "#2a3850",
+     "#15121f",
+     "#d8d0c0",
+     "#ffd080",
+     "#0e0c15",
+     "#0e0c15",
+     "#f0c060",
+     "#ffe0a0"
+    ],
+    "texts": [],
+    "coverage": 0.6084,
+    "mean_overlap": 0.0347,
+    "shared_baseline": 2,
+    "even_spacing_run": 5
+   },
+   "checks": [
+    {
+     "check": "objects_at_least_4",
+     "ok": true,
+     "detail": "10 objects (need >= 4)"
+    },
+    {
+     "check": "has_hue_warm lamp",
+     "ok": true,
+     "detail": "colours=['#1a1535', '#e8a878', '#2a2040', '#1e2840', '#2a3850', '#15121f', '#d8d0c0', '#ffd080', '#0e0c15', '#0e0c15', '#f0c060', '#ffe0a0'] (warm lamp band 20-50)"
+    },
+    {
+     "check": "has_hue_cool dusk",
+     "ok": true,
+     "detail": "colours=['#1a1535', '#e8a878', '#2a2040', '#1e2840', '#2a3850', '#15121f', '#d8d0c0', '#ffd080', '#0e0c15', '#0e0c15', '#f0c060', '#ffe0a0'] (cool dusk band 200-260)"
+    },
+    {
+     "check": "coverage_between",
+     "ok": true,
+     "detail": "coverage 60.8% (want 2%-95%)"
+    },
+    {
+     "check": "overlap_below",
+     "ok": true,
+     "detail": "mean bbox overlap 0.03 (limit 0.5)"
+    }
+   ],
+   "checks_passed": 5,
+   "checks_total": 5,
+   "score": 1.0,
+   "wall_s": 94.89
+  }
+ ]
+}
