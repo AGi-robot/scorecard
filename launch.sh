@@ -90,17 +90,22 @@ run_evalplus() { # $1 = dataset
 }
 
 run_bfcl() {
-  local default_mind_root="$AGI_ROOT/AIVA/mind"
+  local default_mind_root="$AGI_ROOT/AIVA/mind/memory"
   local default_bfcl_root="/tmp/gorilla-bfcl/berkeley-function-call-leaderboard"
   local mind_root bfcl_root
 
   read -rp "Mind checkout root [$default_mind_root]: " mind_root
   mind_root="${mind_root:-$default_mind_root}"
+  # Accept AIVA/mind too, then resolve to the memory package root.
+  if [[ ! -f "$mind_root/src/memory/conversation.py" && \
+        -f "$mind_root/memory/src/memory/conversation.py" ]]; then
+    mind_root="$mind_root/memory"
+  fi
   read -rp "BFCL checkout root [$default_bfcl_root]: " bfcl_root
   bfcl_root="${bfcl_root:-$default_bfcl_root}"
 
-  if [[ ! -d "$mind_root" ]]; then
-    echo "Mind checkout not found: $mind_root" >&2
+  if [[ ! -f "$mind_root/src/memory/conversation.py" ]]; then
+    echo "Mind ConversationStore source not found under: $mind_root" >&2
     return 1
   fi
   if [[ ! -d "$bfcl_root/bfcl_eval/data" ]]; then
