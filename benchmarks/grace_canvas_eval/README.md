@@ -28,7 +28,8 @@ images and no human labels are needed.
 ```bash
 # one-off environment (does not touch the AIVA venv)
 uv venv /tmp/grace-canvas-eval-venv
-uv pip install --python /tmp/grace-canvas-eval-venv/bin/python cairosvg pillow
+uv pip install --python /tmp/grace-canvas-eval-venv/bin/python playwright pillow
+/tmp/grace-canvas-eval-venv/bin/python -m playwright install chromium
 
 # a model must be served with the canvas_draw tool available
 AGI_REPO=/path/to/AGi /tmp/grace-canvas-eval-venv/bin/python benchmarks/grace_canvas_eval/grace_canvas_eval.py \
@@ -39,12 +40,32 @@ AGI_REPO=/path/to/AGi /tmp/grace-canvas-eval-venv/bin/python benchmarks/grace_ca
     --out-dir renders/ministral3-8b-abliterated
 ```
 
+By default the runner makes four independent runs for every selected task:
+strict geometry × single-pass, strict geometry × multi-pass, loose geometry ×
+single-pass, and loose geometry × multi-pass. That gives four final images per
+task. Multi-pass runs also save intermediate review images. Results and images
+are written to mode-specific files and directories, for example
+`results/ministral3-8b-abliterated.strict-single.json` and
+`renders/ministral3-8b-abliterated/strict-single/`.
+
+Use `--strict-geometry` or `--no-strict-geometry` to select one schema mode;
+use `--single-pass` or `--no-single-pass` to select one pass mode. Each option
+can be combined with the other. For example, `--strict-geometry --single-pass`
+runs only the strict single-pass variant. The default is both values for both
+options.
+
 Useful flags: `--tier 1` (repeatable) to run one tier, `--limit N`,
 `--task T1-lighthouse` (repeatable) to select exact scene IDs,
 `--temperature` (default 0), `--judge-base-url`/`--judge-model` to add an
 optional multimodal judge that scores the rendered image against the brief.
 When this scorecard checkout sits inside the AGi workspace, the harness finds
 the AGi source checkout automatically; set `AGI_REPO` when it is elsewhere.
+Rendering also requires a Console checkout at `AGI_REPO/AIVA/console` containing
+the Canvas evaluation replay hook. Set `GRACE_CONSOLE_DIR` to its checkout if
+it lives elsewhere. Record the Console revision with each run: its browser
+renderer determines the generated PNGs. Network requests from the rendering
+browser are blocked. Prior SVG-rendered images should not be treated as the
+same rendering protocol.
 
 The system prompt is `canvas.engine.DRAW_INSTRUCTIONS` verbatim -- the same one
 Grace uses in production -- so results transfer.
@@ -67,7 +88,7 @@ Grace uses in production -- so results transfer.
 | `tasks_fully_satisfied` | tasks where every check passed |
 | `valid_rate` | `canvas.engine.validate_actions()` accepted the prepared actions after repair; inspect `.raw.actions.json` for raw validity |
 | `clamped_fields` | numeric fields the validator had to clamp into range |
-| `render_rate` | `canvas.svg.render()` produced an SVG (and a PNG) |
+| `render_rate` | Console Canvas replay produced a PNG in Chromium |
 | `truncated_rate` | the action JSON was cut off and needed recovery |
 | `coverage` | fraction of canvas area covered by object boxes |
 | `mean_overlap` | mean pairwise IoU of object boxes (excess = clutter) |
@@ -190,16 +211,17 @@ python diagnostic/scorecard/benchmarks/grace_canvas_eval/grace_canvas_eval.py \
   --out-dir diagnostic/scorecard/benchmarks/grace_canvas_eval/renders/Swift-local-geometry
 ```
 
-This uses the original briefs and canvas engine, constrained JSON with explicit
-colors, temperature 0, and 6144 output tokens per pass. The server caps thinking
-at 2048 tokens. `--strict-geometry` is now the default shared production/eval schema: it requires
-stable IDs, hex paints, and each kind's geometry, and adds a short geometry
-contract to the shared drawing instructions. Production and eval use the same schema builder.
-Without it the local baseline omitted rectangle/ellipse geometry and edit IDs;
-requiring geometry alone also allowed `color="none"`, which the engine rejects.
-The single-pass command gives a 16-action draft. For up to four passes with
-screenshot review, remove `--single-pass`; vision is enabled by default.
-Use `--no-strict-geometry --no-vision-passes` for legacy comparisons.
+This uses the original briefs and canvas engine, constrained JSON, temperature
+0, and 6144 output tokens per pass. The server caps thinking at 2048 tokens.
+Strict and loose schemas both require the coordinates or points needed to draw
+each action. Strict mode also requires stable IDs and explicit fill/stroke
+choices for shapes. Loose mode allows new-object IDs and paint values to be
+omitted; the evaluator supplies IDs for later review passes, and the canvas
+palette supplies missing paint. Both modes validate supplied colors as hex.
+Production and eval use the same schema builder. A single-pass run creates one
+draft; a multi-pass run allows up to four passes with screenshot review.
+Vision is enabled by default. Use `--no-vision-passes` to compare without
+screenshots; old runs with the former loose schema are not directly comparable.
 The `swift-local-geometry.json` results below retain their original single-pass,
 vision-disabled configuration; changing defaults does not update old scores.
 Raw actions and intermediate PNGs are saved per pass. Structural checks alone
@@ -214,7 +236,7 @@ robot and cabin also have separate screenshot-guided `.refined.png` outputs,
 with review prompts and actions in `.review.json`; those additional passes
 are not included in the single-pass score report.
 
-Offline pipeline checks (requires pytest, cairosvg, and pillow):
+Offline pipeline checks (requires pytest, playwright, Chromium, and pillow):
 
 ```bash
 AGI_REPO=/path/to/AGi python -m pytest -q benchmarks/grace_canvas_eval/test_canvas_pipeline.py
@@ -223,12 +245,13 @@ AGI_REPO=/path/to/AGi python -m pytest -q benchmarks/grace_canvas_eval/test_canv
 
 ### Geometry and animated fill update (2026-11-22)
 
-Production and eval now share `canvas.engine.build_draw_schema`: stable IDs,
-hex paints, positive shape dimensions and kind-specific coordinates/points.
-The production pass budgets remain 16/10/8/6. Eval defaults to strict geometry
-and rendered screenshots, and forces one visual review of the first pass even
-when the model returns `more=false`. A server that rejects images falls back
-to text and the report marks that pass as not having used vision.
+Production and eval share `canvas.engine.build_draw_schema`. Both schema modes
+require positive shape dimensions and kind-specific coordinates or points;
+strict mode additionally requires stable IDs and explicit fill/stroke choices
+for shapes. The production pass budgets remain 16/10/8/6. Each multi-pass run
+forces one visual review of its first pass even when the model returns
+`more=false`. A server that rejects images falls back to text and the report
+marks that pass as not having used vision.
 
 Browser replay traces outlines and reveals colour from top to bottom, including
 shapes with `stroke=false`. Both phases fit the existing 600 ms per-shape replay;

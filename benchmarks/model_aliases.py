@@ -21,9 +21,7 @@ def alias_for_model_path(model_path_fragment: str) -> str:
     return matches[0]
 
 
-MINISTRAL_ALIAS = alias_for_model_path(
-    "Ministral-3-8B-Instruct-2512-BF16-abliterated.i1-IQ3_S.gguf"
-)
-SWIFT_ALIAS = alias_for_model_path(
-    "Swift-1.5-Qwen3.8-27B-Uncensored-Dynamic-MTP-UD-IQ3_S.gguf"
-)
+# Stable defaults allow standalone use without Grace's workspace. Explicit
+# --model arguments remain the source of truth for an individual run.
+MINISTRAL_ALIAS = "ministral-3-8b-instruct-2512-abliterated"
+SWIFT_ALIAS = "swift15-qwen3.8-27b"
