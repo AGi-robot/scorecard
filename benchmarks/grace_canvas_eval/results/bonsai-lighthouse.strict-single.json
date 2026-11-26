@@ -1,0 +1,151 @@
+{
+ "summary": {
+  "label": "bonsai-lighthouse-strict-single",
+  "model": "bonsai-2.5",
+  "schema_hint": false,
+  "strict_geometry": true,
+  "geometry_mode": "strict",
+  "pass_mode": "single",
+  "base_url": "http://127.0.0.1:8081/v1",
+  "renderer": {
+   "renderer": "console-canvas-chromium-v1",
+   "drawing_js_sha256": "3b9e599699f7dc0a0d94754b3b06c162b5fc8888c8f7e6706dd73a50562e6090",
+   "canvas_html_sha256": "686ab2a857bbc468ce4f0b0e7d5f77d7194d5232dd5c7c34bbf04d08a16b7910",
+   "playwright_version": "1.63.0"
+  },
+  "protocol_version": 5,
+  "temperature": 0.0,
+  "transport": "response_format_json_schema",
+  "think_off": false,
+  "force_tool": false,
+  "reasoning_effort": "medium",
+  "vision_passes": true,
+  "single_pass": true,
+  "pass_budgets": [
+   16
+  ],
+  "tasks": 1,
+  "check_score": 0.2,
+  "tasks_fully_satisfied": 0,
+  "fully_satisfied_rate": 0.0,
+  "valid_rate": 0.0,
+  "render_rate": 1.0,
+  "truncated_rate": 1.0,
+  "mean_steps": 0.0,
+  "total_wall_s": 205.6,
+  "refinement_delta": 0.0
+ },
+ "results": [
+  {
+   "task": "T1-lighthouse",
+   "tier": 1,
+   "tier_name": "single subject",
+   "brief": "Draw a lighthouse standing on a rocky headland at dusk, with a warm lamp glow at the top.",
+   "actions_returned": 0,
+   "steps": 0,
+   "valid": false,
+   "validation_error": "Expected 1 to 100 canvas actions",
+   "clamped_fields": 0,
+   "rendered": true,
+   "render_error": null,
+   "truncated_stream": true,
+   "meta": {
+    "vision_fallback": false,
+    "elapsed_s": 204.45,
+    "completion_tokens": 6144,
+    "prompt_tokens": 2172,
+    "truncated": true,
+    "raw_len": 0,
+    "raw_tail": "",
+    "finish_reason": "length",
+    "response": "",
+    "more": false
+   },
+   "meta_passes": [
+    {
+     "vision_fallback": false,
+     "elapsed_s": 204.45,
+     "completion_tokens": 6144,
+     "prompt_tokens": 2172,
+     "truncated": true,
+     "raw_len": 0,
+     "raw_tail": "",
+     "finish_reason": "length",
+     "response": "",
+     "more": false
+    }
+   ],
+   "passes": [
+    {
+     "pass": 1,
+     "budget": 16,
+     "actions_returned": 0,
+     "valid": false,
+     "validation_error": "Expected 1 to 100 canvas actions",
+     "clamped_fields": 0,
+     "rendered": true,
+     "render_error": null,
+     "with_image": true,
+     "truncated_stream": true,
+     "meta": {
+      "vision_fallback": false,
+      "elapsed_s": 204.45,
+      "completion_tokens": 6144,
+      "prompt_tokens": 2172,
+      "truncated": true,
+      "raw_len": 0,
+      "raw_tail": "",
+      "finish_reason": "length",
+      "response": "",
+      "more": false
+     },
+     "actions": [],
+     "checks_passed": 1,
+     "checks_total": 5
+    }
+   ],
+   "refinement_delta": 0.0,
+   "scene": {
+    "objects": 0,
+    "kinds": [],
+    "colours": [],
+    "texts": [],
+    "coverage": 0.0,
+    "mean_overlap": 0.0,
+    "shared_baseline": 0,
+    "even_spacing_run": 0
+   },
+   "checks": [
+    {
+     "check": "objects_at_least_4",
+     "ok": false,
+     "detail": "0 objects (need >= 4)"
+    },
+    {
+     "check": "has_hue_warm lamp",
+     "ok": false,
+     "detail": "colours=[] (warm lamp band 20-50)"
+    },
+    {
+     "check": "has_hue_cool dusk",
+     "ok": false,
+     "detail": "colours=[] (cool dusk band 200-260)"
+    },
+    {
+     "check": "coverage_between",
+     "ok": false,
+     "detail": "coverage 0.0% (want 2%-95%)"
+    },
+    {
+     "check": "overlap_below",
+     "ok": true,
+     "detail": "mean bbox overlap 0.00 (limit 0.5)"
+    }
+   ],
+   "checks_passed": 1,
+   "checks_total": 5,
+   "score": 0.2,
+   "wall_s": 205.64
+  }
+ ]
+}

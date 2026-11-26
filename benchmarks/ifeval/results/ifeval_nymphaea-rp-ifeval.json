@@ -1,0 +1,13 @@
+{
+ "label": "nymphaea-rp-ifeval",
+ "model": "ministral-3-8b-instruct-2512-abliterated",
+ "n": 541,
+ "think_off": false,
+ "run_fingerprint": "e2b56c71ed1268abfd3327fb293eafbe512e365e91430197a7cd61659bbb5302",
+ "limit": 0,
+ "smoke": false,
+ "truncated": 17,
+ "strict": 0.6673,
+ "loose": 0.6839,
+ "elapsed_s": 9110.8
+}

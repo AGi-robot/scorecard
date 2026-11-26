@@ -3,6 +3,7 @@
 # Env is handled here: sources ~/.config/agi/modal-bench.env itself.
 set -euo pipefail
 cd "$(dirname "$0")"
+AGI_ROOT="$(cd ../.. && pwd)"
 
 ENV_FILE="$HOME/.config/agi/modal-bench.env"
 if [[ -f "$ENV_FILE" ]]; then
@@ -88,12 +89,34 @@ run_evalplus() { # $1 = dataset
   done
 }
 
+run_bfcl() {
+  local default_mind_root="$AGI_ROOT/AIVA/mind"
+  local default_bfcl_root="/tmp/gorilla-bfcl/berkeley-function-call-leaderboard"
+  local mind_root bfcl_root
+
+  read -rp "Mind checkout root [$default_mind_root]: " mind_root
+  mind_root="${mind_root:-$default_mind_root}"
+  read -rp "BFCL checkout root [$default_bfcl_root]: " bfcl_root
+  bfcl_root="${bfcl_root:-$default_bfcl_root}"
+
+  if [[ ! -d "$mind_root" ]]; then
+    echo "Mind checkout not found: $mind_root" >&2
+    return 1
+  fi
+  if [[ ! -d "$bfcl_root/bfcl_eval/data" ]]; then
+    echo "BFCL checkout must contain bfcl_eval/data: $bfcl_root" >&2
+    return 1
+  fi
+
+  run_sel bfcl --mind-root "$mind_root" --bfcl-root "$bfcl_root" "${ARGS[@]}"
+}
+
 echo "Grace benchmark launcher — both Modal servers, env loaded."
 echo "-- OFFICIAL STANDARDS --"
 echo "1) IFEval [541 prompts, official scoring]"
 echo "2) IFBench [AllenAI, pinned]"
 echo "3) LongMemEval [ICLR 2025, 500Q]"
-echo "4) BFCL V4 memory component [requires --mind-root and --bfcl-root]"
+echo "4) BFCL V4 memory component [prompts for Mind and BFCL checkout paths]"
 echo "5) LiveCodeBench [pinned rev]"
 echo "6) EvalPlus HumanEval+"
 echo "7) EvalPlus MBPP+"
@@ -110,7 +133,7 @@ case "$choice" in
   1) run_sel ifeval "${ARGS[@]}" ;;
   2) run_sel ifbench "${ARGS[@]}" ;;
   3) run_sel longmemeval "${ARGS[@]}" ;;
-  4) run_sel bfcl "${ARGS[@]}" ;;
+  4) run_bfcl ;;
   5) run_sel livecodebench "${ARGS[@]}" ;;
   6) run_evalplus humaneval "${ARGS[@]}" ;;
   7) run_evalplus mbpp "${ARGS[@]}" ;;
