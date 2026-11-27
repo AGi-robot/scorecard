@@ -1,0 +1,621 @@
+{
+ "summary": {
+  "label": "bonsai-lighthouse-strict-single",
+  "model": "bonsai-2.5",
+  "schema_hint": false,
+  "strict_geometry": true,
+  "geometry_mode": "strict",
+  "pass_mode": "single",
+  "base_url": "http://127.0.0.1:8081/v1",
+  "renderer": {
+   "renderer": "console-canvas-chromium-v1",
+   "drawing_js_sha256": "45e534f0d30798dac32a1c6f7b58096dd427fa7f7de232bff1a8c2363105a3fd",
+   "canvas_html_sha256": "dc2ce9a434170536dda43df3542faffa92ad28113b57adb9de70dbc53adf39e1",
+   "playwright_version": "1.63.0"
+  },
+  "protocol_version": 5,
+  "temperature": 0.0,
+  "transport": "response_format_json_schema",
+  "think_off": false,
+  "force_tool": false,
+  "reasoning_effort": "medium",
+  "vision_passes": true,
+  "single_pass": true,
+  "pass_budgets": [
+   16
+  ],
+  "tasks": 1,
+  "check_score": 1.0,
+  "tasks_fully_satisfied": 1,
+  "fully_satisfied_rate": 1.0,
+  "valid_rate": 1.0,
+  "render_rate": 0.0,
+  "truncated_rate": 0.0,
+  "mean_steps": 16.0,
+  "total_wall_s": 61.4,
+  "refinement_delta": 0.0
+ },
+ "results": [
+  {
+   "task": "T1-lighthouse",
+   "tier": 1,
+   "tier_name": "single subject",
+   "brief": "Draw a lighthouse standing on a rocky headland at dusk, with a warm lamp glow at the top.",
+   "actions_returned": 16,
+   "steps": 16,
+   "valid": true,
+   "validation_error": null,
+   "clamped_fields": 0,
+   "rendered": false,
+   "render_error": "Page.evaluate: Error: Object ID already exists: tower\n    at action (http://canvas.invalid/static/drawing.js?v=geometry-fill-20261122:288:54)\n    at window.renderCanvasEvaluation (http://canvas.invalid/static/drawing.js?v=geometry-fill-20261122:619:34)\n    at eval (eval at evaluate (:311:30), <anonymous>:1:21)\n    at UtilityScript.evaluate (<anonymous>:318:18)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)",
+   "truncated_stream": false,
+   "meta": {
+    "vision_fallback": false,
+    "elapsed_s": 60.2,
+    "completion_tokens": 1743,
+    "prompt_tokens": 2173,
+    "truncated": false,
+    "raw_len": 2642,
+    "raw_tail": "",
+    "finish_reason": "stop",
+    "response": "Setting up the dusk sky, moon, sea, and rocky headland, then the lighthouse tower with red bands and gallery.",
+    "more": true
+   },
+   "meta_passes": [
+    {
+     "vision_fallback": false,
+     "elapsed_s": 60.2,
+     "completion_tokens": 1743,
+     "prompt_tokens": 2173,
+     "truncated": false,
+     "raw_len": 2642,
+     "raw_tail": "",
+     "finish_reason": "stop",
+     "response": "Setting up the dusk sky, moon, sea, and rocky headland, then the lighthouse tower with red bands and gallery.",
+     "more": true
+    }
+   ],
+   "passes": [
+    {
+     "pass": 1,
+     "budget": 16,
+     "actions_returned": 16,
+     "valid": true,
+     "validation_error": null,
+     "clamped_fields": 0,
+     "rendered": false,
+     "render_error": "Page.evaluate: Error: Object ID already exists: tower\n    at action (http://canvas.invalid/static/drawing.js?v=geometry-fill-20261122:288:54)\n    at window.renderCanvasEvaluation (http://canvas.invalid/static/drawing.js?v=geometry-fill-20261122:619:34)\n    at eval (eval at evaluate (:311:30), <anonymous>:1:21)\n    at UtilityScript.evaluate (<anonymous>:318:18)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)",
+     "with_image": true,
+     "truncated_stream": false,
+     "meta": {
+      "vision_fallback": false,
+      "elapsed_s": 60.2,
+      "completion_tokens": 1743,
+      "prompt_tokens": 2173,
+      "truncated": false,
+      "raw_len": 2642,
+      "raw_tail": "",
+      "finish_reason": "stop",
+      "response": "Setting up the dusk sky, moon, sea, and rocky headland, then the lighthouse tower with red bands and gallery.",
+      "more": true
+     },
+     "actions": [
+      {
+       "kind": "rectangle",
+       "x": 0,
+       "y": 0,
+       "width": 1000,
+       "height": 650,
+       "gradient_angle": 90,
+       "id": "sky",
+       "gradient": "linear",
+       "stroke": false,
+       "gradient_stops": [
+        {
+         "offset": 0,
+         "color": "#141433"
+        },
+        {
+         "offset": 0.45,
+         "color": "#3a2a5e"
+        },
+        {
+         "offset": 0.72,
+         "color": "#a04a5e"
+        },
+        {
+         "offset": 0.88,
+         "color": "#e07a4a"
+        },
+        {
+         "offset": 1,
+         "color": "#f2a85e"
+        }
+       ],
+       "fill": true
+      },
+      {
+       "kind": "ellipse",
+       "x": 790,
+       "y": 110,
+       "width": 58,
+       "height": 58,
+       "id": "moon",
+       "stroke": false,
+       "fill_color": "#f4e6c8",
+       "fill": true
+      },
+      {
+       "kind": "ellipse",
+       "x": 760,
+       "y": 80,
+       "width": 118,
+       "height": 118,
+       "opacity": 0.18,
+       "id": "moonhalo",
+       "stroke": false,
+       "fill_color": "#f4e6c8",
+       "fill": true
+      },
+      {
+       "kind": "rectangle",
+       "x": 0,
+       "y": 380,
+       "width": 1000,
+       "height": 270,
+       "gradient_angle": 90,
+       "id": "sea",
+       "gradient": "linear",
+       "stroke": false,
+       "gradient_stops": [
+        {
+         "offset": 0,
+         "color": "#5a3a5e"
+        },
+        {
+         "offset": 0.35,
+         "color": "#2e2a52"
+        },
+        {
+         "offset": 1,
+         "color": "#14142e"
+        }
+       ],
+       "fill": true
+      },
+      {
+       "kind": "line",
+       "opacity": 0.5,
+       "id": "sea1",
+       "stroke": true,
+       "color": "#7a5a8a",
+       "fill": false,
+       "points": [
+        [
+         120,
+         420
+        ],
+        [
+         300,
+         420
+        ]
+       ]
+      },
+      {
+       "kind": "line",
+       "opacity": 0.4,
+       "id": "sea2",
+       "stroke": true,
+       "color": "#7a5a8a",
+       "fill": false,
+       "points": [
+        [
+         560,
+         450
+        ],
+        [
+         820,
+         450
+        ]
+       ]
+      },
+      {
+       "kind": "line",
+       "opacity": 0.4,
+       "id": "sea3",
+       "stroke": true,
+       "color": "#5a4a7a",
+       "fill": false,
+       "points": [
+        [
+         200,
+         500
+        ],
+        [
+         420,
+         500
+        ]
+       ]
+      },
+      {
+       "kind": "line",
+       "opacity": 0.35,
+       "id": "sea4",
+       "stroke": true,
+       "color": "#5a4a7a",
+       "fill": false,
+       "points": [
+        [
+         600,
+         540
+        ],
+        [
+         900,
+         540
+        ]
+       ]
+      },
+      {
+       "kind": "path",
+       "id": "headland",
+       "stroke": false,
+       "smooth": true,
+       "fill_color": "#1a1428",
+       "fill": true,
+       "points": [
+        [
+         0,
+         650
+        ],
+        [
+         0,
+         520
+        ],
+        [
+         120,
+         500
+        ],
+        [
+         260,
+         540
+        ],
+        [
+         360,
+         470
+        ],
+        [
+         470,
+         500
+        ],
+        [
+         560,
+         470
+        ],
+        [
+         680,
+         520
+        ],
+        [
+         820,
+         490
+        ],
+        [
+         1000,
+         520
+        ],
+        [
+         1000,
+         650
+        ]
+       ]
+      },
+      {
+       "kind": "path",
+       "id": "headland2",
+       "stroke": false,
+       "smooth": true,
+       "fill_color": "#241a38",
+       "fill": true,
+       "points": [
+        [
+         0,
+         650
+        ],
+        [
+         0,
+         560
+        ],
+        [
+         150,
+         545
+        ],
+        [
+         300,
+         575
+        ],
+        [
+         450,
+         540
+        ],
+        [
+         600,
+         575
+        ],
+        [
+         760,
+         545
+        ],
+        [
+         1000,
+         570
+        ],
+        [
+         1000,
+         650
+        ]
+       ]
+      },
+      {
+       "kind": "path",
+       "id": "tower",
+       "stroke": false,
+       "smooth": true,
+       "fill_color": "#e8e0d0",
+       "fill": true,
+       "points": [
+        [
+         360,
+         500
+        ],
+        [
+         360,
+         300
+        ],
+        [
+         395,
+         300
+        ],
+        [
+         395,
+         500
+        ],
+        [
+         360,
+         500
+        ]
+       ]
+      },
+      {
+       "kind": "path",
+       "id": "tower",
+       "stroke": false,
+       "smooth": true,
+       "fill_color": "#e8e0d0",
+       "fill": true,
+       "points": [
+        [
+         355,
+         505
+        ],
+        [
+         355,
+         300
+        ],
+        [
+         405,
+         300
+        ],
+        [
+         405,
+         505
+        ],
+        [
+         355,
+         505
+        ]
+       ]
+      },
+      {
+       "kind": "path",
+       "id": "stripe1",
+       "stroke": false,
+       "smooth": true,
+       "fill_color": "#b84a4a",
+       "fill": true,
+       "points": [
+        [
+         355,
+         470
+        ],
+        [
+         355,
+         430
+        ],
+        [
+         405,
+         430
+        ],
+        [
+         405,
+         470
+        ],
+        [
+         355,
+         470
+        ]
+       ]
+      },
+      {
+       "kind": "path",
+       "id": "stripe2",
+       "stroke": false,
+       "smooth": true,
+       "fill_color": "#b84a4a",
+       "fill": true,
+       "points": [
+        [
+         355,
+         390
+        ],
+        [
+         355,
+         350
+        ],
+        [
+         405,
+         350
+        ],
+        [
+         405,
+         390
+        ],
+        [
+         355,
+         390
+        ]
+       ]
+      },
+      {
+       "kind": "path",
+       "id": "stripe3",
+       "stroke": false,
+       "smooth": true,
+       "fill_color": "#b84a4a",
+       "fill": true,
+       "points": [
+        [
+         355,
+         315
+        ],
+        [
+         355,
+         285
+        ],
+        [
+         405,
+         285
+        ],
+        [
+         405,
+         315
+        ],
+        [
+         355,
+         315
+        ]
+       ]
+      },
+      {
+       "kind": "path",
+       "id": "gallery",
+       "stroke": false,
+       "smooth": true,
+       "fill_color": "#2a2438",
+       "fill": true,
+       "points": [
+        [
+         345,
+         300
+        ],
+        [
+         345,
+         285
+        ],
+        [
+         415,
+         285
+        ],
+        [
+         415,
+         300
+        ],
+        [
+         345,
+         300
+        ]
+       ]
+      }
+     ],
+     "checks_passed": 5,
+     "checks_total": 5
+    }
+   ],
+   "refinement_delta": 0.0,
+   "scene": {
+    "objects": 16,
+    "kinds": [
+     "rectangle",
+     "ellipse",
+     "ellipse",
+     "rectangle",
+     "line",
+     "line",
+     "line",
+     "line",
+     "path",
+     "path",
+     "path",
+     "path",
+     "path",
+     "path",
+     "path",
+     "path"
+    ],
+    "colours": [
+     "#e8a87c",
+     "#f4e6c8",
+     "#f4e6c8",
+     "#d97862",
+     "#7a5a8a",
+     "#7a5a8a",
+     "#5a4a7a",
+     "#5a4a7a",
+     "#1a1428",
+     "#241a38",
+     "#e8e0d0",
+     "#e8e0d0",
+     "#b84a4a",
+     "#b84a4a",
+     "#b84a4a",
+     "#2a2438"
+    ],
+    "texts": [],
+    "coverage": 0.9248,
+    "mean_overlap": 0.0409,
+    "shared_baseline": 2,
+    "even_spacing_run": 12
+   },
+   "checks": [
+    {
+     "check": "objects_at_least_4",
+     "ok": true,
+     "detail": "16 objects (need >= 4)"
+    },
+    {
+     "check": "has_hue_warm lamp",
+     "ok": true,
+     "detail": "colours=['#e8a87c', '#f4e6c8', '#f4e6c8', '#d97862', '#7a5a8a', '#7a5a8a', '#5a4a7a', '#5a4a7a', '#1a1428', '#241a38', '#e8e0d0', '#e8e0d0', '#b84a4a', '#b84a4a', '#b84a4a', '#2a2438'] (warm lamp band 20-50)"
+    },
+    {
+     "check": "has_hue_cool dusk",
+     "ok": true,
+     "detail": "colours=['#e8a87c', '#f4e6c8', '#f4e6c8', '#d97862', '#7a5a8a', '#7a5a8a', '#5a4a7a', '#5a4a7a', '#1a1428', '#241a38', '#e8e0d0', '#e8e0d0', '#b84a4a', '#b84a4a', '#b84a4a', '#2a2438'] (cool dusk band 200-260)"
+    },
+    {
+     "check": "coverage_between",
+     "ok": true,
+     "detail": "coverage 92.5% (want 2%-95%)"
+    },
+    {
+     "check": "overlap_below",
+     "ok": true,
+     "detail": "mean bbox overlap 0.04 (limit 0.5)"
+    }
+   ],
+   "checks_passed": 5,
+   "checks_total": 5,
+   "score": 1.0,
+   "wall_s": 61.38
+  }
+ ]
+}

@@ -369,17 +369,80 @@ def render_png(actions):
 
 
 # ------------------------------------------------------------------ judge ---
+JUDGE_CRITERIA = ("lighthouse", "setting", "dusk", "glow", "coherence")
+
+JUDGE_PROMPT = """You are a strict visual grader for a vector-drawing benchmark.
+You will see ONE rendered image drawn for this request:
+
+"{brief}"
+
+Grade ONLY what is actually visible in the image. A pretty colour gradient or a
+suggestive silhouette is NOT enough: the requested subject must be recognisable.
+Use these five criteria, each scored 0, 1 or 2:
+
+1. lighthouse (0-2): 2 = clearly recognisable lighthouse (a tall tower with a
+   distinct lantern/lamp room at the top, optionally striped); 1 = an ambiguous
+   tower or monument that could be a lighthouse but has no lantern/lamp room;
+   0 = no lighthouse-like structure at all.
+2. setting (0-2): 2 = a rocky headland or island clearly surrounded by sea;
+   1 = only rock OR only sea; 0 = neither.
+3. dusk (0-2): 2 = clearly dusk/night (deep or sunset sky, low light, optional
+   stars); 1 = weakly suggested; 0 = bright daylight or no atmosphere.
+4. glow (0-2): 2 = a clear warm light/glow at or around the lantern; 1 = weak or
+   dull light; 0 = no warm light.
+5. coherence (0-2): 2 = parts are connected and sensibly layered; 1 = minor
+   floating or offset parts; 0 = major disconnected/floating shapes or a broken
+   scene.
+
+BLANK GATE: if the image is blank, or has no recognisable subject, the total
+must be 0 no matter what the criteria lines say.
+
+Respond in EXACTLY this format, one line per criterion, then the total:
+CRITERIA:
+lighthouse: <0-2> - <short reason>
+setting: <0-2> - <short reason>
+dusk: <0-2> - <short reason>
+glow: <0-2> - <short reason>
+coherence: <0-2> - <short reason>
+SCORE: <total>/10"""
+
+
+def _parse_verdict(text):
+    """Parse the rubric reply without trusting incidental digits.
+
+    Returns (score, subscores, gated). The score is the sum of the five
+    criterion lines when they are all present; otherwise the explicit SCORE
+    line; otherwise None. Incidental numbers in the prose are never used.
+    """
+    subscores = {}
+    for name in JUDGE_CRITERIA:
+        match = re.search(
+            rf"^\s*{name}\s*:\s*([0-2])\b", text, re.IGNORECASE | re.MULTILINE)
+        if match:
+            subscores[name] = int(match.group(1))
+    complete = len(subscores) == len(JUDGE_CRITERIA)
+    total = None
+    if complete:
+        total = sum(subscores.values())
+    else:
+        match = re.search(r"^\s*SCORE\s*:\s*(\d{1,2})", text,
+                          re.IGNORECASE | re.MULTILINE)
+        if match:
+            total = min(10, int(match.group(1)))
+    if total is not None:
+        total = max(0, min(10, total))
+    return total, subscores, complete
+
+
 def judge_image(judge_url, judge_model, png_bytes, brief, timeout=300,
                 think_off=True):
     encoded = base64.b64encode(png_bytes).decode()
-    body = {"model": judge_model, "temperature": 0.0, "max_tokens": 120,
+    prompt = JUDGE_PROMPT.format(brief=brief)
+    body = {"model": judge_model, "temperature": 0.0, "max_tokens": 400,
             "messages": [{"role": "user", "content": [
                 {"type": "image_url",
                  "image_url": {"url": "data:image/png;base64," + encoded}},
-                {"type": "text", "text":
-                    f'The image was drawn for this request: "{brief}"\n'
-                    "Does the image fulfil the request? Answer with a score from 0 to 10, "
-                    "then one short sentence of justification."}]}]}
+                {"type": "text", "text": prompt}]}]}
     if think_off:
         # Rating needs no reasoning trace; on thinking models the trace can
         # consume the output budget and leave content empty.
@@ -391,20 +454,12 @@ def judge_image(judge_url, judge_model, png_bytes, brief, timeout=300,
         if not text:
             # Thinking-enabled endpoint: the verdict may sit in the trace.
             text = (message.get("reasoning_content") or "").strip()
-        score = None
-        digits = ""
-        for char in text:
-            if char.isdigit():
-                digits += char
-                if len(digits) == 2:
-                    break
-            elif digits:
-                break
-        if digits:
-            score = min(10, int(digits))
-        return {"score": score, "text": text[:400]}
+        score, subscores, complete = _parse_verdict(text)
+        return {"score": score, "subscores": subscores,
+                "criteria_complete": complete, "text": text[:600]}
     except Exception as exc:
-        return {"score": None, "text": f"judge error: {exc}"}
+        return {"score": None, "subscores": {}, "criteria_complete": False,
+                "text": f"judge error: {exc}"}
 
 
 # ------------------------------------------------------------------- main ---

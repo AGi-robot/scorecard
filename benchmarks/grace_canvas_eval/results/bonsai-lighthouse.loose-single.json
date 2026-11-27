@@ -1,0 +1,580 @@
+{
+ "summary": {
+  "label": "bonsai-lighthouse-loose-single",
+  "model": "bonsai-2.5",
+  "schema_hint": false,
+  "strict_geometry": false,
+  "geometry_mode": "loose",
+  "pass_mode": "single",
+  "base_url": "http://127.0.0.1:8081/v1",
+  "renderer": {
+   "renderer": "console-canvas-chromium-v1",
+   "drawing_js_sha256": "45e534f0d30798dac32a1c6f7b58096dd427fa7f7de232bff1a8c2363105a3fd",
+   "canvas_html_sha256": "dc2ce9a434170536dda43df3542faffa92ad28113b57adb9de70dbc53adf39e1",
+   "playwright_version": "1.63.0"
+  },
+  "protocol_version": 5,
+  "temperature": 0.0,
+  "transport": "response_format_json_schema",
+  "think_off": false,
+  "force_tool": false,
+  "reasoning_effort": "medium",
+  "vision_passes": true,
+  "single_pass": true,
+  "pass_budgets": [
+   16
+  ],
+  "tasks": 1,
+  "check_score": 0.8,
+  "tasks_fully_satisfied": 0,
+  "fully_satisfied_rate": 0.0,
+  "valid_rate": 1.0,
+  "render_rate": 1.0,
+  "truncated_rate": 0.0,
+  "mean_steps": 15.0,
+  "total_wall_s": 61.5,
+  "refinement_delta": 0.0
+ },
+ "results": [
+  {
+   "task": "T1-lighthouse",
+   "tier": 1,
+   "tier_name": "single subject",
+   "brief": "Draw a lighthouse standing on a rocky headland at dusk, with a warm lamp glow at the top.",
+   "actions_returned": 15,
+   "steps": 15,
+   "valid": true,
+   "validation_error": null,
+   "clamped_fields": 1,
+   "rendered": true,
+   "render_error": null,
+   "truncated_stream": false,
+   "meta": {
+    "vision_fallback": false,
+    "elapsed_s": 60.35,
+    "completion_tokens": 1877,
+    "prompt_tokens": 2173,
+    "truncated": false,
+    "raw_len": 3539,
+    "raw_tail": "",
+    "finish_reason": "stop",
+    "response": "I've laid down the dusk sky, sea, rocky headland, and the lighthouse tower with its red bands, lantern room, and a warm radial lamp glow. Next I'll add stars, clouds, the lamp beam, and refine the headland rocks and reflections.",
+    "more": true
+   },
+   "meta_passes": [
+    {
+     "vision_fallback": false,
+     "elapsed_s": 60.35,
+     "completion_tokens": 1877,
+     "prompt_tokens": 2173,
+     "truncated": false,
+     "raw_len": 3539,
+     "raw_tail": "",
+     "finish_reason": "stop",
+     "response": "I've laid down the dusk sky, sea, rocky headland, and the lighthouse tower with its red bands, lantern room, and a warm radial lamp glow. Next I'll add stars, clouds, the lamp beam, and refine the headland rocks and reflections.",
+     "more": true
+    }
+   ],
+   "passes": [
+    {
+     "pass": 1,
+     "budget": 16,
+     "actions_returned": 15,
+     "valid": true,
+     "validation_error": null,
+     "clamped_fields": 1,
+     "rendered": true,
+     "render_error": null,
+     "with_image": true,
+     "truncated_stream": false,
+     "meta": {
+      "vision_fallback": false,
+      "elapsed_s": 60.35,
+      "completion_tokens": 1877,
+      "prompt_tokens": 2173,
+      "truncated": false,
+      "raw_len": 3539,
+      "raw_tail": "",
+      "finish_reason": "stop",
+      "response": "I've laid down the dusk sky, sea, rocky headland, and the lighthouse tower with its red bands, lantern room, and a warm radial lamp glow. Next I'll add stars, clouds, the lamp beam, and refine the headland rocks and reflections.",
+      "more": true
+     },
+     "actions": [
+      {
+       "kind": "rectangle",
+       "x": 0,
+       "y": 0,
+       "width": 1000,
+       "height": 650,
+       "gradient_angle": 90,
+       "id": "T1-lighthouse-p1-1",
+       "gradient": "linear",
+       "stroke": false,
+       "gradient_stops": [
+        {
+         "offset": 0,
+         "color": "#141433"
+        },
+        {
+         "offset": 0.45,
+         "color": "#3a2a5e"
+        },
+        {
+         "offset": 0.72,
+         "color": "#a04a5e"
+        },
+        {
+         "offset": 0.86,
+         "color": "#e07a4a"
+        },
+        {
+         "offset": 1,
+         "color": "#f0a05a"
+        }
+       ],
+       "fill": true
+      },
+      {
+       "kind": "ellipse",
+       "x": 0,
+       "y": 360,
+       "width": 1000,
+       "height": 120,
+       "id": "T1-lighthouse-p1-2",
+       "gradient": "radial",
+       "stroke": false,
+       "gradient_stops": [
+        {
+         "offset": 0,
+         "color": "#f0a05a"
+        },
+        {
+         "offset": 1,
+         "color": "#a04a5e"
+        }
+       ],
+       "fill": true
+      },
+      {
+       "kind": "rectangle",
+       "x": 0,
+       "y": 360,
+       "width": 1000,
+       "height": 290,
+       "gradient_angle": 90,
+       "id": "T1-lighthouse-p1-3",
+       "gradient": "linear",
+       "stroke": false,
+       "gradient_stops": [
+        {
+         "offset": 0,
+         "color": "#2a3a5e"
+        },
+        {
+         "offset": 1,
+         "color": "#141a30"
+        }
+       ],
+       "fill": true
+      },
+      {
+       "kind": "curve",
+       "gradient_angle": 90,
+       "id": "T1-lighthouse-p1-4",
+       "gradient": "linear",
+       "stroke": false,
+       "gradient_stops": [
+        {
+         "offset": 0,
+         "color": "#2a2438"
+        },
+        {
+         "offset": 1,
+         "color": "#120f1c"
+        }
+       ],
+       "fill": true,
+       "points": [
+        [
+         0,
+         650
+        ],
+        [
+         0,
+         520
+        ],
+        [
+         120,
+         500
+        ],
+        [
+         260,
+         540
+        ],
+        [
+         400,
+         500
+        ],
+        [
+         560,
+         540
+        ],
+        [
+         720,
+         500
+        ],
+        [
+         860,
+         540
+        ],
+        [
+         1000,
+         510
+        ],
+        [
+         1000,
+         650
+        ]
+       ]
+      },
+      {
+       "kind": "curve",
+       "gradient_angle": 0,
+       "id": "T1-lighthouse-p1-5",
+       "gradient": "linear",
+       "stroke": false,
+       "gradient_stops": [
+        {
+         "offset": 0,
+         "color": "#e8e0d0"
+        },
+        {
+         "offset": 1,
+         "color": "#b8a898"
+        }
+       ],
+       "fill": true,
+       "points": [
+        [
+         360,
+         520
+        ],
+        [
+         360,
+         300
+        ],
+        [
+         440,
+         300
+        ],
+        [
+         440,
+         520
+        ]
+       ]
+      },
+      {
+       "kind": "rectangle",
+       "x": 360,
+       "y": 300,
+       "width": 80,
+       "height": 14,
+       "gradient_angle": 0,
+       "id": "T1-lighthouse-p1-6",
+       "gradient": "linear",
+       "stroke": false,
+       "gradient_stops": [
+        {
+         "offset": 0,
+         "color": "#e8e0d0"
+        },
+        {
+         "offset": 1,
+         "color": "#b8a898"
+        }
+       ],
+       "fill": true
+      },
+      {
+       "kind": "rectangle",
+       "x": 360,
+       "y": 330,
+       "width": 80,
+       "height": 18,
+       "gradient_angle": 0,
+       "id": "T1-lighthouse-p1-7",
+       "gradient": "linear",
+       "stroke": false,
+       "gradient_stops": [
+        {
+         "offset": 0,
+         "color": "#c0504a"
+        },
+        {
+         "offset": 1,
+         "color": "#8a3a36"
+        }
+       ],
+       "fill": true
+      },
+      {
+       "kind": "rectangle",
+       "x": 360,
+       "y": 380,
+       "width": 80,
+       "height": 18,
+       "gradient_angle": 0,
+       "id": "T1-lighthouse-p1-8",
+       "gradient": "linear",
+       "stroke": false,
+       "gradient_stops": [
+        {
+         "offset": 0,
+         "color": "#c0504a"
+        },
+        {
+         "offset": 1,
+         "color": "#8a3a36"
+        }
+       ],
+       "fill": true
+      },
+      {
+       "kind": "rectangle",
+       "x": 360,
+       "y": 430,
+       "width": 80,
+       "height": 18,
+       "gradient_angle": 0,
+       "id": "T1-lighthouse-p1-9",
+       "gradient": "linear",
+       "stroke": false,
+       "gradient_stops": [
+        {
+         "offset": 0,
+         "color": "#c0504a"
+        },
+        {
+         "offset": 1,
+         "color": "#8a3a36"
+        }
+       ],
+       "fill": true
+      },
+      {
+       "kind": "rectangle",
+       "x": 350,
+       "y": 280,
+       "width": 100,
+       "height": 20,
+       "gradient_angle": 0,
+       "id": "T1-lighthouse-p1-10",
+       "gradient": "linear",
+       "stroke": false,
+       "gradient_stops": [
+        {
+         "offset": 0,
+         "color": "#e8e0d0"
+        },
+        {
+         "offset": 1,
+         "color": "#b8a898"
+        }
+       ],
+       "fill": true
+      },
+      {
+       "kind": "rectangle",
+       "x": 355,
+       "y": 260,
+       "width": 90,
+       "height": 22,
+       "gradient_angle": 0,
+       "id": "T1-lighthouse-p1-11",
+       "gradient": "linear",
+       "stroke": false,
+       "gradient_stops": [
+        {
+         "offset": 0,
+         "color": "#e8e0d0"
+        },
+        {
+         "offset": 1,
+         "color": "#b8a898"
+        }
+       ],
+       "fill": true
+      },
+      {
+       "kind": "ellipse",
+       "x": 400,
+       "y": 258,
+       "width": 90,
+       "height": 30,
+       "gradient_angle": 90,
+       "id": "T1-lighthouse-p1-12",
+       "gradient": "linear",
+       "stroke": false,
+       "gradient_stops": [
+        {
+         "offset": 0,
+         "color": "#e8e0d0"
+        },
+        {
+         "offset": 1,
+         "color": "#b8a898"
+        }
+       ],
+       "fill": true
+      },
+      {
+       "kind": "ellipse",
+       "x": 400,
+       "y": 250,
+       "width": 40,
+       "height": 16,
+       "gradient_angle": 90,
+       "id": "T1-lighthouse-p1-13",
+       "gradient": "linear",
+       "stroke": false,
+       "gradient_stops": [
+        {
+         "offset": 0,
+         "color": "#e8e0d0"
+        },
+        {
+         "offset": 1,
+         "color": "#b8a898"
+        }
+       ],
+       "fill": true
+      },
+      {
+       "kind": "ellipse",
+       "x": 400,
+       "y": 240,
+       "width": 10,
+       "height": 10,
+       "id": "T1-lighthouse-p1-14",
+       "gradient": "radial",
+       "stroke": false,
+       "gradient_stops": [
+        {
+         "offset": 0,
+         "color": "#fff2c0"
+        },
+        {
+         "offset": 1,
+         "color": "#e07a2a"
+        }
+       ],
+       "fill": true
+      },
+      {
+       "kind": "ellipse",
+       "x": 400,
+       "y": 240,
+       "width": 160,
+       "height": 160,
+       "opacity": 0.5,
+       "id": "T1-lighthouse-p1-15",
+       "gradient": "radial",
+       "stroke": false,
+       "gradient_stops": [
+        {
+         "offset": 0,
+         "color": "#ffd87a"
+        },
+        {
+         "offset": 0.5,
+         "color": "#e07a2a"
+        },
+        {
+         "offset": 1,
+         "color": "#e07a2a"
+        }
+       ],
+       "fill": true
+      }
+     ],
+     "checks_passed": 4,
+     "checks_total": 5
+    }
+   ],
+   "refinement_delta": 0.0,
+   "scene": {
+    "objects": 15,
+    "kinds": [
+     "rectangle",
+     "ellipse",
+     "rectangle",
+     "curve",
+     "curve",
+     "rectangle",
+     "rectangle",
+     "rectangle",
+     "rectangle",
+     "rectangle",
+     "rectangle",
+     "ellipse",
+     "ellipse",
+     "ellipse",
+     "ellipse"
+    ],
+    "colours": [
+     "#e8a87c",
+     "#d97862",
+     "#f2d5a0",
+     "#8c5a48",
+     "#423731",
+     "#e8a87c",
+     "#d97862",
+     "#f2d5a0",
+     "#8c5a48",
+     "#423731",
+     "#e8a87c",
+     "#d97862",
+     "#f2d5a0",
+     "#8c5a48",
+     "#423731"
+    ],
+    "texts": [],
+    "coverage": 0.9478,
+    "mean_overlap": 0.0326,
+    "shared_baseline": 5,
+    "even_spacing_run": 11
+   },
+   "checks": [
+    {
+     "check": "objects_at_least_4",
+     "ok": true,
+     "detail": "15 objects (need >= 4)"
+    },
+    {
+     "check": "has_hue_warm lamp",
+     "ok": true,
+     "detail": "colours=['#e8a87c', '#d97862', '#f2d5a0', '#8c5a48', '#423731', '#e8a87c', '#d97862', '#f2d5a0', '#8c5a48', '#423731', '#e8a87c', '#d97862', '#f2d5a0', '#8c5a48', '#423731'] (warm lamp band 20-50)"
+    },
+    {
+     "check": "has_hue_cool dusk",
+     "ok": false,
+     "detail": "colours=['#e8a87c', '#d97862', '#f2d5a0', '#8c5a48', '#423731', '#e8a87c', '#d97862', '#f2d5a0', '#8c5a48', '#423731', '#e8a87c', '#d97862', '#f2d5a0', '#8c5a48', '#423731'] (cool dusk band 200-260)"
+    },
+    {
+     "check": "coverage_between",
+     "ok": true,
+     "detail": "coverage 94.8% (want 2%-95%)"
+    },
+    {
+     "check": "overlap_below",
+     "ok": true,
+     "detail": "mean bbox overlap 0.03 (limit 0.5)"
+    }
+   ],
+   "checks_passed": 4,
+   "checks_total": 5,
+   "score": 0.8,
+   "wall_s": 61.52
+  }
+ ]
+}
