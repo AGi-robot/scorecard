@@ -21,7 +21,7 @@
   "total": 1387,
   "limit": 0,
   "model": "ministral-3-8b-instruct-2512-abliterated",
-  "base_url": "http://127.0.0.1:8080/v1",
+  "base_url": "https://oppa-ai-org--grace-llm-serve-serve-ministral.us-east.modal.run/v1",
   "n": 1,
   "temperature": 0.0,
   "max_tokens": 4096,

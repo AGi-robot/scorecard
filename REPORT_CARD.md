@@ -86,7 +86,7 @@ arm because the arms disagree by more than any other benchmark here.
 | agents-a1-4b | 541 | 76.3 | 81.2 | 117 min |
 | ministral3-14b | 541 | 65.1 | 71.5 | 219 min |
 
-### IFEval — Ministral 8B quants (local, strict / loose)
+### IFEval — Ministral 8B variants (strict / loose)
 
 | Model | n | Strict | Loose | Truncated | Time |
 |---|---:|---:|---:|---:|---:|
@@ -99,6 +99,10 @@ arm because the arms disagree by more than any other benchmark here.
 IQ4_XS is the active router default: fastest prefill, 6.0 GB VRAM, zero
 truncations, within ~1pp of Q4_K_M. Nymphaea-RP is kept as the second
 Ministral variant for RP/creative work.
+
+| IFEval score box — recommended daily driver | Strict | Loose | Truncated |
+|---|---:|---:|---:|
+| Ministral 3 8B Abliterated i1-IQ4_XS (local) | **55.8%** | **63.8%** | **0 / 541** |
 
 ### IFBench single-turn — precise instruction following (official scorer)
 
@@ -308,10 +312,13 @@ Small n — single rater, six scripts. Treat as a directional signal only.
 
 ## What the numbers say
 
-**Ministral is the most likeable and the least compliant model in the set.**
-It wins the blind persona test (Elo 1539) but comes last on IFEval (65.1
-strict) — behind a 2B model by 20 points. For Grace this is the central
-tension: SOUL's emoji-and-colon prefix and 1–2 sentence limit are hard
+**Ministral is the most likeable model in the small blind persona sample, while
+its 8B variants show mixed instruction-following results.** It wins the blind
+persona test (Elo 1539); on IFEval, Nymphaea RP leads the tested Ministral
+8B variants, while IQ4_XS remains the active low-VRAM router default.
+Ministral 3 14B scored 65.1 strict / 71.5 loose on IFEval. For Grace this is
+the central tension: SOUL's
+emoji-and-colon prefix and 1–2 sentence limit are hard
 constraints, and "warmest" does not mean "follows the contract".
 
 **The smaller models show different profiles across tests.** `minicpm5-2b`
