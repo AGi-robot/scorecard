@@ -1,6 +1,6 @@
 # Companion behavior benchmarks
 
-These benchmarks are selected for evaluating Grace's companion behavior,
+These benchmarks are selected for evaluating AIVA's companion behavior,
 relationship boundaries, and safety. Keep their scores separate from general
 chat preference, memory retrieval, and tool-use scores.
 
@@ -17,4 +17,4 @@ research priorities rather than completed benchmark integrations.
 
 These suites include sensitive material such as self-harm, sexual behavior,
 aggression, and manipulation. Any eventual run should be an offline evaluation
-with controlled data handling, not prompts sent through Grace's live WebUI.
+with controlled data handling, not prompts sent through AIVA's live WebUI.

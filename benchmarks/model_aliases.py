@@ -21,7 +21,7 @@ def alias_for_model_path(model_path_fragment: str) -> str:
     return matches[0]
 
 
-# Stable defaults allow standalone use without Grace's workspace. Explicit
+# Stable defaults allow standalone use without AIVA's workspace. Explicit
 # --model arguments remain the source of truth for an individual run.
 MINISTRAL_ALIAS = "ministral-3-8b-instruct-2512-abliterated"
 SWIFT_ALIAS = "swift15-qwen3.8-27b"

@@ -176,3 +176,14 @@ class CLITests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+def test_model_discovery_includes_projection_and_multiple_workers(tmp_path):
+    model, projection = tmp_path / 'model.gguf', tmp_path / 'projection.gguf'
+    model.touch()
+    projection.touch()
+    processes = [{'argv': ['server', '-m', str(model)]},
+                 {'argv': ['server', '--mmproj', str(projection)]}]
+    assert perf.discover_model_files({}, processes) == [model, projection]
+    with patch.object(perf, 'process_metadata', return_value=[{'pid': 1, 'argv': ['server', '--alias']}]):
+        assert perf.target_workers([1], 'model') == [1]

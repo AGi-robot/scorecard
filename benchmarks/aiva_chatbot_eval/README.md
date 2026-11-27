@@ -1,14 +1,14 @@
-# Grace Chatbot Eval
+# AIVA Chatbot Eval
 
 This custom AGi evaluation uses blind pairwise human comparisons inspired by
 Chatbot Arena: the same multi-turn conversations are played against two or
 more models, and a rater compares the transcripts without seeing model names.
 Standings come from win rates plus Elo.
 
-The prompts and rubric are specific to Grace and have not been validated as a
+The prompts and rubric are specific to AIVA and have not been validated as a
 standard benchmark. Pairwise human preference is an established evaluation
 method, but this small, single-rater test is a subjective product-fit signal.
-Use it alongside capability evaluations such as BFCL, HumanEval+, and Grace
+Use it alongside capability evaluations such as BFCL, HumanEval+, and AIVA
 Canvas Eval.
 
 ## The three phases
@@ -30,10 +30,10 @@ python preference_bench.py score
 ```
 
 Generation calls each model's OpenAI-compatible endpoint directly. It does not
-start or import Grace's runtime. By default, the harness sends the bundled
-`prompts/grace-persona-v1.md` snapshot, the run timestamp, and each script's
+start or import AIVA's runtime. By default, the harness sends the bundled
+`prompts/SOUL.md` snapshot, the run timestamp, and each script's
 conversation history. The batch records both the persona hash and the hash of
-the exact system prompt sent. This keeps the evaluation stable when Grace's
+the exact system prompt sent. This keeps the evaluation stable when AIVA's
 live prompt or runtime changes. A deliberate persona revision should be saved
 as a new snapshot and passed with `--system-prompt-file`.
 
@@ -43,8 +43,8 @@ The two modes are recorded separately in each batch.
 
 ## What's tested
 
-The default Grace-prompt mode tests the persona prompt and conversation-history
-handling around each endpoint. It does not test Grace's running chat service,
+The default AIVA-prompt mode tests the persona prompt and conversation-history
+handling around each endpoint. It does not test AIVA's running chat service,
 memory database, tools, or router. `--bare-model` compares the model endpoints
 without the persona. `--think-off` disables thinking on Qwen models for protocol
 parity with Ministral, which has no thinking mode. Keep the setting fixed across
@@ -84,7 +84,7 @@ which is shown during rating but never sent to the model.
 ## Rating dimensions
 
 For every A/B pair the rater scores `warmth`, `coherence`, `persona`
-(still sounds like Grace), and `overall`. Answers are `a` / `b` / `t`
+(still sounds like AIVA), and `overall`. Answers are `a` / `b` / `t`
 (tie) / `s` (skip). Order is randomized per pair, votes append to
 `results/batch_<hash>_votes.jsonl`, and `--rate` resumes where it stopped.
 
@@ -100,5 +100,5 @@ model wins, not just that it does.
   few minutes. Add raters by sharing the batch file; votes append cleanly.
 - Temperature defaults to 0.7 (conversational, like production). Capability
   benchmarks use 0.0; don't compare those numbers with these votes.
-- The `expect` notes encode Grace's house rules (SOUL.md): emoji-prefixed
+- The `expect` notes encode AIVA's house rules (SOUL.md): emoji-prefixed
   replies, 1-2 sentences, disagree when appropriate, never invent memories.

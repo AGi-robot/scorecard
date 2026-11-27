@@ -33,7 +33,7 @@ class LauncherTests(unittest.TestCase):
                 entry = Path(tmp) / protocol["entrypoint"]
                 entry.touch()
                 options = ["--suite", suite, "--checkout", tmp, "--python", "/official/python"]
-                forwarded = ["--run-id", "grace test", "--help"]
+                forwarded = ["--run-id", "aiva test", "--help"]
                 with patch.object(LAUNCHER.subprocess, "check_output",
                                   side_effect=[protocol["revision"], ""]), \
                      patch.object(LAUNCHER.subprocess, "call") as execute, \

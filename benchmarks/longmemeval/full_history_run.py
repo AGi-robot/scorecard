@@ -2,7 +2,7 @@
 """Run the LongMemEval full-history baseline against an OpenAI API endpoint.
 
 The prompt layout and output schema follow the official LongMemEval generation
-code. This is a long-context baseline; it does not ingest sessions into Grace's
+code. This is a long-context baseline; it does not ingest sessions into AIVA's
 persistent memory store.
 """
 from __future__ import annotations

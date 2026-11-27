@@ -1,6 +1,6 @@
-"""Grace Canvas Eval task set for the vector canvas.
+"""AIVA Canvas Eval task set for the vector canvas.
 
-Each task is a brief a user could actually send Grace, plus per-task checks
+Each task is a brief a user could actually send AIVA, plus per-task checks
 that run against the resulting scene graph (the list of normalised objects the
 canvas renderer replays). Checks return (ok, detail) so failures explain
 themselves in the report.

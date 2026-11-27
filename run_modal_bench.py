@@ -16,7 +16,6 @@ Key: sourced from ~/.config/agi/modal-bench.env (OPENAI_API_KEY) or env.
 from __future__ import annotations
 
 import argparse
-import json
 import os
 import subprocess
 import sys
@@ -27,22 +26,32 @@ HERE = Path(__file__).resolve().parent
 BENCH = HERE / "benchmarks"
 from benchmarks.model_aliases import MINISTRAL_ALIAS
 
+def _modal_url(model):
+    """Read deployed endpoint addresses without coupling deployment names to code."""
+    import yaml
+    configuration = yaml.safe_load((HERE / "endpoints.yaml").read_text(encoding="utf-8"))
+    return os.getenv(f"AIVA_BENCH_{model.upper()}_URL", configuration[model])
+
+
 MODELS = {
     "ministral": {
-        "base_url": "https://oppa-ai-org--grace-llm-serve-serve-ministral.us-east.modal.run/v1",
+        "base_url": _modal_url("ministral"),
+        "requires_key": True,
         "model": MINISTRAL_ALIAS,
         "label": f"{MINISTRAL_ALIAS}-modal",
         "desc": "Modal 8B chat model (fast, cheap) — instruction-following first",
     },
     "swift": {
-        "base_url": "https://oppa-ai-org--grace-llm-serve-serve-swift.us-east.modal.run/v1",
+        "base_url": _modal_url("swift"),
+        "requires_key": True,
         "model": "swift15-qwen3.8-27b-local",
         "label": "swift-modal",
         "ifeval_reasoning_effort": "low",
         "desc": "Modal 27B reasoning model (slow cold-start, MTP) — tools/canvas",
     },
     "inkling": {
-        "base_url": "https://oppa-ai-org--grace-llm-serve-serve-inkling.us-east.modal.run/v1",
+        "base_url": _modal_url("inkling"),
+        "requires_key": True,
         "model": "inkling-2-mini",
         "label": "inkling-modal",
         "ifeval_reasoning_effort": "low",
@@ -75,15 +84,15 @@ BENCHES = {
         "note": "Start here on ministral: cheapest full validation of the Modal path.",
     },
     "canvas": {
-        "group": "grace",
+        "group": "aiva",
         "name": "Canvas Eval",
-        "script": BENCH / "grace_canvas_eval" / "grace_canvas_eval.py",
+        "script": BENCH / "aiva_canvas_eval" / "aiva_canvas_eval.py",
         "desc": "Vector canvas, protocol v4; checks + optional judge",
         "args": lambda m, o: [
             "--base-url", m["base_url"], "--model", m["model"],
             "--label", f"{m['label']}-canvas",
-            "--out", str(HERE / "benchmarks" / "grace_canvas_eval" / "results" / f"{m['label']}-canvas.json"),
-            "--out-dir", str(HERE / "benchmarks" / "grace_canvas_eval" / "renders" / f"{m['label']}-canvas"),
+            "--out", str(HERE / "benchmarks" / "aiva_canvas_eval" / "results" / f"{m['label']}-canvas.json"),
+            "--out-dir", str(HERE / "benchmarks" / "aiva_canvas_eval" / "renders" / f"{m['label']}-canvas"),
         ] + (["--task", o.task] if o.task else [])
         + (["--limit", str(o.limit)] if o.limit else [])
         + (["--single-pass"] if o.single_pass else []),
@@ -157,7 +166,7 @@ BENCHES = {
         "note": "See benchmarks/eqbench/README.md for the full protocol.",
     },
     "safety": {
-        "group": "grace",
+        "group": "aiva",
         "name": "Companion Safety",
         "kind": "guide",
         "desc": "Companion behavior + boundaries (no runner yet)",
@@ -181,7 +190,7 @@ BENCHES = {
 }
 
 
-GROUPS = [("official", "OFFICIAL STANDARDS"), ("grace", "GRACE CUSTOM")]
+GROUPS = [("official", "OFFICIAL STANDARDS"), ("aiva", "AIVA CUSTOM")]
 
 def pick(options: dict, title: str) -> str:
     print(f"\n{title}")
@@ -193,7 +202,7 @@ def pick(options: dict, title: str) -> str:
     else:
         i = 0
         for gkey, gname in GROUPS:
-            members = [(k, v) for k, v in options.items() if v.get("group", "grace") == gkey]
+            members = [(k, v) for k, v in options.items() if v.get("group", "aiva") == gkey]
             if not members:
                 continue
             if gkey != GROUPS[0][0]:
@@ -273,16 +282,6 @@ def main() -> None:
     if b.get("note"):
         print(f"note: {b['note']}")
 
-    if not check_key():
-        sys.exit(1)
-    # Canvas + longmemeval also accept OPENAI_API_KEY; mirror AIVA key if needed.
-    if not os.environ.get("OPENAI_API_KEY") and os.environ.get("AIVA_LLM_API_KEY"):
-        os.environ["OPENAI_API_KEY"] = os.environ["AIVA_LLM_API_KEY"]
-
-    if not o.skip_preflight and m["base_url"].startswith("http"):
-        if not preflight(m["base_url"]):
-            sys.exit(1)
-
     if b.get("kind") == "guide":
         print("\n" + b["guide"].replace("MODEL_ID", m["model"]))
         if b.get("note"):
@@ -297,6 +296,18 @@ def main() -> None:
     print("\n$ " + " ".join(cmd))
     if o.dry_run:
         return
+    if m.get("requires_key") and not check_key():
+        sys.exit(1)
+    # Canvas + longmemeval also accept OPENAI_API_KEY; mirror AIVA key if needed.
+    if not os.environ.get("OPENAI_API_KEY") and os.environ.get("AIVA_LLM_API_KEY"):
+        os.environ["OPENAI_API_KEY"] = os.environ["AIVA_LLM_API_KEY"]
+
+    if not o.skip_preflight and m["base_url"].startswith("http"):
+        if not preflight(m["base_url"]):
+            sys.exit(1)
+
+    # Key mirroring above must be included in the child environment.
+    env.update({k: os.environ[k] for k in ('OPENAI_API_KEY',) if k in os.environ})
     r = subprocess.run(cmd, env=env)
     sys.exit(r.returncode)
 

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""IFEval runner for Grace (scorecard edition).
+"""IFEval runner for AIVA (scorecard edition).
 
 Sends the 540 official google/IFEval prompts to any OpenAI-compatible
 endpoint and scores responses with the official google-research scoring

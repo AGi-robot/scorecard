@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Grace Canvas Eval: score a model on Grace's own vector canvas.
+"""AIVA Canvas Eval: score a model on AIVA's own vector canvas.
 
 Runs the drawing tasks in tasks.py against any OpenAI-compatible endpoint that
 speaks the canvas_draw tool, then scores the resulting scene graph with the
@@ -7,7 +7,7 @@ automatic checks. Everything is scored from the canvas engine's own state, so
 no reference images or human labels are needed.
 
 Usage:
-    python grace_canvas_eval.py --base-url http://127.0.0.1:8080/v1 \\
+    python aiva_canvas_eval.py --base-url http://127.0.0.1:8080/v1 \\
         --model <router-model-alias> --label <run-label>
 
 Options:
@@ -52,16 +52,21 @@ def find_agi_repo():
     for candidate in candidates:
         if (candidate / "capability" / "canvas" / "src").is_dir():
             return candidate
-    raise SystemExit(
-        "Could not find the AGi source checkout (capability/canvas/src; "
-        "capability/imaging/src is optional). "
-        "Set AGI_REPO to its path."
+    # Installed capability packages are sufficient for a bare-model evaluation;
+    # no runtime/orchestrator checkout is needed just to import the renderer.
+    import importlib.util
+    if importlib.util.find_spec("canvas") is not None:
+        return None
+    raise RuntimeError(
+        "Canvas is not installed. Install the Canvas package, or set AGI_REPO "
+        "to a checkout containing capability/canvas/src."
     )
 
 
 AGI_REPO = find_agi_repo()
-sys.path.insert(0, str(AGI_REPO / "capability" / "canvas" / "src"))
-sys.path.insert(0, str(AGI_REPO / "capability" / "imaging" / "src"))
+if AGI_REPO is not None:
+    sys.path.insert(0, str(AGI_REPO / "capability" / "canvas" / "src"))
+    sys.path.insert(0, str(AGI_REPO / "capability" / "imaging" / "src"))
 
 from canvas import DRAW_INSTRUCTIONS, DRAW_TOOL, engine, svg  # noqa: E402
 
@@ -730,7 +735,7 @@ def main():
         run_args.out = str(out_path)
         run_args.out_dir = str(out_dir)
 
-        print(f"Grace Canvas Eval: {run_args.label} ({len(selected)} tasks; "
+        print(f"AIVA Canvas Eval: {run_args.label} ({len(selected)} tasks; "
               f"{geometry_name} geometry, {pass_name}-pass)", flush=True)
         results = []
         for task in selected:

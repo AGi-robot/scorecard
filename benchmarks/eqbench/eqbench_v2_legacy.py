@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""EQ-Bench v2 runner for Grace (scorecard edition).
+"""EQ-Bench v2 runner for AIVA (scorecard edition).
 
 Uses the EQ-Bench v2 full-scale scoring protocol: temperature 0.01,
 max_tokens 60, up to 3 attempts per question until the answer parses,
@@ -7,7 +7,7 @@ no-revise mode. Scoring uses the official lib/scoring.py (vendored here as
 eqbench_scoring.py, MIT licensed -- see LICENSE.EQ-Bench-MIT), so numbers
 are directly comparable with published EQ-Bench v2 leaderboard scores.
 
-The 171 questions live in data/eq_bench_v2_questions_171.json (from the
+The 171 questions live in data/eq_bench_v2_questions_171.yaml (from the
 EQ-Bench repo, same license).
 
 Usage:
@@ -98,7 +98,7 @@ def ask(prompt, timeout=300):
 
 def main():
     OUT.parent.mkdir(parents=True, exist_ok=True)
-    questions = json.loads((HERE / "data" / "eq_bench_v2_questions_171.json").read_text())
+    questions = json.loads((HERE / "data" / "eq_bench_v2_questions_171.yaml").read_text())
     ids = sorted(questions, key=lambda x: int(x))
     print(f"{LABEL}: {len(ids)} questions (think_off={THINK_OFF})", flush=True)
 

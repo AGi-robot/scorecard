@@ -1,24 +1,24 @@
-# Grace Canvas Eval
+# AIVA Canvas Eval
 
-A custom evaluation for the thing Grace actually does that no standard benchmark
+A custom evaluation for the thing AIVA actually does that no standard benchmark
 measures: emit a structured sequence of canvas actions that renders into
 something that matches the brief.
 
 It borrows ideas from [Framer's CanvasBench](https://www.framer.com/canvasbench/)
 (completion / steps / time / cost, with "good" and "great" tiers) and borrows
-scene-graph metrics from Graphic Design Bench, but runs against Grace's own
-`grace_canvas` library instead of a design tool.
+scene-graph metrics from Graphic Design Bench, but runs against AIVA's own
+`aiva_canvas` library instead of a design tool.
 
 ## Why a custom harness
 
-Grace's agent drives a 1000×650 vector canvas through the `canvas_draw` tool,
+AIVA's agent drives a 1000×650 vector canvas through the `canvas_draw` tool,
 emitting JSON action sequences (`curve`, `path`, `rectangle`, `ellipse`,
 `text`, `letter`, `style`, `move`, `delete`, `front`, `back`, …). It is not a
 mouse-driven agent, it does not emit SVG, and it does not emit tldraw JSON --
 so the matching public benchmarks (DrawingBench, Graphic Design Bench,
 Sketch2Diagram) do not apply. CANVAS (KIXLAB) is the closest in interaction
 mode and is open, but its tasks are mobile-UI design trees and its replication
-task needs a reference image, which Grace never gets.
+task needs a reference image, which AIVA never gets.
 
 Everything here scores from the canvas engine's own state, so no reference
 images and no human labels are needed.
@@ -27,12 +27,12 @@ images and no human labels are needed.
 
 ```bash
 # one-off environment (does not touch the AIVA venv)
-uv venv /tmp/grace-canvas-eval-venv
-uv pip install --python /tmp/grace-canvas-eval-venv/bin/python playwright pillow
-/tmp/grace-canvas-eval-venv/bin/python -m playwright install chromium
+uv venv /tmp/aiva-canvas-eval-venv
+uv pip install --python /tmp/aiva-canvas-eval-venv/bin/python playwright pillow
+/tmp/aiva-canvas-eval-venv/bin/python -m playwright install chromium
 
 # a model must be served with the canvas_draw tool available
-AGI_REPO=/path/to/AGi /tmp/grace-canvas-eval-venv/bin/python benchmarks/grace_canvas_eval/grace_canvas_eval.py \
+AGI_REPO=/path/to/AGi /tmp/aiva-canvas-eval-venv/bin/python benchmarks/aiva_canvas_eval/aiva_canvas_eval.py \
     --base-url http://127.0.0.1:8080/v1 \
     --model ministral-3-8b-instruct-2512-abliterated \
     --label ministral3-8b-abliterated \
@@ -61,14 +61,14 @@ optional multimodal judge that scores the rendered image against the brief.
 When this scorecard checkout sits inside the AGi workspace, the harness finds
 the AGi source checkout automatically; set `AGI_REPO` when it is elsewhere.
 Rendering also requires a Console checkout at `AGI_REPO/AIVA/console` containing
-the Canvas evaluation replay hook. Set `GRACE_CONSOLE_DIR` to its checkout if
+the Canvas evaluation replay hook. Set `AIVA_CONSOLE_DIR` to its checkout if
 it lives elsewhere. Record the Console revision with each run: its browser
 renderer determines the generated PNGs. Network requests from the rendering
 browser are blocked. Prior SVG-rendered images should not be treated as the
 same rendering protocol.
 
 The system prompt is `canvas.engine.DRAW_INSTRUCTIONS` verbatim -- the same one
-Grace uses in production -- so results transfer.
+AIVA uses in production -- so results transfer.
 
 ## Tasks
 
@@ -141,7 +141,7 @@ fails T1-lighthouse; the lighthouse ceiling is 0.95. Historical scores in
 
 ## Notes
 
-- The renderer is Grace's own (`canvas.svg.Renderer`), so `objects` is the same
+- The renderer is AIVA's own (`canvas.svg.Renderer`), so `objects` is the same
   ordered list the browser console shows.
 - Actions pass through `engine.repair_model_actions()` before validation and
   rendering, as in production. `valid_rate` measures the prepared actions;
@@ -151,14 +151,14 @@ fails T1-lighthouse; the lighthouse ceiling is 0.95. Historical scores in
 
 ## Corrected pipeline (protocol version 2)
 
-Use the canvas fixes in [canvas PR #1](https://github.com/AGi-robot/canvas/pull/1)
+Use the canvas fixes in [canvas PR #1](https://github.com/Project-AGi/canvas/pull/1)
 for independent action recovery, consistent cubic point counts, and polygon fill.
 `AGI_REPO` must contain `capability/canvas/src`; `capability/imaging/src` is optional.
 
 For a repeatable vector drawing run on a thinking model:
 
 ```bash
-AGI_REPO=/path/to/AGi python benchmarks/grace_canvas_eval/grace_canvas_eval.py \
+AGI_REPO=/path/to/AGi python benchmarks/aiva_canvas_eval/aiva_canvas_eval.py \
   --base-url http://127.0.0.1:8080/v1 --model YOUR_MODEL \
   --label YOUR_MODEL-thinkoff --think-off --force-tool \
   --out /tmp/canvas-run.json --out-dir /tmp/canvas-renders
@@ -202,13 +202,13 @@ LD_LIBRARY_PATH=/home/oppa-ai/llama.cpp/build/bin \
 In another terminal, with `cairosvg` and `pillow` installed:
 
 ```bash
-python diagnostic/scorecard/benchmarks/grace_canvas_eval/grace_canvas_eval.py \
+python diagnostic/scorecard/benchmarks/aiva_canvas_eval/aiva_canvas_eval.py \
   --base-url http://127.0.0.1:8096/v1 --model swift-local-canvas \
   --label swift-local-geometry --strict-geometry --single-pass --no-vision-passes \
   --task T1-lighthouse --task T2-still-life \
   --task T2-robot-mascot --task T5-critique-self \
-  --out diagnostic/scorecard/benchmarks/grace_canvas_eval/results/swift-local-geometry.json \
-  --out-dir diagnostic/scorecard/benchmarks/grace_canvas_eval/renders/Swift-local-geometry
+  --out diagnostic/scorecard/benchmarks/aiva_canvas_eval/results/swift-local-geometry.json \
+  --out-dir diagnostic/scorecard/benchmarks/aiva_canvas_eval/renders/Swift-local-geometry
 ```
 
 This uses the original briefs and canvas engine, constrained JSON, temperature
@@ -239,7 +239,7 @@ are not included in the single-pass score report.
 Offline pipeline checks (requires pytest, playwright, Chromium, and pillow):
 
 ```bash
-AGI_REPO=/path/to/AGi python -m pytest -q benchmarks/grace_canvas_eval/test_canvas_pipeline.py
+AGI_REPO=/path/to/AGi python -m pytest -q benchmarks/aiva_canvas_eval/test_canvas_pipeline.py
 ```
 
 

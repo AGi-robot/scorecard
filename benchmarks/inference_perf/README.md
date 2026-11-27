@@ -35,7 +35,7 @@ model ID (`curl -s http://127.0.0.1:8081/v1/models` lists IDs):
 
 The runner uses existing server processes. It does not start, stop, reload, or
 reconfigure a server. A request can trigger the server's own automatic model load.
-It does not change Grace's router preset. Test models/backends sequentially, using
+It does not change AIVA's router preset. Test models/backends sequentially, using
 the same GPU placement, context capacity, KV types, output length, and reasoning
 configuration. Keep the machine otherwise idle when making speed comparisons.
 The current local UD Ministral file is the original instruct model while the `i1`

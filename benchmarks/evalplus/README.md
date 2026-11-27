@@ -13,11 +13,11 @@ and use its commands and dataset version:
 python -m pip install --upgrade evalplus
 ```
 
-## Generate code from Grace's local model endpoint
+## Generate code from AIVA's local model endpoint
 
 Start the OpenAI-compatible model server, then run from the scorecard root.
 EvalPlus sends the prompt-only code-generation task to the model; it does not
-use Grace's chat persona, tools, or memory.
+use AIVA's chat persona, tools, or memory.
 
 ```bash
 export OPENAI_API_KEY=EMPTY
@@ -55,5 +55,5 @@ Repeat with `--dataset mbpp` and the corresponding MBPP sample file. The
 official evaluator reports base and plus pass rates; report both. Preserve the
 model server revision, EvalPlus package and dataset version, image digest,
 result file, and decoding configuration with each score. HumanEval+/MBPP+ pass
-rates measure code-generation accuracy, not the ability to edit Grace's source
+rates measure code-generation accuracy, not the ability to edit AIVA's source
 code or safely install tools.

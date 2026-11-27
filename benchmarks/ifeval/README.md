@@ -1,17 +1,17 @@
-# IFEval for Grace
+# IFEval for AIVA
 
 Instruction-following accuracy on the 540 official `google/IFEval` prompts,
 scored with the official google-research scoring code (vendored under
 `official/`, Apache-2.0 — same license as the dataset). Reports both
 **strict** and **loose** accuracy, exactly like the published leaderboard.
 
-## Why this one matters for Grace
+## Why this one matters for AIVA
 
-IFEval is the closest standard bench to Grace's daily job: following
+IFEval is the closest standard bench to AIVA's daily job: following
 explicit formatting constraints. SOUL demands an emoji + colon prefix and
 1–2 sentences; `canvas_draw` demands valid JSON tool calls with exact point
 counts. A model that can't follow "write more than 400 words" or "mention
-AI at least 3 times" won't follow Grace's output contracts either.
+AI at least 3 times" won't follow AIVA's output contracts either.
 
 ## Protocol
 

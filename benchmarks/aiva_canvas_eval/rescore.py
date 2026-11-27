@@ -16,7 +16,7 @@ from pathlib import Path
 import sys
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import tasks as T  # noqa: E402
-from grace_canvas_eval import (validate_and_measure, build_scene, render_png,
+from aiva_canvas_eval import (validate_and_measure, build_scene, render_png,
                                run_task  # noqa: F401  (keeps import surface stable)
                                )
 

@@ -7,13 +7,15 @@ from pathlib import Path
 
 
 def studio_paths(agi_repo: Path):
-    configured = os.environ.get('GRACE_CONSOLE_DIR')
+    configured = os.environ.get('AIVA_CONSOLE_DIR')
+    if not configured and agi_repo is None:
+        raise RuntimeError('Set AIVA_CONSOLE_DIR to the Console checkout for browser rendering')
     root = Path(configured).expanduser().resolve() if configured else agi_repo / 'AIVA' / 'console'
     studio = root / 'telepathic_management' / 'telepathic_console'
     html = studio / 'frontend' / 'canvas.html'
     static = studio / 'backend' / 'static'
     if not html.is_file() or not (static / 'drawing.js').is_file():
-        raise RuntimeError('Console Canvas source missing; set GRACE_CONSOLE_DIR to the Console checkout')
+        raise RuntimeError('Console Canvas source missing; set AIVA_CONSOLE_DIR to the Console checkout')
     return html, static
 
 
