@@ -1,0 +1,4 @@
+# Existing deployed benchmark endpoints; override with AIVA_BENCH_<MODEL>_URL.
+ministral: "https://oppa-ai-org--grace-llm-serve-serve-ministral.us-east.modal.run/v1"
+swift: "https://oppa-ai-org--grace-llm-serve-serve-swift.us-east.modal.run/v1"
+inkling: "https://oppa-ai-org--grace-llm-serve-serve-inkling.us-east.modal.run/v1"

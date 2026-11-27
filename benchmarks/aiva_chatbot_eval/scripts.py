@@ -1,4 +1,4 @@
-"""Conversation scripts for Grace's blind preference test.
+"""Conversation scripts for AIVA's blind preference test.
 
 Each script is a multi-turn user-side conversation. The harness plays the
 user turns against each model, then a human rater compares the two full

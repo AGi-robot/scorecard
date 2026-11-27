@@ -7,14 +7,13 @@ Writes results/judge-<judge-label>.json. Skips tasks whose PNG is missing.
 Resumable: existing judge file entries are kept, only missing ones are run.
 """
 import argparse
-import base64
 import json
 import sys
 import time
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from grace_canvas_eval import judge_image  # noqa: E402
+from aiva_canvas_eval import judge_image  # noqa: E402
 
 LABELS = ["ministral3-8b", "swift15-qwen3.8-27b-local", "saluki-27b",
           "minicpm5-2b", "neohorse-1-4b", "agents-a1-4b"]

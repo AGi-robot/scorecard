@@ -3,7 +3,7 @@
 
 This is a component adapter, not an official BFCL memory-tool run. It uses
 Mind's public ConversationStore API directly and calls the selected model
-through an OpenAI-compatible endpoint. It does not import or launch Grace's
+through an OpenAI-compatible endpoint. It does not import or launch AIVA's
 runtime, chat node, persona, or tool orchestration.
 """
 from __future__ import annotations

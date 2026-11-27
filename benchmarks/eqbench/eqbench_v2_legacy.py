@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""EQ-Bench v2 runner for Grace (scorecard edition).
+"""EQ-Bench v2 runner for AIVA (scorecard edition).
 
 Uses the EQ-Bench v2 full-scale scoring protocol: temperature 0.01,
 max_tokens 60, up to 3 attempts per question until the answer parses,

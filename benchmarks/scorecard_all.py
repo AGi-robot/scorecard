@@ -86,9 +86,9 @@ def rows():
             "extra": f"parseable {parse}/{total}" if parse else "",
         })
 
-    # --- Grace Chatbot Eval: Elo + win rates -------------------------
+    # --- AIVA Chatbot Eval: Elo + win rates -------------------------
     votes = []
-    for p in sorted(glob.glob(str(HERE / "grace_chatbot_eval" / "results" / "*votes*.jsonl"))):
+    for p in sorted(glob.glob(str(HERE / "aiva_chatbot_eval" / "results" / "*votes*.jsonl"))):
         for line in open(p):
             line = line.strip()
             if not line:
@@ -139,8 +139,8 @@ def rows():
                 "extra": dims,
             })
 
-    # --- Grace Canvas Eval: check_score / valid_rate ------------------
-    for p in sorted(glob.glob(str(HERE / "grace_canvas_eval" / "results" / "*.json"))):
+    # --- AIVA Canvas Eval: check_score / valid_rate ------------------
+    for p in sorted(glob.glob(str(HERE / "aiva_canvas_eval" / "results" / "*.json"))):
         d = load_json(p)
         if not d:
             continue

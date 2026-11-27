@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Grace Chatbot Eval: blind preference comparison (single rater).
+"""AIVA Chatbot Eval: blind preference comparison (single rater).
 
 Phase 1 --generate: plays each conversation script against every contestant
 model and stores the transcripts with the identities sealed.
@@ -17,8 +17,8 @@ The configured contestant label should identify the exact model build; an
 endpoint may continue to use a shorter API model ID.
 
 This runner calls OpenAI-compatible model endpoints directly. By default it
-uses the versioned Grace persona snapshot and the scripted conversation
-history. This is a prompt-level Grace harness, not the full running Grace
+uses the versioned AIVA persona snapshot and the scripted conversation
+history. This is a prompt-level AIVA harness, not the full running AIVA
 runtime. Use --bare-model for a model-only comparison.
 
 Nothing runs until you invoke it; generation needs the servers up.
@@ -30,6 +30,7 @@ import datetime
 import hashlib
 import itertools
 import json
+import os
 import random
 import sys
 import time
@@ -41,7 +42,7 @@ sys.path.insert(0, str(HERE))
 import scripts as SCRIPTS_MOD  # noqa: E402
 
 OUT_DIR = HERE / "results"
-DEFAULT_SYSTEM_PROMPT = HERE / "prompts" / "grace-persona-v1.md"
+DEFAULT_SYSTEM_PROMPT = HERE / "prompts" / "SOUL.md"
 DIMENSIONS = ["warmth", "coherence", "persona", "overall"]
 CHOICES = {"a": "A", "b": "B", "t": "tie", "s": "skip"}
 
@@ -55,8 +56,11 @@ def chat(base_url, model, messages, temperature=0.7, max_tokens=512,
     url = base_url.rstrip("/")
     if not url.endswith("/chat/completions"):
         url += "/chat/completions"
-    req = urllib.request.Request(url, data=json.dumps(body).encode(),
-                                 headers={"Content-Type": "application/json"})
+    headers = {"Content-Type": "application/json"}
+    token = os.getenv("OPENAI_API_KEY") or os.getenv("AIVA_LLM_API_KEY")
+    if token:
+        headers["Authorization"] = f"Bearer {token}"
+    req = urllib.request.Request(url, data=json.dumps(body).encode(), headers=headers)
     with urllib.request.urlopen(req, timeout=timeout) as response:
         return json.loads(response.read().decode())
 
@@ -281,9 +285,9 @@ def main():
                      help="RNG seed for --variant alternate")
     prompt_mode = gen.add_mutually_exclusive_group()
     prompt_mode.add_argument("--bare-model", action="store_true",
-                             help="omit Grace's persona and timestamp; compare model endpoints directly")
+                             help="omit AIVA's persona and timestamp; compare model endpoints directly")
     prompt_mode.add_argument("--system-prompt-file", type=Path, default=None,
-                             help="use this prompt snapshot instead of the bundled Grace persona")
+                             help="use this prompt snapshot instead of the bundled AIVA persona")
     rate = sub.add_parser("rate", help="blind human rating")
     rate.add_argument("--batch", default=None)
     score = sub.add_parser("score", help="win rates + Elo standings")

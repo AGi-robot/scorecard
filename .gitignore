@@ -11,7 +11,7 @@ benchmarks/.cache/
 #   ifbench: results/<label>/{summary.json,manifest.json}
 #   ifeval:  results/ifeval_*.json  (score files; responses_*.jsonl ignored)
 #   bfcl:    results/**/score/*.csv (overall + component tables)
-#   canvas:  grace_canvas_eval/results/*.json are the scores themselves
+#   canvas:  aiva_canvas_eval/results/*.json are the scores themselves
 #            (renders/ bulk ignored separately below).
 benchmarks/ifbench/results/*
 !benchmarks/ifbench/results/*/
@@ -21,7 +21,7 @@ benchmarks/ifbench/results/*/*
 benchmarks/ifeval/results/*
 !benchmarks/ifeval/results/ifeval_*.json
 benchmarks/livecodebench/results/
-benchmarks/grace_canvas_eval/renders/
+benchmarks/aiva_canvas_eval/renders/
 benchmarks/bfcl/results/**/BFCL_*.json
 benchmarks/bfcl/results/**/memory_snapshot/
 benchmarks/bfcl/results/**/seed_cache/

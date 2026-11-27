@@ -28,7 +28,7 @@ SerpAPI; report the search backend and versions with every run.
 
 The official BFCL harness simulates its `memory_kv`, `memory_vector`, and
 `memory_rec_sum` tools. Those categories measure the model/agent against BFCL's
-simulator; they do not test Grace's persistent conversation store. Therefore:
+simulator; they do not test AIVA's persistent conversation store. Therefore:
 
 - Use [`mind_memory_run.py`](mind_memory_run.py) for the separate Mind
   recent-window track. It uses Mind's public `ConversationStore` API, replays
@@ -36,12 +36,12 @@ simulator; they do not test Grace's persistent conversation store. Therefore:
   endpoint, then answers memory questions with the recent context returned by
   Mind and the official BFCL answer checker. It defaults to an 8-exchange
   window and a bare model prompt. Each scenario uses a temporary SQLite file;
-  the runner neither launches nor imports Grace's runtime.
+  the runner neither launches nor imports AIVA's runtime.
 - This adapter measures Mind's conversation-history window, not the official
   BFCL memory-tool benchmark. Keep its score separate from `memory_kv`,
   `memory_vector`, and `memory_rec_sum` results.
 - BFCL's SearXNG integration below belongs to the official BFCL harness. It is
-  independent of Grace's search or chat implementation.
+  independent of AIVA's search or chat implementation.
 
 ## SearXNG: use Docker for this baseline
 
@@ -148,7 +148,7 @@ BFCL V3 AST accuracy or upstream SerpAPI scores into one number.
 
 The runner loads `ConversationStore` from the Mind checkout specified on the
 command line, and sends model requests directly to an OpenAI-compatible
-endpoint. It does not launch or call Grace's runtime API, and does not load a
+endpoint. It does not launch or call AIVA's runtime API, and does not load a
 persona by default. A frozen prompt snapshot can be supplied explicitly for a
 separate configured run. Each scenario uses a temporary SQLite file. Seed
 replies are cached under `results/seed_cache/` to resume without repeating
@@ -160,7 +160,7 @@ then from the scorecard root run:
 
 ```bash
 python benchmarks/bfcl/mind_memory_run.py \
-  --mind-root /path/to/AGi-Robot/mind \
+  --mind-root /path/to/Project-AGi/mind \
   --bfcl-root /tmp/gorilla-bfcl/berkeley-function-call-leaderboard \
   --base-url http://127.0.0.1:8080/v1 \
   --model ministral-3-8b-instruct-2512-abliterated \
@@ -177,7 +177,7 @@ runner rejects incompatible resumes. It reports BFCL-answer-checker accuracy for
 Mind-specific track; do not present it as the official BFCL `memory` category
 score.
 
-## V4 run sequence for Grace
+## V4 run sequence for AIVA
 
 1. Run the official BFCL V4 standard categories together to obtain the current overall score. Then inspect category-level outcomes. It
    uses BFCL's simulator, not Mind's persistent conversation store.

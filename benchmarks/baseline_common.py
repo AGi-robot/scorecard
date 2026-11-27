@@ -69,7 +69,7 @@ def parser(description, default_n=1, temperature=0.0, max_tokens=8192):
     p.add_argument("--temperature", type=float, default=temperature)
     p.add_argument("--max-tokens", type=int, default=max_tokens)
     p.add_argument("--request-timeout", type=int, default=300)
-    # Grace roster convention: Qwen thinking models run with thinking disabled so
+    # AIVA roster convention: Qwen thinking models run with thinking disabled so
     # format-sensitive scores are comparable with IFEval. Recorded in the manifest.
     p.add_argument("--think-off", action="store_true",
                    help="Send chat_template_kwargs.enable_thinking=false (Qwen models)")

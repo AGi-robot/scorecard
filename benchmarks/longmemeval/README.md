@@ -15,7 +15,7 @@ the authors' [Hugging Face dataset](https://huggingface.co/datasets/xiaowu0162/l
 
 `full_history_run.py` uses the benchmark's full-session prompt shape and writes
 the official `question_id` / `hypothesis` JSONL format. It is a **long-context
-baseline**, not a test of Grace's persistent memory database. Use the official
+baseline**, not a test of AIVA's persistent memory database. Use the official
 retrieval track or a dedicated memory adapter to measure a memory system.
 
 Run the baseline with the S split; it downloads the file if it is missing:

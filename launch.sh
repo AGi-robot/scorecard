@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Grace benchmark launcher — pick a test, it runs the TWO Modal servers.
+# AIVA benchmark launcher — pick a test, it runs the TWO Modal servers.
 # Env is handled here: sources ~/.config/agi/modal-bench.env itself.
 set -euo pipefail
 cd "$(dirname "$0")"
@@ -18,12 +18,12 @@ if [[ -z "${OPENAI_API_KEY:-}" ]]; then
   exit 1
 fi
 
-MODAL_MINISTRAL_URL="https://oppa-ai-org--grace-llm-serve-serve-ministral.us-east.modal.run/v1"
+MODAL_MINISTRAL_URL="$(python3 -c 'from run_modal_bench import MODELS; print(MODELS["ministral"]["base_url"])')"
 MODAL_MINISTRAL_MODEL="$(python3 -c 'from run_modal_bench import MINISTRAL_ALIAS; print(MINISTRAL_ALIAS)')"
-MODAL_SWIFT_URL="https://oppa-ai-org--grace-llm-serve-serve-swift.us-east.modal.run/v1"
+MODAL_SWIFT_URL="$(python3 -c 'from run_modal_bench import MODELS; print(MODELS["swift"]["base_url"])')"
 MODAL_SWIFT_MODEL="swift15-qwen3.8-27b-local"
 RUN="python3 run_modal_bench.py"
-CHAT="python3 benchmarks/grace_chatbot_eval/preference_bench.py"
+CHAT="python3 benchmarks/aiva_chatbot_eval/preference_bench.py"
 
 preflight() {
   local url="$1"
@@ -116,7 +116,7 @@ run_bfcl() {
   run_sel bfcl --mind-root "$mind_root" --bfcl-root "$bfcl_root" "${ARGS[@]}"
 }
 
-echo "Grace benchmark launcher — both Modal servers, env loaded."
+echo "AIVA benchmark launcher — both Modal servers, env loaded."
 echo "-- OFFICIAL STANDARDS --"
 echo "1) IFEval [541 prompts, official scoring]"
 echo "2) IFBench [AllenAI, pinned]"
@@ -127,7 +127,7 @@ echo "6) EvalPlus HumanEval+"
 echo "7) EvalPlus MBPP+"
 echo "8) EqBench (guided: needs checkout + judges)"
 echo ""
-echo "-- GRACE CUSTOM --"
+echo "-- AIVA CUSTOM --"
 echo "9) Canvas lighthouse [protocol v4]"
 echo "10) Canvas full suite [protocol v4]"
 echo "11) Chat generate (both contestants)"

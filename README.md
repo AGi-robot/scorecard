@@ -14,8 +14,8 @@ arguments, outputs, protocol, and scoring.
 - [Companion safety](benchmarks/companion_safety/README.md): INTIMA and AICompanionBench readiness and artifact requirements.
 - [EQ-Bench and Creative Writing](benchmarks/eqbench/README.md): pinned v4 and v3 protocols; historical v2 results remain labeled separately.
 - [EvalPlus](benchmarks/evalplus/README.md): HumanEval+ and MBPP+ code-generation correctness.
-- [Grace Canvas Eval](benchmarks/grace_canvas_eval/README.md): canvas tool tasks.
-- [Grace Chatbot Eval](benchmarks/grace_chatbot_eval/README.md): blind pairwise conversation preference.
+- [AIVA Canvas Eval](benchmarks/aiva_canvas_eval/README.md): canvas tool tasks.
+- [AIVA Chatbot Eval](benchmarks/aiva_chatbot_eval/README.md): blind pairwise conversation preference.
 - [IFEval](benchmarks/ifeval/README.md): strict and loose instruction following.
 - [IFBench](benchmarks/ifbench/README.md): single-turn and fixed-history multi-turn instruction following.
 - [LiveCodeBench](benchmarks/livecodebench/README.md): pinned release_v6 code-generation baseline.
@@ -57,3 +57,6 @@ appropriate. Shared integrations use `baseline_common.py`; cross-suite checks
 live in `benchmarks/tests/`. Dependency pins and protocol validation artifacts
 are documented in the index. Large datasets, generated responses, caches, and
 result artifacts stay out of source control.
+
+
+Deployed benchmark endpoint addresses live in [`endpoints.yaml`](endpoints.yaml). Override individual addresses with `AIVA_BENCH_MINISTRAL_URL`, `AIVA_BENCH_SWIFT_URL`, or `AIVA_BENCH_INKLING_URL`. The naming migration retains those deployed URLs and the bundled `SOUL.md` persona bytes; it does not rerun or reinterpret existing model scores.

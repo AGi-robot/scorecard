@@ -386,7 +386,7 @@ def target_workers(pids, model):
     matches = []
     for process in process_metadata(pids):
         argv = process["argv"]
-        if "--alias" in argv:
+        if "--alias" in argv and argv.index("--alias") + 1 < len(argv):
             aliases = argv[argv.index("--alias") + 1].split(",")
             if model in aliases:
                 matches.append(process["pid"])
@@ -403,19 +403,6 @@ def discover_model_files(model_info, processes):
                 path = Path(args[i + 1]).expanduser()
                 if path.is_file() and path not in paths:
                     paths.append(path)
-    return paths
-
-
-def discover_model_files(model_info, processes):
-    argv = (model_info.get("status") or {}).get("args", [])
-    if not argv and len(processes) == 1:
-        argv = processes[0]["argv"]
-    paths = []
-    for flag in ("--model", "-m", "--model-draft", "-md"):
-        if flag in argv and argv.index(flag) + 1 < len(argv):
-            path = Path(argv[argv.index(flag) + 1]).expanduser()
-            if path.is_file() and path not in paths:
-                paths.append(path)
     return paths
 
 

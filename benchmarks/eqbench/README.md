@@ -1,4 +1,4 @@
-# EQ-Bench v4 and Creative Writing v3 for Grace
+# EQ-Bench v4 and Creative Writing v3 for AIVA
 
 New evaluations use **EQ-Bench v4** for applied emotional/social intelligence
 and **Creative Writing v3** for writing quality. Both use the official runners
@@ -47,7 +47,7 @@ pool with confidence intervals; trait scores do not enter that rating.
 ```bash
 # Copy the pinned reference pool into a writable run directory.
 # Keep the official checkout clean so validation also works on resume.
-cp -a "$EQ_WORK/eqbench4/results" "$EQ_WORK/eq4-results-grace"
+cp -a "$EQ_WORK/eqbench4/results" "$EQ_WORK/eq4-results-aiva"
 python benchmarks/eqbench/eqbench_run.py \
   --suite eqbench-v4 --checkout "$EQ_WORK/eqbench4" \
   --python "$EQ_WORK/eqbench4/.venv/bin/python" -- \
@@ -55,8 +55,8 @@ python benchmarks/eqbench/eqbench_run.py \
   --persona-models google/gemini-3.1-pro-preview \
   --pairwise-judges google/gemini-3.1-pro-preview,openai/gpt-5.5,claude-opus-4-6 \
   --pointwise-judges claude-opus-4-8 \
-  --parallel 2 --out "$EQ_WORK/eq4-results-grace/grace_ministral3_8b_abliterated.json" \
-  --run-id grace_ministral3_8b_abliterated --results-dir "$EQ_WORK/eq4-results-grace" --verbose
+  --parallel 2 --out "$EQ_WORK/eq4-results-aiva/aiva_ministral3_8b_abliterated.json" \
+  --run-id aiva_ministral3_8b_abliterated --results-dir "$EQ_WORK/eq4-results-aiva" --verbose
 ```
 
 Copy the reference pool only once, before the first run. Use the same output
@@ -81,7 +81,7 @@ python benchmarks/eqbench/eqbench_run.py \
   --test-model YOUR_MODEL_ID --judge-model claude-sonnet-4-6 \
   --runs-file creative_bench_runs.json \
   --creative-prompts-file data/creative_writing_prompts_v3.json \
-  --run-id grace_ministral3_8b_abliterated --iterations 3 --threads 2 --verbosity INFO
+  --run-id aiva_ministral3_8b_abliterated --iterations 3 --threads 2 --verbosity INFO
 ```
 
 The primary metric is official `elo_norm` from `elo_results.json`; retain
@@ -100,8 +100,8 @@ change the protocol's task or iteration counts.
 
 Keep transcripts, judge outputs, comparison pools, model/server revisions,
 configuration, generation settings, dataset/source hashes, and dependency locks
-with the run. Never commit secrets or raw model outputs. Retest Ministral and `swift1.5-qwen3.8-27B` separately first; evaluating routed Grace requires running that actual
-system. There is no arithmetic conversion from a component score to Grace's
+with the run. Never commit secrets or raw model outputs. Retest Ministral and `swift1.5-qwen3.8-27B` separately first; evaluating routed AIVA requires running that actual
+system. There is no arithmetic conversion from a component score to AIVA's
 combined performance.
 
 The scorecard aggregator continues to display historical v2 rows. New judged

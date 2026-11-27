@@ -1,6 +1,6 @@
 # AGi Scorecard
 
-Model benchmark results for the Grace project. Each section identifies its
+Model benchmark results for the AIVA project. Each section identifies its
 scorer and protocol; custom harness checks and partial historical runs are
 labeled separately from official benchmark scores.
 
@@ -29,7 +29,7 @@ side. Per-benchmark raw data and the exact protocol live in each suite's
 
 In this planned split, visual inputs can be routed to `swift1.5-qwen3.8-27B`, so Ministral vision
 is not needed unless the front-end must process images directly. Scores for the
-two component models do not predict the routed Grace system; evaluate that
+two component models do not predict the routed AIVA system; evaluate that
 system end to end when it is available.
 
 ## Benchmarks and protocol
@@ -40,8 +40,8 @@ system end to end when it is available.
 | [EQ-Bench v2 (historical)](benchmarks/eqbench/README.md) | Emotion recognition — rating 4 emotions per scenario | 171 | temp 0.01, max_tokens 60, up to 3 parse attempts | yes (official full-scale) |
 | [EQ-Bench v4 / Creative Writing v3](benchmarks/eqbench/README.md) | Applied emotional/social intelligence / judged writing quality | 120 personas / 32 prompts × 3 | Pinned official protocols and judges; v4 uses 16-message conversations; writing temp 0.7, min_p 0.1 | yes (official; runs pending) |
 | [EvalPlus](benchmarks/evalplus/README.md) | Code-generation correctness on HumanEval+ and MBPP+ with expanded tests | dataset-specific | Greedy generation; official sandbox/scorer; pin package and image for each run | yes (official EvalPlus scorer) |
-| [Grace Canvas Eval](benchmarks/grace_canvas_eval/README.md) | `canvas_draw` tool-call validity and drawing quality | 8 tasks | Production DRAW_INSTRUCTIONS, temp 0.0, max_tokens 3072 | scene-graph checks; no judge |
-| [Grace Chatbot Eval](benchmarks/grace_chatbot_eval/README.md) | Persona fit: warmth, coherence, persona, overall | 6 scripts / 21 turns | SOUL.md + timestamp, temp 0.7, blind pairwise rating | human rater; Elo K=32 |
+| [AIVA Canvas Eval](benchmarks/aiva_canvas_eval/README.md) | `canvas_draw` tool-call validity and drawing quality | 8 tasks | Production DRAW_INSTRUCTIONS, temp 0.0, max_tokens 3072 | scene-graph checks; no judge |
+| [AIVA Chatbot Eval](benchmarks/aiva_chatbot_eval/README.md) | Persona fit: warmth, coherence, persona, overall | 6 scripts / 21 turns | SOUL.md + timestamp, temp 0.7, blind pairwise rating | human rater; Elo K=32 |
 | [IFEval](benchmarks/ifeval/README.md) | Verifiable instruction/format compliance on final responses | 541 | temp 0.0, max_tokens 14336, raw prompt, no system prompt | yes (Google Research scorer, vendored) |
 | [IFBench single-turn](benchmarks/ifbench/README.md) | Precise instruction following | 300 | Pinned test data, temp 0, one response, prompt-level loose accuracy primary | yes (pinned official library) |
 | [IFBench multi-turn](benchmarks/ifbench/README.md) | Constraint isolation in released fixed conversation history | 1,387 | Pinned `ifbench_constraints/test`, temp 0, generate final response only | yes (pinned official library) |
@@ -103,12 +103,12 @@ against one another or compared with BFCL V4 leaderboard scores.
 | ministral3-14b | 171 | 54.8 | 171/171 |
 | minicpm5-2b | 171 | 40.4 | 171/171 |
 
-### Grace Canvas Eval — `canvas_draw` tool calling
+### AIVA Canvas Eval — `canvas_draw` tool calling
 
 **Historical pipeline results:** the corrected protocol forwards reasoning effort
 and preserves the draft during review. Existing review deltas and effort-labelled
 runs need rerunning; the table below has not been recomputed. See the
-[corrected pipeline notes](benchmarks/grace_canvas_eval/README.md#corrected-pipeline-protocol-version-2).
+[corrected pipeline notes](benchmarks/aiva_canvas_eval/README.md#corrected-pipeline-protocol-version-2).
 
 Eight tasks scored from the canvas engine's own scene graph — no reference
 images, no judge. `check_score` is the fraction of per-task checks passed
@@ -153,7 +153,7 @@ the model:
 4. **Genuine model failures** — T5's 3205-action dump (over the 100-action
    cap) and empty think-on emissions remain blank, correctly.
 
-### Grace Chatbot Eval — blind persona preference (Elo)
+### AIVA Chatbot Eval — blind persona preference (Elo)
 
 | Model | Votes | Elo | Win rate | Per-dimension wins |
 |---|---:|---:|---:|---|
@@ -168,7 +168,7 @@ Small n — single rater, six scripts. Treat as a directional signal only.
 
 **Ministral is the most likeable and the least compliant model in the set.**
 It wins the blind persona test (Elo 1539) but comes last on IFEval (65.1
-strict) — behind a 2B model by 20 points. For Grace this is the central
+strict) — behind a 2B model by 20 points. For AIVA this is the central
 tension: SOUL's emoji-and-colon prefix and 1–2 sentence limit are hard
 constraints, and "warmest" does not mean "follows the contract".
 
@@ -179,7 +179,7 @@ split or the planned Ministral-front-end/`swift1.5-qwen3.8-27B`-back-end system.
 models have not been evaluated as helpers in that routed system.
 
 **Standard function calling still needs a full run.** BFCL V4 is the active
-tool-calling evaluation and has not yet been run. Grace Canvas Eval is a
+tool-calling evaluation and has not yet been run. AIVA Canvas Eval is a
 separate custom test: the current `swift1.5-qwen3.8-27B` think-off runs have the highest
 recorded `check_score` (0.690), while prompts, reasoning modes, and action
 counts vary across runs. These canvas results do not measure the combined
@@ -219,7 +219,7 @@ consumes local GPU.
 3. **Multi-turn scores pending** — the IFBench fixed-history multi-turn runner
    is integrated; a configured model endpoint and completed run are still needed.
 4. **No persistent-memory retrieval measurement** — LongMemEval full-history
-   is a useful baseline, but Grace needs a retrieval adapter to evaluate her
+   is a useful baseline, but AIVA needs a retrieval adapter to evaluate her
    PostgreSQL-backed memory with the same questions.
 5. **Embeddings untested** — `voyage-4-nano` needs a retrieval benchmark, not
    a chat benchmark.
