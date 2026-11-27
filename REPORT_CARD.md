@@ -107,7 +107,7 @@ n=1, primary metric prompt-level loose accuracy.
 
 | Model | n | Prompt loose | Prompt strict | Token-limited | Timeouts |
 |---|---:|---:|---:|---:|---:|
-| ministral-3-8b-abliterated (Modal) | 300 | 26.3 | 20.0 | 10 | 0 |
+| ministral-3-8b-abliterated IQ4_XS (Modal) | 300 | 26.3 | 20.0 | 10 | 0 |
 
 Instruction-level: strict 23.3, loose 29.7. First IFBench datapoint — no
 baseline to rank against yet; the multi-turn suite (1,387 constraints) still
@@ -161,22 +161,50 @@ presence-only score — a blank scene can score 5/5, so read `structural`.
 model output untouched. Bonsai never truncates; both Occamy quants burn the
 full 6144-token budget (`finish=length`) on 4/4 variants.
 
-### Inference Perf — speed / VRAM / RAM (temp 0, 256 output tokens)
+### Inference Perf — speed / VRAM / RAM (temp 0, 256 output tokens, 2 reps)
 
-| Model | Backend | Decode@512 | Decode@8K | Prefill@8K | TTFT@8K | VRAM@8K | RAM PSS@8K |
-|---|---|---:|---:|---:|---:|---:|---:|
-| occamy-i1 (i1-Q4_K_M) | RustingStrata 1.3.1 | **118.6** | **85.1** | **1713** | **4.8s** | 11.0 GiB | 21.0 GiB |
-| occamy-apex (APEX I-Quality) | RustingStrata 1.3.1 | 102.5 | 78.2 | 1473 | 5.6s | 11.0 GiB | 22.0 GiB |
-| ministral-nymphaea (IQ4_XS) | llama.cpp b12766 | 56.3 | 37.9 | 3021 | 2.9s | 5.9 GiB | 2.0 GiB |
-| ministral-iq4xs (IQ4_XS) | llama.cpp b12766 | 54.4 | 38.1 | 3124 | 2.9s | 5.9 GiB | 2.0 GiB |
-| ministral-iq4nl (IQ4_NL, deleted) | llama.cpp b12766 | 52.4 | 37.3 | — | 3.1s | 6.1 GiB | 2.0 GiB |
-| ministral-q4km (Q4_K_M, deleted) | llama.cpp b12766 | 49.6 | — | — | 3.3s | 6.4 GiB | 2.0 GiB |
-| ministral-udq4xl (UD-Q4_K_XL, deleted) | llama.cpp b12766 | 49.3 | — | — | 3.3s | 6.4 GiB | 2.0 GiB |
-| bonsai-2.5 (Q2_0-MTP) | llama.cpp b12766 | 32.4 | 30.2 | 578 | 14.5s | 10.4 GiB | 6.4 GiB |
+Full groups in `results/inference_perf/<label>/summary.json`. TTFT = time to
+first token; VRAM is shared-GPU peak, PSS is host RAM peak.
 
-Full groups (512/2048/8192) in `results/inference_perf/<label>/summary.json`.
-Bonsai's long-context TTFT (14.5s @8K) is its main weakness; Occamy pays
-~21 GB host RAM for its expert cache at ctx 16384.
+**Ministral 8B IQ4_XS** (`ministral-iq4xs-perf`, llama.cpp b12766, active default):
+
+| Prompt tokens | Prefill tok/s | Decode tok/s | TTFT | VRAM | RAM PSS |
+|---:|---:|---:|---:|---:|---:|
+| 512 | 2264 | 54.4 | 487 ms | 5.9 GiB | 1.1 GiB |
+| 2048 | 2982 | 49.4 | 921 ms | 5.9 GiB | 1.4 GiB |
+| 8192 | 3124 | 38.1 | 2946 ms | 5.9 GiB | 2.0 GiB |
+
+**Occamy 1.0 i1-Q4_K_M** (`occamy-i1-perf2`, RustingStrata 1.3.1, ctx 16384):
+
+| Prompt tokens | Prefill tok/s | Decode tok/s | TTFT | VRAM | RAM PSS |
+|---:|---:|---:|---:|---:|---:|
+| 512 | 477 | 118.6 | 1096 ms | 10.9 GiB | 19.1 GiB |
+| 2048 | 1057 | 90.4 | 1959 ms | 11.0 GiB | 20.3 GiB |
+| 8192 | 1713 | 85.1 | 4813 ms | 11.0 GiB | 21.0 GiB |
+
+**Occamy 1.0 APEX I-Quality** (`occamy-apex-perf`, RustingStrata 1.3.1, ctx 16384):
+
+| Prompt tokens | Prefill tok/s | Decode tok/s | TTFT | VRAM | RAM PSS |
+|---:|---:|---:|---:|---:|---:|
+| 512 | 388 | 102.5 | 1353 ms | 10.9 GiB | 19.8 GiB |
+| 2048 | 904 | 85.1 | 2304 ms | 10.9 GiB | 21.3 GiB |
+| 8192 | 1473 | 78.2 | 5585 ms | 11.0 GiB | 22.0 GiB |
+
+**Bonsai 2.5 27B Q2_0-MTP** (`bonsai-perf`, llama.cpp b12766):
+
+| Prompt tokens | Prefill tok/s | Decode tok/s | TTFT | VRAM | RAM PSS |
+|---:|---:|---:|---:|---:|---:|
+| 512 | 514 | 32.4 | 1091 ms | 10.4 GiB | 2.3 GiB |
+| 2048 | 569 | 31.8 | 3759 ms | 10.4 GiB | 3.9 GiB |
+| 8192 | 578 | 30.2 | 14498 ms | 10.4 GiB | 6.4 GiB |
+
+Also on file: `ministral-nymphaea-perf` (IQ4_XS-class: 56.3/37.9 decode,
+2.9s TTFT@8K, 5.9 GiB VRAM — identical to IQ4_XS), `ministral-q4km-perf`,
+`ministral-udq4xl-perf`, `ministral-iq4nl-perf` (deleted quants, kept for the
+record: all slower than IQ4_XS for no quality win). Bonsai's long-context
+TTFT (14.5s @8K) is its main weakness; Occamy pays ~21 GB host RAM for its
+expert cache at ctx 16384; RustingStrata VRAM is ~constant (~11 GB) across
+quants.
 
 ### Combined — 3-model comparison (canvas 40 / decode 25 / TTFT@8K 20 / memory 15)
 
@@ -330,7 +358,8 @@ Apex 10 > Bonsai 8.25/6.25 > i1 7 > blanks 0, matching eyeball judgment.
 
 | Run | State |
 |---|---|
-| — | Nothing in flight. Last completions: Nymphaea EvalPlus (HumanEval+ 0.768, MBPP+ 0.687), Occamy/Bonsai lighthouse matrix + rescore, `inference_perf` for all three. |
+| IFBench multi-turn IQ4_XS (1,387) | generating vs local router :8080, ~13s/task (~5h), resumable; log `/tmp/opencode/ifbench-multiturn.log` |
+| Last completions | Nymphaea EvalPlus (HumanEval+ 0.768, MBPP+ 0.687), Occamy/Bonsai lighthouse matrix + rescore, `inference_perf` for all three, IFBench single-turn IQ4_XS 26.3 |
 
 ## Gaps
 
@@ -341,8 +370,11 @@ Apex 10 > Bonsai 8.25/6.25 > i1 7 > blanks 0, matching eyeball judgment.
 2. **Coverage differs by suite** — all five listed models have historical
    EQ-Bench v2 results; the blind persona preference results cover only
    `swift1.5-qwen3.8-27B` and `ministral3-14b`.
-3. **Multi-turn scores pending** — the IFBench fixed-history multi-turn runner
-   is integrated; a configured model endpoint and completed run are still needed.
+3. **Multi-turn scores pending** — IFBench single-turn is recorded above;
+   the fixed-history multi-turn runner (1,387 constraints) is integrated and a
+   full IQ4_XS run is underway against the local router (resumable output dir
+   `benchmarks/ifbench/results/multiturn-ministral-iq4xs`). Score it with
+   `--stage score` on completion and record prompt loose/strict here.
 4. **No persistent-memory retrieval measurement** — LongMemEval full-history
    is a useful baseline, but Grace needs a retrieval adapter to evaluate her
    PostgreSQL-backed memory with the same questions.
