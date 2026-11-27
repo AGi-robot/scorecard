@@ -36,7 +36,20 @@
   "truncated_rate": 0.0,
   "mean_steps": 39.0,
   "total_wall_s": 159.3,
-  "refinement_delta": 0.2
+  "refinement_delta": 0.2,
+  "structural_mean": 6.0,
+  "structural_best": 6.0,
+  "structural_components": {
+   "tower": 2,
+   "lantern": 1,
+   "setting": 2,
+   "dusk": 2,
+   "glow": 1,
+   "coherence": 0
+  },
+  "structural_notes": [
+   "cap 7: weak top and incoherent"
+  ]
  },
  "results": [
   {

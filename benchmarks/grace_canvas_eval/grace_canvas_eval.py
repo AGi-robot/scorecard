@@ -19,6 +19,7 @@ from __future__ import annotations
 
 import argparse
 import base64
+import colorsys
 import json
 import os
 import re
@@ -213,6 +214,51 @@ def urllib_request(base_url, body, timeout):
     raise last
 
 
+def _strip_fence(text):
+    text = (text or "").strip()
+    fence = re.match(r"^```[A-Za-z0-9_+.-]*\s*\n?(.*?)\n?```\s*$", text, re.S)
+    return fence.group(1).strip() if fence else text
+
+
+def extract_actions(raw):
+    """Parse a canvas reply into ``(actions, parsed, failed)``.
+
+    Models do not always honour the requested envelope: some wrap the JSON in a
+    markdown fence, some emit a bare ``[...]`` array, and some append prose after
+    the JSON.  A reply that still contains every action is not a truncated
+    stream, so fence stripping and bare-array acceptance count as success.
+    """
+    text = _strip_fence(raw)
+    candidates = [text]
+    for opener, closer in (("[", "]"), ("{", "}")):
+        start, end = text.find(opener), text.rfind(closer)
+        if 0 <= start < end:
+            candidates.append(text[start:end + 1])
+    for block in re.findall(r"```[A-Za-z0-9_+.-]*\s*\n?(.*?)```", text, re.S):
+        candidates.append(block.strip())
+
+    for candidate in candidates:
+        try:
+            parsed = json.loads(candidate)
+        except json.JSONDecodeError:
+            continue
+        if isinstance(parsed, list):
+            return parsed, {"actions": parsed}, False
+        if isinstance(parsed, dict):
+            actions = parsed.get("actions")
+            if isinstance(actions, list):
+                return actions, parsed, False
+            if parsed.get("kind"):
+                return [parsed], parsed, False
+
+    # Stream recovery means the JSON was cut short: keep the complete actions,
+    # but still report the reply as truncated.
+    recovered = engine.completed_stream_actions(text)
+    if recovered:
+        return recovered, {"actions": recovered}, True
+    return [], {}, True
+
+
 def draw_actions(base_url, model, system, user, images=None, temperature=0.0,
                  schema_hint=False, think_off=False, force_tool=False,
                  reasoning_effort=None, action_limit=16, allow_paints=False,
@@ -264,18 +310,10 @@ def draw_actions(base_url, model, system, user, images=None, temperature=0.0,
         for call in message.get("tool_calls") or []:
             raw = (call.get("function") or {}).get("arguments", "") or raw
 
-    truncated = False
-    try:
-        parsed = json.loads(raw)
-        actions = parsed.get("actions", []) if isinstance(parsed, dict) else []
-    except json.JSONDecodeError:
-        truncated = True
-        recovered = engine.completed_stream_actions(raw)
-        try:
-            parsed = json.loads(json.dumps({"actions": recovered}))
-            actions = recovered
-        except Exception:
-            actions = recovered
+    actions, parsed, parse_failed = extract_actions(raw)
+    # A reply that needed a fence stripped is fine; only an unparseable reply
+    # or one that actually hit the output cap counts as a truncated stream.
+    truncated = parse_failed or choice.get("finish_reason") == "length"
 
     meta = {
         "vision_fallback": vision_fallback,
@@ -361,9 +399,72 @@ def add_loose_mode_ids(actions, task_id, pass_index, existing_count=0):
     return actions
 
 
+REFERENCE_KINDS = {"style", "delete", "select", "front", "back", "move"}
+
+DRAWABLE_KINDS = {"curve", "path", "polygon", "erase", "line", "rectangle",
+                  "ellipse", "text", "letter", "image"}
+
+
+def dedupe_ids(actions):
+    """Sanitise ids so the browser renderer accepts the action list.
+
+    The Console renderer keeps objects in a map keyed by id and throws on a
+    duplicate insert (``Object ID already exists``) or on a reference to a
+    missing object (``Select an object first``).  Models hit both: they reuse
+    an id for a second shape with no ``delete`` between them, and they issue
+    a second ``delete`` for an id that is already gone.  The model's saved
+    actions are left untouched; only the copy handed to the renderer is
+    sanitised.  Duplicate drawing ids are renamed (tower, tower_2, ...),
+    reference ops (style/delete/select/front/back/move) are retargeted to the
+    most recent live sibling, and references to objects that do not exist are
+    dropped (they would have no visual effect anyway).
+    """
+    if not isinstance(actions, list):
+        return actions
+    live = []  # physical ids in creation order
+    out = []
+    for action in actions:
+        if not isinstance(action, dict):
+            out.append(action)
+            continue
+        kind = action.get("kind")
+        identifier = action.get("id")
+        if kind in DRAWABLE_KINDS and isinstance(identifier, str) and identifier:
+            if identifier not in live:
+                live.append(identifier)
+                out.append(action)
+                continue
+            suffix = 2
+            while f"{identifier}_{suffix}" in live:
+                suffix += 1
+            renamed = dict(action)
+            renamed["id"] = f"{identifier}_{suffix}"
+            live.append(renamed["id"])
+            out.append(renamed)
+            continue
+        if kind in REFERENCE_KINDS and isinstance(identifier, str) and identifier:
+            if identifier in live:
+                if kind == "delete":
+                    live.remove(identifier)
+                out.append(action)
+                continue
+            siblings = [lid for lid in live
+                        if lid == identifier or lid.startswith(identifier + "_")]
+            if not siblings:
+                continue  # dangling reference: no visual effect, drop it
+            retargeted = dict(action)
+            retargeted["id"] = siblings[-1]
+            if kind == "delete":
+                live.remove(siblings[-1])
+            out.append(retargeted)
+            continue
+        out.append(action)
+    return out
+
+
 def render_png(actions):
     try:
-        return browser_render.render_png(actions, AGI_REPO), None
+        return browser_render.render_png(dedupe_ids(actions), AGI_REPO), None
     except Exception as exc:
         return None, str(exc)
 
@@ -460,6 +561,291 @@ def judge_image(judge_url, judge_model, png_bytes, brief, timeout=300,
     except Exception as exc:
         return {"score": None, "subscores": {}, "criteria_complete": False,
                 "text": f"judge error: {exc}"}
+
+
+# ----------------------------------------------------- structural judge ---
+# A rendered PNG is downscaled before it reaches a VLM (a 1000x650 canvas
+# becomes roughly 336-600 px), so fine defects such as a detached stripe or an
+# off-centre lantern vanish and weak judges hallucinate a lighthouse that is
+# not there.  The scene graph still has the exact geometry, so the primary
+# score for a task with a registered structural scorer is computed here.  The
+# VLM judge remains an optional secondary aesthetic signal.
+
+def _num(value, default=0.0):
+    """Coerce a possibly malformed action field to a float."""
+    if isinstance(value, bool):
+        return float(value)
+    if isinstance(value, (int, float)):
+        return float(value)
+    if isinstance(value, (list, tuple)):
+        for item in value:
+            if isinstance(item, (int, float)) and not isinstance(item, bool):
+                return float(item)
+    return default
+
+
+def _bbox_of(obj):
+    points = obj.get("points")
+    if points:
+        xs, ys = [], []
+        for point in points:
+            if isinstance(point, (list, tuple)) and len(point) >= 2:
+                xs.append(_num(point[0]))
+                ys.append(_num(point[1]))
+        if xs and ys:
+            return [min(xs), min(ys), max(xs), max(ys)]
+    x, y = obj.get("x", 0), obj.get("y", 0)
+    # some older actions store [x, y] in x with no separate y
+    if (isinstance(x, (list, tuple)) and len(x) >= 2
+            and not isinstance(y, (list, tuple)) and _num(y) == 0):
+        x, y = x[0], x[1]
+    x, y = _num(x), _num(y)
+    return [x, y, x + _num(obj.get("width", 0)), y + _num(obj.get("height", 0))]
+
+
+def _obj_colours(obj):
+    out = []
+    for key in ("fill_color", "stroke_color", "gradient_color"):
+        value = obj.get(key)
+        if isinstance(value, str) and value.startswith("#"):
+            out.append(value)
+    for stop in obj.get("gradient_stops") or []:
+        value = stop.get("color")
+        if isinstance(value, str) and value.startswith("#"):
+            out.append(value)
+    return out
+
+
+def _hsl(hex_colour):
+    value = hex_colour.lstrip("#")
+    if len(value) == 3:
+        value = "".join(ch * 2 for ch in value)
+    try:
+        r, g, b = (int(value[i:i + 2], 16) / 255 for i in (0, 2, 4))
+    except Exception:
+        r = g = b = 0.5
+    hue, light, sat = colorsys.rgb_to_hls(r, g, b)
+    return hue * 360, light, sat
+
+
+def _mean_lightness(obj):
+    colours = _obj_colours(obj)
+    return sum(_hsl(c)[1] for c in colours) / len(colours) if colours else 0.5
+
+
+def _is_warm(colour):
+    hue, light, sat = _hsl(colour)
+    return (hue <= 60 or hue >= 340) and sat >= 0.25 and light >= 0.2
+
+
+def _has_bright_warm(obj, threshold=0.55):
+    """Whether the object shows a bright warm colour (a lit lamp, not brick)."""
+    return any(_is_warm(c) and _hsl(c)[1] >= threshold for c in _obj_colours(obj))
+
+
+def _intersects(a, b, tol=2.0):
+    return (a[0] - tol <= b[2] and b[0] - tol <= a[2]
+            and a[1] - tol <= b[3] and b[1] - tol <= a[3])
+    hue, light, sat = _hsl(colour)
+    return (hue <= 60 or hue >= 340) and sat >= 0.25 and light >= 0.2
+
+
+def _x_overlap(a, b):
+    return max(0.0, min(a[2], b[2]) - max(a[0], b[0]))
+
+
+def _is_closed(obj):
+    return obj.get("kind") in ("rectangle", "polygon", "ellipse") or (
+        obj.get("kind") in ("curve", "path") and obj.get("fill"))
+
+
+def score_lighthouse_scene(objects):
+    """Score a lighthouse scene graph on a 0-10 rubric.
+
+    Criteria (weighted): tower 1.5, lantern 2.5, setting 1.5, dusk 1.0,
+    glow 1.5, coherence 2.0.  Each criterion is 0-2; its weight is scaled by
+    score/2.  The score is deterministic and does not call a model.
+    """
+    comp = {}
+    objs = [o for o in objects if (o.get("fill") or o.get("kind") in ("line", "path"))]
+    W = max((_bbox_of(o)[2] for o in objs), default=1000) or 1000
+    H = max((_bbox_of(o)[3] for o in objs), default=650) or 650
+
+    if len(objs) < 2:
+        return {"score": 0.0, "components": {"blank": 0},
+                "notes": ["blank: fewer than 2 objects"]}
+
+    # tower: a tall, narrow, roughly vertical shape that reaches the ground
+    tower = None
+    best = 0
+    for o in objs:
+        x0, y0, x1, y1 = _bbox_of(o)
+        w, h = x1 - x0, y1 - y0
+        if w <= 0 or h <= 0 or w >= 0.5 * W:
+            continue
+        if h >= 0.08 * H and h / w >= 1.6 and w <= 0.25 * W and y1 >= 0.45 * H:
+            if h > best:
+                best, tower = h, o
+    if tower is None:
+        return {"score": 0.0, "components": {"tower": 0},
+                "notes": ["blank: no tower"]}
+
+    tx0, ty0, tx1, ty1 = _bbox_of(tower)
+    tw, th = tx1 - tx0, ty1 - ty0
+    tcx = (tx0 + tx1) / 2
+    tower_big = th >= 0.20 * H and tw <= 0.18 * W
+    comp["tower"] = 2 if (tower_big and th / tw >= 1.7) else 1
+
+    # shapes sitting above the tower top
+    above = []
+    for o in objs:
+        if o is tower:
+            continue
+        x0, y0, x1, y1 = _bbox_of(o)
+        w, h = x1 - x0, y1 - y0
+        if w <= 0 or h <= 0 or y0 >= ty0 - 2 or y1 > ty0 + 0.06 * H:
+            continue
+        if _x_overlap([x0, y0, x1, y1], [tx0, ty0, tx1, ty1]) < 0.3 * min(w, tw):
+            continue
+        above.append(o)
+
+    proper_lantern = None
+    for o in above:
+        x0, y0, x1, y1 = _bbox_of(o)
+        w, h = x1 - x0, y1 - y0
+        cx = (x0 + x1) / 2
+        if not (_is_closed(o) and abs(cx - tcx) <= 0.30 * tw
+                and 0.6 <= w / tw <= 1.05 and h >= 8 and h / w >= 0.15):
+            continue
+        # A red tower stripe has lantern geometry; only a shape that reads as
+        # a light (bright warm glass of its own or touching a glow) counts.
+        box = [x0, y0, x1, y1]
+        if _has_bright_warm(o) or any(
+                _has_bright_warm(other) and _intersects(box, _bbox_of(other))
+                for other in above if other is not o):
+            proper_lantern = o
+            break
+    if proper_lantern is not None:
+        comp["lantern"] = 2
+    elif above:
+        comp["lantern"] = 1
+    else:
+        comp["lantern"] = 0
+    mast = any((lambda b: (b[2] - b[0]) <= 4 and (b[3] - b[1]) >= 0.05 * H)(_bbox_of(o))
+               for o in above)
+    if mast and comp["lantern"] < 2:
+        comp["lantern"] = 1
+
+    # setting: rocky ground under the tower plus a sea band
+    rock = None
+    for o in objs:
+        x0, y0, x1, y1 = _bbox_of(o)
+        w = x1 - x0
+        if w >= 0.5 * W and y0 >= ty1 - 0.10 * H and y0 <= 0.85 * H:
+            if _mean_lightness(o) <= 0.45:
+                rock = o
+                break
+    sea = None
+    for o in objs:
+        if o is rock:
+            continue
+        x0, y0, x1, y1 = _bbox_of(o)
+        w, h = x1 - x0, y1 - y0
+        limit = _bbox_of(rock)[1] if rock else 0.8 * H
+        if w >= 0.5 * W and h <= 0.35 * H and 0.30 * H <= y0 <= limit:
+            sea = o
+            break
+    comp["setting"] = (1 if rock else 0) + (1 if sea else 0)
+
+    # dusk: the sky is dark at the top or sunset-toned overall
+    sky = None
+    for o in objs:
+        x0, y0, x1, y1 = _bbox_of(o)
+        if x1 - x0 >= 0.85 * W and y1 - y0 >= 0.45 * H and y0 <= 0.10 * H:
+            sky = o
+            break
+    if sky is None:
+        comp["dusk"] = 0
+    else:
+        ls = [_hsl(c)[1] for c in _obj_colours(sky)]
+        comp["dusk"] = 2 if (min(ls) <= 0.30 or (ls and sum(ls) / len(ls) <= 0.45)) else 0
+
+    # glow: the largest warm shape at or above the tower top, near its axis.
+    # A sunset sky or a distant moon is warm but must not count as lamp glow.
+    glows = []
+    for o in objs:
+        if o is tower:
+            continue  # the cream tower body is warm but is not lamp glow
+        x0, y0, x1, y1 = _bbox_of(o)
+        w, h = x1 - x0, y1 - y0
+        if w * h < 0.002 * W * H or w * h > 0.25 * W * H:
+            continue
+        if y0 > ty0 + 0.10 * H:
+            continue
+        if abs((x0 + x1) / 2 - tcx) > 1.5 * tw:
+            continue
+        if any(_is_warm(c) for c in _obj_colours(o)):
+            glows.append(o)
+    if not glows:
+        comp["glow"] = 0
+    else:
+        glow = max(glows, key=lambda o: (_bbox_of(o)[2] - _bbox_of(o)[0]) *
+                   (_bbox_of(o)[3] - _bbox_of(o)[1]))
+        gx0, _, gx1, _ = _bbox_of(glow)
+        centred = abs((gx0 + gx1) / 2 - tcx) <= 0.75 * tw
+        bright = max((_hsl(c)[1] for c in _obj_colours(glow) if _is_warm(c)),
+                     default=0)
+        comp["glow"] = 2 if (comp["lantern"] == 2 and bright >= 0.50
+                             and centred) else 1
+
+    # coherence: saucer tops, off-axis tops, detached stripes, floating tower
+    penalties = 0
+    structural = [o for o in above if _is_closed(o)]
+    if any(_bbox_of(o)[2] - _bbox_of(o)[0] > 1.05 * tw for o in structural):
+        penalties += 1
+    if structural:
+        primary = max(structural, key=lambda o: (_bbox_of(o)[2] - _bbox_of(o)[0]) *
+                      (_bbox_of(o)[3] - _bbox_of(o)[1]))
+        pcx = (_bbox_of(primary)[0] + _bbox_of(primary)[2]) / 2
+        if abs(pcx - tcx) > 0.35 * tw:
+            penalties += 1
+    detached = 0
+    for o in objs:
+        if o is tower:
+            continue
+        x0, y0, x1, y1 = _bbox_of(o)
+        w, h = x1 - x0, y1 - y0
+        if 0 < w <= 1.3 * tw and 0 < h <= 0.08 * H and ty0 <= (y0 + y1) / 2 <= ty1:
+            if _x_overlap([x0, y0, x1, y1], [tx0, ty0, tx1, ty1]) < 0.6 * w:
+                detached += 1
+    if detached:
+        penalties += 1
+    if rock is not None and _bbox_of(rock)[1] - ty1 > 0.10 * H:
+        penalties += 1
+    comp["coherence"] = max(0, 2 - min(2, penalties))
+
+    weights = {"tower": 1.5, "lantern": 2.5, "setting": 1.5,
+               "dusk": 1.0, "glow": 1.5, "coherence": 2.0}
+    total = sum(weights[k] * comp[k] / 2 for k in weights)
+    notes = []
+    if comp["lantern"] == 0:
+        total = min(total, 5.0)
+        notes.append("cap 5: no lantern")
+    elif comp["lantern"] == 1 and comp["coherence"] == 0:
+        total = min(total, 7.0)
+        notes.append("cap 7: weak top and incoherent")
+    if not tower_big:
+        total = min(total, 5.0)
+        notes.append("cap 5: tower too small")
+    return {"score": round(total, 2), "components": comp, "notes": notes}
+
+
+STRUCTURAL_SCORERS = {"T1-lighthouse": score_lighthouse_scene}
+
+
+def structural_judge(task_id, scene):
+    scorer = STRUCTURAL_SCORERS.get(task_id)
+    return scorer(scene["objects"]) if scorer else None
 
 
 # ------------------------------------------------------------------- main ---
@@ -626,6 +1012,7 @@ def run_task(task, args):
         "passes": passes,
         "refinement_delta": (last["checks_passed"] - passes[0]["checks_passed"]) / max(1, last["checks_total"]),
         "scene": scene_metrics(scene),
+        "structural": structural_judge(task["id"], scene),
         "checks": final_checks,
         "checks_passed": sum(1 for c in final_checks if c["ok"]),
         "checks_total": len(final_checks),
@@ -682,6 +1069,11 @@ def summarize_run(args, results, renderer):
                     if r.get("judge") and r["judge"].get("score") is not None]
     if judge_scores:
         summary["judge_mean"] = round(sum(judge_scores) / len(judge_scores), 2)
+    structural_scores = [r["structural"]["score"] for r in results
+                         if r.get("structural") and r["structural"].get("score") is not None]
+    if structural_scores:
+        summary["structural_mean"] = round(sum(structural_scores) / len(structural_scores), 2)
+        summary["structural_best"] = max(structural_scores)
     return summary
 
 

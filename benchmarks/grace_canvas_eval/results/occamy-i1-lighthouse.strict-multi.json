@@ -36,7 +36,21 @@
   "truncated_rate": 1.0,
   "mean_steps": 15.0,
   "total_wall_s": 229.4,
-  "refinement_delta": -0.2
+  "refinement_delta": -0.2,
+  "structural_mean": 5.0,
+  "structural_best": 5.0,
+  "structural_components": {
+   "tower": 1,
+   "lantern": 1,
+   "setting": 2,
+   "dusk": 2,
+   "glow": 1,
+   "coherence": 0
+  },
+  "structural_notes": [
+   "cap 7: weak top and incoherent",
+   "cap 5: tower too small"
+  ]
  },
  "results": [
   {

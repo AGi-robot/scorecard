@@ -9,8 +9,8 @@
   "base_url": "http://127.0.0.1:8081/v1",
   "renderer": {
    "renderer": "console-canvas-chromium-v1",
-   "drawing_js_sha256": "3b9e599699f7dc0a0d94754b3b06c162b5fc8888c8f7e6706dd73a50562e6090",
-   "canvas_html_sha256": "686ab2a857bbc468ce4f0b0e7d5f77d7194d5232dd5c7c34bbf04d08a16b7910",
+   "drawing_js_sha256": "45e534f0d30798dac32a1c6f7b58096dd427fa7f7de232bff1a8c2363105a3fd",
+   "canvas_html_sha256": "dc2ce9a434170536dda43df3542faffa92ad28113b57adb9de70dbc53adf39e1",
    "playwright_version": "1.63.0"
   },
   "protocol_version": 5,
@@ -28,15 +28,17 @@
    6
   ],
   "tasks": 1,
-  "check_score": 0.2,
+  "check_score": 0.6,
   "tasks_fully_satisfied": 0,
   "fully_satisfied_rate": 0.0,
-  "valid_rate": 0.0,
+  "valid_rate": 1.0,
   "render_rate": 1.0,
   "truncated_rate": 1.0,
-  "mean_steps": 0.0,
-  "total_wall_s": 347.8,
-  "refinement_delta": 0.0
+  "mean_steps": 82.0,
+  "total_wall_s": 302.9,
+  "refinement_delta": 0.0,
+  "structural_mean": 4.25,
+  "structural_best": 4.25
  },
  "results": [
   {
@@ -44,72 +46,48 @@
    "tier": 1,
    "tier_name": "single subject",
    "brief": "Draw a lighthouse standing on a rocky headland at dusk, with a warm lamp glow at the top.",
-   "actions_returned": 0,
-   "steps": 0,
-   "valid": false,
-   "validation_error": "Expected 1 to 100 canvas actions",
+   "actions_returned": 82,
+   "steps": 82,
+   "valid": true,
+   "validation_error": null,
    "clamped_fields": 0,
    "rendered": true,
    "render_error": null,
    "truncated_stream": true,
    "meta": {
     "vision_fallback": false,
-    "elapsed_s": 77.6,
-    "completion_tokens": 2257,
-    "prompt_tokens": 2313,
+    "elapsed_s": 158.66,
+    "completion_tokens": 6144,
+    "prompt_tokens": 4039,
     "truncated": true,
-    "raw_len": 661,
-    "raw_tail": "oke\":false,\"fill_color\":\"#1a0f2e\",\"gradient_color\":\"#d4765a\",\"gradient_angle\":90,\"gradient_stops\":[{\"offset\":0.0,\"color\":\"#1a0f2e\"},{\"offset\":0.55,\"color\":\"#5c2e5e\"},{\"offset\":1.0,\"color\":\"#d4765a\"}]}",
-    "finish_reason": "stop",
+    "raw_len": 8389,
+    "raw_tail": "0, 560], [1000, 620], [1000, 0], [0, 600], [300, 550], [500, 560], [700, 600], [900, 650], [1000, 650], [0, 650], [0, 600], [100, 620], [300, 580], [500, 590], [700, 620], [900, 650], [1000, 650], [0,",
+    "finish_reason": "length",
     "response": "",
     "more": false
    },
    "meta_passes": [
     {
      "vision_fallback": false,
-     "elapsed_s": 92.55,
-     "completion_tokens": 3949,
-     "prompt_tokens": 2173,
+     "elapsed_s": 141.86,
+     "completion_tokens": 6144,
+     "prompt_tokens": 2176,
      "truncated": true,
-     "raw_len": 4196,
-     "raw_tail": "w reflects faintly on the dark sea below. The rocky headland is rendered as a dark silhouette with subtle contour details, and the sky transitions from deep twilight blue to warm peach at the horizon.",
-     "finish_reason": "stop",
+     "raw_len": 11416,
+     "raw_tail": "\",\n      \"points\": [\n        [920, 200],\n        [925, 300],\n        [930, 400],\n        [935, 500],\n        [940, 550],\n        [945, 500],\n        [950, 400],\n        [955, 300],\n        [960, 200]\n",
+     "finish_reason": "length",
      "response": "",
      "more": false
     },
     {
      "vision_fallback": false,
-     "elapsed_s": 77.73,
-     "completion_tokens": 2330,
-     "prompt_tokens": 2313,
+     "elapsed_s": 158.66,
+     "completion_tokens": 6144,
+     "prompt_tokens": 4039,
      "truncated": true,
-     "raw_len": 931,
-     "raw_tail": "\",\"gradient_angle\":90,\"gradient_color\":\"#e8a87c\",\"gradient_stops\":[{\"offset\":0,\"color\":\"#1a1a3e\"},{\"offset\":0.45,\"color\":\"#3d2b5a\"},{\"offset\":0.75,\"color\":\"#c8705a\"},{\"offset\":1,\"color\":\"#e8a87c\"}]}]}",
-     "finish_reason": "stop",
-     "response": "",
-     "more": false
-    },
-    {
-     "vision_fallback": false,
-     "elapsed_s": 93.4,
-     "completion_tokens": 3796,
-     "prompt_tokens": 2313,
-     "truncated": true,
-     "raw_len": 3907,
-     "raw_tail": ", a dark lantern room, and a warm amber lamp glow with a soft halo and water reflection. The focal point is the glowing lantern at the top. Let me know if you'd like me to refine any elements further.",
-     "finish_reason": "stop",
-     "response": "",
-     "more": false
-    },
-    {
-     "vision_fallback": false,
-     "elapsed_s": 77.6,
-     "completion_tokens": 2257,
-     "prompt_tokens": 2313,
-     "truncated": true,
-     "raw_len": 661,
-     "raw_tail": "oke\":false,\"fill_color\":\"#1a0f2e\",\"gradient_color\":\"#d4765a\",\"gradient_angle\":90,\"gradient_stops\":[{\"offset\":0.0,\"color\":\"#1a0f2e\"},{\"offset\":0.55,\"color\":\"#5c2e5e\"},{\"offset\":1.0,\"color\":\"#d4765a\"}]}",
-     "finish_reason": "stop",
+     "raw_len": 8389,
+     "raw_tail": "0, 560], [1000, 620], [1000, 0], [0, 600], [300, 550], [500, 560], [700, 600], [900, 650], [1000, 650], [0, 650], [0, 600], [100, 620], [300, 580], [500, 590], [700, 620], [900, 650], [1000, 650], [0,",
+     "finish_reason": "length",
      "response": "",
      "more": false
     }
@@ -118,9 +96,9 @@
     {
      "pass": 1,
      "budget": 16,
-     "actions_returned": 0,
-     "valid": false,
-     "validation_error": "Expected 1 to 100 canvas actions",
+     "actions_returned": 47,
+     "valid": true,
+     "validation_error": null,
      "clamped_fields": 0,
      "rendered": true,
      "render_error": null,
@@ -128,26 +106,2053 @@
      "truncated_stream": true,
      "meta": {
       "vision_fallback": false,
-      "elapsed_s": 92.55,
-      "completion_tokens": 3949,
-      "prompt_tokens": 2173,
+      "elapsed_s": 141.86,
+      "completion_tokens": 6144,
+      "prompt_tokens": 2176,
       "truncated": true,
-      "raw_len": 4196,
-      "raw_tail": "w reflects faintly on the dark sea below. The rocky headland is rendered as a dark silhouette with subtle contour details, and the sky transitions from deep twilight blue to warm peach at the horizon.",
-      "finish_reason": "stop",
+      "raw_len": 11416,
+      "raw_tail": "\",\n      \"points\": [\n        [920, 200],\n        [925, 300],\n        [930, 400],\n        [935, 500],\n        [940, 550],\n        [945, 500],\n        [950, 400],\n        [955, 300],\n        [960, 200]\n",
+      "finish_reason": "length",
       "response": "",
       "more": false
      },
-     "actions": [],
-     "checks_passed": 1,
+     "actions": [
+      {
+       "kind": "rectangle",
+       "x": 0,
+       "y": 0,
+       "width": 1000,
+       "height": 650,
+       "size": 1,
+       "line_height": 1,
+       "opacity": 1,
+       "align": "left",
+       "id": "T1-lighthouse-p1-1",
+       "fill": false
+      },
+      {
+       "kind": "path",
+       "id": "T1-lighthouse-p1-2",
+       "smooth": true,
+       "fill": false,
+       "points": [
+        [
+         0,
+         380
+        ],
+        [
+         120,
+         370
+        ],
+        [
+         250,
+         390
+        ],
+        [
+         380,
+         375
+        ],
+        [
+         500,
+         385
+        ],
+        [
+         620,
+         370
+        ],
+        [
+         750,
+         390
+        ],
+        [
+         880,
+         375
+        ],
+        [
+         1000,
+         380
+        ],
+        [
+         1000,
+         650
+        ],
+        [
+         0,
+         650
+        ]
+       ]
+      },
+      {
+       "kind": "curve",
+       "id": "T1-lighthouse-p1-3",
+       "fill": false,
+       "points": [
+        [
+         0,
+         420
+        ],
+        [
+         150,
+         405
+        ],
+        [
+         300,
+         425
+        ],
+        [
+         450,
+         410
+        ],
+        [
+         600,
+         420
+        ],
+        [
+         750,
+         405
+        ],
+        [
+         900,
+         425
+        ],
+        [
+         1000,
+         415
+        ],
+        [
+         1000,
+         650
+        ],
+        [
+         0,
+         650
+        ]
+       ]
+      },
+      {
+       "kind": "path",
+       "id": "T1-lighthouse-p1-4",
+       "smooth": true,
+       "fill": false,
+       "points": [
+        [
+         0,
+         470
+        ],
+        [
+         200,
+         455
+        ],
+        [
+         400,
+         475
+        ],
+        [
+         600,
+         460
+        ],
+        [
+         800,
+         480
+        ],
+        [
+         1000,
+         465
+        ],
+        [
+         1000,
+         650
+        ],
+        [
+         0,
+         650
+        ]
+       ]
+      },
+      {
+       "kind": "curve",
+       "id": "T1-lighthouse-p1-5",
+       "fill": false,
+       "points": [
+        [
+         0,
+         530
+        ],
+        [
+         250,
+         515
+        ],
+        [
+         500,
+         535
+        ],
+        [
+         750,
+         520
+        ],
+        [
+         1000,
+         540
+        ],
+        [
+         1000,
+         650
+        ],
+        [
+         0,
+         650
+        ]
+       ]
+      },
+      {
+       "kind": "curve",
+       "id": "T1-lighthouse-p1-6",
+       "fill": false,
+       "points": [
+        [
+         0,
+         600
+        ],
+        [
+         300,
+         585
+        ],
+        [
+         600,
+         605
+        ],
+        [
+         900,
+         590
+        ],
+        [
+         1000,
+         610
+        ],
+        [
+         1000,
+         650
+        ],
+        [
+         0,
+         650
+        ]
+       ]
+      },
+      {
+       "kind": "path",
+       "id": "T1-lighthouse-p1-7",
+       "smooth": true,
+       "fill": false,
+       "points": [
+        [
+         380,
+         200
+        ],
+        [
+         385,
+         300
+        ],
+        [
+         390,
+         400
+        ],
+        [
+         395,
+         500
+        ],
+        [
+         400,
+         550
+        ],
+        [
+         405,
+         500
+        ],
+        [
+         410,
+         400
+        ],
+        [
+         415,
+         300
+        ],
+        [
+         420,
+         200
+        ]
+       ]
+      },
+      {
+       "kind": "path",
+       "id": "T1-lighthouse-p1-8",
+       "smooth": true,
+       "fill": false,
+       "points": [
+        [
+         370,
+         200
+        ],
+        [
+         375,
+         300
+        ],
+        [
+         380,
+         400
+        ],
+        [
+         385,
+         500
+        ],
+        [
+         390,
+         550
+        ],
+        [
+         395,
+         500
+        ],
+        [
+         400,
+         400
+        ],
+        [
+         405,
+         300
+        ],
+        [
+         410,
+         200
+        ]
+       ]
+      },
+      {
+       "kind": "path",
+       "id": "T1-lighthouse-p1-9",
+       "smooth": true,
+       "fill": false,
+       "points": [
+        [
+         360,
+         200
+        ],
+        [
+         365,
+         300
+        ],
+        [
+         370,
+         400
+        ],
+        [
+         375,
+         500
+        ],
+        [
+         380,
+         550
+        ],
+        [
+         385,
+         500
+        ],
+        [
+         390,
+         400
+        ],
+        [
+         395,
+         300
+        ],
+        [
+         400,
+         200
+        ]
+       ]
+      },
+      {
+       "kind": "path",
+       "id": "T1-lighthouse-p1-10",
+       "smooth": true,
+       "fill": false,
+       "points": [
+        [
+         350,
+         200
+        ],
+        [
+         355,
+         300
+        ],
+        [
+         360,
+         400
+        ],
+        [
+         365,
+         500
+        ],
+        [
+         370,
+         550
+        ],
+        [
+         375,
+         500
+        ],
+        [
+         380,
+         400
+        ],
+        [
+         385,
+         300
+        ],
+        [
+         390,
+         200
+        ]
+       ]
+      },
+      {
+       "kind": "path",
+       "id": "T1-lighthouse-p1-11",
+       "smooth": true,
+       "fill": false,
+       "points": [
+        [
+         340,
+         200
+        ],
+        [
+         345,
+         300
+        ],
+        [
+         350,
+         400
+        ],
+        [
+         355,
+         500
+        ],
+        [
+         360,
+         550
+        ],
+        [
+         365,
+         500
+        ],
+        [
+         370,
+         400
+        ],
+        [
+         375,
+         300
+        ],
+        [
+         380,
+         200
+        ]
+       ]
+      },
+      {
+       "kind": "path",
+       "id": "T1-lighthouse-p1-12",
+       "smooth": true,
+       "fill": false,
+       "points": [
+        [
+         330,
+         200
+        ],
+        [
+         335,
+         300
+        ],
+        [
+         340,
+         400
+        ],
+        [
+         345,
+         500
+        ],
+        [
+         350,
+         550
+        ],
+        [
+         355,
+         500
+        ],
+        [
+         360,
+         400
+        ],
+        [
+         365,
+         300
+        ],
+        [
+         370,
+         200
+        ]
+       ]
+      },
+      {
+       "kind": "path",
+       "id": "T1-lighthouse-p1-13",
+       "smooth": true,
+       "fill": false,
+       "points": [
+        [
+         320,
+         200
+        ],
+        [
+         325,
+         300
+        ],
+        [
+         330,
+         400
+        ],
+        [
+         335,
+         500
+        ],
+        [
+         340,
+         550
+        ],
+        [
+         345,
+         500
+        ],
+        [
+         350,
+         400
+        ],
+        [
+         355,
+         300
+        ],
+        [
+         360,
+         200
+        ]
+       ]
+      },
+      {
+       "kind": "path",
+       "id": "T1-lighthouse-p1-14",
+       "smooth": true,
+       "fill": false,
+       "points": [
+        [
+         310,
+         200
+        ],
+        [
+         315,
+         300
+        ],
+        [
+         320,
+         400
+        ],
+        [
+         325,
+         500
+        ],
+        [
+         330,
+         550
+        ],
+        [
+         335,
+         500
+        ],
+        [
+         340,
+         400
+        ],
+        [
+         345,
+         300
+        ],
+        [
+         350,
+         200
+        ]
+       ]
+      },
+      {
+       "kind": "path",
+       "id": "T1-lighthouse-p1-15",
+       "smooth": true,
+       "fill": false,
+       "points": [
+        [
+         300,
+         200
+        ],
+        [
+         305,
+         300
+        ],
+        [
+         310,
+         400
+        ],
+        [
+         315,
+         500
+        ],
+        [
+         320,
+         550
+        ],
+        [
+         325,
+         500
+        ],
+        [
+         330,
+         400
+        ],
+        [
+         335,
+         300
+        ],
+        [
+         340,
+         200
+        ]
+       ]
+      },
+      {
+       "kind": "path",
+       "id": "T1-lighthouse-p1-16",
+       "smooth": true,
+       "fill": false,
+       "points": [
+        [
+         290,
+         200
+        ],
+        [
+         295,
+         300
+        ],
+        [
+         300,
+         400
+        ],
+        [
+         305,
+         500
+        ],
+        [
+         310,
+         550
+        ],
+        [
+         315,
+         500
+        ],
+        [
+         320,
+         400
+        ],
+        [
+         325,
+         300
+        ],
+        [
+         330,
+         200
+        ]
+       ]
+      },
+      {
+       "kind": "path",
+       "id": "T1-lighthouse-p1-17",
+       "smooth": true,
+       "fill": false,
+       "points": [
+        [
+         280,
+         200
+        ],
+        [
+         285,
+         300
+        ],
+        [
+         290,
+         400
+        ],
+        [
+         295,
+         500
+        ],
+        [
+         300,
+         550
+        ],
+        [
+         305,
+         500
+        ],
+        [
+         310,
+         400
+        ],
+        [
+         315,
+         300
+        ],
+        [
+         320,
+         200
+        ]
+       ]
+      },
+      {
+       "kind": "path",
+       "id": "T1-lighthouse-p1-18",
+       "smooth": true,
+       "fill": false,
+       "points": [
+        [
+         270,
+         200
+        ],
+        [
+         275,
+         300
+        ],
+        [
+         280,
+         400
+        ],
+        [
+         285,
+         500
+        ],
+        [
+         290,
+         550
+        ],
+        [
+         295,
+         500
+        ],
+        [
+         300,
+         400
+        ],
+        [
+         305,
+         300
+        ],
+        [
+         310,
+         200
+        ]
+       ]
+      },
+      {
+       "kind": "path",
+       "id": "T1-lighthouse-p1-19",
+       "smooth": true,
+       "fill": false,
+       "points": [
+        [
+         260,
+         200
+        ],
+        [
+         265,
+         300
+        ],
+        [
+         270,
+         400
+        ],
+        [
+         275,
+         500
+        ],
+        [
+         280,
+         550
+        ],
+        [
+         285,
+         500
+        ],
+        [
+         290,
+         400
+        ],
+        [
+         295,
+         300
+        ],
+        [
+         300,
+         200
+        ]
+       ]
+      },
+      {
+       "kind": "path",
+       "id": "T1-lighthouse-p1-20",
+       "smooth": true,
+       "fill": false,
+       "points": [
+        [
+         250,
+         200
+        ],
+        [
+         255,
+         300
+        ],
+        [
+         260,
+         400
+        ],
+        [
+         265,
+         500
+        ],
+        [
+         270,
+         550
+        ],
+        [
+         275,
+         500
+        ],
+        [
+         280,
+         400
+        ],
+        [
+         285,
+         300
+        ],
+        [
+         290,
+         200
+        ]
+       ]
+      },
+      {
+       "kind": "path",
+       "id": "T1-lighthouse-p1-21",
+       "smooth": true,
+       "fill": false,
+       "points": [
+        [
+         240,
+         200
+        ],
+        [
+         245,
+         300
+        ],
+        [
+         250,
+         400
+        ],
+        [
+         255,
+         500
+        ],
+        [
+         260,
+         550
+        ],
+        [
+         265,
+         500
+        ],
+        [
+         270,
+         400
+        ],
+        [
+         275,
+         300
+        ],
+        [
+         280,
+         200
+        ]
+       ]
+      },
+      {
+       "kind": "path",
+       "id": "T1-lighthouse-p1-22",
+       "smooth": true,
+       "fill": false,
+       "points": [
+        [
+         230,
+         200
+        ],
+        [
+         235,
+         300
+        ],
+        [
+         240,
+         400
+        ],
+        [
+         245,
+         500
+        ],
+        [
+         250,
+         550
+        ],
+        [
+         255,
+         500
+        ],
+        [
+         260,
+         400
+        ],
+        [
+         265,
+         300
+        ],
+        [
+         270,
+         200
+        ]
+       ]
+      },
+      {
+       "kind": "path",
+       "id": "T1-lighthouse-p1-23",
+       "smooth": true,
+       "fill": false,
+       "points": [
+        [
+         220,
+         200
+        ],
+        [
+         225,
+         300
+        ],
+        [
+         230,
+         400
+        ],
+        [
+         235,
+         500
+        ],
+        [
+         240,
+         550
+        ],
+        [
+         245,
+         500
+        ],
+        [
+         250,
+         400
+        ],
+        [
+         255,
+         300
+        ],
+        [
+         260,
+         200
+        ]
+       ]
+      },
+      {
+       "kind": "path",
+       "id": "T1-lighthouse-p1-24",
+       "smooth": true,
+       "fill": false,
+       "points": [
+        [
+         210,
+         200
+        ],
+        [
+         215,
+         300
+        ],
+        [
+         220,
+         400
+        ],
+        [
+         225,
+         500
+        ],
+        [
+         230,
+         550
+        ],
+        [
+         235,
+         500
+        ],
+        [
+         240,
+         400
+        ],
+        [
+         245,
+         300
+        ],
+        [
+         250,
+         200
+        ]
+       ]
+      },
+      {
+       "kind": "path",
+       "id": "T1-lighthouse-p1-25",
+       "smooth": true,
+       "fill": false,
+       "points": [
+        [
+         200,
+         200
+        ],
+        [
+         205,
+         300
+        ],
+        [
+         210,
+         400
+        ],
+        [
+         215,
+         500
+        ],
+        [
+         220,
+         550
+        ],
+        [
+         225,
+         500
+        ],
+        [
+         230,
+         400
+        ],
+        [
+         235,
+         300
+        ],
+        [
+         240,
+         200
+        ]
+       ]
+      },
+      {
+       "kind": "path",
+       "id": "T1-lighthouse-p1-26",
+       "smooth": true,
+       "fill": false,
+       "points": [
+        [
+         190,
+         200
+        ],
+        [
+         195,
+         300
+        ],
+        [
+         200,
+         400
+        ],
+        [
+         205,
+         500
+        ],
+        [
+         210,
+         550
+        ],
+        [
+         215,
+         500
+        ],
+        [
+         220,
+         400
+        ],
+        [
+         225,
+         300
+        ],
+        [
+         230,
+         200
+        ]
+       ]
+      },
+      {
+       "kind": "path",
+       "id": "T1-lighthouse-p1-27",
+       "smooth": true,
+       "fill": false,
+       "points": [
+        [
+         180,
+         200
+        ],
+        [
+         185,
+         300
+        ],
+        [
+         190,
+         400
+        ],
+        [
+         195,
+         500
+        ],
+        [
+         200,
+         550
+        ],
+        [
+         205,
+         500
+        ],
+        [
+         210,
+         400
+        ],
+        [
+         215,
+         300
+        ],
+        [
+         220,
+         200
+        ]
+       ]
+      },
+      {
+       "kind": "path",
+       "id": "T1-lighthouse-p1-28",
+       "smooth": true,
+       "fill": false,
+       "points": [
+        [
+         170,
+         200
+        ],
+        [
+         175,
+         300
+        ],
+        [
+         180,
+         400
+        ],
+        [
+         185,
+         500
+        ],
+        [
+         190,
+         550
+        ],
+        [
+         195,
+         500
+        ],
+        [
+         200,
+         400
+        ],
+        [
+         205,
+         300
+        ],
+        [
+         210,
+         200
+        ]
+       ]
+      },
+      {
+       "kind": "path",
+       "id": "T1-lighthouse-p1-29",
+       "smooth": true,
+       "fill": false,
+       "points": [
+        [
+         160,
+         200
+        ],
+        [
+         165,
+         300
+        ],
+        [
+         170,
+         400
+        ],
+        [
+         175,
+         500
+        ],
+        [
+         180,
+         550
+        ],
+        [
+         185,
+         500
+        ],
+        [
+         190,
+         400
+        ],
+        [
+         195,
+         300
+        ],
+        [
+         200,
+         200
+        ]
+       ]
+      },
+      {
+       "kind": "path",
+       "id": "T1-lighthouse-p1-30",
+       "smooth": true,
+       "fill": false,
+       "points": [
+        [
+         150,
+         200
+        ],
+        [
+         155,
+         300
+        ],
+        [
+         160,
+         400
+        ],
+        [
+         165,
+         500
+        ],
+        [
+         170,
+         550
+        ],
+        [
+         175,
+         500
+        ],
+        [
+         180,
+         400
+        ],
+        [
+         185,
+         300
+        ],
+        [
+         190,
+         200
+        ]
+       ]
+      },
+      {
+       "kind": "path",
+       "id": "T1-lighthouse-p1-31",
+       "smooth": true,
+       "fill": false,
+       "points": [
+        [
+         140,
+         200
+        ],
+        [
+         145,
+         300
+        ],
+        [
+         150,
+         400
+        ],
+        [
+         155,
+         500
+        ],
+        [
+         160,
+         550
+        ],
+        [
+         165,
+         500
+        ],
+        [
+         170,
+         400
+        ],
+        [
+         175,
+         300
+        ],
+        [
+         180,
+         200
+        ]
+       ]
+      },
+      {
+       "kind": "path",
+       "id": "T1-lighthouse-p1-32",
+       "smooth": true,
+       "fill": false,
+       "points": [
+        [
+         130,
+         200
+        ],
+        [
+         135,
+         300
+        ],
+        [
+         140,
+         400
+        ],
+        [
+         145,
+         500
+        ],
+        [
+         150,
+         550
+        ],
+        [
+         155,
+         500
+        ],
+        [
+         160,
+         400
+        ],
+        [
+         165,
+         300
+        ],
+        [
+         170,
+         200
+        ]
+       ]
+      },
+      {
+       "kind": "path",
+       "id": "T1-lighthouse-p1-33",
+       "smooth": true,
+       "fill": false,
+       "points": [
+        [
+         120,
+         200
+        ],
+        [
+         125,
+         300
+        ],
+        [
+         130,
+         400
+        ],
+        [
+         135,
+         500
+        ],
+        [
+         140,
+         550
+        ],
+        [
+         145,
+         500
+        ],
+        [
+         150,
+         400
+        ],
+        [
+         155,
+         300
+        ],
+        [
+         160,
+         200
+        ]
+       ]
+      },
+      {
+       "kind": "path",
+       "id": "T1-lighthouse-p1-34",
+       "smooth": true,
+       "fill": false,
+       "points": [
+        [
+         110,
+         200
+        ],
+        [
+         115,
+         300
+        ],
+        [
+         120,
+         400
+        ],
+        [
+         125,
+         500
+        ],
+        [
+         130,
+         550
+        ],
+        [
+         135,
+         500
+        ],
+        [
+         140,
+         400
+        ],
+        [
+         145,
+         300
+        ],
+        [
+         150,
+         200
+        ]
+       ]
+      },
+      {
+       "kind": "path",
+       "id": "T1-lighthouse-p1-35",
+       "smooth": true,
+       "fill": false,
+       "points": [
+        [
+         100,
+         200
+        ],
+        [
+         105,
+         300
+        ],
+        [
+         110,
+         400
+        ],
+        [
+         115,
+         500
+        ],
+        [
+         120,
+         550
+        ],
+        [
+         125,
+         500
+        ],
+        [
+         130,
+         400
+        ],
+        [
+         135,
+         300
+        ],
+        [
+         140,
+         200
+        ]
+       ]
+      },
+      {
+       "kind": "path",
+       "id": "T1-lighthouse-p1-36",
+       "smooth": true,
+       "fill": false,
+       "points": [
+        [
+         90,
+         200
+        ],
+        [
+         95,
+         300
+        ],
+        [
+         100,
+         400
+        ],
+        [
+         105,
+         500
+        ],
+        [
+         110,
+         550
+        ],
+        [
+         115,
+         500
+        ],
+        [
+         120,
+         400
+        ],
+        [
+         125,
+         300
+        ],
+        [
+         130,
+         200
+        ]
+       ]
+      },
+      {
+       "kind": "path",
+       "id": "T1-lighthouse-p1-37",
+       "smooth": true,
+       "fill": false,
+       "points": [
+        [
+         80,
+         200
+        ],
+        [
+         85,
+         300
+        ],
+        [
+         90,
+         400
+        ],
+        [
+         95,
+         500
+        ],
+        [
+         100,
+         550
+        ],
+        [
+         105,
+         500
+        ],
+        [
+         110,
+         400
+        ],
+        [
+         115,
+         300
+        ],
+        [
+         120,
+         200
+        ]
+       ]
+      },
+      {
+       "kind": "path",
+       "id": "T1-lighthouse-p1-38",
+       "smooth": true,
+       "fill": false,
+       "points": [
+        [
+         70,
+         200
+        ],
+        [
+         75,
+         300
+        ],
+        [
+         80,
+         400
+        ],
+        [
+         85,
+         500
+        ],
+        [
+         90,
+         550
+        ],
+        [
+         95,
+         500
+        ],
+        [
+         100,
+         400
+        ],
+        [
+         105,
+         300
+        ],
+        [
+         110,
+         200
+        ]
+       ]
+      },
+      {
+       "kind": "path",
+       "id": "T1-lighthouse-p1-39",
+       "smooth": true,
+       "fill": false,
+       "points": [
+        [
+         60,
+         200
+        ],
+        [
+         65,
+         300
+        ],
+        [
+         70,
+         400
+        ],
+        [
+         75,
+         500
+        ],
+        [
+         80,
+         550
+        ],
+        [
+         85,
+         500
+        ],
+        [
+         90,
+         400
+        ],
+        [
+         95,
+         300
+        ],
+        [
+         100,
+         200
+        ]
+       ]
+      },
+      {
+       "kind": "path",
+       "id": "T1-lighthouse-p1-40",
+       "smooth": true,
+       "fill": false,
+       "points": [
+        [
+         50,
+         200
+        ],
+        [
+         55,
+         300
+        ],
+        [
+         60,
+         400
+        ],
+        [
+         65,
+         500
+        ],
+        [
+         70,
+         550
+        ],
+        [
+         75,
+         500
+        ],
+        [
+         80,
+         400
+        ],
+        [
+         85,
+         300
+        ],
+        [
+         90,
+         200
+        ]
+       ]
+      },
+      {
+       "kind": "path",
+       "id": "T1-lighthouse-p1-41",
+       "smooth": true,
+       "fill": false,
+       "points": [
+        [
+         40,
+         200
+        ],
+        [
+         45,
+         300
+        ],
+        [
+         50,
+         400
+        ],
+        [
+         55,
+         500
+        ],
+        [
+         60,
+         550
+        ],
+        [
+         65,
+         500
+        ],
+        [
+         70,
+         400
+        ],
+        [
+         75,
+         300
+        ],
+        [
+         80,
+         200
+        ]
+       ]
+      },
+      {
+       "kind": "path",
+       "id": "T1-lighthouse-p1-42",
+       "smooth": true,
+       "fill": false,
+       "points": [
+        [
+         30,
+         200
+        ],
+        [
+         35,
+         300
+        ],
+        [
+         40,
+         400
+        ],
+        [
+         45,
+         500
+        ],
+        [
+         50,
+         550
+        ],
+        [
+         55,
+         500
+        ],
+        [
+         60,
+         400
+        ],
+        [
+         65,
+         300
+        ],
+        [
+         70,
+         200
+        ]
+       ]
+      },
+      {
+       "kind": "path",
+       "id": "T1-lighthouse-p1-43",
+       "smooth": true,
+       "fill": false,
+       "points": [
+        [
+         20,
+         200
+        ],
+        [
+         25,
+         300
+        ],
+        [
+         30,
+         400
+        ],
+        [
+         35,
+         500
+        ],
+        [
+         40,
+         550
+        ],
+        [
+         45,
+         500
+        ],
+        [
+         50,
+         400
+        ],
+        [
+         55,
+         300
+        ],
+        [
+         60,
+         200
+        ]
+       ]
+      },
+      {
+       "kind": "path",
+       "id": "T1-lighthouse-p1-44",
+       "smooth": true,
+       "fill": false,
+       "points": [
+        [
+         10,
+         200
+        ],
+        [
+         15,
+         300
+        ],
+        [
+         20,
+         400
+        ],
+        [
+         25,
+         500
+        ],
+        [
+         30,
+         550
+        ],
+        [
+         35,
+         500
+        ],
+        [
+         40,
+         400
+        ],
+        [
+         45,
+         300
+        ],
+        [
+         50,
+         200
+        ]
+       ]
+      },
+      {
+       "kind": "path",
+       "id": "T1-lighthouse-p1-45",
+       "smooth": true,
+       "fill": false,
+       "points": [
+        [
+         0,
+         200
+        ],
+        [
+         5,
+         300
+        ],
+        [
+         10,
+         400
+        ],
+        [
+         15,
+         500
+        ],
+        [
+         20,
+         550
+        ],
+        [
+         25,
+         500
+        ],
+        [
+         30,
+         400
+        ],
+        [
+         35,
+         300
+        ],
+        [
+         40,
+         200
+        ]
+       ]
+      },
+      {
+       "kind": "path",
+       "id": "T1-lighthouse-p1-46",
+       "smooth": true,
+       "fill": false,
+       "points": [
+        [
+         900,
+         200
+        ],
+        [
+         905,
+         300
+        ],
+        [
+         910,
+         400
+        ],
+        [
+         915,
+         500
+        ],
+        [
+         920,
+         550
+        ],
+        [
+         925,
+         500
+        ],
+        [
+         930,
+         400
+        ],
+        [
+         935,
+         300
+        ],
+        [
+         940,
+         200
+        ]
+       ]
+      },
+      {
+       "kind": "path",
+       "id": "T1-lighthouse-p1-47",
+       "smooth": true,
+       "fill": false,
+       "points": [
+        [
+         910,
+         200
+        ],
+        [
+         915,
+         300
+        ],
+        [
+         920,
+         400
+        ],
+        [
+         925,
+         500
+        ],
+        [
+         930,
+         550
+        ],
+        [
+         935,
+         500
+        ],
+        [
+         940,
+         400
+        ],
+        [
+         945,
+         300
+        ],
+        [
+         950,
+         200
+        ]
+       ]
+      }
+     ],
+     "checks_passed": 3,
      "checks_total": 5
     },
     {
      "pass": 2,
      "budget": 10,
-     "actions_returned": 0,
-     "valid": false,
-     "validation_error": "Expected 1 to 100 canvas actions",
+     "actions_returned": 35,
+     "valid": true,
+     "validation_error": null,
      "clamped_fields": 0,
      "rendered": true,
      "render_error": null,
@@ -155,117 +2160,280 @@
      "truncated_stream": true,
      "meta": {
       "vision_fallback": false,
-      "elapsed_s": 77.73,
-      "completion_tokens": 2330,
-      "prompt_tokens": 2313,
+      "elapsed_s": 158.66,
+      "completion_tokens": 6144,
+      "prompt_tokens": 4039,
       "truncated": true,
-      "raw_len": 931,
-      "raw_tail": "\",\"gradient_angle\":90,\"gradient_color\":\"#e8a87c\",\"gradient_stops\":[{\"offset\":0,\"color\":\"#1a1a3e\"},{\"offset\":0.45,\"color\":\"#3d2b5a\"},{\"offset\":0.75,\"color\":\"#c8705a\"},{\"offset\":1,\"color\":\"#e8a87c\"}]}]}",
-      "finish_reason": "stop",
+      "raw_len": 8389,
+      "raw_tail": "0, 560], [1000, 620], [1000, 0], [0, 600], [300, 550], [500, 560], [700, 600], [900, 650], [1000, 650], [0, 650], [0, 600], [100, 620], [300, 580], [500, 590], [700, 620], [900, 650], [1000, 650], [0,",
+      "finish_reason": "length",
       "response": "",
       "more": false
      },
-     "actions": [],
-     "checks_passed": 1,
-     "checks_total": 5
-    },
-    {
-     "pass": 3,
-     "budget": 8,
-     "actions_returned": 0,
-     "valid": false,
-     "validation_error": "Expected 1 to 100 canvas actions",
-     "clamped_fields": 0,
-     "rendered": true,
-     "render_error": null,
-     "with_image": true,
-     "truncated_stream": true,
-     "meta": {
-      "vision_fallback": false,
-      "elapsed_s": 93.4,
-      "completion_tokens": 3796,
-      "prompt_tokens": 2313,
-      "truncated": true,
-      "raw_len": 3907,
-      "raw_tail": ", a dark lantern room, and a warm amber lamp glow with a soft halo and water reflection. The focal point is the glowing lantern at the top. Let me know if you'd like me to refine any elements further.",
-      "finish_reason": "stop",
-      "response": "",
-      "more": false
-     },
-     "actions": [],
-     "checks_passed": 1,
-     "checks_total": 5
-    },
-    {
-     "pass": 4,
-     "budget": 6,
-     "actions_returned": 0,
-     "valid": false,
-     "validation_error": "Expected 1 to 100 canvas actions",
-     "clamped_fields": 0,
-     "rendered": true,
-     "render_error": null,
-     "with_image": true,
-     "truncated_stream": true,
-     "meta": {
-      "vision_fallback": false,
-      "elapsed_s": 77.6,
-      "completion_tokens": 2257,
-      "prompt_tokens": 2313,
-      "truncated": true,
-      "raw_len": 661,
-      "raw_tail": "oke\":false,\"fill_color\":\"#1a0f2e\",\"gradient_color\":\"#d4765a\",\"gradient_angle\":90,\"gradient_stops\":[{\"offset\":0.0,\"color\":\"#1a0f2e\"},{\"offset\":0.55,\"color\":\"#5c2e5e\"},{\"offset\":1.0,\"color\":\"#d4765a\"}]}",
-      "finish_reason": "stop",
-      "response": "",
-      "more": false
-     },
-     "actions": [],
-     "checks_passed": 1,
+     "actions": [
+      {
+       "kind": "delete",
+       "id": "T1-lighthouse-p1-13",
+       "fill": false
+      },
+      {
+       "kind": "delete",
+       "id": "T1-lighthouse-p1-14",
+       "fill": false
+      },
+      {
+       "kind": "delete",
+       "id": "T1-lighthouse-p1-15",
+       "fill": false
+      },
+      {
+       "kind": "delete",
+       "id": "T1-lighthouse-p1-16",
+       "fill": false
+      },
+      {
+       "kind": "delete",
+       "id": "T1-lighthouse-p1-17",
+       "fill": false
+      },
+      {
+       "kind": "delete",
+       "id": "T1-lighthouse-p1-18",
+       "fill": false
+      },
+      {
+       "kind": "delete",
+       "id": "T1-lighthouse-p1-19",
+       "fill": false
+      },
+      {
+       "kind": "delete",
+       "id": "T1-lighthouse-p1-20",
+       "fill": false
+      },
+      {
+       "kind": "delete",
+       "id": "T1-lighthouse-p1-21",
+       "fill": false
+      },
+      {
+       "kind": "delete",
+       "id": "T1-lighthouse-p1-22",
+       "fill": false
+      },
+      {
+       "kind": "delete",
+       "id": "T1-lighthouse-p1-23",
+       "fill": false
+      },
+      {
+       "kind": "delete",
+       "id": "T1-lighthouse-p1-24",
+       "fill": false
+      },
+      {
+       "kind": "delete",
+       "id": "T1-lighthouse-p1-25",
+       "fill": false
+      },
+      {
+       "kind": "delete",
+       "id": "T1-lighthouse-p1-26",
+       "fill": false
+      },
+      {
+       "kind": "delete",
+       "id": "T1-lighthouse-p1-27",
+       "fill": false
+      },
+      {
+       "kind": "delete",
+       "id": "T1-lighthouse-p1-28",
+       "fill": false
+      },
+      {
+       "kind": "delete",
+       "id": "T1-lighthouse-p1-29",
+       "fill": false
+      },
+      {
+       "kind": "delete",
+       "id": "T1-lighthouse-p1-30",
+       "fill": false
+      },
+      {
+       "kind": "delete",
+       "id": "T1-lighthouse-p1-31",
+       "fill": false
+      },
+      {
+       "kind": "delete",
+       "id": "T1-lighthouse-p1-32",
+       "fill": false
+      },
+      {
+       "kind": "delete",
+       "id": "T1-lighthouse-p1-33",
+       "fill": false
+      },
+      {
+       "kind": "delete",
+       "id": "T1-lighthouse-p1-34",
+       "fill": false
+      },
+      {
+       "kind": "delete",
+       "id": "T1-lighthouse-p1-35",
+       "fill": false
+      },
+      {
+       "kind": "delete",
+       "id": "T1-lighthouse-p1-36",
+       "fill": false
+      },
+      {
+       "kind": "delete",
+       "id": "T1-lighthouse-p1-37",
+       "fill": false
+      },
+      {
+       "kind": "delete",
+       "id": "T1-lighthouse-p1-38",
+       "fill": false
+      },
+      {
+       "kind": "delete",
+       "id": "T1-lighthouse-p1-39",
+       "fill": false
+      },
+      {
+       "kind": "delete",
+       "id": "T1-lighthouse-p1-40",
+       "fill": false
+      },
+      {
+       "kind": "delete",
+       "id": "T1-lighthouse-p1-41",
+       "fill": false
+      },
+      {
+       "kind": "delete",
+       "id": "T1-lighthouse-p1-42",
+       "fill": false
+      },
+      {
+       "kind": "delete",
+       "id": "T1-lighthouse-p1-43",
+       "fill": false
+      },
+      {
+       "kind": "delete",
+       "id": "T1-lighthouse-p1-44",
+       "fill": false
+      },
+      {
+       "kind": "delete",
+       "id": "T1-lighthouse-p1-45",
+       "fill": false
+      },
+      {
+       "kind": "delete",
+       "id": "T1-lighthouse-p1-46",
+       "fill": false
+      },
+      {
+       "kind": "delete",
+       "id": "T1-lighthouse-p1-47",
+       "fill": false
+      }
+     ],
+     "checks_passed": 3,
      "checks_total": 5
     }
    ],
    "refinement_delta": 0.0,
    "scene": {
-    "objects": 0,
-    "kinds": [],
-    "colours": [],
+    "objects": 12,
+    "kinds": [
+     "rectangle",
+     "path",
+     "curve",
+     "path",
+     "curve",
+     "curve",
+     "path",
+     "path",
+     "path",
+     "path",
+     "path",
+     "path"
+    ],
+    "colours": [
+     "#e8a87c",
+     "#8c5a48",
+     "#8c5a48",
+     "#8c5a48",
+     "#8c5a48",
+     "#8c5a48",
+     "#8c5a48",
+     "#8c5a48",
+     "#8c5a48",
+     "#8c5a48",
+     "#8c5a48",
+     "#8c5a48",
+     "#8c5a48"
+    ],
     "texts": [],
-    "coverage": 0.0,
-    "mean_overlap": 0.0,
-    "shared_baseline": 0,
-    "even_spacing_run": 0
+    "coverage": 1.5446,
+    "mean_overlap": 0.1844,
+    "shared_baseline": 6,
+    "even_spacing_run": 12
+   },
+   "structural": {
+    "score": 4.25,
+    "components": {
+     "tower": 2,
+     "lantern": 0,
+     "setting": 1,
+     "dusk": 0,
+     "glow": 0,
+     "coherence": 2
+    },
+    "notes": [
+     "cap 5: no lantern"
+    ]
    },
    "checks": [
     {
      "check": "objects_at_least_4",
-     "ok": false,
-     "detail": "0 objects (need >= 4)"
+     "ok": true,
+     "detail": "12 objects (need >= 4)"
     },
     {
      "check": "has_hue_warm lamp",
-     "ok": false,
-     "detail": "colours=[] (warm lamp band 20-50)"
+     "ok": true,
+     "detail": "colours=['#e8a87c', '#8c5a48', '#8c5a48', '#8c5a48', '#8c5a48', '#8c5a48', '#8c5a48', '#8c5a48', '#8c5a48', '#8c5a48', '#8c5a48', '#8c5a48', '#8c5a48'] (warm lamp band 20-50)"
     },
     {
      "check": "has_hue_cool dusk",
      "ok": false,
-     "detail": "colours=[] (cool dusk band 200-260)"
+     "detail": "colours=['#e8a87c', '#8c5a48', '#8c5a48', '#8c5a48', '#8c5a48', '#8c5a48', '#8c5a48', '#8c5a48', '#8c5a48', '#8c5a48', '#8c5a48', '#8c5a48', '#8c5a48'] (cool dusk band 200-260)"
     },
     {
      "check": "coverage_between",
      "ok": false,
-     "detail": "coverage 0.0% (want 2%-95%)"
+     "detail": "coverage 154.5% (want 2%-95%)"
     },
     {
      "check": "overlap_below",
      "ok": true,
-     "detail": "mean bbox overlap 0.00 (limit 0.5)"
+     "detail": "mean bbox overlap 0.18 (limit 0.5)"
     }
    ],
-   "checks_passed": 1,
+   "checks_passed": 3,
    "checks_total": 5,
-   "score": 0.2,
-   "wall_s": 347.83
+   "score": 0.6,
+   "wall_s": 302.92
   }
  ]
 }

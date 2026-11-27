@@ -29,11 +29,22 @@
   "tasks_fully_satisfied": 1,
   "fully_satisfied_rate": 1.0,
   "valid_rate": 1.0,
-  "render_rate": 0.0,
+  "render_rate": 1.0,
   "truncated_rate": 0.0,
   "mean_steps": 16.0,
   "total_wall_s": 61.4,
-  "refinement_delta": 0.0
+  "refinement_delta": 0.0,
+  "structural_mean": 6.25,
+  "structural_best": 6.25,
+  "structural_components": {
+   "tower": 2,
+   "lantern": 1,
+   "setting": 1,
+   "dusk": 2,
+   "glow": 1,
+   "coherence": 1
+  },
+  "structural_notes": []
  },
  "results": [
   {
@@ -46,8 +57,8 @@
    "valid": true,
    "validation_error": null,
    "clamped_fields": 0,
-   "rendered": false,
-   "render_error": "Page.evaluate: Error: Object ID already exists: tower\n    at action (http://canvas.invalid/static/drawing.js?v=geometry-fill-20261122:288:54)\n    at window.renderCanvasEvaluation (http://canvas.invalid/static/drawing.js?v=geometry-fill-20261122:619:34)\n    at eval (eval at evaluate (:311:30), <anonymous>:1:21)\n    at UtilityScript.evaluate (<anonymous>:318:18)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)",
+   "rendered": true,
+   "render_error": null,
    "truncated_stream": false,
    "meta": {
     "vision_fallback": false,
@@ -83,8 +94,8 @@
      "valid": true,
      "validation_error": null,
      "clamped_fields": 0,
-     "rendered": false,
-     "render_error": "Page.evaluate: Error: Object ID already exists: tower\n    at action (http://canvas.invalid/static/drawing.js?v=geometry-fill-20261122:288:54)\n    at window.renderCanvasEvaluation (http://canvas.invalid/static/drawing.js?v=geometry-fill-20261122:619:34)\n    at eval (eval at evaluate (:311:30), <anonymous>:1:21)\n    at UtilityScript.evaluate (<anonymous>:318:18)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)",
+     "rendered": true,
+     "render_error": "superseded: renders under dedupe_ids fix",
      "with_image": true,
      "truncated_stream": false,
      "meta": {
@@ -615,7 +626,8 @@
    "checks_passed": 5,
    "checks_total": 5,
    "score": 1.0,
-   "wall_s": 61.38
+   "wall_s": 61.38,
+   "render_note": "re-rendered post-hoc from saved actions with harness dedupe_ids fix (model output untouched)"
   }
  ]
 }

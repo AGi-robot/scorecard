@@ -1,0 +1,198 @@
+{
+ "brief": "Draw a lighthouse standing on a rocky headland at dusk, with a warm lamp glow at the top.",
+ "judge_note": "vlm_v1 = old vague prompt; vlm_v2 = rubric prompt (still unreliable); structural = deterministic scene-graph score (lantern requires lit lamp; glow requires tower-axis proximity)",
+ "rows": [
+  {
+   "run": "bonsai-lighthouse/loose-multi",
+   "render": true,
+   "vlm_v1": 9,
+   "vlm_v2": 1,
+   "structural": 6.0,
+   "components": {
+    "tower": 2,
+    "lantern": 1,
+    "setting": 2,
+    "dusk": 2,
+    "glow": 1,
+    "coherence": 0
+   },
+   "notes": [
+    "cap 7: weak top and incoherent"
+   ]
+  },
+  {
+   "run": "bonsai-lighthouse/loose-single",
+   "render": true,
+   "vlm_v1": 9,
+   "vlm_v2": 4,
+   "structural": 6.0,
+   "components": {
+    "tower": 2,
+    "lantern": 1,
+    "setting": 2,
+    "dusk": 2,
+    "glow": 1,
+    "coherence": 0
+   },
+   "notes": [
+    "cap 7: weak top and incoherent"
+   ]
+  },
+  {
+   "run": "bonsai-lighthouse/strict-multi",
+   "render": true,
+   "vlm_v1": null,
+   "vlm_v2": null,
+   "structural": 8.25,
+   "components": {
+    "tower": 2,
+    "lantern": 2,
+    "setting": 1,
+    "dusk": 2,
+    "glow": 2,
+    "coherence": 1
+   },
+   "notes": []
+  },
+  {
+   "run": "bonsai-lighthouse/strict-single",
+   "render": true,
+   "vlm_v1": null,
+   "vlm_v2": null,
+   "structural": 6.25,
+   "components": {
+    "tower": 2,
+    "lantern": 1,
+    "setting": 1,
+    "dusk": 2,
+    "glow": 1,
+    "coherence": 1
+   },
+   "notes": []
+  },
+  {
+   "run": "occamy-apex-lighthouse/loose-multi",
+   "render": true,
+   "vlm_v1": 7,
+   "vlm_v2": 0,
+   "structural": 10.0,
+   "components": {
+    "tower": 2,
+    "lantern": 2,
+    "setting": 2,
+    "dusk": 2,
+    "glow": 2,
+    "coherence": 2
+   },
+   "notes": []
+  },
+  {
+   "run": "occamy-apex-lighthouse/loose-single",
+   "render": true,
+   "vlm_v1": 0,
+   "vlm_v2": 0,
+   "structural": 0.0,
+   "components": {
+    "tower": 0
+   },
+   "notes": [
+    "blank: no tower"
+   ]
+  },
+  {
+   "run": "occamy-apex-lighthouse/strict-multi",
+   "render": true,
+   "vlm_v1": 2,
+   "vlm_v2": 0,
+   "structural": 0.0,
+   "components": {
+    "tower": 0
+   },
+   "notes": [
+    "blank: no tower"
+   ]
+  },
+  {
+   "run": "occamy-apex-lighthouse/strict-single",
+   "render": true,
+   "vlm_v1": 8,
+   "vlm_v2": 2,
+   "structural": 10.0,
+   "components": {
+    "tower": 2,
+    "lantern": 2,
+    "setting": 2,
+    "dusk": 2,
+    "glow": 2,
+    "coherence": 2
+   },
+   "notes": []
+  },
+  {
+   "run": "occamy-i1-lighthouse/loose-multi",
+   "render": true,
+   "vlm_v1": 0,
+   "vlm_v2": 0,
+   "structural": 4.25,
+   "components": {
+    "tower": 2,
+    "lantern": 0,
+    "setting": 1,
+    "dusk": 0,
+    "glow": 0,
+    "coherence": 2
+   },
+   "notes": [
+    "cap 5: no lantern"
+   ]
+  },
+  {
+   "run": "occamy-i1-lighthouse/loose-single",
+   "render": true,
+   "vlm_v1": 9,
+   "vlm_v2": 1,
+   "structural": 7.0,
+   "components": {
+    "tower": 2,
+    "lantern": 1,
+    "setting": 2,
+    "dusk": 2,
+    "glow": 1,
+    "coherence": 1
+   },
+   "notes": []
+  },
+  {
+   "run": "occamy-i1-lighthouse/strict-multi",
+   "render": true,
+   "vlm_v1": 8,
+   "vlm_v2": 1,
+   "structural": 5.0,
+   "components": {
+    "tower": 1,
+    "lantern": 1,
+    "setting": 2,
+    "dusk": 2,
+    "glow": 1,
+    "coherence": 0
+   },
+   "notes": [
+    "cap 7: weak top and incoherent",
+    "cap 5: tower too small"
+   ]
+  },
+  {
+   "run": "occamy-i1-lighthouse/strict-single",
+   "render": true,
+   "vlm_v1": 2,
+   "vlm_v2": 0,
+   "structural": 0.0,
+   "components": {
+    "tower": 0
+   },
+   "notes": [
+    "blank: no tower"
+   ]
+  }
+ ]
+}

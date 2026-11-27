@@ -22,6 +22,11 @@ side. Per-benchmark raw data and the exact protocol live in each suite's
 | Label | Model / build | Size | Intended role |
 |---|---|---:|---|
 | `ministral3-14b` | Ministral 3 14B Instruct 2512 UD-Q4KXL | 14B | Front-end chatbot for conversation and persona |
+| `ministral-iq4xs` | Ministral 3 8B Instruct 2512 Abliterated i1-IQ4_XS (local `/opt/agi/models/ministral3-8b/`) | 8B | Daily-driver router model: fastest, lowest VRAM |
+| `nymphaea-rp` | Ministral 3 8B Nymphaea RP i1-IQ4_XS | 8B | RP/creative Ministral variant (same speed as IQ4_XS) |
+| `occamy-i1` | Occamy 1.0 i1-Q4_K_M + mmproj F16 (RustingStrata 1.3.1, ctx 16384) | 30B MoE | Daily-driver MoE agent |
+| `occamy-apex` | Occamy 1.0 APEX I-Quality + mmproj F16 (RustingStrata 1.3.1, ctx 16384) | 30B MoE | Best-quality MoE agent |
+| `bonsai-2.5` | Ternary Bonsai 2.5 27B Q2_0-MTP + mmproj BF16 (llama.cpp b12766, `--reasoning-budget 512`) | 27B | Reasoning agent (most consistent renderer) |
 | `swift1.5-qwen3.8-27B` | Swift 1.5 Qwen 3.8 27B GSQ-RCO IQ3_S MTP | 27B | Back-end agent for reasoning, tool calling, and vision |
 | `minicpm5-2b` | MiniCPM 5 | 2B | Cheap helper or robot-side model |
 | `agents-a1-4b` | Agents A1 | 4B | Cheap helper or robot-side model |
@@ -40,7 +45,7 @@ system end to end when it is available.
 | [EQ-Bench v2 (historical)](benchmarks/eqbench/README.md) | Emotion recognition — rating 4 emotions per scenario | 171 | temp 0.01, max_tokens 60, up to 3 parse attempts | yes (official full-scale) |
 | [EQ-Bench v4 / Creative Writing v3](benchmarks/eqbench/README.md) | Applied emotional/social intelligence / judged writing quality | 120 personas / 32 prompts × 3 | Pinned official protocols and judges; v4 uses 16-message conversations; writing temp 0.7, min_p 0.1 | yes (official; runs pending) |
 | [EvalPlus](benchmarks/evalplus/README.md) | Code-generation correctness on HumanEval+ and MBPP+ with expanded tests | dataset-specific | Greedy generation; official sandbox/scorer; pin package and image for each run | yes (official EvalPlus scorer) |
-| [Grace Canvas Eval](benchmarks/grace_canvas_eval/README.md) | `canvas_draw` tool-call validity and drawing quality | 8 tasks | Production DRAW_INSTRUCTIONS, temp 0.0, max_tokens 3072 | scene-graph checks; no judge |
+| [Grace Canvas Eval](benchmarks/grace_canvas_eval/README.md) | `canvas_draw` tool-call validity and drawing quality | 8 tasks / T1 matrix | Production DRAW_INSTRUCTIONS, temp 0.0, max_tokens 6144 | scene-graph checks + deterministic structural scorer (T1); VLM judge secondary-only |
 | [Grace Chatbot Eval](benchmarks/grace_chatbot_eval/README.md) | Persona fit: warmth, coherence, persona, overall | 6 scripts / 21 turns | SOUL.md + timestamp, temp 0.7, blind pairwise rating | human rater; Elo K=32 |
 | [IFEval](benchmarks/ifeval/README.md) | Verifiable instruction/format compliance on final responses | 541 | temp 0.0, max_tokens 14336, raw prompt, no system prompt | yes (Google Research scorer, vendored) |
 | [IFBench single-turn](benchmarks/ifbench/README.md) | Precise instruction following | 300 | Pinned test data, temp 0, one response, prompt-level loose accuracy primary | yes (pinned official library) |
@@ -48,8 +53,12 @@ system end to end when it is available.
 | [LiveCodeBench](benchmarks/livecodebench/README.md) | Code generation with execution-based pass@k | 1,055 | Pinned cumulative release_v6 lite, n=10, temp 0.2, top_p 0.95 | yes (pinned official checker and estimator) |
 | [LongMemEval](benchmarks/longmemeval/README.md) | Recall, multi-session reasoning, knowledge updates, temporal reasoning, and abstention | 500 | Full-history long-context baseline; official QA evaluator uses a configured LLM judge | yes (official evaluator; no result recorded) |
 
-BFCL V4, EQ-Bench v4, Creative Writing v3, EvalPlus, IFBench, LiveCodeBench,
-and LongMemEval have no completed model scores here. EQ-Bench v2 results and
+BFCL V4, EQ-Bench v4, Creative Writing v3, LiveCodeBench,
+and LongMemEval have no completed model scores here. IFBench single-turn now
+has a Ministral run (official scorer); the multi-turn runner still needs a
+model endpoint. EvalPlus now has
+HumanEval+/MBPP+ for `ministral-iq4xs` and `nymphaea-rp` (official scorer).
+EQ-Bench v2 results and the incomplete BFCL V3 artifacts below are historical;
 the incomplete BFCL V3 artifacts below are historical; the V3 subset rates are
 not full benchmark scores. Synthetic scorer fixtures and smoke tests are not
 benchmark results. INTIMA and AICompanionBench are research-readiness entries,
@@ -76,6 +85,111 @@ arm because the arms disagree by more than any other benchmark here.
 | neohorse-1-4b | 541 | 79.1 | 83.0 | 113 min |
 | agents-a1-4b | 541 | 76.3 | 81.2 | 117 min |
 | ministral3-14b | 541 | 65.1 | 71.5 | 219 min |
+
+### IFEval — Ministral 8B quants (local, strict / loose)
+
+| Model | n | Strict | Loose | Truncated | Time |
+|---|---:|---:|---:|---:|---:|
+| nymphaea-rp (IQ4_XS) | 541 | **66.7** | **68.4** | 17 | 152 min |
+| ministral-iq4xs Q4_K_M (Modal) | 541 | 56.6 | 64.1 | 2 | 108 min |
+| ministral-iq4xs IQ4_XS (Modal) | 541 | 56.2 | 66.4 | 1 | 69 min |
+| ministral-iq4xs IQ4_XS (local, active) | 541 | 55.8 | 63.8 | 0 | 18 min |
+| ministral-iq4xs IQ3_S (Modal) | 541 | 49.9 | 56.4 | 39 | 89 min |
+
+IQ4_XS is the active router default: fastest prefill, 6.0 GB VRAM, zero
+truncations, within ~1pp of Q4_K_M. Nymphaea-RP is kept as the second
+Ministral variant for RP/creative work.
+
+### IFBench single-turn — precise instruction following (official scorer)
+
+Pinned data (`IFBench_test.jsonl`, rev 48891866), temp 0, max_tokens 4096,
+n=1, primary metric prompt-level loose accuracy.
+
+| Model | n | Prompt loose | Prompt strict | Token-limited | Timeouts |
+|---|---:|---:|---:|---:|---:|
+| ministral-3-8b-abliterated (Modal) | 300 | 26.3 | 20.0 | 10 | 0 |
+
+Instruction-level: strict 23.3, loose 29.7. First IFBench datapoint — no
+baseline to rank against yet; the multi-turn suite (1,387 constraints) still
+needs a configured endpoint.
+
+### EvalPlus — code generation (pass@1 base / plus, official scorer)
+
+Greedy single-sample generation against the local OpenAI-compatible endpoint,
+evaluated with the official EvalPlus scorer (pinned `ganler/evalplus` image;
+package 0.3.1). File values recomputed per-task from `*_eval_results.json`.
+
+| Model | HumanEval (164) base | HumanEval+ | MBPP (378) base | MBPP+ |
+|---|---:|---:|---:|---:|
+| ministral-iq4xs (Modal) | **0.835** | **0.787** | 0.743 | 0.624¹ |
+| nymphaea-rp (local) | 0.811 | 0.768 | **0.798** | **0.687**² |
+
+¹ Official scorer stdout said 0.624; the saved file recomputes to 0.630.
+² Official scorer stdout said 0.687; the saved file recomputes to 0.689
+(resume created duplicate samples for 265/378 tasks after a mid-run kill;
+the unbiased estimator handles this).
+
+Nymphaea trades ~2pp on HumanEval for +5.5pp/+6.3pp on MBPP — the RP
+finetune did not cost code ability overall.
+
+### Grace Canvas Eval — lighthouse matrix (T1, structural /10)
+
+`GRACE_CONSOLE_DIR=/home/oppa-ai/AGi/console`, temp 0.0, max_tokens 6144,
+vision passes on. `structural` is the deterministic scene-graph score
+(tower 1.5 / lantern 2.5 / setting 1.5 / dusk 1.0 / glow 1.5 / coherence 2.0;
+lantern requires a lit lamp, glow requires tower-axis proximity). The VLM
+judge is unreliable at this resolution (gave the best render 0/10) and is
+kept as an optional secondary signal only. `check` is the legacy
+presence-only score — a blank scene can score 5/5, so read `structural`.
+
+| Run | Check | Valid | Render | Trunc | Steps | Wall | Structural |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| occamy-apex/loose-multi | 1.0 | 1 | Y | 1 | 20 | 217s | **10.00** |
+| occamy-apex/strict-single | 0.8 | 1 | Y | 1 | 16 | 130s | **10.00** |
+| bonsai/strict-multi | 1.0 | 1 | Y³ | 0 | 38 | 150s | **8.25** |
+| occamy-i1/loose-single | 1.0 | 1 | Y | 1 | 10 | 95s | 7.00 |
+| bonsai/strict-single | 1.0 | 1 | Y³ | 0 | 16 | 61s | 6.25 |
+| bonsai/loose-multi | 1.0 | 1 | Y | 0 | 39 | 159s | 6.00 |
+| bonsai/loose-single | 0.8 | 1 | Y | 0 | 15 | 62s | 6.00 |
+| occamy-i1/strict-multi | 0.8 | 1 | Y | 1 | 15 | 229s | 5.00 |
+| occamy-i1/loose-multi | 0.6 | 1 | Y | 1 | 82 | 303s | 4.25 |
+| occamy-apex/loose-single | 0.6 | 1 | Y | 1 | 18 | 159s | 0.00 |
+| occamy-apex/strict-multi | 0.8 | 0 | Y | 1 | 2 | 427s | 0.00 |
+| occamy-i1/strict-single | 1.0 | 1 | Y | 1 | 4 | 137s | 0.00 |
+
+³ Re-rendered post-hoc from saved actions with the `dedupe_ids` harness fix;
+model output untouched. Bonsai never truncates; both Occamy quants burn the
+full 6144-token budget (`finish=length`) on 4/4 variants.
+
+### Inference Perf — speed / VRAM / RAM (temp 0, 256 output tokens)
+
+| Model | Backend | Decode@512 | Decode@8K | Prefill@8K | TTFT@8K | VRAM@8K | RAM PSS@8K |
+|---|---|---:|---:|---:|---:|---:|---:|
+| occamy-i1 (i1-Q4_K_M) | RustingStrata 1.3.1 | **118.6** | **85.1** | **1713** | **4.8s** | 11.0 GiB | 21.0 GiB |
+| occamy-apex (APEX I-Quality) | RustingStrata 1.3.1 | 102.5 | 78.2 | 1473 | 5.6s | 11.0 GiB | 22.0 GiB |
+| ministral-nymphaea (IQ4_XS) | llama.cpp b12766 | 56.3 | 37.9 | 3021 | 2.9s | 5.9 GiB | 2.0 GiB |
+| ministral-iq4xs (IQ4_XS) | llama.cpp b12766 | 54.4 | 38.1 | 3124 | 2.9s | 5.9 GiB | 2.0 GiB |
+| ministral-iq4nl (IQ4_NL, deleted) | llama.cpp b12766 | 52.4 | 37.3 | — | 3.1s | 6.1 GiB | 2.0 GiB |
+| ministral-q4km (Q4_K_M, deleted) | llama.cpp b12766 | 49.6 | — | — | 3.3s | 6.4 GiB | 2.0 GiB |
+| ministral-udq4xl (UD-Q4_K_XL, deleted) | llama.cpp b12766 | 49.3 | — | — | 3.3s | 6.4 GiB | 2.0 GiB |
+| bonsai-2.5 (Q2_0-MTP) | llama.cpp b12766 | 32.4 | 30.2 | 578 | 14.5s | 10.4 GiB | 6.4 GiB |
+
+Full groups (512/2048/8192) in `results/inference_perf/<label>/summary.json`.
+Bonsai's long-context TTFT (14.5s @8K) is its main weakness; Occamy pays
+~21 GB host RAM for its expert cache at ctx 16384.
+
+### Combined — 3-model comparison (canvas 40 / decode 25 / TTFT@8K 20 / memory 15)
+
+Source: `results/combined-3models.json` (best rendered structural + perf).
+
+| Model | Best canvas | Mean | Usable ≥5 | Composite |
+|---|---:|---:|---:|---:|
+| Occamy 1.0 APEX | 10.00 (loose-multi) | 5.00 | 2/4 | **86.5** |
+| Occamy 1.0 i1 | 7.00 (loose-single) | 4.06 | 2/4 | **80.9** |
+| Bonsai 2.5 27B | 8.25 (strict-multi) | 6.62 | 4/4 | **61.5** |
+
+APEX wins on peak quality, Bonsai on consistency (never blank, never
+truncated, 4/4 usable), i1 on speed. No single model dominates all axes.
 
 ### Historical BFCL V3 responses — incomplete samples
 
@@ -195,17 +309,28 @@ think-off forced and unforced runs both scored 0.690, while the forced run
 used 6,662 actions versus 3,691. It increased output without improving the
 scene-graph score.
 
+**APEX has the highest ceiling, Bonsai the highest floor.** On the lighthouse
+matrix APEX produced the only 10/10 renders but also two blanks; Bonsai never
+blanked or truncated and is usable on all four variants (6.0–8.25). Occamy i1
+sits between on quality while leading on speed (118.6 tok/s decode).
+
+**Nymphaea beats the default Ministral at MBPP, loses slightly at HumanEval.**
+The RP finetune is not a code downgrade: +5.5pp/+6.3pp on MBPP against −2pp
+on HumanEval, at identical speed and VRAM.
+
+**Canvas `check_score` alone misleads; `structural` is the quality signal.**
+A blank sky+rock scene scored check 5/5, and the old VLM judge gave a messy
+saucer-top 9/10. The deterministic scene-graph scorer (validated: reproduces
+the old judge exactly where it was right on 7 Swift renders) now ranks
+Apex 10 > Bonsai 8.25/6.25 > i1 7 > blanks 0, matching eyeball judgment.
+
 ---
 
 ## In flight
 
 | Run | State |
 |---|---|
-| `swift1.5-qwen3.8-27B` IFEval | ~174/541, upstream API capped at 5 prompts/min |
-| `neohorse-1-4b` canvas think-on | last local run, ~4/8 tasks |
-
-Both are throttled by the upstream API's 5-prompts-per-minute limit; neither
-consumes local GPU.
+| — | Nothing in flight. Last completions: Nymphaea EvalPlus (HumanEval+ 0.768, MBPP+ 0.687), Occamy/Bonsai lighthouse matrix + rescore, `inference_perf` for all three. |
 
 ## Gaps
 
@@ -225,9 +350,12 @@ consumes local GPU.
    a chat benchmark.
 6. **Canvas has no image-level judge** — `check_score` verifies countable
    properties (object count, palette, rhythm, coverage), not whether the
-   drawing resembles the subject. The harness supports an optional VLM judge
-   (`--judge-base-url`/`--judge-model`) that would cover that axis.
-7. **No standard code-generation score** — EvalPlus is documented for
-   HumanEval+/MBPP+ evaluation, but no model results have been collected yet.
+   drawing resembles the subject. A deterministic structural scorer now covers
+   the T1-lighthouse task (tower/lantern/setting/dusk/glow/coherence, 0–10);
+   the optional VLM judge (`--judge-base-url`/`--judge-model`) proved
+   unreliable at 336–600px vision resolution and stays secondary-only.
+7. **Code-generation coverage is thin** — EvalPlus has HumanEval+/MBPP+ for
+   the two Ministral 8B builds only; Occamy, Bonsai, and the small models
+   have no code scores yet.
 
 

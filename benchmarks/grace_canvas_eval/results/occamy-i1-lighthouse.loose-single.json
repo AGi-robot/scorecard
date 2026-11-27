@@ -33,7 +33,18 @@
   "truncated_rate": 1.0,
   "mean_steps": 10.0,
   "total_wall_s": 94.9,
-  "refinement_delta": 0.0
+  "refinement_delta": 0.0,
+  "structural_mean": 7.0,
+  "structural_best": 7.0,
+  "structural_components": {
+   "tower": 2,
+   "lantern": 1,
+   "setting": 2,
+   "dusk": 2,
+   "glow": 1,
+   "coherence": 1
+  },
+  "structural_notes": []
  },
  "results": [
   {

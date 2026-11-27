@@ -19,11 +19,11 @@ if [[ -z "${OPENAI_API_KEY:-}" ]]; then
 fi
 
 MODAL_MINISTRAL_URL="https://oppa-ai-org--grace-llm-serve-serve-ministral.us-east.modal.run/v1"
-MODAL_MINISTRAL_MODEL="$(python3 -c 'from run_modal_bench import MINISTRAL_ALIAS; print(MINISTRAL_ALIAS)')"
+MODAL_MINISTRAL_MODEL="$(../../AIVA/.venv/bin/python -c 'from run_modal_bench import MINISTRAL_ALIAS; print(MINISTRAL_ALIAS)')"
 MODAL_SWIFT_URL="https://oppa-ai-org--grace-llm-serve-serve-swift.us-east.modal.run/v1"
 MODAL_SWIFT_MODEL="swift15-qwen3.8-27b-local"
-RUN="python3 run_modal_bench.py"
-CHAT="python3 benchmarks/grace_chatbot_eval/preference_bench.py"
+RUN="../../AIVA/.venv/bin/python run_modal_bench.py"
+CHAT="../../AIVA/.venv/bin/python benchmarks/grace_chatbot_eval/preference_bench.py"
 
 preflight() {
   local url="$1"
