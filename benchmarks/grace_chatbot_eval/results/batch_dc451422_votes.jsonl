@@ -1,0 +1,5 @@
+{"script": "disagreement", "left": "ministral-iq4xs", "right": "nymphaea-rp", "batch": "batch_dc451422.json", "warmth": "A", "coherence": "A", "persona": "A", "overall": "A"}
+{"script": "casual-evening", "left": "nymphaea-rp", "right": "ministral-iq4xs", "batch": "batch_dc451422.json", "warmth": "A", "coherence": "A", "persona": "A", "overall": "A"}
+{"script": "callback", "left": "nymphaea-rp", "right": "ministral-iq4xs", "batch": "batch_dc451422.json", "warmth": "B", "coherence": "B", "persona": "B", "overall": "B"}
+{"script": "topic-change", "left": "ministral-iq4xs", "right": "nymphaea-rp", "batch": "batch_dc451422.json", "warmth": "A", "coherence": "A", "persona": "A", "overall": "A"}
+{"script": "memory-honesty", "left": "ministral-iq4xs", "right": "nymphaea-rp", "batch": "batch_dc451422.json", "warmth": "tie", "coherence": "tie", "persona": "tie", "overall": "tie"}
