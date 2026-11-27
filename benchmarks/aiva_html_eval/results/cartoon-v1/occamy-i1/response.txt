@@ -1,0 +1,572 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How AIVA & Grace Work — An Illustrated Guide</title>
+<style>
+  :root {
+    --bg: #0f1117;
+    --panel: #1a1d27;
+    --panel2: #222632;
+    --border: #2d3140;
+    --text: #e2e4ea;
+    --text-dim: #8b8f9c;
+    --accent: #6c8cff;
+    --accent-glow: #6c8cff44;
+    --green: #4ade80;
+    --orange: #fb923c;
+    --pink: #f472b6;
+    --cyan: #22d3ee;
+    --yellow: #fde68a;
+    --radius: 14px;
+    --font: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+
+  header {
+    text-align: center;
+    padding: 30px 0 10px;
+  }
+
+  header h1 {
+    font-size: 2.2rem;
+    background: linear-gradient(135deg, var(--accent), var(--pink));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 8px;
+    letter-spacing: -0.5px;
+  }
+
+  header .subtitle {
+    color: var(--text-dim);
+    font-size: 1rem;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.5;
+  }
+
+  .simulation-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 6px 14px;
+    font-size: 0.78rem;
+    color: var(--text-dim);
+    margin-top: 12px;
+  }
+
+  .simulation-badge .dot {
+    width: 8px; height: 8px;
+    background: var(--orange);
+    border-radius: 50%;
+    animation: pulse-dot 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse-dot {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  /* Step Controls */
+  .controls-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin: 20px 0;
+    flex-wrap: wrap;
+  }
+
+  .step-label-container {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 10px 20px;
+    min-width: 280px;
+    text-align: center;
+  }
+
+  #step-label {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--accent);
+    display: block;
+  }
+
+  .step-counter {
+    font-size: 0.75rem;
+    color: var(--text-dim);
+    margin-top: 4px;
+  }
+
+  button {
+    background: var(--panel2);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-family: var(--font);
+    font-size: 0.88rem;
+    padding: 9px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 500;
+  }
+
+  button:hover { background: var(--border); border-color: var(--accent); }
+  button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  button:active { transform: scale(0.97); }
+
+  button.primary {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+  }
+  button.primary:hover { background: #7d9aff; }
+
+  button:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+
+  /* Main Visualization */
+  .viz-wrapper {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    position: relative;
+  }
+
+  .viz-svg-container {
+    width: 100%;
+    position: relative;
+  }
+
+  #arch-svg {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  /* Step Description */
+  .step-desc {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px 24px;
+    margin-top: 16px;
+    min-height: 100px;
+  }
+
+  .step-desc h3 {
+    color: var(--accent);
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+  }
+
+  .step-desc p {
+    color: var(--text-dim);
+    line-height: 1.65;
+    font-size: 0.92rem;
+  }
+
+  .step-desc code {
+    background: var(--panel2);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-size: 0.82rem;
+    color: var(--cyan);
+    font-family: 'Consolas', 'Courier New', monospace;
+  }
+
+  .step-desc .fact-list {
+    list-style: none;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .step-desc .fact-list li {
+    color: var(--text-dim);
+    font-size: 0.85rem;
+    padding-left: 20px;
+    position: relative;
+    line-height: 1.5;
+  }
+
+  .step-desc .fact-list li::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+  }
+
+  /* Architecture Detail Cards */
+  .arch-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 14px;
+    margin-top: 20px;
+  }
+
+  .arch-card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 18px;
+    transition: border-color 0.2s;
+  }
+
+  .arch-card:hover { border-color: var(--accent); }
+
+  .arch-card h4 {
+    font-size: 0.95rem;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .arch-card .icon {
+    width: 22px; height: 22px;
+    border-radius: 6px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    flex-shrink: 0;
+  }
+
+  .arch-card p {
+    color: var(--text-dim);
+    font-size: 0.83rem;
+    line-height: 1.55;
+  }
+
+  /* Optional Capabilities */
+  .optional-section {
+    margin-top: 24px;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+
+  .optional-header {
+    padding: 16px 22px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .optional-header h3 {
+    font-size: 1rem;
+    color: var(--text);
+  }
+
+  .optional-header .chevron {
+    margin-left: auto;
+    color: var(--text-dim);
+    transition: transform 0.3s;
+    font-size: 0.8rem;
+  }
+
+  .optional-section.open .optional-header .chevron {
+    transform: rotate(180deg);
+  }
+
+  .optional-body {
+    padding: 20px 22px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 14px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease, padding 0.4s ease;
+  }
+
+  .optional-section.open .optional-body {
+    max-height: 600px;
+    padding: 20px 22px;
+  }
+
+  .opt-card {
+    background: var(--panel2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px;
+  }
+
+  .opt-card h5 {
+    font-size: 0.9rem;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .opt-card p {
+    color: var(--text-dim);
+    font-size: 0.8rem;
+    line-height: 1.5;
+  }
+
+  .opt-card .status {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.72rem;
+    margin-top: 8px;
+    padding: 3px 8px;
+    border-radius: 10px;
+    background: rgba(251, 146, 60, 0.12);
+    color: var(--orange);
+  }
+
+  .opt-card .status .dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: currentColor;
+  }
+
+  /* Journey Summary */
+  .journey {
+    margin-top: 20px;
+    background: linear-gradient(135deg, var(--panel), var(--panel2));
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px 24px;
+  }
+
+  .journey h3 {
+    color: var(--green);
+    font-size: 1rem;
+    margin-bottom: 12px;
+  }
+
+  .journey-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .journey-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 0.83rem;
+    color: var(--text-dim);
+    line-height: 1.5;
+  }
+
+  .journey-item .num {
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: var(--panel2);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.72rem;
+    color: var(--accent);
+    flex-shrink: 0;
+    font-weight: 700;
+  }
+
+  .journey-item.done .num {
+    background: var(--green);
+    border-color: var(--green);
+    color: #000;
+  }
+
+  footer {
+    text-align: center;
+    padding: 30px 0 20px;
+    color: var(--text-dim);
+    font-size: 0.78rem;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .container { padding: 12px; }
+    header h1 { font-size: 1.5rem; }
+    header .subtitle { font-size: 0.88rem; }
+    .controls-bar { gap: 8px; }
+    .step-label-container { min-width: 200px; padding: 8px 14px; }
+    #step-label { font-size: 0.85rem; }
+    button { padding: 8px 14px; font-size: 0.82rem; }
+    .step-desc { padding: 16px; }
+    .step-desc p, .step-desc .fact-list li { font-size: 0.83rem; }
+    .arch-cards { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 480px) {
+    header h1 { font-size: 1.25rem; }
+    .controls-bar { flex-direction: column; gap: 10px; }
+    .step-label-container { min-width: auto; width: 100%; }
+    button { width: 100%; justify-content: center; }
+  }
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+    .viz-svg-container { overflow-x: auto; }
+  }
+
+  .sr-only {
+    position: absolute;
+    width: 1px; height: 1px;
+    padding: 0; margin: -1px;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+    white-space: nowrap;
+    border: 0;
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <h1>How AIVA &amp; Grace Work</h1>
+    <p class="subtitle">A friendly, illustrated walk-through of the AIVA runtime, Grace's conversational persona, and the path a message takes from your keyboard to a streamed reply.</p>
+    <div class="simulation-badge">
+      <span class="dot"></span>
+      <span>This is a SIMULATION diagram — not live telemetry from your running system.</span>
+    </div>
+  </header>
+
+  <div class="controls-bar" role="toolbar" aria-label="Animation controls">
+    <div class="step-label-container">
+      <span id="step-label">Ready to begin</span>
+      <div class="step-counter">Step <span id="step-counter">0</span> / 6</div>
+    </div>
+    <button id="reset" aria-label="Reset to step 0">⟲ Reset</button>
+    <button id="play" class="primary" aria-label="Toggle automatic playback">▶ Play</button>
+    <button id="next" class="primary" aria-label="Advance to next step">Next ▸</button>
+  </div>
+
+  <div class="viz-wrapper">
+    <div class="viz-svg-container">
+      <svg id="arch-svg" viewBox="0 0 1100 560" role="img" aria-label="AIVA architecture visualization showing the flow from user message to streamed response">
+        <defs>
+          <!-- Gradients -->
+          <linearGradient id="bg-grad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#1a1d27"/>
+            <stop offset="100%" stop-color="#151820"/>
+          </linearGradient>
+          <linearGradient id="accent-grad" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#6c8cff"/>
+            <stop offset="100%" stop-color="#f472b6"/>
+          </linearGradient>
+          <linearGradient id="green-grad" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#4ade80"/>
+            <stop offset="100%" stop-color="#22d3ee"/>
+          </linearGradient>
+          <linearGradient id="orange-grad" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#fb923c"/>
+            <stop offset="100%" stop-color="#f472b6"/>
+          </linearGradient>
+          <linearGradient id="cyan-grad" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#22d3ee"/>
+            <stop offset="100%" stop-color="#6c8cff"/>
+          </linearGradient>
+
+          <!-- Glow filter -->
+          <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="4" result="blur"/>
+            <feMerge>
+              <feMergeNode in="blur"/>
+              <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+          </filter>
+          <filter id="soft-glow" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="2" result="blur"/>
+            <feMerge>
+              <feMergeNode in="blur"/>
+              <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+          </filter>
+
+          <!-- Arrow marker -->
+          <marker id="arrow-head" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+            <path d="M0,0 L10,5 L0,10 Z" fill="#6c8cff"/>
+          </marker>
+          <marker id="arrow-head-green" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M0,0 L10,5 L0,10 Z" fill="#4ade80"/>
+          </marker>
+          <marker id="arrow-head-orange" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M0,0 L10,5 L0,10 Z" fill="#fb923c"/>
+          </marker>
+
+          <!-- Patterns -->
+          <pattern id="grid-pattern" width="30" height="30" patternUnits="userSpaceOnUse">
+            <path d="M 30 0 L 0 0 0 30" fill="none" stroke="#2d3140" stroke-width="0.5"/>
+          </pattern>
+        </defs>
+
+        <!-- Background -->
+        <rect width="1100" height="560" fill="url(#bg-grad)"/>
+        <rect width="1100" height="560" fill="url(#grid-pattern)" opacity="0.5"/>
+
+        <!-- ===== LAYER: Background labels (always visible, dim) ===== -->
+
+        <!-- Zone labels -->
+        <text x="120" y="30" fill="#3d4150" font-size="11" font-family="var(--font)" text-anchor="middle" letter-spacing="2">CLIENT</text>
+        <text x="420" y="30" fill="#3d4150" font-size="11" font-family="var(--font)" text-anchor="middle" letter-spacing="2">CONSOLE</text>
+        <text x="720" y="30" fill="#3d4150" font-size="11" font-family="var(--font)" text-anchor="middle" letter-spacing="2">AIVA RUNTIME</text>
+        <text x="1000" y="30" fill="#3d4150" font-size="11" font-family="var(--font)" text-anchor="middle" letter-spacing="2">MODEL</text>
+
+        <!-- Zone borders (subtle) -->
+        <line x1="260" y1="50" x2="260" y2="520" stroke="#2d3140" stroke-width="1" stroke-dasharray="4,4" opacity="0.5"/>
+        <line x1="580" y1="50" x2="580" y2="520" stroke="#2d3140" stroke-width="1" stroke-dasharray="4,4" opacity="0.5"/>
+        <line x1="850" y1="50" x2="850" y2="520" stroke="#2d3140" stroke-width="1" stroke-dasharray="4,4" opacity="0.5"/>
+
+        <!-- ===== FIXED ARCHITECTURE ELEMENTS ===== -->
+
+        <!-- USER character -->
+        <g id="user-group" opacity="0.3">
+          <!-- Desk -->
+          <rect x="40" y="280" width="160" height="12" rx="3" fill="#3d4150"/>
+          <!-- Monitor -->
+          <rect x="55" y="200" width="130" height="80" rx="6" fill="#222632" stroke="#3d4150" stroke-width="1.5"/>
+          <rect x="62" y="207" width="116" height="66" rx="3" fill="#151820"/>
+          <!-- Screen content lines -->
+          <rect x="70" y="218" width="60" height="4" rx="2" fill="#3d4150"/>
+          <rect x="70" y="228" width="80" height="4" rx="2" fill="#3d4150"/>
+          <rect x="70" y="238" width="45" height="4" rx="2" fill="#3d4150"/>
+          <!-- Stand -->
+          <rect x="105" y="

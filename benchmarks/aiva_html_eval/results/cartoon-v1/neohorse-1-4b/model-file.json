@@ -1,0 +1,6 @@
+{
+  "path": "/opt/agi/models/neohorse-1-4b/NeoHorse-1-4B-Q4_K_M.gguf",
+  "size_bytes": 2708804352,
+  "mtime_ns": 1794777959335514333,
+  "backend_version": "version: 1.1.0-dev (build 12808, commit ed2153e70)\nbuilt with GNU 13.4.0 for Linux x86_64"
+}

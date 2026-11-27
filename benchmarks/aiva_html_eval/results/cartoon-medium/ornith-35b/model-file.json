@@ -1,0 +1,6 @@
+{
+  "path": "/opt/agi/models/ornith-35b/Ornith-1.5-35B-A3B-Heretic-MTP-APEX-GSQ-RCO-IQ3_XXS.gguf",
+  "size_bytes": 13388547776,
+  "mtime_ns": 1795506932721530189,
+  "backend_version": "version: 1.1.0-dev (build 12808, commit ed2153e70)\nbuilt with GNU 13.4.0 for Linux x86_64"
+}

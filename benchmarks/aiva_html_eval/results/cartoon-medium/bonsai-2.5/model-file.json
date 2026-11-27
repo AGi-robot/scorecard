@@ -1,0 +1,6 @@
+{
+  "path": "/opt/agi/models/bonsai-2.5-27b/Ternary-Bonsai-2.5-27B-Q2_0-mtp.gguf",
+  "size_bytes": 7912178944,
+  "mtime_ns": 1795668571355590431,
+  "backend_version": "version: 1.1.0-dev (build 12808, commit ed2153e70)\nbuilt with GNU 13.4.0 for Linux x86_64"
+}

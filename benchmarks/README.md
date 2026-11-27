@@ -16,6 +16,8 @@ Choose benchmarks that exercise capabilities Grace has or is preparing to add. K
 - [LiveCodeBench](livecodebench/README.md): pinned release_v6 code-generation baseline and official pass@k scoring.
 - [LongMemEval](longmemeval/README.md): full-history conversational-memory baseline; this does not test persistent-memory retrieval.
 
+- [AIVA HTML cartoon coding comparison](aiva_html_eval/README.md): local one-shot HTML generation with browser checks, screenshots, and a comparison gallery.
+
 ## Shared benchmark tooling
 
 `baseline_common.py` provides shared request, generation, resume, and validation helpers for the pinned IFBench and LiveCodeBench integrations. `ifbench_baseline.py` is the consolidated IFBench command-line entry point. `baseline-requirements.lock` pins their dependencies, and `baseline-validation.json` records the validated protocol and data revisions. `scorecard_all.py` aggregates supported completed runs; it does not replace suite-specific official scoring. `tests/` contains cross-suite regression tests. `REVIEW.md` records repository review findings and compatibility notes.

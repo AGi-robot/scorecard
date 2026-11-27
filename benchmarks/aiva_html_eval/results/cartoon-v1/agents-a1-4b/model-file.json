@@ -1,0 +1,6 @@
+{
+  "path": "/opt/agi/models/agents-a1-4b/Agents-A1-4B-Q4_K_M.gguf",
+  "size_bytes": 2708805312,
+  "mtime_ns": 1794777987520363872,
+  "backend_version": "version: 1.1.0-dev (build 12808, commit ed2153e70)\nbuilt with GNU 13.4.0 for Linux x86_64"
+}

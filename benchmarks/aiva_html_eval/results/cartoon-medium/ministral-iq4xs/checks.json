@@ -1,0 +1,94 @@
+{
+  "checks": {
+    "nonempty_page": {
+      "passed": true,
+      "detail": null
+    },
+    "initial_state": {
+      "passed": true,
+      "detail": {
+        "step": 0,
+        "playing": false
+      }
+    },
+    "visible_controls": {
+      "passed": true,
+      "detail": null
+    },
+    "seven_steps": {
+      "passed": true,
+      "detail": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ]
+    },
+    "changing_step_labels": {
+      "passed": true,
+      "detail": [
+        "Composing your question →",
+        "Console encodes & sends via ROS",
+        "Telepathy receptor decodes request",
+        "Building persona & memory context",
+        "Model generates response stream",
+        "Console decodes & displays reply",
+        "Saving completed conversation"
+      ]
+    },
+    "clamps_at_end": {
+      "passed": true,
+      "detail": null
+    },
+    "reset": {
+      "passed": true,
+      "detail": null
+    },
+    "play": {
+      "passed": true,
+      "detail": null
+    },
+    "pause": {
+      "passed": true,
+      "detail": null
+    },
+    "autoplay_advances": {
+      "passed": false,
+      "detail": null
+    },
+    "reset_stops_playback": {
+      "passed": true,
+      "detail": null
+    },
+    "autoplay_stops_at_end": {
+      "passed": false,
+      "detail": null
+    },
+    "mobile_no_horizontal_overflow": {
+      "passed": true,
+      "detail": null
+    },
+    "mobile_controls": {
+      "passed": true,
+      "detail": null
+    },
+    "no_javascript_errors": {
+      "passed": true,
+      "detail": []
+    },
+    "no_external_requests": {
+      "passed": true,
+      "detail": []
+    }
+  },
+  "page_errors": [],
+  "blocked_requests": [],
+  "checker_sha256": "3b4e13f44dc5aa81092f418556f269e1386312df8defd4d7d4338bab17a86c46",
+  "csp_violations": [],
+  "passed": 14,
+  "total": 16,
+  "note": "Mechanical checks only: not an architecture-fidelity, aesthetic, or agentic benchmark score."
+}

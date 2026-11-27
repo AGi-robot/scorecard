@@ -1,0 +1,13 @@
+{
+  "supports_object_arguments": true,
+  "supports_parallel_tool_calls": true,
+  "supports_preserve_reasoning": true,
+  "supports_reasoning_effort": false,
+  "supports_string_content": true,
+  "supports_system_role": true,
+  "supports_tool_calls": true,
+  "supports_tools": true,
+  "supports_typed_content": true,
+  "reasoning_effort_levels": [],
+  "reasoning_effort_rejected": []
+}

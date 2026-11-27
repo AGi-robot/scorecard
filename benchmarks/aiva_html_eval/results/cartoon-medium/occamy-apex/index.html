@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How AIVA & Grace Work — An Interactive Explainer</title>
+<style>
+  :root {
+    --bg: #0f1117;
+    --panel: #1a1d27;
+    --panel-2: #232733;
+    --accent: #7c5cfc;
+    --accent-glow: #9d7fff;
+    --green: #4ade80;
+    --yellow: #fbbf24;
+    --orange: #fb923c;
+    --pink: #f472b6;
+    --cyan: #22d3ee;
+    --text: #e5e7eb;
+    --text-dim: #9ca3af;
+    --border: #2d3140;
+    --radius: 14px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  .skip-link {
+    position: absolute; top: -100px; left: 0; background: var(--accent);
+    color: #fff; padding: .5rem 1rem; border-radius: 0 0 .5rem 0;
+    z-index: 1000; transition: top .2s;
+  }
+  .skip-link:focus { top: 0; }
+
+  header {
+    text-align: center; padding: 1.5rem 1rem 1rem;
+  }
+  header h1 {
+    font-size: clamp(1.5rem, 4vw, 2.2rem);
+    background: linear-gradient(135deg, var(--accent-glow), var(--cyan));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  header .subtitle {
+    color: var(--text-dim); font-size: .95rem; max-width: 600px; margin: .4rem auto 0;
+  }
+  .disclaimer {
+    display: inline-block; margin-top: .6rem; font-size: .78rem;
+    color: var(--yellow); background: rgba(251,191,36,.1);
+    padding: .25rem .7rem; border-radius: 20px; border: 1px solid rgba(251,191,36,.25);
+  }
+
+  .main-container {
+    max-width: 1100px; margin: 0 auto; padding: 0 1rem;
+  }
+
+  /* ---- Visualization Stage ---- */
+  .stage-wrapper {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1rem;
+    margin: 1rem 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .stage-label-bar {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: .8rem; flex-wrap: wrap; gap: .5rem;
+  }
+  #step-label {
+    font-size: 1.05rem; font-weight: 700; color: var(--accent-glow);
+    min-height: 1.6em;
+  }
+  .step-counter {
+    font-size: .82rem; color: var(--text-dim);
+    background: var(--panel-2); padding: .2rem .6rem; border-radius: 8px;
+  }
+
+  .stage-area {
+    position: relative;
+    min-height: 420px;
+  }
+
+  /* SVG pipeline */
+  .pipeline-svg {
+    width: 100%; height: 100%;
+    position: absolute; top: 0; left: 0;
+  }
+
+  /* Node styles */
+  .node { cursor: default; }
+  .node-rect {
+    stroke-width: 2; rx: 12; ry: 12;
+    transition: stroke .3s, fill .3s, filter .3s;
+  }
+  .node.dimmed .node-rect { opacity: .35; }
+  .node.highlighted .node-rect {
+    filter: drop-shadow(0 0 12px currentColor);
+    stroke-width: 2.5;
+  }
+  .node-label {
+    font-size: 13px; font-weight: 700; fill: var(--text);
+    pointer-events: none;
+  }
+  .node-sublabel {
+    font-size: 10px; fill: var(--text-dim); pointer-events: none;
+  }
+  .node-icon { pointer-events: none; }
+
+  /* Envelope/token */
+  .traveling-token {
+    transition: opacity .3s;
+  }
+  .token-glow {
+    filter: drop-shadow(0 0 8px var(--accent-glow));
+  }
+
+  /* Arrow flow */
+  .flow-arrow {
+    stroke: var(--border); stroke-width: 2; fill: none;
+    transition: stroke .4s, opacity .4s;
+  }
+  .flow-arrow.active {
+    stroke: var(--accent-glow);
+    stroke-dasharray: 8 4;
+    animation: dashFlow .6s linear infinite;
+  }
+  @keyframes dashFlow {
+    to { stroke-dashoffset: -12; }
+  }
+
+  /* Character eyes */
+  .eye { transition: transform .2s; }
+  .node.highlighted .eye { transform: scale(1.15); }
+
+  /* ---- Controls ---- */
+  .controls {
+    display: flex; align-items: center; justify-content: center;
+    gap: .6rem; flex-wrap: wrap; margin: 1rem 0;
+  }
+  .btn {
+    display: inline-flex; align-items: center; gap: .4rem;
+    padding: .55rem 1.2rem; border: 1px solid var(--border);
+    border-radius: 10px; background: var(--panel-2);
+    color: var(--text); font-size: .9rem; font-weight: 600;
+    cursor: pointer; transition: all .2s; user-select: none;
+    min-height: 44px;
+  }
+  .btn:hover:not(:disabled) { border-color: var(--accent); background: rgba(124,92,252,.12); }
+  .btn:active:not(:disabled) { transform: scale(.97); }
+  .btn:focus-visible { outline: 2px solid var(--accent-glow); outline-offset: 2px; }
+  .btn:disabled { opacity: .4; cursor: not-allowed; }
+  .btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .btn.primary:hover:not(:disabled) { background: var(--accent-glow); }
+  .btn .icon { font-size: 1.1rem; }
+
+  .progress-bar {
+    display: flex; gap: 6px; justify-content: center; margin: .8rem 0 .4rem;
+  }
+  .progress-dot {
+    width: 10px; height: 10px; border-radius: 50%;
+    background: var(--border); transition: background .3s, transform .3s;
+  }
+  .progress-dot.active { background: var(--accent-glow); transform: scale(1.3); }
+  .progress-dot.done { background: var(--green); }
+
+  /* ---- Info Panel ---- */
+  .info-panel {
+    background: var(--panel); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 1.2rem 1.4rem;
+    margin: 1rem 0; min-height: 120px;
+  }
+  .info-panel h3 { font-size: 1rem; margin-bottom: .5rem; color: var(--cyan); }
+  .info-panel p { font-size: .9rem; color: var(--text-dim); margin-bottom: .4rem; }
+  .info-panel .fact {
+    display: inline-block; margin-top: .4rem; font-size: .78rem;
+    padding: .2rem .6rem; border-radius: 6px;
+    background: rgba(124,92,252,.12); color: var(--accent-glow);
+    border: 1px solid rgba(124,92,252,.2);
+  }
+  .info-panel ul {
+    list-style: none; padding-left: 0;
+  }
+  .info-panel ul li {
+    font-size: .85rem; color: var(--text-dim); padding: .25rem 0;
+    padding-left: 1.2rem; position: relative;
+  }
+  .info-panel ul li::before {
+    content: "▸"; position: absolute; left: 0; color: var(--green);
+  }
+
+  /* ---- Optional Capabilities ---- */
+  .optional-section {
+    background: var(--panel); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 1.2rem 1.4rem;
+    margin: 1rem 0 2rem;
+  }
+  .optional-section h3 {
+    font-size: .95rem; color: var(--orange); margin-bottom: .6rem;
+    display: flex; align-items: center; gap: .4rem;
+  }
+  .optional-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: .7rem;
+  }
+  .opt-card {
+    background: var(--panel-2); border: 1px solid var(--border);
+    border-radius: 10px; padding: .8rem;
+  }
+  .opt-card h4 { font-size: .85rem; color: var(--text); margin-bottom: .2rem; }
+  .opt-card p { font-size: .78rem; color: var(--text-dim); }
+  .opt-card .status {
+    font-size: .72rem; margin-top: .3rem; display: inline-block;
+    padding: .15rem .5rem; border-radius: 5px;
+  }
+  .opt-card .status.opt-inactive {
+    background: rgba(251,191,36,.1); color: var(--yellow);
+  }
+
+  /* Summary (step 6) */
+  .summary-card {
+    background: linear-gradient(135deg, var(--panel-2), var(--panel));
+    border: 1px solid var(--green); border-radius: var(--radius);
+    padding: 1.2rem 1.4rem; margin: 1rem 0 2rem;
+    display: none;
+  }
+  .summary-card.visible { display: block; animation: fadeUp .4s ease-out; }
+  .summary-card h3 { color: var(--green); font-size: 1rem; margin-bottom: .5rem; }
+  .summary-card .journey {
+    font-size: .85rem; color: var(--text-dim); line-height: 1.7;
+  }
+  .summary-card .journey strong { color: var(--text); }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .flow-arrow.active { animation: none; stroke-dasharray: 0; }
+    .traveling-token { transition: none; }
+    .node-rect { transition: none; }
+    * { animation-duration: 0s !important; transition-duration: 0s !important; }
+  }
+
+  /* Responsive */
+  @media (max-width: 640px) {
+    .stage-area { min-height: 380px; }
+    .node-label { font-size: 11px; }
+    .node-sublabel { font-size: 9px; }
+    .btn { padding: .5rem .9rem; font-size: .82rem; }
+    .info-panel { padding: 1rem; }
+  }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main-content">Skip to main content</a>
+
+<header>
+  <h1>How AIVA &amp; Grace Work</h1>
+  <p class="subtitle">An interactive, cartoon tour of the AIVA runtime and Grace's conversational pipeline.</p>
+  <span class="disclaimer">⚠ This is a SIMULATION — not live telemetry.</span>
+</header>
+
+<main class="main-container" id="main-content">
+
+  <!-- Stage -->
+  <div class="stage-wrapper">
+    <div class="stage-label-bar">
+      <span id="step-label" aria-live="polite">Step 0 — The user opens the Console</span>
+      <span class="step-counter" aria-label="Step counter">0 / 6</span>
+    </div>
+
+    <div class="progress-bar" aria-hidden="true">
+      <span class="progress-dot active" data-step="0"></span>
+      <span class="progress-dot" data-step="1"></span>
+      <span class="progress-dot" data-step="2"></span>
+      <span class="progress-dot" data-step="3"></span>
+      <span class="progress-dot" data-step="4"></span>
+      <span class="progress-dot" data-step="5"></span>
+      <span class="progress-dot" data-step="6"></span>
+    </div>
+
+    <div class="stage-area">
+      <svg class="pipeline-svg" viewBox="0 0 1000 420" preserveAspectRatio="xMidYMid meet" role="img" aria-label="AIVA pipeline visualization">
+        <defs>
+          <linearGradient id="grad-console" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#3b82f6" stop-opacity=".2"/>
+            <stop offset="100%" stop-color="#1d4ed8" stop-opacity=".05"/>
+          </linearGradient>
+          <linearGradient id="grad-router" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#f59e0b" stop-opacity=".2"/>
+            <stop offset="100%" stop-color="#b45309" stop-opacity=".05"/>
+          </linearGradient>
+          <linearGradient id="grad-model" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#8b5cf6" stop-opacity=".2"/>
+            <stop offset="100%" stop-color="#553c9a" stop-opacity=".05"/>
+          </linearGradient>
+          <marker id="arrowhead" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+            <polygon points="0 0, 8 3, 0 6" fill="var(--border)"/>
+          </marker>
+          <marker id="arrowhead-active" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+            <polygon points="0 0, 8 3, 0 6" fill="var(--accent-glow)"/>
+          </marker>
+        </defs>
+
+        <!-- ===== FLOW ARROWS (background) ===== -->
+        <!-- Console -> Encode/ROS2 -->
+        <path class="flow-arrow" id="arrow-0-1" d="M 170 210 C 210 210, 240 180, 280 180" marker-end="url(#arrowhead)"/>
+        <!-- Encode/ROS2 -> Receptor -->
+        <path class="flow-arrow" id="arrow-1-2" d="M 380 180 C 420 180, 440 180, 480 180" marker-end="url(#arrowhead)"/>
+        <!-- Receptor -> Interactive -->
+        <path class="flow-arrow" id="arrow-2-3" d="M 580 180 C 620 180, 640 200, 680 200" marker-end="url(#arrowhead)"/>
+        <!-- Interactive -> Router -->
+        <path class="flow-arrow" id="arrow-3-4" d="M 780 200 C 810 200, 830 220, 860 220" marker-end="url(#arrowhead)"/>
+        <!-- Router -> Model -->
+        <path class="flow-arrow" id="arrow-4-5" d="M 930 220 C 950 220, 960 220, 970 220" marker-end="url(#arrowhead)"/>
+        <!-- Response return arrow (model -> Console, right side going up) -->
+        <path class="flow-arrow" id="arrow-5-0" d="M 985 240 C 985 120, 170 120, 170 140" marker-end="url(#arrowhead)" style="stroke-dasharray:4 4; opacity:.4;"/>
+
+        <!-- ===== NODE 0: CONSOLE (browser) ===== -->
+        <g class="node" id="node-console" transform="translate(40, 150)">
+          <rect class="node-rect" x="0" y="0" width="130" height="120" fill="url(#grad-console)" stroke="#3b82f6"/>
+          <!-- browser chrome -->
+          <rect x="8" y="8" width="114" height="18" rx="4" fill="#1e3a5f" stroke="#2563eb" stroke-width="1"/>
+          <circle cx="18" cy="17" r="3" fill="#ef4444"/>
+          <circle cx="28" cy="17" r="3" fill="#f59e0b"/>
+          <circle cx="38" cy="17" r="3" fill="#22c55e"/>
+          <rect x="50" y="14" width="60" height="6" rx="2" fill="#3b82f6" opacity=".4"/>
+          <!-- chat bubbles -->
+          <rect x="10" y="34" width="55" height="14" rx="5" fill="#1e3a5f" stroke="#2563eb" stroke-width="1"/>
+          <rect x="70" y="34" width="42" height="14" rx="5" fill="#3b82f6" opacity=".5"/>
+          <rect x="10" y="54" width="45" height="14" rx="5" fill="#1e3a5f" stroke="#2563eb" stroke-width="1"/>
+          <rect x="62" y="54" width="50" height="14" rx="5" fill="#3b82f6" opacity=".4"/>
+          <!-- typing indicator -->
+          <rect x="10" y="74" width="100" height="10" rx="3" fill="#16304f"/>
+          <circle cx="20" cy="79" r="2.5" fill="#60a5fa" class="eye"/>
+          <circle cx="32" cy="79" r="2.5" fill="#60a5fa" class="eye"/>
+          <circle cx="44" cy="79" r="2.5" fill="#60a5fa" class="eye"/>
+          <!-- label -->
+          <text class="node-label" x="65" y="108" text-anchor="middle">Console</text>
+          <text class="node-sublabel" x="65" y="120" text-anchor="middle">HTTP / WebSocket</text>
+        </g>
+
+        <!-- ===== NODE 1: ENCODE + ROSBRIDGE/ROS2 ===== -->
+        <g class="node" id="node-encode" transform="translate(280, 120)">
+          <rect class="node-rect" x="0" y="0" width="120" height="120" fill="rgba(34,211,238,.08)" stroke="#22d3ee"/>
+          <!-- cloud -->
+          <ellipse cx="60" cy="38" rx="30" ry="16" fill="none" stroke="#22d3ee" stroke-width="2"/>
+          <ellipse cx="45" cy="34" rx="16" ry="12" fill="none" stroke="#22d3ee" stroke-width="1.5"/>
+          <ellipse cx="75" cy="34" rx="16" ry="12" fill="none" stroke="#22d3ee" stroke-width="1.5"/>
+          <!-- cypher icon -->
+          <text x="60" y="68" text-anchor="middle" font-size="11" fill="#22d3ee" font-weight="700">⌘ Cypher</text>
+          <text x="60" y="82" text-anchor="middle" font-size="9" fill="#22d3ee" opacity=".7">(reversible)</text>
+          <!-- rosbridge -->
+          <rect x="15" y="90" width="90" height="20" rx="5" fill="rgba(34,211,238,.1)" stroke="#22d3ee" stroke-width="1"/>
+          <text x="60" y="103" text-anchor="middle" font-size="10" fill="#22d3ee" font-weight="600">rosbridge / ROS 2</text>
+          <text x="60" y="118" text-anchor="middle" font-size="8" fill="#22d3ee" opacity=".6">/telepathic/stimulus</text>
+        </g>
+
+        <!-- ===== NODE 2: TELEPATHY RECEPTOR ===== -->
+        <g class="node" id="node-receptor" transform="translate(490, 130)">
+          <rect class="node-rect" x="0" y="0" width="110" height="110" fill="rgba(168,85,247,.08)" stroke="#a855f7"/>
+          <!-- antenna -->
+          <line x1="55" y1="20" x2="55" y2="5" stroke="#a855f7" stroke-width="2"/>
+          <circle cx="55" cy="4" r="3" fill="#a855f7"/>
+          <!-- signal waves -->
+          <path d="M 40 12 Q 55 0 70 12" fill="none" stroke="#a855f7" stroke-width="1.5" opacity=".5"/>
+          <path d="M 35 18 Q 55 4 75 18" fill="none" stroke="#a855f7" stroke-width="1" opacity=".3"/>
+          <!-- face -->
+          <circle cx="40" cy="45" r="4" fill="#a855f7" class="eye"/>
+          <circle cx="70" cy="45" r="4" fill="#a855f7" class="eye"/>
+          <path d="M 42 58 Q 55 64 68 58" fill="none" stroke="#a855f7" stroke-width="1.5" stroke-linecap="round"/>
+          <!-- label -->
+          <text class="node-label" x="55" y="82" text-anchor="middle">Receptor</text>
+          <text class="node-sublabel" x="55" y="94" text-anchor="middle">decodes &amp; routes</text>
+          <text class="node-sublabel" x="55" y="106" text-anchor="middle">Interactive.py</text>
+        </g>
+
+        <!-- ===== NODE 3: INTERACTIVE + MEMORY (SQLite) ===== -->
+        <g class="node" id="node-interactive" transform="translate(690, 110)">
+          <rect class="node-rect" x="0" y="0" width="130" height="140" fill="rgba(74,222,128,.08)" stroke="#4ade80"/>
+          <!-- persona stack -->
+          <rect x="12" y="12" width="106" height="20" rx="5" fill="rgba(74,222,128,.12)" stroke="#4ade80" stroke-width="1"/>
+          <text x="65" y="26" text-anchor="middle" font-size="10" fill="#4ade80" font-weight="600">🎭 Persona + Profile</text>
+          <rect x="12" y="36" width="106" height="16" rx="4" fill="rgba(74,222,128,.08)" stroke="#4ade80" stroke-width="1" opacity=".6"/>
+          <text x="65" y="48" text-anchor="middle" font-size="9" fill="#4ade80">🕐 Current time</text>
+          <rect x="12" y="56" width="106" height="16" rx="4" fill="rgba(74,222,128,.08)" stroke="#4ade80" stroke-width="1" opacity=".6"/>
+          <text x="65" y="68" text-anchor="middle" font-size="9" fill="#4ade80">💬 Recent history</text>
+
+          <!-- Memory SQLite cylinder -->
+          <g transform="translate(20, 82)">
+            <ellipse cx="45" cy="8" rx="30" ry="8" fill="rgba(251,191,36,.15)" stroke="#fbbf24" stroke-width="1.5"/>
+            <rect x="15" y="8" width="60" height="28" fill="rgba(251,191,36,.06)" stroke="#fbbf24" stroke-width="1.5"/>
+            <ellipse cx="45" cy="36" rx="30" ry="8" fill="rgba(251,191,36,.12)" stroke="#fbbf24" stroke-width="1.5"/>
+            <text x="45" y="26" text-anchor="middle" font-size="9" fill="#fbbf24" font-weight="600">SQLite</text>
+            <text x="45" y="50" text-anchor="middle" font-size="8" fill="#fbbf24" opacity=".7">Memory (in-process)</text>
+            <text x="45" y="62" text-anchor="middle" font-size="7" fill="#fbbf24" opacity=".5">8 recent exchanges</text>
+          </g>
+          <text class="node-label" x="65" y="152" text-anchor="middle" opacity="0"/>
+        </g>
+
+        <!-- ===== NODE 4: LLAMA.CPP ROUTER ===== -->
+        <g class="node" id="node-router" transform="translate(850, 150)">
+          <rect class="node-rect" x="0" y="0" width="120" height="100" fill="url(#grad-router)" stroke="#f59e0b"/>
+          <!-- router icon: 3 ports -->
+          <rect x="15" y="15" width="90" height="24" rx="5" fill="rgba(245,158,11,.1)" stroke="#f59e0b" stroke-width="1.5"/>
+          <circle cx="30" cy="27" r="5" fill="#f59e0b" class="eye"/>
+          <circle cx="60" cy="27" r="5" fill="#f59e0b" class="eye"/>
+          <rect x="80" y="22" width="18" height="10" rx="2" fill="#f59e0b" opacity=".5"/>
+          <text x="60" y="50" text-anchor="middle" font-size="10" fill="#f59e0b" font-weight="700">llama.cpp</text>
+          <text x="60" y="63" text-anchor="middle" font-size="9" fill="#f59e0b" opacity=".7">/v1/chat/completions</text>
+          <rect x="20" y="72" width="80" height="18" rx="4" fill="rgba(245,158,11,.08)" stroke="#f59e0b" stroke-width="1"/>
+          <text x="60" y="84" text-anchor="middle" font-size="9" fill="#f59e0b" font-weight="600">→ Nymphaea RP</text>
+        </g>
+
+        <!-- ===== NODE 5: NYMPHAEA RP MODEL ===== -->
+        <g class="node" id="node-model" transform="translate(970, 180)">
+          <rect class="node-rect" x="0" y="0" width="90" height="80" fill="url(#grad-model)" stroke="#8b5cf6"/>
+          <!-- brain/model icon -->
+          <circle cx="45" cy="30" r="20" fill="none" stroke="#8b5cf6" stroke-width="2"/>
+          <circle cx="45" cy="30" r="12" fill="rgba(139,92,246,.15)" stroke="#8b5cf6" stroke-width="1"/>
+          <path d="M 38 28 Q 45 22 52 28 M 38 34 Q 45 40 52 34" fill="none" stroke="#8b5cf6" stroke-width="1.5"/>
+          <text x="45" y="62" text-anchor="middle" font-size="9" fill="#8b5cf6" font-weight="700">Nymphaea</text>
+          <text x="45" y="73" text-anchor="middle" font-size="8" fill="#8b5cf6" opacity=".7">RP</text>
+        </g>
+
+        <!-- ===== TRAVELING TOKEN (envelope) ===== -->
+        <g class="traveling-token" id="traveling-token" opacity="0">
+          <g class="token-glow">
+            <rect x="-18" y="-12" width="36" height="24" rx="5" fill="#7c5cfc" stroke="#9d7fff" stroke-width="1.5"/>
+            <path d="M -18 -12 L 0 2 L 18 -12" fill="none" stroke="#9d7fff" stroke-width="1.5"/>
+            <circle cx="0" cy="10" r="2.5" fill="#c4b5fd"/>
+          </g>
+          <text x="0" y="5" text-anchor="middle" font-size="8" fill="#fff" font-weight="700">msg</text>
+        </g>
+
+        <!-- ===== OPTIONAL: EMBEDDING (voyage-4-nano) — dim, off to side ===== -->
+        <g class="node dimmed" id="node-embed" transform="translate(850, 300)">
+          <rect class="node-rect" x="0" y="0" width="130" height="60" fill="rgba(107,114,128,.06)" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4 3"/>
+          <text x="65" y="22" text-anchor="middle" font-size="10" fill="#6b7280" font-weight="600">voyage-4-nano</text>
+          <text x="65" y="36" text-anchor="middle" font-size="9" fill="#6b7280" opacity=".7">embeddings</text>
+          <text x="65" y="52" text-anchor="middle" font-size="8" fill="#6b7280" opacity=".5">Not in chat path</text>
+        </g>
+
+      </svg>
+    </div>
+  </div>
+
+  <!-- Controls -->
+  <div class="controls" role="group" aria-label="Animation controls">
+    <button class="btn primary" id="play" aria-label="Play or pause automatic advancement">
+      <span class="icon" id="play-icon">▶</span> <span id="play-text">Play</span>
+    </button>
+    <button class="btn" id="next" aria-label="Advance to next step">Next ▸</button>
+    <button class="btn" id="reset" aria-label="Reset to step 0">↺ Reset</button>
+  </div>
+
+  <!-- Info Panel -->
+  <div class="info-panel" id="info-panel" aria-label="Step description">
+    <h3 id="info-title">The Console</h3>
+    <p id="info-text">AIVA's Console is the browser UI plus a standalone HTTP/WebSocket server. You're here — composing a message to Grace.</p>
+    <span class="fact" id="info-fact">AIVA = PC-side companion runtime · Grace = conversational persona</span>
+  </div>
+
+  <!-- Summary (step 6) -->
+  <div class="summary-card" id="summary-card" role="region" aria-label="Journey summary">
+    <h3>🗺️ The Full Journey — "How does AIVA remember our conversation?"</h3>
+    <div class="journey">
+      <p><strong>1.</strong> You typed your question in the <strong>Console</strong> (browser UI).</p>
+      <p><strong>2.</strong> Console applied <strong>Cypher encoding</strong> (reversible, not encryption) and published through <strong>rosbridge / ROS 2</strong> on <code>/telepathic/stimulus</code>.</p>
+      <p><strong>3.</strong> The <strong>telepathy_receptor</strong> ROS node decoded the request and handed it to <strong>Interactive</strong>.</p>
+      <p><strong>4.</strong> Interactive assembled Grace's <strong>persona, current time, user profile</strong>, and the <strong>8 most recent exchanges</strong> from the in-process <strong>SQLite</strong> Memory library.</p>
+      <p><strong>5.</strong> The <strong>llama.cpp</strong> OpenAI-compatible router at <code>/v1/chat/completions</code> ran <strong>Nymphaea RP</strong>, streaming text deltas back.</p>
+      <p><strong>6.</strong> The response arrived on <code>/telepathic/response</code>, was decoded, streamed to your browser, and the completed exchange was <strong>saved in Memory</strong>. ✨</p>
+    </div>
+  </div>
+
+  <!-- Optional Capabilities -->
+  <div class="optional-section" id="optional-section">
+    <h3>🔧 Optional Capabilities (outside the text-chat path)</h3>
+    <div class="optional-grid">
+      <div class="opt-card">
+        <h4>🎨 Canvas Library</h4>
+        <p>Optional drawing support for the Console UI. Not involved in chat.</p>
+        <span class="status opt-inactive">Optional · not active</span>
+      </div>
+      <div class="opt-card">
+        <h4>🖼️ Imaging Library</h4>
+        <p>Image processing support. Standalone from the conversation path.</p>
+        <span class="status opt-inactive">Optional · not active</span>
+      </div>
+      <div class="opt-card">
+        <h4>🎨 MOSS</h4>
+        <p>Raster painting sidecar. Not part of the telepathic chat pipeline.</p>
+        <span class="status opt-inactive">Optional · not active</span>
+      </div>
+      <div class="opt-card">
+        <h4>🚀 AuRoRA (CNC/TMS)</h4>
+        <p>AIVA does <strong>not</strong> launch AuRoRA's robot stack. No robot control path exists.</p>
+        <span class="status opt-inactive">Not connected</span>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<script>
+(function() {
+  "use strict";
+
+  // ---- Step data ----
+  const STEPS = [
+    {
+      label: "Step 0 — The user composes a message in the Console",
+      infoTitle: "The Console",
+      infoText: "AIVA's Console is the browser UI plus a standalone HTTP/WebSocket server. You're here — composing a message to Grace.",
+      infoFact: "AIVA = PC-side companion runtime · Grace = conversational persona",
+      highlight: ["node-console"],
+      arrows: [],
+      tokenFrom: null, tokenTo: null
+    },
+    {
+      label: "Step 1 — Console encodes & publishes via rosbridge / ROS 2",
+      infoTitle: "Cypher Encoding + rosbridge",
+      infoText: "Console applies reversible Cypher encoding (NOT encryption) and publishes through rosbridge and ROS 2 on /telepathic/stimulus.",
+      infoFact: "Cypher = reversible encoding, not encryption",
+      highlight: ["node-console", "node-encode"],
+      arrows: ["arrow-0-1"],
+      tokenFrom: { x: 105, y: 210 }, tokenTo: { x: 340, y: 180 }
+    },
+    {
+      label: "Step 2 — Receptor decodes & hands to Interactive",
+      infoTitle: "telepathy_receptor",
+      infoText: "The telepathy_receptor ROS node decodes the request and invokes the Interactive Python library.",
+      infoFact: "rosbridge → ROS 2 → telepathy_receptor → Interactive.py",
+      highlight: ["node-encode", "node-receptor"],
+      arrows: ["arrow-1-2"],
+      tokenFrom: { x: 340, y: 180 }, tokenTo: { x: 545, y: 180 }
+    },
+    {
+      label: "Step 3 — Interactive assembles persona, profile, time & Memory history",
+      infoTitle: "Interactive + Memory (SQLite)",
+      infoText: "Interactive assembles Grace's persona, current time, user profile, and the 8 most recent exchanges from the in-process SQLite Memory library. Older exchanges are stored but semantic retrieval is NOT in the current chat path.",
+      infoFact: "Memory = in-process Python library using SQLite (not a separate ROS node)",
+      highlight: ["node-receptor", "node-interactive"],
+      arrows: ["arrow-2-3"],
+      tokenFrom: { x: 545, y: 180 }, tokenTo: { x: 755, y: 200 }
+    },
+    {
+      label: "Step 4 — llama.cpp router runs Nymphaea RP and streams text deltas",
+      infoTitle: "llama.cpp Router → Nymphaea RP",
+      infoText: "Interactive calls the local llama.cpp OpenAI-compatible router at /v1/chat/completions, selecting nymphaea-rp for the front end. The model streams text deltas.",
+      infoFact: "Router also serves voyage-4-nano embeddings (not wired into this chat path)",
+      highlight: ["node-interactive", "node-router", "node-model"],
+      arrows: ["arrow-3-4", "arrow-4-5"],
+      tokenFrom: { x: 755, y: 200 }, tokenTo: { x: 910, y: 220 }
+    },
+    {
+      label: "Step 5 — Response returns & Console streams the restored text",
+      infoTitle: "Response stream → Console display",
+      infoText: "Receptor emits Cypher-encoded response text on /telepathic/response. Console decodes it and streams the restored text to the browser.",
+      infoFact: "Response path: /telepathic/response → Console decode → browser stream",
+      highlight: ["node-model", "node-router", "node-receptor", "node-encode", "node-console"],
+      arrows: ["arrow-5-0"],
+      tokenFrom: { x: 910, y: 220 }, tokenTo: { x: 105, y: 170 }
+    },
+    {
+      label: "Step 6 — Memory saves the exchange — journey complete!",
+      infoTitle: "Memory persists · Journey summary",
+      infoText: "Memory persists the completed exchange. The conversation is remembered for next time (up to 8 recent exchanges in the current path).",
+      infoFact: "Older exchanges stored but not semantically retrieved in this path",
+      highlight: ["node-interactive"],
+      arrows: [],
+      tokenFrom: null, tokenTo: null
+    }
+  ];
+
+  // ---- State ----
+  let currentStep = 0;
+  let playing = false;
+  let playTimer = null;
+  const PLAY_INTERVAL = 2200;
+  const isReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // ---- DOM refs ----
+  const stepLabel = document.getElementById('step-label');
+  const stepCounter = document.querySelector('.step-counter');
+  const infoTitle = document.getElementById('info-title');
+  const infoText = document.getElementById('info-text');
+  const infoFact = document.getElementById('info-fact');
+  const summaryCard = document.getElementById('summary-card');
+  const nextBtn = document.getElementById('next');
+  const resetBtn = document.getElementById('reset');
+  const playBtn = document.getElementById('play');
+  const playIcon = document.getElementById('play-icon');
+  const playText = document.getElementById('play-text');
+  const progressDots = document.querySelectorAll('.progress-dot');
+  const token = document.getElementById('traveling-token');
+
+  // ---- Functions ----
+  function renderStep(step, animateToken) {
+    const data = STEPS[step];
+
+    // Update label
+    stepLabel.textContent = data.label;
+    stepCounter.textContent = step + ' / 6';
+
+    // Update info panel
+    infoTitle.textContent = data.infoTitle;
+    infoText.textContent = data.infoText;
+    infoFact.textContent = data.infoFact;
+
+    // Summary card
+    if (step === 6) {
+      summaryCard.classList.add('visible');
+    } else {
+      summaryCard.classList.remove('visible');
+    }
+
+    // Node highlighting
+    document.querySelectorAll('.node').forEach(function(n) {
+      n.classList.remove('highlighted', 'dimmed');
+    });
+    data.highlight.forEach(function(id) {
+      var el = document.getElementById(id);
+      if (el) el.classList.add('highlighted');
+    });
+
+    // Dim the embedding node always (it's optional/off-path)
+    var embedNode = document.getElementById('node-embed');
+    if (embedNode) embedNode.classList.add('dimmed');
+
+    // Arrow highlighting
+    document.querySelectorAll('.flow-arrow').forEach(function(a) {
+      a.classList.remove('active');
+      a.setAttribute('marker-end', 'url(#arrowhead)');
+    });
+    data.arrows.forEach(function(id) {
+      var a = document.getElementById(id);
+      if (a) {
+        a.classList.add('active');
+        a.setAttribute('marker-end', 'url(#arrowhead-active)');
+      }
+    });
+
+    // Token animation
+    if (data.tokenFrom && data.tokenTo) {
+      moveToken(data.tokenFrom, data.tokenTo, animateToken);
+    } else {
+      token.setAttribute('opacity', '0');
+    }
+
+    // Progress dots
+    progressDots.forEach(function(dot, i) {
+      dot.classList.remove('active', 'done');
+      if (i < step) dot.classList.add('done');
+      if (i === step) dot.classList.add('active');
+    });
+
+    // Button states
+    nextBtn.disabled = step >= 6;
+  }
+
+  function moveToken(from, to, animate) {
+    var cx = from.x + 20;
+    var cy = from.y;
+    var tx = to.x + 20;
+    var ty = to.y;
+
+    token.setAttribute('opacity', '1');
+
+    if (isReducedMotion || !animate) {
+      token.setAttribute('transform', 'translate(' + tx + ',' + ty + ')');
+      return;
+    }
+
+    // Animate along a curved path
+    var startX = cx, startY = cy;
+    var endX = tx, endY = ty;
+    var midX = (startX + endX) / 2;
+    var midY = Math.min(startY, endY) - 30;
+
+    var duration = isReducedMotion ? 0 : 700;
+    var start = performance.now();
+
+    function easeInOut(t) {
+      return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+    }
+
+    function tick(now) {
+      var elapsed = now - start;
+      var t = Math.min(elapsed / duration, 1);
+      var et = easeInOut(t);
+      var x = (1 - t) * (1 - t) * startX + 2 * (1 - t) * t * midX + t * t * endX;
+      var y = (1 - t) * (1 - t) * startY + 2 * (1 - t) * t * midY + t * t * endY;
+      token.setAttribute('transform', 'translate(' + x + ',' + y + ')');
+      if (t < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+
+  function goToStep(step) {
+    currentStep = Math.max(0, Math.min(6, step));
+    renderStep(currentStep, true);
+  }
+
+  function next() {
+    if (currentStep < 6) {
+      currentStep++;
+      renderStep(currentStep, true);
+    }
+    if (currentStep >= 6 && playing) {
+      togglePlay(false);
+    }
+  }
+
+  function reset() {
+    togglePlay(false);
+    currentStep = 0;
+    renderStep(0, false);
+  }
+
+  function togglePlay(forceState) {
+    var newState = (forceState !== undefined) ? forceState : !playing;
+    playing = newState;
+    if (playing) {
+      playIcon.textContent = '⏸';
+      playText.textContent = 'Pause';
+      playBtn.setAttribute('aria-label', 'Pause automatic advancement');
+      if (!isReducedMotion) {
+        playTimer = setInterval(function() {
+          if (currentStep < 6) {
+            next();
+          } else {
+            togglePlay(false);
+          }
+        }, PLAY_INTERVAL);
+      }
+    } else {
+      playIcon.textContent = '▶';
+      playText.textContent = 'Play';
+      playBtn.setAttribute('aria-label', 'Play automatic advancement');
+      if (playTimer) {
+        clearInterval(playTimer);
+        playTimer = null;
+      }
+    }
+  }
+
+  function getState() {
+    return

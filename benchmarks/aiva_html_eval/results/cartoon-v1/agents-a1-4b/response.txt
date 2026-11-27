@@ -1,0 +1,461 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIVA/Grace Architecture Visualization</title>
+    <style>
+        :root {
+            --primary: #6366f1;
+            --secondary: #ec4899;
+            --bg: #0f172a;
+            --card-bg: #1e293b;
+            --text: #f8fafc;
+            --text-muted: #94a3b8;
+            --success: #10b981;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Reduced Motion */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        header {
+            text-align: center;
+            padding: 2rem;
+            max-width: 800px;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Main Container */
+        .container {
+            width: 100%;
+            max-width: 1000px;
+            padding: 1rem;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        /* Process Flow */
+        .process-flow {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            position: relative;
+        }
+
+        .step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            opacity: 0.5;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .step.active {
+            opacity: 1;
+            transform: scale(1.05);
+        }
+
+        .step-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 1rem;
+            width: 100%;
+            max-width: 250px;
+            text-align: center;
+            border: 1px solid var(--text-muted);
+            position: relative;
+            z-index: 2;
+        }
+
+        .step-card h3 {
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+
+        .step-card p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
+        /* Connection Lines */
+        .connection-line {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 2px;
+            height: 40px;
+            background: var(--text-muted);
+            transform: translateX(-50%);
+            z-index: 1;
+        }
+
+        /* Character Icons */
+        .icon {
+            width: 60px;
+            height: 60px;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Controls */
+        .controls {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+
+        button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        button:hover {
+            background-color: #4f46e5;
+        }
+
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        #step-label {
+            font-size: 1.25rem;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 1rem;
+            min-height: 1.5rem;
+        }
+
+        /* Optional Capabilities Section */
+        .capabilities {
+            margin-top: 2rem;
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 1.5rem;
+            border: 1px solid var(--text-muted);
+        }
+
+        .capabilities h3 {
+            color: var(--secondary);
+            margin-top: 0;
+        }
+
+        .cap-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .cap-item {
+            background: rgba(255,255,255,0.05);
+            padding: 1rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+        }
+
+        /* Animations */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .active-step .step-card {
+            animation: pulse 2s infinite;
+        }
+
+        .arrow {
+            font-size: 1.5rem;
+            color: var(--secondary);
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .step {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .connection-line {
+                display: none;
+            }
+            .step-card {
+                width: 100%;
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>AIVA / Grace Architecture</h1>
+        <p style="color: var(--text-muted);">A visual simulation of how the conversational AI system processes your request.</p>
+    </header>
+
+    <div class="container">
+        
+        <div class="process-flow" id="flow-container">
+            <!-- Step 0: User -->
+            <div class="step" id="step-0">
+                <div class="step-card">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="9" cy="7" r="4"></circle>
+                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                    </svg>
+                    <h3>Step 0</h3>
+                    <p>User composes message at Console.</p>
+                </div>
+            </div>
+
+            <!-- Step 1: Console Encodes -->
+            <div class="step" id="step-1">
+                <div class="step-card">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                        <line x1="8" y1="21" x2="16" y2="21"></line>
+                        <line x1="12" y1="17" x2="12" y2="21"></line>
+                    </svg>
+                    <h3>Step 1</h3>
+                    <p>Console encodes signal & sends via ROS.</p>
+                </div>
+            </div>
+
+            <!-- Step 2: Telepathy Receptor -->
+            <div class="step" id="step-2">
+                <div class="step-card">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a4 4 0 0 1 4 4z"></path>
+                    </svg>
+                    <h3>Step 2</h3>
+                    <p>Receptor decodes & hands to Interactive.</p>
+                </div>
+            </div>
+
+            <!-- Step 3: Interactive -->
+            <div class="step" id="step-3">
+                <div class="step-card">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                        <path d="M14 2v6h6"></path>
+                    </svg>
+                    <h3>Step 3</h3>
+                    <p>Interactive assembles persona & Memory.</p>
+                </div>
+            </div>
+
+            <!-- Step 4: Llama.cpp Router -->
+            <div class="step" id="step-4">
+                <div class="step-card">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+                        <path d="M2 17l10 5 10-5"></path>
+                        <path d="M2 12l10 5 10-5"></path>
+                    </svg>
+                    <h3>Step 4</h3>
+                    <p>Router runs Nymphaea RP & streams reply.</p>
+                </div>
+            </div>
+
+            <!-- Step 5: Console Decodes -->
+            <div class="step" id="step-5">
+                <div class="step-card">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                        <path d="M10 14 5 9"></path>
+                        <path d="M14 14 19 9"></path>
+                    </svg>
+                    <h3>Step 5</h3>
+                    <p>Response returns, Console decodes stream.</p>
+                </div>
+            </div>
+
+            <!-- Step 6: Memory Save -->
+            <div class="step" id="step-6">
+                <div class="step-card">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M19 11H5a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-8a2 2 0 0 0-2-2z"></path>
+                        <path d="M3 11v-2a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v2"></path>
+                    </svg>
+                    <h3>Step 6</h3>
+                    <p>Memory saves exchange & shows summary.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Interactive Controls -->
+        <div id="controls-panel">
+            <div id="step-label">Step 0: User Input</div>
+            <div class="controls">
+                <button id="play-btn">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                    </svg>
+                    Play
+                </button>
+                <button id="next-btn">
+                    Next Step
+                </button>
+                <button id="reset-btn">
+                    Reset
+                </button>
+            </div>
+        </div>
+
+        <!-- Optional Capabilities -->
+        <div class="capabilities">
+            <h3>Optional Capabilities (Sidecar)</h3>
+            <div class="cap-grid">
+                <div class="cap-item">
+                    <strong>Canvas & Imaging</strong>
+                    <p style="font-size: 0.8rem; color: var(--text-muted);">Supports drawing and rendering assets.</p>
+                </div>
+                <div class="cap-item">
+                    <strong>MOSS</strong>
+                    <p style="font-size: 0.8rem; color: var(--text-muted);">Optional raster painting sidecar for visual output.</p>
+                </div>
+            </div>
+            <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 1rem; text-align: center;">
+                * This visualization is a simulation, not live telemetry. AIVA does not launch AuRoRA's CNC/TMS robot stack.
+            </p>
+        </div>
+
+    </div>
+
+    <script>
+        // Interaction Contract
+        let currentStep = 0;
+        let isPlaying = false;
+        let playInterval = null;
+
+        const steps = ['0', '1', '2', '3', '4', '5', '6'];
+        const stepLabels = [
+            "Step 0: User composes message",
+            "Step 1: Console encodes & sends via ROS",
+            "Step 2: Telepathy receptor decodes",
+            "Step 3: Interactive assembles persona & Memory",
+            "Step 4: Router runs Nymphaea RP",
+            "Step 5: Response returns & decoded",
+            "Step 6: Memory saves & summary shown"
+        ];
+
+        function updateUI() {
+            const stepEl = document.getElementById(`step-${currentStep}`);
+            const labelEl = document.getElementById('step-label');
+            const stepsContainer = document.querySelectorAll('.step');
+
+            // Highlight active step
+            stepsContainer.forEach(s => s.classList.remove('active'));
+            stepEl.classList.add('active');
+
+            // Update label
+            labelEl.textContent = stepLabels[currentStep];
+        }
+
+        function nextStep() {
+            if (currentStep < 6) {
+                currentStep++;
+                updateUI();
+            } else {
+                // Stop at 6
+                if (isPlaying) togglePlay();
+            }
+        }
+
+        function reset() {
+            currentStep = 0;
+            isPlaying = false;
+            clearInterval(playInterval);
+            updateUI();
+            document.getElementById('play-btn').textContent = "Play";
+            document.getElementById('play-btn').disabled = false;
+        }
+
+        function togglePlay() {
+            if (currentStep === 6) {
+                // At end, stop
+                isPlaying = false;
+                clearInterval(playInterval);
+                document.getElementById('play-btn').textContent = "Play";
+                return;
+            }
+
+            isPlaying = !isPlaying;
+            const btn = document.getElementById('play-btn');
+            
+            if (isPlaying) {
+                btn.textContent = "Pause";
+                playInterval = setInterval(() => {
+                    nextStep();
+                }, 3000); // 3 seconds per step
+            } else {
+                btn.textContent = "Play";
+                clearInterval(playInterval);
+            }
+        }
+
+        // Initialize
+        updateUI();
+
+        // DOM Events
+        document.getElementById('next-btn').addEventListener('click', nextStep);
+        document.getElementById('reset-btn').addEventListener('click', reset);
+        document.getElementById('play-btn').addEventListener('click', togglePlay);
+
+        // Expose API
+        window.AIVA_DEMO = {
+            reset: reset,
+            next: nextStep,
+            togglePlay: togglePlay,
+            getState: () => ({
+                step: currentStep,
+                playing: isPlaying
+            })
+        };
+
+    </script>
+</body>
+</html>
+```

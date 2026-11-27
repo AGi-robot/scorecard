@@ -1,0 +1,530 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIVA / Grace Architecture Visualization</title>
+    <style>
+        :root {
+            --bg: #0f172a;
+            --panel: #1e293b;
+            --accent: #38bdf8;
+            --accent-soft: rgba(56, 189, 248, 0.1);
+            --text: #e2e8f0;
+            --text-muted: #94a3b8;
+            --success: #34d399;
+            --warning: #fbbf24;
+            --border: #334155;
+            --font-mono: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: var(--font-sans);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            overflow-x: hidden;
+            transition: filter 0.2s;
+        }
+
+        /* --- Header --- */
+        header {
+            width: 100%;
+            max-width: 900px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, #38bdf8, #818cf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.5px;
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            text-align: center;
+            max-width: 600px;
+        }
+
+        /* --- The Diagram --- */
+        #viewport {
+            width: 100%;
+            max-width: 800px;
+            height: 400px;
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.5);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+        }
+
+        #canvas-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* --- Control Bar --- */
+        .controls {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        button {
+            background: var(--accent);
+            color: #0f172a;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: transform 0.1s, filter 0.2s, background 0.2s;
+            font-family: var(--font-sans);
+        }
+
+        button:hover {
+            filter: brightness(1.1);
+            transform: translateY(-1px);
+        }
+
+        button:active {
+            transform: scale(0.96);
+        }
+
+        button.secondary {
+            background: transparent;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+        }
+        button.secondary:hover {
+            background: var(--accent-soft);
+        }
+
+        #step-label {
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--accent);
+            min-height: 1.6em;
+            text-align: center;
+        }
+
+        /* --- Tooltip / Legend --- */
+        .legend {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 24px;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+        .legend span { display: flex; align-items: center; gap: 6px; }
+        .dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+
+        /* --- Animation Elements --- */
+        .node {
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s;
+            z-index: 2;
+        }
+        .node svg { width: 64px; height: 64px; }
+        .node-label {
+            margin-top: 8px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--text);
+            text-align: center;
+            background: rgba(15, 23, 42, 0.8);
+            padding: 2px 8px;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+        }
+
+        .packet {
+            position: absolute;
+            z-index: 3;
+            pointer-events: none;
+            transition: top 0.5s linear, left 0.5s linear;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .active-stage {
+            border-color: var(--accent) !important;
+            box-shadow: 0 0 20px var(--accent-soft);
+            transform: scale(1.1);
+            z-index: 20;
+        }
+        .active-stage .node-label {
+            color: var(--accent);
+            background: rgba(56, 189, 248, 0.2);
+            border-color: var(--accent);
+        }
+
+        /* --- Tech Details --- */
+        .tech-specs {
+            max-width: 700px;
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 20px;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: var(--text-muted);
+            position: relative;
+            z-index: 20;
+        }
+        .tech-specs h3 {
+            color: var(--text);
+            margin-top: 0;
+            margin-bottom: 8px;
+            font-size: 1rem;
+        }
+        .tech-specs ul { padding-left: 16px; }
+        .tech-specs li { margin-bottom: 4px; }
+
+        /* --- SVG Specifics --- */
+        .char-face { fill: none; stroke: currentColor; stroke-width: 2; }
+        .char-fill { fill: currentColor; }
+        .path-d { fill: var(--accent); stroke: var(--accent); stroke-width: 2; }
+
+        /* --- Responsive --- */
+        @media (max-width: 600px) {
+            #viewport { height: 340px; }
+            .node svg { width: 48px; height: 48px; }
+            h1 { font-size: 1.4rem; }
+        }
+
+        /* --- Reduced Motion --- */
+        @media (prefers-reduced-motion: reduce) {
+            .packet, .node { transition: none !important; animation: none !important; }
+            button:hover { transform: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>AIVA / Grace</h1>
+        <div class="subtitle">Conversational AI Architecture (Simulation)</div>
+    </header>
+
+    <!-- Visualizer -->
+    <div id="viewport">
+        <svg id="canvas-layer" viewBox="0 0 700 400" preserveAspectRatio="xMidYMid meet">
+            <!-- SVG content injected by JS -->
+        </svg>
+    </div>
+
+    <!-- Controls -->
+    <div id="step-label">Ready to begin...</div>
+    <div class="controls">
+        <button id="reset" onclick="AIVA_DEMO.reset()">Reset</button>
+        <button id="next" onclick="AIVA_DEMO.next()">Next Step</button>
+        <button id="play" onclick="AIVA_DEMO.togglePlay()">
+            <span id="play-icon">▶</span> Play
+        </button>
+    </div>
+
+    <!-- Legend -->
+    <div class="legend" id="legend-container"></div>
+
+    <!-- Technical Context -->
+    <div class="tech-specs" id="tech-specs">
+        <h3>System Overview</h3>
+        <ul>
+            <li><strong>AIVA:</strong> PC-side companion runtime.</li>
+            <li><strong>Grace:</strong> Conversational persona.</li>
+            <li><strong>Console:</strong> Browser UI + HTTP/WebSocket server.</li>
+            <li><strong>ROS 2:</strong> Communication backbone via rosbridge.</li>
+            <li><strong>lLama.cpp:</strong> Local OpenAI-compatible router.</li>
+        </ul>
+    </div>
+
+<script>
+/**
+ * AIVA DEMO ENGINE
+ * Manages 7 steps of the architecture flow.
+ */
+
+const AIVA_DEMO = {
+    currentStep: 0,
+    maxSteps: 7,
+    playing: false,
+    timerId: null,
+    sampleMessage: "How does AIVA remember our conversation?",
+
+    // --- Step Definitions ---
+    steps: [
+        {
+            id: 0,
+            label: "User Composes Message",
+            desc: "The user types a question into the AIVA Console browser interface.",
+            text: "User at Console: <i>'How does AIVA remember our conversation?'</i>",
+            nodes: ['user', 'console'],
+            packetAction: (el) => { el.innerText = '⌘'; },
+            animation: 'none'
+        },
+        {
+            id: 1,
+            label: "Signal Encoding & ROS Bridge",
+            desc: "Console applies reversible Cypher encoding and publishes via rosbridge.",
+            text: "Cypher Encoding → /telepathic/stimulus (ROS 2)",
+            nodes: ['console', 'bridge'],
+            packetAction: (el) => { el.innerText = '📡'; },
+            animation: 'none'
+        },
+        {
+            id: 2,
+            label: "Telepathy Receptor",
+            desc: "The ROS node decodes the request and hands it to the Python library.",
+            text: "Decode Cypher → Invoke Interactive Python",
+            nodes: ['bridge', 'receptor', 'interactive'],
+            packetAction: (el) => { el.innerText = '🧠'; },
+            animation: 'none'
+        },
+        {
+            id: 3,
+            label: "Persona Assembly",
+            desc: "Interactive gathers profile, time, and SQLite memory history.",
+            text: "Assemble Persona + Memory (SQLite, 8 recent exchanges)",
+            nodes: ['receptor', 'interactive', 'memory'],
+            packetAction: (el) => { el.innerText = '📦'; },
+            animation: 'none'
+        },
+        {
+            id: 4,
+            label: "Router & Model Inference",
+            desc: "Local llama.cpp router calls Nymphaea RP for text generation.",
+            text: "llama.cpp /v1/chat/completions (Nymphaea RP)",
+            nodes: ['interactive', 'router', 'model'],
+            packetAction: (el) => { el.innerText = '⚙️'; },
+            animation: 'stream'
+        },
+        {
+            id: 5,
+            label: "Response Encoding",
+            desc: "Model streams text deltas; Receptor encodes the reply.",
+            text: "Stream Deltas → /telepathic/response (Cypher)",
+            nodes: ['model', 'router', 'receptor', 'console'],
+            packetAction: (el) => { el.innerText = '📝'; },
+            animation: 'none'
+        },
+        {
+            id: 6,
+            label: "Memory Save & Summary",
+            desc: "Console decodes response, displays it, and saves the exchange.",
+            text: "Display Stream → Save to SQLite → Grace Ready",
+            nodes: ['receptor', 'console', 'memory'],
+            packetAction: (el) => { el.innerText = '✅'; },
+            animation: 'none'
+        }
+    ],
+
+    init: function() {
+        this.renderLegend();
+        this.updateStep(0);
+    },
+
+    renderLegend: function() {
+        const container = document.getElementById('legend-container');
+        const map = {
+            'user': { color: '#60a5fa', label: 'User' },
+            'console': { color: '#38bdf8', label: 'Console' },
+            'bridge': { color: '#fbbf24', label: 'ROS 2 Bridge' },
+            'receptor': { color: '#f87171', label: 'Receptor' },
+            'interactive': { color: '#818cf8', label: 'Interactive' },
+            'memory': { color: '#34d399', label: 'Memory (SQLite)' },
+            'router': { color: '#f472b6', label: 'llama.cpp Router' },
+            'model': { color: '#a78bfa', label: 'Nymphaea RP' }
+        };
+        Object.entries(map).forEach(([key, val]) => {
+            container.innerHTML += `
+                <span><span class="dot" style="background:${val.color}"></span> ${val.label}</span>
+            `;
+        });
+    },
+
+    updateStep: function(stepIndex) {
+        this.currentStep = stepIndex;
+        this.updateUI();
+        this.renderScene();
+    },
+
+    updateUI: function() {
+        const step = this.steps[this.currentStep];
+        document.getElementById('step-label').innerHTML = `Step ${step.id}: <span style="color:#94a3b8">${step.label}</span>`;
+        document.getElementById('tech-specs').innerHTML = `
+            <h3>${step.label}</h3>
+            <p>${step.desc}</p>
+            <p style="font-family:var(--font-mono); color:var(--accent); margin-top:8px;">"${step.text}"</p>
+        `;
+
+        // Reset active classes
+        document.querySelectorAll('.node').forEach(n => n.classList.remove('active-stage'));
+        if (step.nodes) {
+            step.nodes.forEach(nId => {
+                const el = document.querySelector(`.node-${nId}`);
+                if (el) el.classList.add('active-stage');
+            });
+        }
+    },
+
+    renderScene: function() {
+        const svg = document.getElementById('canvas-layer');
+        // Keep existing nodes, just update active class
+        // Re-render packet positions
+        const packet = document.getElementById('packet');
+        if (!packet) {
+            packet = document.createElement('div');
+            packet.id = 'packet';
+            packet.className = 'packet';
+            packet.style.top = '200px';
+            packet.style.left = '350px';
+            svg.appendChild(packet);
+        }
+
+        if (packet) {
+            // Center the packet
+            packet.style.top = '200px';
+            packet.style.left = '350px';
+        }
+
+        // Remove old nodes if they exist outside the defined set
+        const existingNodes = svg.querySelectorAll('.node');
+        existingNodes.forEach(el => {
+            if (!this.steps[this.currentStep].nodes.includes(el.id)) {
+                el.remove();
+            }
+        });
+
+        // Add missing nodes
+        this.steps[this.currentStep].nodes.forEach(nId => {
+            const node = document.querySelector(`.node-${nId}`);
+            if (!node) {
+                this.createNode(nId);
+            }
+        });
+    },
+
+    createNode: function(id) {
+        const step = this.steps[this.currentStep];
+        let svgContent = '';
+        let label = '';
+
+        // Draw Characters based on ID
+        switch(id) {
+            case 'user':
+                svgContent = `
+                    <svg viewBox="0 0 64 64">
+                        <circle cx="32" cy="32" r="28" fill="#4f46e5" />
+                        <path d="M24,42 Q32,30 40,42" fill="#0f172a" stroke="#0f172a" stroke-width="3" />
+                    </svg>`;
+                label = "User";
+                break;
+            case 'console':
+                svgContent = `
+                    <svg viewBox="0 0 64 64">
+                        <rect x="8" y="14" width="48" height="36" rx="6" fill="#0f172a" stroke="#38bdf8" stroke-width="2" />
+                        <rect x="10" y="16" width="52" height="8" rx="2" fill="#1e293b" stroke="#334155" stroke-width="1" />
+                        <rect x="10" y="28" width="12" height="1" fill="#38bdf8" />
+                        <rect x="26" y="28" width="12" height="1" fill="#38bdf8" />
+                        <rect x="42" y="28" width="12" height="1" fill="#38bdf8" />
+                    </svg>`;
+                label = "Console";
+                break;
+            case 'bridge':
+                svgContent = `
+                    <svg viewBox="0 0 64 64">
+                        <path d="M20,16 L44,16 L32,38 L40,52 L24,52 L16,38 Z" fill="#0f172a" stroke="#fbbf24" stroke-width="2" />
+                        <rect x="30" y="16" width="4" height="22" fill="#fbbf24" />
+                    </svg>`;
+                label = "ROS 2";
+                break;
+            case 'receptor':
+                svgContent = `
+                    <svg viewBox="0 0 64 64">
+                        <circle cx="32" cy="32" r="24" fill="#0f172a" stroke="#f87171" stroke-width="2" />
+                        <path d="M22,28 Q32,20 42,28 Q46,36 40,44 Q32,50 24,44 Q18,36 22,28" fill="#0f172a" stroke="#f87171" stroke-width="2" />
+                    </svg>`;
+                label = "Receptor";
+                break;
+            case 'interactive':
+                svgContent = `
+                    <svg viewBox="0 0 64 64">
+                        <rect x="14" y="12" width="36" height="40" rx="8" fill="#0f172a" stroke="#818cf8" stroke-width="2" />
+                        <path d="M20,20 L28,32 L36,20" fill="none" stroke="#818cf8" stroke-width="3" />
+                        <circle cx="26" cy="28" r="4" fill="#818cf8" />
+                    </svg>`;
+                label = "Interactive";
+                break;
+            case 'memory':
+                svgContent = `
+                    <svg viewBox="0 0 64 64">
+                        <rect x="10" y="10" width="44" height="44" rx="6" fill="#0f172a" stroke="#34d399" stroke-width="2" />
+                        <rect x="12" y="12" width="40" height="12" rx="2" fill="#0f172a" stroke="#34d399" stroke-width="1" />
+                        <rect x="12" y="28" width="40" height="10" rx="2" fill="#0f172a" stroke="#34d399" stroke-width="1" />
+                        <rect x="12" y="42" width="40" height="10" rx="2" fill="#0f172a" stroke="#34d399" stroke-width="1" />
+                    </svg>`;
+                label = "Memory";
+                break;
+            case 'router':
+                svgContent = `
+                    <svg viewBox="0 0 64 64">
+                        <rect x="12" y="12" width="40" height="40" rx="6" fill="#0f172a" stroke="#f472b6" stroke-width="2" />
+                        <rect x="16" y="16" width="8" height="8" rx="2" fill="#f472b6" />
+                        <rect x="32" y="16" width="8" height="8" rx="2" fill="#f472b6" />
+                        <rect x="48" y="16" width="8" height="8" rx="2" fill="#f472b6" />
+                        <rect x="16" y="32" width="8" height="8" rx="2" fill="#f472b6" />
+                        <rect x="32" y="32" width="8" height="8" rx="2" fill="#f472b6" />
+                        <rect x="48" y="32" width="8" height="8" rx="2" fill="#f472b6" />
+                    </svg>`;
+                label = "Router";
+                break;
+            case 'model':
+                svgContent = `
+                    <svg viewBox="0 0 64 64">
+                        <circle cx="32" cy="32" r="22" fill="#0f172a" stroke="#a78bfa" stroke-width="2" />
+                        <path d="M24,32 Q32,20 40,32" fill="none" stroke="#a78bfa" stroke-width="3" />
+                        <circle cx="32" cy="3
