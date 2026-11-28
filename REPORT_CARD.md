@@ -98,13 +98,14 @@ minicpm5-2b is ~2.7× faster to decode and prefill than the 4B models and uses t
 - **Ornith IQ3_S**: `MTP+ngram, vrm512, chunk4096, mtp1, short32` — `strata-Ornith-1.5-35B-A3B-Heretic-MTP-APEX-GSQ-RCO-IQ3_S.json`
 - **Occamy i1 Q4_K_M**: `ngram, vrm256, chunk2048, mtp0, short32` — `strata-occamy-1.0-abliterated-safetensors.i1-Q4_K_M.json`
 - **Occamy apex Q6_K**: `ngram, vrm512, chunk2048, mtp0, short32` — `strata-occamy-1.0-abliterated-APEX-I-QUALITY-Q6_K.json`
+- **JoyFox Q6_K**: `MTP+ngram, vrm512, chunk4096, mtp2, short32` — `strata-JoyFox-Qwen3.6-35B-A3B-RP-Aggressive.i1-Q6_K.json`
 
 | Model | Quant | Speculation | Decode@512/2K/8K | Prefill@512/2K/8K | TTFT@512/2K/8K | VRAM |
 |---|---|---|---:|---:|---:|---:|
 | **Ornith-1.5-35B-A3B-Heretic-MTP-APEX-GSQ-RCO-IQ3_S** + mmproj BF16 | IQ3_S | MTP+ngram | 118.7/118.7/114.4 | 667/1541/1880 | 791ms/1.34s/4.38s | ~11.0GB |
 | Occamy 1.0 i1 abliterated | Q4_K_M | ngram, vrm256 (no MTP head) | 112.3/104.5/103.5 | 533/1074/1336 | 999ms/1.93s/6.15s | ~11.0GB |
 | Occamy 1.0 apex abliterated | Q6_K | ngram, vrm512 (no MTP head) | 110.3/77.3/95.0 | 373/987/1239 | 1.40s/2.09s/6.64s | ~11.0GB |
-| JoyFox Qwen3.6 RP Aggressive | Q6_K | MTP+ngram | 33.2/70.5/82.6 | 36/696/1208 | 14.65s/2.98s/6.81s | ~11.2GB |
+| JoyFox Qwen3.6 RP Aggressive | Q6_K | MTP+ngram (mtp2) | 66.4/71.3/82.6 | 166/621/1198 | 4.23s/3.37s/6.87s | ~11.0GB |
 | Gemma 4 26B A4B StyleTune V2 | Q6_K | ngram only (MTP drafter mismatched) | 116.8/116.6/111.5 | 1084/1530/1766 | 497ms/2.73s/7.68s | — |
 | Gemma 4 26B A4B StyleTune V2 | Q6_K | MTP+ngram (mismatched drafter) | 22.8/18.7/13.6 | 71/100/88 | 7.36s/20.54s/93.50s | ~10.4GB |
 | Bonsai 2.5 27B | Q2_0 ternary | none (llama.cpp b12766) | 32.4/31.8/30.2 | 514/569/578 | 1.09s/3.76s/14.50s | ~10.6GB (2 GPUs) |
