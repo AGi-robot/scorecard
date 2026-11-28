@@ -22,8 +22,8 @@ side. Per-benchmark raw data and the exact protocol live in each suite's
 | Label | Model / build | Size | Intended role |
 |---|---|---:|---|
 | `ministral3-14b` | Ministral 3 14B Instruct 2512 UD-Q4KXL | 14B | Front-end chatbot for conversation and persona |
-| `ministral-iq4xs` | Ministral 3 8B Instruct 2512 Abliterated i1-IQ4_XS (local `/opt/agi/models/ministral3-8b/`) | 8B | Daily-driver router model: fastest, lowest VRAM |
-| `nymphaea-rp` | Ministral 3 8B Nymphaea RP i1-IQ4_XS | 8B | RP/creative Ministral variant (same speed as IQ4_XS) |
+| `ministral3-8b-abliterated-iq4xs` | Ministral 3 8B Instruct 2512 Abliterated i1-IQ4_XS (run label: `ministral-iq4xs`; local `/opt/agi/models/ministral3-8b/`) | 8B | Daily-driver router model: fastest, lowest VRAM |
+| `ministral3-8b-nymphaea-rp-iq4xs` | Ministral 3 8B Nymphaea RP i1-IQ4_XS (run label: `nymphaea-rp`) | 8B | RP/creative Ministral variant (same speed as IQ4_XS) |
 | `occamy-i1` | Occamy 1.0 i1-Q4_K_M + mmproj F16 (RustingStrata 1.3.1, ctx 16384) | 30B MoE | Daily-driver MoE agent |
 | `occamy-apex` | Occamy 1.0 APEX I-Quality + mmproj F16 (RustingStrata 1.3.1, ctx 16384) | 30B MoE | Best-quality MoE agent |
 | `bonsai-2.5` | Ternary Bonsai 2.5 27B Q2_0-MTP + mmproj BF16 (llama.cpp b12766, `--reasoning-budget 512`) | 27B | Reasoning agent (most consistent renderer) |
@@ -57,7 +57,8 @@ BFCL V4, EQ-Bench v4, Creative Writing v3, LiveCodeBench,
 and LongMemEval have no completed model scores here. IFBench single-turn now
 has a Ministral run (official scorer); the multi-turn runner still needs a
 model endpoint. EvalPlus now has
-HumanEval+/MBPP+ for `ministral-iq4xs` and `nymphaea-rp` (official scorer).
+HumanEval+/MBPP+ for `ministral3-8b-abliterated-iq4xs` and
+`ministral3-8b-nymphaea-rp-iq4xs` (official scorer).
 EQ-Bench v2 results and the incomplete BFCL V3 artifacts below are historical;
 the incomplete BFCL V3 artifacts below are historical; the V3 subset rates are
 not full benchmark scores. Synthetic scorer fixtures and smoke tests are not
@@ -115,8 +116,8 @@ package 0.3.1). File values recomputed per-task from `*_eval_results.json`.
 
 | Model | HumanEval (164) base | HumanEval+ | MBPP (378) base | MBPP+ |
 |---|---:|---:|---:|---:|
-| ministral-iq4xs (Modal) | **0.835** | **0.787** | 0.743 | 0.624¹ |
-| nymphaea-rp (local) | 0.811 | 0.768 | **0.798** | **0.687**² |
+| ministral3-8b-abliterated-iq4xs (Modal) | **0.835** | **0.787** | 0.743 | 0.624¹ |
+| ministral3-8b-nymphaea-rp-iq4xs (local) | 0.811 | 0.768 | **0.798** | **0.687**² |
 
 ¹ Official scorer stdout said 0.624; the saved file recomputes to 0.630.
 ² Official scorer stdout said 0.687; the saved file recomputes to 0.689
@@ -209,11 +210,11 @@ Scores (8B only; 14B excluded):
 
 | Benchmark | Build | n | Result |
 |---|---|---:|---|
-| IFEval strict / loose | nymphaea-rp (IQ4_XS) | 541 | **66.7 / 68.4** (17 trunc) |
-| IFEval strict / loose | ministral-iq4xs Q4_K_M (Modal) | 541 | 56.6 / 64.1 (2 trunc) |
-| IFEval strict / loose | ministral-iq4xs IQ4_XS (Modal) | 541 | 56.2 / 66.4 (1 trunc) |
-| IFEval strict / loose | ministral-iq4xs IQ4_XS (local, active) | 541 | 55.8 / 63.8 (0 trunc) |
-| IFEval strict / loose | ministral-iq4xs IQ3_S (Modal) | 541 | 49.9 / 56.4 (39 trunc) |
+| IFEval strict / loose | ministral3-8b-nymphaea-rp-iq4xs | 541 | **66.7 / 68.4** (17 trunc) |
+| IFEval strict / loose | ministral3-8b-q4km (Modal) | 541 | 56.6 / 64.1 (2 trunc) |
+| IFEval strict / loose | ministral3-8b-abliterated-iq4xs (Modal) | 541 | 56.2 / 66.4 (1 trunc) |
+| IFEval strict / loose | ministral3-8b-abliterated-iq4xs (local, active) | 541 | 55.8 / 63.8 (0 trunc) |
+| IFEval strict / loose | ministral3-8b-iq3s (Modal) | 541 | 49.9 / 56.4 (39 trunc) |
 | IFBench single-turn (prompt loose / strict) | IQ4_XS (Modal) | 300 | 26.3 / 20.0 (10 token-limited) |
 | EvalPlus pass@1 (HumanEval base/+ / MBPP base/+) | IQ4_XS (Modal) | 164 / 378 | 0.835 / 0.787 / 0.743 / 0.624 |
 | EvalPlus pass@1 (HumanEval base/+ / MBPP base/+) | Nymphaea RP (local) | 164 / 378 | 0.811 / 0.768 / 0.798 / 0.687 |
