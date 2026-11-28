@@ -90,17 +90,17 @@ minicpm5-2b is ~2.7× faster to decode and prefill than the 4B models and uses t
 
 Best Ornith config (calibrated + sweep): `--gpu --spec-type ngram-map-k4v,ngram-cache --mtp 1 --vram-margin 256 --chunk 2048 --ctx 16384 --thinking-budget 2048`. Calibrate: `strata-Ornith-1.5-35B-A3B-Heretic-MTP-APEX-GSQ-RCO-IQ3_XXS.json`.
 
-| Model | Quant | Speculation | Decode @512 / 2K / 8K | Prefill@8K | TTFT@8K | VRAM |
+| Model | Quant | Speculation | Decode@512/2K/8K | Prefill@8K | TTFT@8K | VRAM |
 |---|---|---|---:|---:|---:|---:|
-| **Ornith-1.5-35B-A3B-Heretic-MTP-APEX-GSQ-RCO-IQ3_XXS** + mmproj BF16 | IQ3_XXS | MTP+ngram (vrm256) | 122.9 / 111.1 / **121.8** | — | 4.34 s | ~11.3 GB |
-| Ornith (same, baseline calibrated) | IQ3_XXS | MTP+ngram | 121.3 / 119.2 / 110.9 | 1768 | 4.61 s | ~11.3 GB |
-| Occamy 1.0 i1 abliterated | Q4_K_M | ngram (no MTP head) | 116.7 / 106.9 / 109.3 | 1810 | 4.55 s | ~11.0 GB |
-| Occamy 1.0 apex abliterated | Q6_K | ngram (no MTP head) | 104.0 / 86.7 / 81.9 | 1475 | 5.58 s | ~11.0 GB |
-| JoyFox Qwen3.6 RP Aggressive | Q6_K | MTP+ngram | 33.2 / 70.5 / 82.6 | 1208 | 6.81 s | ~11.2 GB |
-| Gemma 4 26B A4B StyleTune V2 | Q6_K | ngram only (MTP drafter mismatched) | 116.8 / 116.6 / 111.5 | 1766 | 7.68 s | — |
-| Gemma 4 26B A4B StyleTune V2 | Q6_K | MTP+ngram (mismatched drafter) | 22.8 / 18.7 / 13.6 | 87.6 | 93.5 s | ~10.4 GB |
-| Bonsai 2.5 27B | Q2_0 ternary | none (llama.cpp b12766) | 32.4 / 31.8 / 30.2 | 578 | 14.5 s | ~10.6 GB (2 GPUs) |
-| Inkling-2-Mini | Q4_K | ngram (no MTP head) | 23.9 / 21.1 / 21.3 | 130 | 63.2 s | ~5.9 GB |
+| **Ornith-1.5-35B-A3B-Heretic-MTP-APEX-GSQ-RCO-IQ3_XXS** + mmproj BF16 | IQ3_XXS | MTP+ngram (vrm256) | 122.9/111.1/**121.8** | — | 4.34s | ~11.3GB |
+| Ornith (same, baseline calibrated) | IQ3_XXS | MTP+ngram | 121.3/119.2/110.9 | 1768 | 4.61s | ~11.3GB |
+| Occamy 1.0 i1 abliterated | Q4_K_M | ngram (no MTP head) | 116.7/106.9/109.3 | 1810 | 4.55s | ~11.0GB |
+| Occamy 1.0 apex abliterated | Q6_K | ngram (no MTP head) | 104.0/86.7/81.9 | 1475 | 5.58s | ~11.0GB |
+| JoyFox Qwen3.6 RP Aggressive | Q6_K | MTP+ngram | 33.2/70.5/82.6 | 1208 | 6.81s | ~11.2GB |
+| Gemma 4 26B A4B StyleTune V2 | Q6_K | ngram only (MTP drafter mismatched) | 116.8/116.6/111.5 | 1766 | 7.68s | — |
+| Gemma 4 26B A4B StyleTune V2 | Q6_K | MTP+ngram (mismatched drafter) | 22.8/18.7/13.6 | 87.6 | 93.5s | ~10.4GB |
+| Bonsai 2.5 27B | Q2_0 ternary | none (llama.cpp b12766) | 32.4/31.8/30.2 | 578 | 14.5s | ~10.6GB (2 GPUs) |
+| Inkling-2-Mini | Q4_K | ngram (no MTP head) | 23.9/21.1/21.3 | 130 | 63.2s | ~5.9GB |
 
 Notes: Occamy has no MTP head; Ornith MTP gives +28% over ngram-only. Gemma MTP drafter (unsloth base) mismatches StyleTune V2 and tanks speed; without MTP Gemma is fast. Inkling has no MTP head. JoyFox native MTP gives minimal gain over ngram-only.
 
