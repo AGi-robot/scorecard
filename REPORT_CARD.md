@@ -17,20 +17,29 @@ them to a 0-100 scale so benchmarks with different units can be read side by
 side. Per-benchmark raw data and the exact protocol live in each suite's
 `README.md`.
 
-## Model roster
+## Model candidates
 
-| Label | Model / build | Size | Intended role |
-|---|---|---:|---|
-| `ministral3-14b` | Ministral 3 14B Instruct 2512 UD-Q4KXL | 14B | Front-end chatbot for conversation and persona |
-| `ministral3-8b-abliterated-iq4xs` | Ministral 3 8B Instruct 2512 Abliterated i1-IQ4_XS (run label: `ministral-iq4xs`; local `/opt/agi/models/ministral3-8b/`) | 8B | Daily-driver router model: fastest, lowest VRAM |
-| `ministral3-8b-nymphaea-rp-iq4xs` | Ministral 3 8B Nymphaea RP i1-IQ4_XS (run label: `nymphaea-rp`) | 8B | RP/creative Ministral variant (same speed as IQ4_XS) |
-| `occamy-i1` | Occamy 1.0 i1-Q4_K_M + mmproj F16 (RustingStrata 1.3.1, ctx 16384) | 30B MoE | Daily-driver MoE agent |
-| `occamy-apex` | Occamy 1.0 APEX I-Quality + mmproj F16 (RustingStrata 1.3.1, ctx 16384) | 30B MoE | Best-quality MoE agent |
-| `bonsai-2.5` | Ternary Bonsai 2.5 27B Q2_0-MTP + mmproj BF16 (llama.cpp b12766, `--reasoning-budget 512`) | 27B | Reasoning agent (most consistent renderer) |
-| `swift1.5-qwen3.8-27B` | Swift 1.5 Qwen 3.8 27B GSQ-RCO IQ3_S MTP | 27B | Back-end agent for reasoning, tool calling, and vision |
-| `minicpm5-2b` | MiniCPM 5 | 2B | Cheap helper or robot-side model |
-| `agents-a1-4b` | Agents A1 | 4B | Cheap helper or robot-side model |
-| `neohorse-1-4b` | NeoHorse | 4B | Cheap helper or robot-side model |
+### Front-end chat models
+
+| Label | Model / build | Size | Intended role | Decision |
+|---|---|---:|---|---|
+| `ministral3-14b` | Ministral 3 14B Instruct 2512 UD-Q4KXL | 14B | Front-end chatbot for conversation and persona | 🔴 |
+| `ministral3-8b-abliterated-iq4xs` | Ministral 3 8B Instruct 2512 Abliterated i1-IQ4_XS (run label: `ministral-iq4xs`; local `/opt/agi/models/ministral3-8b/`) | 8B | Daily-driver router model: fastest, lowest VRAM | 🟡 |
+| `ministral3-8b-nymphaea-rp-iq4xs` | Ministral 3 8B Nymphaea RP i1-IQ4_XS (run label: `nymphaea-rp`) | 8B | RP/creative Ministral variant (same speed as IQ4_XS) | 🟡 |
+| `minicpm5-2b` | MiniCPM 5 | 2B | Cheap helper or robot-side model | 🟡 |
+| `agents-a1-4b` | Agents A1 | 4B | Cheap helper or robot-side model | 🟡 |
+| `neohorse-1-4b` | NeoHorse | 4B | Cheap helper or robot-side model | 🟡 |
+
+### Back-end agentic models
+
+| Label | Model / build | Size | Intended role | Decision |
+|---|---|---:|---|---|
+| `occamy-i1` | Occamy 1.0 i1-Q4_K_M + mmproj F16 (RustingStrata 1.3.1, ctx 16384) | 30B MoE | Daily-driver MoE agent | 🟡 |
+| `occamy-apex` | Occamy 1.0 APEX I-Quality + mmproj F16 (RustingStrata 1.3.1, ctx 16384) | 30B MoE | Best-quality MoE agent | 🟡 |
+| `bonsai-2.5` | Ternary Bonsai 2.5 27B Q2_0-MTP + mmproj BF16 (llama.cpp b12766, `--reasoning-budget 512`) | 27B | Reasoning agent (most consistent renderer) | 🟡 |
+| `swift1.5-qwen3.8-27B` | Swift 1.5 Qwen 3.8 27B GSQ-RCO IQ3_S MTP | 27B | Back-end agent for reasoning, tool calling, and vision | 🟡 |
+
+Legend: 🟢 final candidate · 🟡 considering · 🔴 rejected
 
 In this planned split, visual inputs can be routed to `swift1.5-qwen3.8-27B`, so Ministral vision
 is not needed unless the front-end must process images directly. Scores for the
