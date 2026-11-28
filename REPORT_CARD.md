@@ -21,25 +21,25 @@ side. Per-benchmark raw data and the exact protocol live in each suite's
 
 ### Front-end chat models
 
-| Label | Model / build | Size | Intended role | Decision |
-|---|---|---:|---|---|
-| `ministral3-14b` | Ministral 3 14B Instruct 2512 UD-Q4KXL | 14B | Front-end chatbot for conversation and persona | 🔴 |
-| `ministral3-8b-abliterated-iq4xs` | Ministral 3 8B Instruct 2512 Abliterated i1-IQ4_XS (run label: `ministral-iq4xs`; local `/opt/agi/models/ministral3-8b/`) | 8B | Daily-driver router model: fastest, lowest VRAM | 🟡 |
-| `ministral3-8b-nymphaea-rp-iq4xs` | Ministral 3 8B Nymphaea RP i1-IQ4_XS (run label: `nymphaea-rp`) | 8B | RP/creative Ministral variant (same speed as IQ4_XS) | 🟡 |
-| `minicpm5-2b` | MiniCPM 5 | 2B | Cheap helper or robot-side model | 🟡 |
-| `agents-a1-4b` | Agents A1 | 4B | Cheap helper or robot-side model | 🟡 |
-| `neohorse-1-4b` | NeoHorse | 4B | Cheap helper or robot-side model | 🟡 |
+| Label | Model / build | Size | Intended role | Status | Justification |
+|---|---|---|---:|---|---|---|
+| `ministral3-8b-abliterated-iq4xs` | Ministral 3 8B Instruct 2512 Abliterated i1-IQ4_XS (run label: `ministral-iq4xs`; local `/opt/agi/models/ministral3-8b/`) | 8B | Daily-driver router model: fastest, lowest VRAM | 🔵 Top contender | Active default; fastest prefill, 5.9 GiB VRAM, no IFEval truncations. |
+| `ministral3-8b-nymphaea-rp-iq4xs` | Ministral 3 8B Nymphaea RP i1-IQ4_XS (run label: `nymphaea-rp`) | 8B | RP/creative Ministral variant (same speed as IQ4_XS) | 🟡 Under consideration | Better MBPP+ than the Abliterated build; RP-specific chat evaluation still matters. |
+| `minicpm5-2b` | MiniCPM 5 | 2B | Cheap helper or robot-side model | 🔵 Top contender | Best recorded IFEval result: 85.6 strict / 87.2 loose. |
+| `agents-a1-4b` | Agents A1 | 4B | Cheap helper or robot-side model | 🟡 Under consideration | IFEval trails MiniCPM 5; no broader comparison recorded. |
+| `neohorse-1-4b` | NeoHorse | 4B | Cheap helper or robot-side model | 🟡 Under consideration | IFEval trails MiniCPM 5; no broader comparison recorded. |
+| `ministral3-14b` | Ministral 3 14B Instruct 2512 UD-Q4KXL | 14B | Front-end chatbot for conversation and persona | 🔴 Rejected | Lower IFEval result than the 2B MiniCPM 5; no demonstrated tradeoff in this role. |
 
 ### Back-end agentic models
 
-| Label | Model / build | Size | Intended role | Decision |
-|---|---|---:|---|---|
-| `occamy-i1` | Occamy 1.0 i1-Q4_K_M + mmproj F16 (RustingStrata 1.3.1, ctx 16384) | 30B MoE | Daily-driver MoE agent | 🟡 |
-| `occamy-apex` | Occamy 1.0 APEX I-Quality + mmproj F16 (RustingStrata 1.3.1, ctx 16384) | 30B MoE | Best-quality MoE agent | 🟡 |
-| `bonsai-2.5` | Ternary Bonsai 2.5 27B Q2_0-MTP + mmproj BF16 (llama.cpp b12766, `--reasoning-budget 512`) | 27B | Reasoning agent (most consistent renderer) | 🟡 |
-| `swift1.5-qwen3.8-27B` | Swift 1.5 Qwen 3.8 27B GSQ-RCO IQ3_S MTP | 27B | Back-end agent for reasoning, tool calling, and vision | 🟡 |
+| Label | Model / build | Size | Intended role | Status | Justification |
+|---|---|---|---:|---|---|---|
+| `occamy-i1` | Occamy 1.0 i1-Q4_K_M + mmproj F16 (RustingStrata 1.3.1, ctx 16384) | 30B MoE | Daily-driver MoE agent | 🟡 Under consideration | Canvas results vary from 0 to 7/10; all tested variants hit the output-token cap. |
+| `occamy-apex` | Occamy 1.0 APEX I-Quality + mmproj F16 (RustingStrata 1.3.1, ctx 16384) | 30B MoE | Best-quality MoE agent | 🔵 Top contender | Canvas leader at 10/10 twice; truncates at the output-token cap in all tested variants. |
+| `bonsai-2.5` | Ternary Bonsai 2.5 27B Q2_0-MTP + mmproj BF16 (llama.cpp b12766, `--reasoning-budget 512`) | 27B | Reasoning agent (most consistent renderer) | 🟡 Under consideration | Never truncates; Canvas scores are lower than Occamy APEX, and long-context TTFT is 14.5s at 8K. |
+| `swift1.5-qwen3.8-27B` | Swift 1.5 Qwen 3.8 27B GSQ-RCO IQ3_S MTP | 27B | Back-end agent for reasoning, tool calling, and vision | 🟡 Under consideration | Candidate for vision routing; comparable end-to-end Grace evaluation is pending. |
 
-Legend: 🟢 Selected · 🟡 Under consideration · 🔴 Rejected
+Legend: 🟢 Selected · 🔵 Top contender · 🟡 Under consideration · 🔴 Rejected
 
 In this planned split, visual inputs can be routed to `swift1.5-qwen3.8-27B`, so Ministral vision
 is not needed unless the front-end must process images directly. Scores for the
