@@ -37,6 +37,7 @@ side. Per-benchmark raw data and the exact protocol live in each suite's
 | `occamy-i1` | Occamy 1.0 i1-Q4_K_M + mmproj F16 (RustingStrata 1.3.1, ctx 16384) | 30B MoE | Daily-driver MoE agent | 🟡 Under consideration | Canvas results vary from 0 to 7/10; all tested variants hit the output-token cap. |
 | `occamy-apex` | Occamy 1.0 APEX I-Quality + mmproj F16 (RustingStrata 1.3.1, ctx 16384) | 30B MoE | Best-quality MoE agent | 🔵 Top contender | Canvas leader at 10/10 twice; truncates at the output-token cap in all tested variants. |
 | `bonsai-2.5` | Ternary Bonsai 2.5 27B Q2_0-MTP + mmproj BF16 (llama.cpp b12766, `--reasoning-budget 512`) | 27B | Reasoning agent (most consistent renderer) | 🟡 Under consideration | Never truncates; Canvas scores are lower than Occamy APEX, and long-context TTFT is 14.5s at 8K. |
+| `ornith-1.5-35b-a3b-heretic` | **Ornith-1.5-35B-A3B-Heretic-MTP-APEX-GSQ-RCO-IQ3_XXS.gguf** + `mmproj-Ornith-1.5-35B-A3B-Heretic-MTP-BF16.gguf` (RustingStrata 1.4.2, ctx 16384) | 35B-A3B | Fast uncensored MoE agent | 🔵 Top contender | Fastest uncensored agentic model tested: 121.8 tok/s decode @8K with MTP+ngram (see Agentic inference perf). Quality/canvas/IFEval not yet benchmarked. |
 | `swift1.5-qwen3.8-27B` | Swift 1.5 Qwen 3.8 27B GSQ-RCO IQ3_S MTP | 27B | Back-end agent for reasoning, tool calling, and vision | 🟡 Under consideration | Candidate for vision routing; comparable end-to-end Grace evaluation is pending. |
 
 Legend: 🟢 Selected · 🔵 Top contender · 🟡 Under consideration · 🔴 Rejected

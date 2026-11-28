@@ -8,10 +8,11 @@
     "history": "released messages including fixed assistant turn",
     "primary_metric": "prompt_loose",
     "generation_policy": "bounded-v1",
-    "request_timeout_seconds": 600,
+    "request_timeout_seconds": 1200,
     "token_limit_policy": "score returned final text; continue",
     "timeout_policy": "score empty response; continue; report separately",
     "answer_extraction": "message.content only; reasoning_content saved separately",
+    "thinking": "disabled via chat_template_kwargs.enable_thinking=false",
     "dataset": "allenai/IFBench_multi-turn",
     "dataset_revision": "e1ea65c5178fbeac522a26d12b8c71a298e9846d",
     "config": "ifbench_constraints",
@@ -20,10 +21,10 @@
   "data_sha256": "7dde40dd598101968ea839792192032dd2cee92e95a501ed182237b306c99bd1",
   "total": 1387,
   "limit": 0,
-  "model": "ministral-3-8b-instruct-2512-abliterated",
-  "base_url": "https://oppa-ai-org--grace-llm-serve-serve-ministral.us-east.modal.run/v1",
+  "model": "swift15-qwen3.8-27b-local",
+  "base_url": "https://oppa-ai-org--grace-llm-serve-serve-swift.us-east.modal.run/v1",
   "n": 1,
   "temperature": 0.0,
-  "max_tokens": 4096,
-  "think_off": false
+  "max_tokens": 8192,
+  "think_off": true
 }
