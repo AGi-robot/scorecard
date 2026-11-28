@@ -24,10 +24,10 @@ side. Per-benchmark raw data and the exact protocol live in each suite's
 | Label | Model / build | Size | Intended role | Status | Justification |
 |---|---|---:|---|---|---|
 | `ministral3-8b-nymphaea-rp-iq4xs` | Ministral 3 8B Nymphaea RP i1-IQ4_XS (run label: `nymphaea-rp`) | 8B | RP/creative Ministral variant (same speed as IQ4_XS) | 🔵 Top contender  | Better MBPP+ than the Abliterated build; RP-specific chat evaluation still matters. |
-| `ministral3-8b-abliterated-iq4xs` | Ministral 3 8B Instruct 2512 Abliterated i1-IQ4_XS (run label: `ministral-iq4xs`; local `/opt/agi/models/ministral3-8b/`) | 8B | Daily-driver router model: fastest, lowest VRAM | 🔵 Top contender | Active default; fastest prefill, 5.9 GiB VRAM, no IFEval truncations. |
-| `minicpm5-2b` | MiniCPM 5 | 2B | Cheap helper or robot-side model | 🟡 Under consideration  | Best recorded IFEval result: 85.6 strict / 87.2 loose. |
-| `agents-a1-4b` | Agents A1 | 4B | Cheap helper or robot-side model | 🟡 Under consideration | IFEval trails MiniCPM 5; no broader comparison recorded. |
-| `neohorse-1-4b` | NeoHorse | 4B | Cheap helper or robot-side model | 🟡 Under consideration | IFEval trails MiniCPM 5; no broader comparison recorded. |
+| `ministral3-8b-abliterated-iq4xs` | Ministral 3 8B Instruct 2512 Abliterated i1-IQ4_XS (run label: `ministral-iq4xs`; local `/opt/agi/models/ministral3-8b/`) | 8B | Daily-driver router model: fastest, lowest VRAM | 🟡 Under consideration | Active default; fastest prefill, 5.9 GiB VRAM, no IFEval truncations. |
+| `minicpm5-2b` | MiniCPM 5 | 2B | Cheap helper or robot-side model | N/A  | Reference for model comparison on interactive and agentic scorings. |
+| `agents-a1-4b` | Agents A1 | 4B | Cheap helper or robot-side model | N/A | Reference for model comparison on interactive and agentic scorings. |
+| `neohorse-1-4b` | NeoHorse | 4B | Cheap helper or robot-side model | N/A | Reference for model comparison on interactive and agentic scorings. |
 | `ministral3-14b` | Ministral 3 14B Instruct 2512 UD-Q4KXL | 14B | Front-end chatbot for conversation and persona | 🔴 Rejected | Not enough VRAM to load if running together with an agentic model. |
 
 ### Back-end agentic models
