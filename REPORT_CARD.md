@@ -47,6 +47,76 @@ is not needed unless the front-end must process images directly. Scores for the
 two component models do not predict the routed Grace system; evaluate that
 system end to end when it is available.
 
+Inference perf (temp 0, 256 output tokens, 2 reps; VRAM/RAM are sampled peaks;
+14B entries excluded):
+
+| Build | Prompt tokens | Prefill tok/s | Decode tok/s | TTFT | VRAM | RAM PSS |
+|---|---:|---:|---:|---:|---:|---:|
+| ministral3-8b-abliterated-iq4xs (active default, llama.cpp) | 512 / 2048 / 8192 | 2264 / 2982 / 3124 | 54.4 / 49.4 / 38.1 | 487 ms / 921 ms / 2946 ms | 5.9 GiB | 1.1 / 1.4 / 2.0 GiB |
+| ministral3-8b-abliterated-iq4nl (deleted quant, kept for record) | 512 / 2048 / 8192 | 2123 / 2864 / 2985 | 52.4 / 49.9 / 37.3 | 516 ms / 945 ms / 3093 ms | 6.0 GiB | 1.1 / 1.4 / 2.0 GiB |
+| ministral3-8b-abliterated-q4km (deleted quant, kept for record) | 512 / 2048 / 8192 | 1952 / 2616 / 2761 | 49.6 / 45.9 / 35.0 | 557 ms / 1040 ms / 3319 ms | 6.4 GiB | 1.2 / 1.4 / 2.1 GiB |
+| ministral3-8b-abliterated-udq4kxl (deleted quant, kept for record) | 512 / 2048 / 8192 | 562 / 1007 / 3255 | 49.3 / 46.0 / 35.2 | 1276 ms / 1491 ms / 2185 ms | 6.4 GiB | 1.2 / 1.4 / 2.1 GiB |
+| ministral3-8b-nymphaea-rp-iq4xs | 512 / 2048 / 8192 | (identical to IQ4_XS) | 56.3 / 37.9 | 2.9s @8K | 5.9 GiB | (identical) |
+
+Scores (8B only; 14B excluded):
+
+| Benchmark | Build | n | Result |
+|---|---|---:|---|
+| IFEval strict / loose | ministral3-8b-nymphaea-rp-iq4xs | 541 | **66.7 / 68.4** (17 trunc) |
+| IFEval strict / loose | ministral3-8b-abliterated-q4km (Modal) | 541 | 56.6 / 64.1 (2 trunc) |
+| IFEval strict / loose | ministral3-8b-abliterated-iq4xs (Modal) | 541 | 56.2 / 66.4 (1 trunc) |
+| IFEval strict / loose | ministral3-8b-abliterated-iq4xs (local, active) | 541 | 55.8 / 63.8 (0 trunc) |
+| IFEval strict / loose | ministral3-8b-abliterated-iq3s (Modal) | 541 | 49.9 / 56.4 (39 trunc) |
+| IFBench single-turn (prompt loose / strict) | ministral3-8b-abliterated-iq4xs (Modal) | 300 | 26.3 / 20.0 (10 token-limited) |
+| EvalPlus pass@1 (HumanEval base/+ / MBPP base/+) | ministral3-8b-abliterated-iq4xs (Modal) | 164 / 378 | 0.835 / 0.787 / 0.743 / 0.624 |
+| EvalPlus pass@1 (HumanEval base/+ / MBPP base/+) | ministral3-8b-nymphaea-rp-iq4xs (local) | 164 / 378 | 0.811 / 0.768 / 0.798 / 0.687 |
+| Grace Chatbot Elo (blind pairwise) | ministral3-14b (source run label: `ministral`) | 6 scripts / 21 turns | **1539** (most likeable in sample) |
+
+### Small models (2–4B) — inference perf (llama.cpp b12826, temp 0, 256 output tokens, 3 reps)
+
+Temp 0, 256 output tokens, 3 reps; ctx 16384; single GPU for the 4B models.
+Full JSON in `results/inference_perf/<label>/summary.json`.
+
+| Model | Build | Prompt tokens | Prefill tok/s | Decode tok/s | TTFT | VRAM | RAM PSS |
+|---|---|---:|---:|---:|---:|---:|---:|
+| minicpm5-2b | MiniCPM5-2B Q8_0 (2.5 GB) | 512 / 2048 / 8192 | 6,247 / 9,028 / 8,183 | 111.1 / 106.6 / 96.6 | 102.7 / 269.7 / 1,147.1 ms | 3.5 GB | 1.0 / 1.3 / 2.5 GB |
+| neohorse-1-4b | NeoHorse 4B Q4_K_M (2.6 GB) | 512 / 2048 / 8192 | 2,264 / 3,685 / 4,713 | 88.4 / 87.2 / 82.1 | 262.9 / 607.4 / 1,935.1 ms | 3.9 GB | 1.9 / 2.7 / 4.2 GB |
+| agents-a1-4b | Agents A1 4B Q4_K_M (2.6 GB) | 512 / 2048 / 8192 | 2,325 / 3,493 / 4,660 | 88.8 / 88.2 / 82.9 | 361.9 / 710.2 / 1,947.0 ms | 3.9 GB | 2.0 / 3.1 / 4.8 GB |
+| agents-a1-4b + mmproj | Agents A1 4B Q4_K_M + mmproj (3.2 GB) | 512 / 2048 / 8192 | 2,337 / 3,503 / 4,594 | 88.8 / 88.4 / 81.2 | 359.4 / 707.6 / 1,968.7 ms | 4.8 GB | 2.1 / 3.2 / 4.9 GB |
+
+minicpm5-2b is ~2.7× faster to decode and prefill than the 4B models and uses the least VRAM/RAM despite Q8_0. neohorse and agents-a1 are within ~3% of each other. Adding the Agents A1 mmproj costs ~0.9 GB VRAM with no measurable speed change (text throughput unaffected).
+
+### Agentic models — inference perf (RustingStrata 1.4.2, ctx 16384, temp 0, 256 output, 2 reps)
+
+Best Ornith config (calibrated + sweep): `--gpu --spec-type ngram-map-k4v,ngram-cache --mtp 1 --vram-margin 256 --chunk 2048 --ctx 16384 --thinking-budget 2048`. Calibrate: `strata-Ornith-1.5-35B-A3B-Heretic-MTP-APEX-GSQ-RCO-IQ3_XXS.json`.
+
+| Model | Quant | Speculation | Decode @512 / 2K / 8K | Prefill@8K | TTFT@8K | VRAM |
+|---|---|---|---:|---:|---:|---:|
+| **Ornith-1.5-35B-A3B-Heretic-MTP-APEX-GSQ-RCO-IQ3_XXS** + mmproj BF16 | IQ3_XXS | MTP+ngram (vrm256) | 122.9 / 111.1 / **121.8** | — | 4.34 s | ~11.3 GB |
+| Ornith (same, baseline calibrated) | IQ3_XXS | MTP+ngram | 121.3 / 119.2 / 110.9 | 1768 | 4.61 s | ~11.3 GB |
+| Occamy 1.0 i1 abliterated | Q4_K_M | ngram (no MTP head) | 116.7 / 106.9 / 109.3 | 1810 | 4.55 s | ~11.0 GB |
+| Occamy 1.0 apex abliterated | Q6_K | ngram (no MTP head) | 104.0 / 86.7 / 81.9 | 1475 | 5.58 s | ~11.0 GB |
+| JoyFox Qwen3.6 RP Aggressive | Q6_K | MTP+ngram | 33.2 / 70.5 / 82.6 | 1208 | 6.81 s | ~11.2 GB |
+| Gemma 4 26B A4B StyleTune V2 | Q6_K | ngram only (MTP drafter mismatched) | 116.8 / 116.6 / 111.5 | 1766 | 7.68 s | — |
+| Gemma 4 26B A4B StyleTune V2 | Q6_K | MTP+ngram (mismatched drafter) | 22.8 / 18.7 / 13.6 | 87.6 | 93.5 s | ~10.4 GB |
+| Bonsai 2.5 27B | Q2_0 ternary | none (llama.cpp b12766) | 32.4 / 31.8 / 30.2 | 578 | 14.5 s | ~10.6 GB (2 GPUs) |
+| Inkling-2-Mini | Q4_K | ngram (no MTP head) | 23.9 / 21.1 / 21.3 | 130 | 63.2 s | ~5.9 GB |
+
+Notes: Occamy has no MTP head; Ornith MTP gives +28% over ngram-only. Gemma MTP drafter (unsloth base) mismatches StyleTune V2 and tanks speed; without MTP Gemma is fast. Inkling has no MTP head. JoyFox native MTP gives minimal gain over ngram-only.
+
+### Combined — 3-model comparison (canvas 40 / decode 25 / TTFT@8K 20 / memory 15)
+
+Source: `results/combined-3models.json` (best rendered structural + perf).
+
+| Model | Best canvas | Mean | Usable ≥5 | Composite |
+|---|---:|---:|---:|---:|
+| Occamy 1.0 APEX | 10.00 (loose-multi) | 5.00 | 2/4 | **86.5** |
+| Occamy 1.0 i1 | 7.00 (loose-single) | 4.06 | 2/4 | **80.9** |
+| Bonsai 2.5 27B | 8.25 (strict-multi) | 6.62 | 4/4 | **61.5** |
+
+APEX wins on peak quality, Bonsai on consistency (never blank, never
+truncated, 4/4 usable), i1 on speed. No single model dominates all axes.
+
 ## Benchmarks and protocol
 
 | Benchmark | What it measures | n | Protocol | Official scorer |
@@ -204,76 +274,6 @@ expert cache at ctx 16384; RustingStrata VRAM is ~constant (~11 GB) across
 quants.
 
 ### Ministral 3 (8B) — grouped summary (inference perf first, then scores)
-
-Inference perf (temp 0, 256 output tokens, 2 reps; VRAM/RAM are sampled peaks;
-14B entries excluded):
-
-| Build | Prompt tokens | Prefill tok/s | Decode tok/s | TTFT | VRAM | RAM PSS |
-|---|---:|---:|---:|---:|---:|---:|
-| ministral3-8b-abliterated-iq4xs (active default, llama.cpp) | 512 / 2048 / 8192 | 2264 / 2982 / 3124 | 54.4 / 49.4 / 38.1 | 487 ms / 921 ms / 2946 ms | 5.9 GiB | 1.1 / 1.4 / 2.0 GiB |
-| ministral3-8b-abliterated-iq4nl (deleted quant, kept for record) | 512 / 2048 / 8192 | 2123 / 2864 / 2985 | 52.4 / 49.9 / 37.3 | 516 ms / 945 ms / 3093 ms | 6.0 GiB | 1.1 / 1.4 / 2.0 GiB |
-| ministral3-8b-abliterated-q4km (deleted quant, kept for record) | 512 / 2048 / 8192 | 1952 / 2616 / 2761 | 49.6 / 45.9 / 35.0 | 557 ms / 1040 ms / 3319 ms | 6.4 GiB | 1.2 / 1.4 / 2.1 GiB |
-| ministral3-8b-abliterated-udq4kxl (deleted quant, kept for record) | 512 / 2048 / 8192 | 562 / 1007 / 3255 | 49.3 / 46.0 / 35.2 | 1276 ms / 1491 ms / 2185 ms | 6.4 GiB | 1.2 / 1.4 / 2.1 GiB |
-| ministral3-8b-nymphaea-rp-iq4xs | 512 / 2048 / 8192 | (identical to IQ4_XS) | 56.3 / 37.9 | 2.9s @8K | 5.9 GiB | (identical) |
-
-Scores (8B only; 14B excluded):
-
-| Benchmark | Build | n | Result |
-|---|---|---:|---|
-| IFEval strict / loose | ministral3-8b-nymphaea-rp-iq4xs | 541 | **66.7 / 68.4** (17 trunc) |
-| IFEval strict / loose | ministral3-8b-abliterated-q4km (Modal) | 541 | 56.6 / 64.1 (2 trunc) |
-| IFEval strict / loose | ministral3-8b-abliterated-iq4xs (Modal) | 541 | 56.2 / 66.4 (1 trunc) |
-| IFEval strict / loose | ministral3-8b-abliterated-iq4xs (local, active) | 541 | 55.8 / 63.8 (0 trunc) |
-| IFEval strict / loose | ministral3-8b-abliterated-iq3s (Modal) | 541 | 49.9 / 56.4 (39 trunc) |
-| IFBench single-turn (prompt loose / strict) | ministral3-8b-abliterated-iq4xs (Modal) | 300 | 26.3 / 20.0 (10 token-limited) |
-| EvalPlus pass@1 (HumanEval base/+ / MBPP base/+) | ministral3-8b-abliterated-iq4xs (Modal) | 164 / 378 | 0.835 / 0.787 / 0.743 / 0.624 |
-| EvalPlus pass@1 (HumanEval base/+ / MBPP base/+) | ministral3-8b-nymphaea-rp-iq4xs (local) | 164 / 378 | 0.811 / 0.768 / 0.798 / 0.687 |
-| Grace Chatbot Elo (blind pairwise) | ministral3-14b (source run label: `ministral`) | 6 scripts / 21 turns | **1539** (most likeable in sample) |
-
-### Small models (2–4B) — inference perf (llama.cpp b12826, temp 0, 256 output tokens, 3 reps)
-
-Temp 0, 256 output tokens, 3 reps; ctx 16384; single GPU for the 4B models.
-Full JSON in `results/inference_perf/<label>/summary.json`.
-
-| Model | Build | Prompt tokens | Prefill tok/s | Decode tok/s | TTFT | VRAM | RAM PSS |
-|---|---|---:|---:|---:|---:|---:|---:|
-| minicpm5-2b | MiniCPM5-2B Q8_0 (2.5 GB) | 512 / 2048 / 8192 | 6,247 / 9,028 / 8,183 | 111.1 / 106.6 / 96.6 | 102.7 / 269.7 / 1,147.1 ms | 3.5 GB | 1.0 / 1.3 / 2.5 GB |
-| neohorse-1-4b | NeoHorse 4B Q4_K_M (2.6 GB) | 512 / 2048 / 8192 | 2,264 / 3,685 / 4,713 | 88.4 / 87.2 / 82.1 | 262.9 / 607.4 / 1,935.1 ms | 3.9 GB | 1.9 / 2.7 / 4.2 GB |
-| agents-a1-4b | Agents A1 4B Q4_K_M (2.6 GB) | 512 / 2048 / 8192 | 2,325 / 3,493 / 4,660 | 88.8 / 88.2 / 82.9 | 361.9 / 710.2 / 1,947.0 ms | 3.9 GB | 2.0 / 3.1 / 4.8 GB |
-| agents-a1-4b + mmproj | Agents A1 4B Q4_K_M + mmproj (3.2 GB) | 512 / 2048 / 8192 | 2,337 / 3,503 / 4,594 | 88.8 / 88.4 / 81.2 | 359.4 / 707.6 / 1,968.7 ms | 4.8 GB | 2.1 / 3.2 / 4.9 GB |
-
-minicpm5-2b is ~2.7× faster to decode and prefill than the 4B models and uses the least VRAM/RAM despite Q8_0. neohorse and agents-a1 are within ~3% of each other. Adding the Agents A1 mmproj costs ~0.9 GB VRAM with no measurable speed change (text throughput unaffected).
-
-### Agentic models — inference perf (RustingStrata 1.4.2, ctx 16384, temp 0, 256 output, 2 reps)
-
-Best Ornith config (calibrated + sweep): `--gpu --spec-type ngram-map-k4v,ngram-cache --mtp 1 --vram-margin 256 --chunk 2048 --ctx 16384 --thinking-budget 2048`. Calibrate: `strata-Ornith-1.5-35B-A3B-Heretic-MTP-APEX-GSQ-RCO-IQ3_XXS.json`.
-
-| Model | Quant | Speculation | Decode @512 / 2K / 8K | Prefill@8K | TTFT@8K | VRAM |
-|---|---|---|---:|---:|---:|---:|
-| **Ornith-1.5-35B-A3B-Heretic-MTP-APEX-GSQ-RCO-IQ3_XXS** + mmproj BF16 | IQ3_XXS | MTP+ngram (vrm256) | 122.9 / 111.1 / **121.8** | — | 4.34 s | ~11.3 GB |
-| Ornith (same, baseline calibrated) | IQ3_XXS | MTP+ngram | 121.3 / 119.2 / 110.9 | 1768 | 4.61 s | ~11.3 GB |
-| Occamy 1.0 i1 abliterated | Q4_K_M | ngram (no MTP head) | 116.7 / 106.9 / 109.3 | 1810 | 4.55 s | ~11.0 GB |
-| Occamy 1.0 apex abliterated | Q6_K | ngram (no MTP head) | 104.0 / 86.7 / 81.9 | 1475 | 5.58 s | ~11.0 GB |
-| JoyFox Qwen3.6 RP Aggressive | Q6_K | MTP+ngram | 33.2 / 70.5 / 82.6 | 1208 | 6.81 s | ~11.2 GB |
-| Gemma 4 26B A4B StyleTune V2 | Q6_K | ngram only (MTP drafter mismatched) | 116.8 / 116.6 / 111.5 | 1766 | 7.68 s | — |
-| Gemma 4 26B A4B StyleTune V2 | Q6_K | MTP+ngram (mismatched drafter) | 22.8 / 18.7 / 13.6 | 87.6 | 93.5 s | ~10.4 GB |
-| Bonsai 2.5 27B | Q2_0 ternary | none (llama.cpp b12766) | 32.4 / 31.8 / 30.2 | 578 | 14.5 s | ~10.6 GB (2 GPUs) |
-| Inkling-2-Mini | Q4_K | ngram (no MTP head) | 23.9 / 21.1 / 21.3 | 130 | 63.2 s | ~5.9 GB |
-
-Notes: Occamy has no MTP head; Ornith MTP gives +28% over ngram-only. Gemma MTP drafter (unsloth base) mismatches StyleTune V2 and tanks speed; without MTP Gemma is fast. Inkling has no MTP head. JoyFox native MTP gives minimal gain over ngram-only.
-
-### Combined — 3-model comparison (canvas 40 / decode 25 / TTFT@8K 20 / memory 15)
-
-Source: `results/combined-3models.json` (best rendered structural + perf).
-
-| Model | Best canvas | Mean | Usable ≥5 | Composite |
-|---|---:|---:|---:|---:|
-| Occamy 1.0 APEX | 10.00 (loose-multi) | 5.00 | 2/4 | **86.5** |
-| Occamy 1.0 i1 | 7.00 (loose-single) | 4.06 | 2/4 | **80.9** |
-| Bonsai 2.5 27B | 8.25 (strict-multi) | 6.62 | 4/4 | **61.5** |
-
-APEX wins on peak quality, Bonsai on consistency (never blank, never
-truncated, 4/4 usable), i1 on speed. No single model dominates all axes.
 
 ### Historical BFCL V3 responses — incomplete samples
 
