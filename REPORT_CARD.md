@@ -87,13 +87,13 @@ arm because the arms disagree by more than any other benchmark here.
 | agents-a1-4b | 541 | 76.3 | 81.2 | 117 min |
 | ministral3-14b | 541 | 65.1 | 71.5 | 219 min |
 
-IQ4_XS is the active router default: fastest prefill, 6.0 GB VRAM, zero
+`ministral3-8b-abliterated-iq4xs` is the active router default: fastest prefill, 6.0 GB VRAM, zero
 truncations, within ~1pp of Q4_K_M. Nymphaea-RP is kept as the second
 Ministral variant for RP/creative work.
 
 | IFEval score box — recommended daily driver | Strict | Loose | Truncated |
 |---|---:|---:|---:|
-| Ministral 3 8B Abliterated i1-IQ4_XS (local) | **55.8%** | **63.8%** | **0 / 541** |
+| ministral3-8b-abliterated-iq4xs (local) | **55.8%** | **63.8%** | **0 / 541** |
 
 ### IFBench single-turn — precise instruction following (official scorer)
 
@@ -102,7 +102,7 @@ n=1, primary metric prompt-level loose accuracy.
 
 | Model | n | Prompt loose | Prompt strict | Token-limited | Timeouts |
 |---|---:|---:|---:|---:|---:|
-| ministral-3-8b-abliterated IQ4_XS (Modal) | 300 | 26.3 | 20.0 | 10 | 0 |
+| ministral3-8b-abliterated-iq4xs (Modal) | 300 | 26.3 | 20.0 | 10 | 0 |
 
 Instruction-level: strict 23.3, loose 29.7. First IFBench datapoint — no
 baseline to rank against yet; the multi-turn suite (1,387 constraints) still
@@ -200,25 +200,25 @@ Inference perf (temp 0, 256 output tokens, 2 reps; VRAM/RAM are sampled peaks;
 
 | Build | Prompt tokens | Prefill tok/s | Decode tok/s | TTFT | VRAM | RAM PSS |
 |---|---:|---:|---:|---:|---:|---:|
-| IQ4_XS (active default, llama.cpp) | 512 / 2048 / 8192 | 2264 / 2982 / 3124 | 54.4 / 49.4 / 38.1 | 487 ms / 921 ms / 2946 ms | 5.9 GiB | 1.1 / 1.4 / 2.0 GiB |
-| IQ4_NL (deleted quant, kept for record) | 512 / 2048 / 8192 | 2123 / 2864 / 2985 | 52.4 / 49.9 / 37.3 | 516 ms / 945 ms / 3093 ms | 6.0 GiB | 1.1 / 1.4 / 2.0 GiB |
-| Q4_K_M (deleted quant, kept for record) | 512 / 2048 / 8192 | 1952 / 2616 / 2761 | 49.6 / 45.9 / 35.0 | 557 ms / 1040 ms / 3319 ms | 6.4 GiB | 1.2 / 1.4 / 2.1 GiB |
-| UD-Q4_K_XL (deleted quant, kept for record) | 512 / 2048 / 8192 | 562 / 1007 / 3255 | 49.3 / 46.0 / 35.2 | 1276 ms / 1491 ms / 2185 ms | 6.4 GiB | 1.2 / 1.4 / 2.1 GiB |
-| Nymphaea RP (IQ4_XS-class) | 512 / 2048 / 8192 | (identical to IQ4_XS) | 56.3 / 37.9 | 2.9s @8K | 5.9 GiB | (identical) |
+| ministral3-8b-abliterated-iq4xs (active default, llama.cpp) | 512 / 2048 / 8192 | 2264 / 2982 / 3124 | 54.4 / 49.4 / 38.1 | 487 ms / 921 ms / 2946 ms | 5.9 GiB | 1.1 / 1.4 / 2.0 GiB |
+| ministral3-8b-abliterated-iq4nl (deleted quant, kept for record) | 512 / 2048 / 8192 | 2123 / 2864 / 2985 | 52.4 / 49.9 / 37.3 | 516 ms / 945 ms / 3093 ms | 6.0 GiB | 1.1 / 1.4 / 2.0 GiB |
+| ministral3-8b-abliterated-q4km (deleted quant, kept for record) | 512 / 2048 / 8192 | 1952 / 2616 / 2761 | 49.6 / 45.9 / 35.0 | 557 ms / 1040 ms / 3319 ms | 6.4 GiB | 1.2 / 1.4 / 2.1 GiB |
+| ministral3-8b-abliterated-udq4kxl (deleted quant, kept for record) | 512 / 2048 / 8192 | 562 / 1007 / 3255 | 49.3 / 46.0 / 35.2 | 1276 ms / 1491 ms / 2185 ms | 6.4 GiB | 1.2 / 1.4 / 2.1 GiB |
+| ministral3-8b-nymphaea-rp-iq4xs | 512 / 2048 / 8192 | (identical to IQ4_XS) | 56.3 / 37.9 | 2.9s @8K | 5.9 GiB | (identical) |
 
 Scores (8B only; 14B excluded):
 
 | Benchmark | Build | n | Result |
 |---|---|---:|---|
 | IFEval strict / loose | ministral3-8b-nymphaea-rp-iq4xs | 541 | **66.7 / 68.4** (17 trunc) |
-| IFEval strict / loose | ministral3-8b-q4km (Modal) | 541 | 56.6 / 64.1 (2 trunc) |
+| IFEval strict / loose | ministral3-8b-abliterated-q4km (Modal) | 541 | 56.6 / 64.1 (2 trunc) |
 | IFEval strict / loose | ministral3-8b-abliterated-iq4xs (Modal) | 541 | 56.2 / 66.4 (1 trunc) |
 | IFEval strict / loose | ministral3-8b-abliterated-iq4xs (local, active) | 541 | 55.8 / 63.8 (0 trunc) |
-| IFEval strict / loose | ministral3-8b-iq3s (Modal) | 541 | 49.9 / 56.4 (39 trunc) |
-| IFBench single-turn (prompt loose / strict) | IQ4_XS (Modal) | 300 | 26.3 / 20.0 (10 token-limited) |
-| EvalPlus pass@1 (HumanEval base/+ / MBPP base/+) | IQ4_XS (Modal) | 164 / 378 | 0.835 / 0.787 / 0.743 / 0.624 |
-| EvalPlus pass@1 (HumanEval base/+ / MBPP base/+) | Nymphaea RP (local) | 164 / 378 | 0.811 / 0.768 / 0.798 / 0.687 |
-| Grace Chatbot Elo (blind pairwise) | Ministral 3 8B | 6 scripts / 21 turns | **1539** (most likeable in sample) |
+| IFEval strict / loose | ministral3-8b-abliterated-iq3s (Modal) | 541 | 49.9 / 56.4 (39 trunc) |
+| IFBench single-turn (prompt loose / strict) | ministral3-8b-abliterated-iq4xs (Modal) | 300 | 26.3 / 20.0 (10 token-limited) |
+| EvalPlus pass@1 (HumanEval base/+ / MBPP base/+) | ministral3-8b-abliterated-iq4xs (Modal) | 164 / 378 | 0.835 / 0.787 / 0.743 / 0.624 |
+| EvalPlus pass@1 (HumanEval base/+ / MBPP base/+) | ministral3-8b-nymphaea-rp-iq4xs (local) | 164 / 378 | 0.811 / 0.768 / 0.798 / 0.687 |
+| Grace Chatbot Elo (blind pairwise) | Ministral 3 8B (source run label: `ministral`) | 6 scripts / 21 turns | **1539** (most likeable in sample) |
 
 ### Combined — 3-model comparison (canvas 40 / decode 25 / TTFT@8K 20 / memory 15)
 
@@ -375,8 +375,8 @@ Apex 10 > Bonsai 8.25/6.25 > i1 7 > blanks 0, matching eyeball judgment.
 
 | Run | State |
 |---|---|
-| IFBench multi-turn IQ4_XS (1,387) | generating vs local router :8080, ~13s/task (~5h), resumable; log `/tmp/opencode/ifbench-multiturn.log` |
-| Last completions | Nymphaea EvalPlus (HumanEval+ 0.768, MBPP+ 0.687), Occamy/Bonsai lighthouse matrix + rescore, `inference_perf` for all three, IFBench single-turn IQ4_XS 26.3 |
+| IFBench multi-turn ministral3-8b-abliterated-iq4xs (1,387) | generating vs local router :8080, ~13s/task (~5h), resumable; log `/tmp/opencode/ifbench-multiturn.log` |
+| Last completions | ministral3-8b-nymphaea-rp-iq4xs EvalPlus (HumanEval+ 0.768, MBPP+ 0.687), Occamy/Bonsai lighthouse matrix + rescore, `inference_perf` for all three, IFBench single-turn ministral3-8b-abliterated-iq4xs 26.3 |
 
 ## Gaps
 
@@ -389,7 +389,7 @@ Apex 10 > Bonsai 8.25/6.25 > i1 7 > blanks 0, matching eyeball judgment.
    `swift1.5-qwen3.8-27B` and `ministral3-14b`.
 3. **Multi-turn scores pending** — IFBench single-turn is recorded above;
    the fixed-history multi-turn runner (1,387 constraints) is integrated and a
-   full IQ4_XS run is underway against the local router (resumable output dir
+   full ministral3-8b-abliterated-iq4xs run is underway against the local router (resumable output dir
    `benchmarks/ifbench/results/multiturn-ministral-iq4xs`). Score it with
    `--stage score` on completion and record prompt loose/strict here.
 4. **No persistent-memory retrieval measurement** — LongMemEval full-history
