@@ -229,6 +229,20 @@ Scores (8B only; 14B excluded):
 | EvalPlus pass@1 (HumanEval base/+ / MBPP base/+) | ministral3-8b-nymphaea-rp-iq4xs (local) | 164 / 378 | 0.811 / 0.768 / 0.798 / 0.687 |
 | Grace Chatbot Elo (blind pairwise) | ministral3-14b (source run label: `ministral`) | 6 scripts / 21 turns | **1539** (most likeable in sample) |
 
+### Small models (2–4B) — inference perf (llama.cpp b12826, temp 0, 256 output tokens, 3 reps)
+
+Temp 0, 256 output tokens, 3 reps; ctx 16384; single GPU for the 4B models.
+Full JSON in `results/inference_perf/<label>/summary.json`.
+
+| Model | Build | Prompt tokens | Prefill tok/s | Decode tok/s | TTFT | VRAM | RAM PSS |
+|---|---|---:|---:|---:|---:|---:|---:|
+| minicpm5-2b | MiniCPM5-2B Q8_0 (2.5 GB) | 512 / 2048 / 8192 | 6,247 / 9,028 / 8,183 | 111.1 / 106.6 / 96.6 | 102.7 / 269.7 / 1,147.1 ms | 3.5 GB | 1.0 / 1.3 / 2.5 GB |
+| neohorse-1-4b | NeoHorse 4B Q4_K_M (2.6 GB) | 512 / 2048 / 8192 | 2,264 / 3,685 / 4,713 | 88.4 / 87.2 / 82.1 | 262.9 / 607.4 / 1,935.1 ms | 3.9 GB | 1.9 / 2.7 / 4.2 GB |
+| agents-a1-4b | Agents A1 4B Q4_K_M (2.6 GB) | 512 / 2048 / 8192 | 2,325 / 3,493 / 4,660 | 88.8 / 88.2 / 82.9 | 361.9 / 710.2 / 1,947.0 ms | 3.9 GB | 2.0 / 3.1 / 4.8 GB |
+| agents-a1-4b + mmproj | Agents A1 4B Q4_K_M + mmproj (3.2 GB) | 512 / 2048 / 8192 | 2,337 / 3,503 / 4,594 | 88.8 / 88.4 / 81.2 | 359.4 / 707.6 / 1,968.7 ms | 4.8 GB | 2.1 / 3.2 / 4.9 GB |
+
+minicpm5-2b is ~2.7× faster to decode and prefill than the 4B models and uses the least VRAM/RAM despite Q8_0. neohorse and agents-a1 are within ~3% of each other. Adding the Agents A1 mmproj costs ~0.9 GB VRAM with no measurable speed change (text throughput unaffected).
+
 ### Combined — 3-model comparison (canvas 40 / decode 25 / TTFT@8K 20 / memory 15)
 
 Source: `results/combined-3models.json` (best rendered structural + perf).
