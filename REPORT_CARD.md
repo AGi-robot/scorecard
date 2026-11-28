@@ -86,16 +86,6 @@ arm because the arms disagree by more than any other benchmark here.
 | agents-a1-4b | 541 | 76.3 | 81.2 | 117 min |
 | ministral3-14b | 541 | 65.1 | 71.5 | 219 min |
 
-### IFEval — Ministral 8B variants (strict / loose)
-
-| Model | n | Strict | Loose | Truncated | Time |
-|---|---:|---:|---:|---:|---:|
-| nymphaea-rp (IQ4_XS) | 541 | **66.7** | **68.4** | 17 | 152 min |
-| ministral-iq4xs Q4_K_M (Modal) | 541 | 56.6 | 64.1 | 2 | 108 min |
-| ministral-iq4xs IQ4_XS (Modal) | 541 | 56.2 | 66.4 | 1 | 69 min |
-| ministral-iq4xs IQ4_XS (local, active) | 541 | 55.8 | 63.8 | 0 | 18 min |
-| ministral-iq4xs IQ3_S (Modal) | 541 | 49.9 | 56.4 | 39 | 89 min |
-
 IQ4_XS is the active router default: fastest prefill, 6.0 GB VRAM, zero
 truncations, within ~1pp of Q4_K_M. Nymphaea-RP is kept as the second
 Ministral variant for RP/creative work.
@@ -170,14 +160,6 @@ full 6144-token budget (`finish=length`) on 4/4 variants.
 Full groups in `results/inference_perf/<label>/summary.json`. TTFT = time to
 first token; VRAM is shared-GPU peak, PSS is host RAM peak.
 
-**Ministral 8B IQ4_XS** (`ministral-iq4xs-perf`, llama.cpp b12766, active default):
-
-| Prompt tokens | Prefill tok/s | Decode tok/s | TTFT | VRAM | RAM PSS |
-|---:|---:|---:|---:|---:|---:|
-| 512 | 2264 | 54.4 | 487 ms | 5.9 GiB | 1.1 GiB |
-| 2048 | 2982 | 49.4 | 921 ms | 5.9 GiB | 1.4 GiB |
-| 8192 | 3124 | 38.1 | 2946 ms | 5.9 GiB | 2.0 GiB |
-
 **Occamy 1.0 i1-Q4_K_M** (`occamy-i1-perf2`, RustingStrata 1.3.1, ctx 16384):
 
 | Prompt tokens | Prefill tok/s | Decode tok/s | TTFT | VRAM | RAM PSS |
@@ -209,6 +191,33 @@ record: all slower than IQ4_XS for no quality win). Bonsai's long-context
 TTFT (14.5s @8K) is its main weakness; Occamy pays ~21 GB host RAM for its
 expert cache at ctx 16384; RustingStrata VRAM is ~constant (~11 GB) across
 quants.
+
+### Ministral 3 (8B) — grouped summary (inference perf first, then scores)
+
+Inference perf (temp 0, 256 output tokens, 2 reps; VRAM/RAM are sampled peaks;
+14B entries excluded):
+
+| Build | Prompt tokens | Prefill tok/s | Decode tok/s | TTFT | VRAM | RAM PSS |
+|---|---:|---:|---:|---:|---:|---:|
+| IQ4_XS (active default, llama.cpp) | 512 / 2048 / 8192 | 2264 / 2982 / 3124 | 54.4 / 49.4 / 38.1 | 487 ms / 921 ms / 2946 ms | 5.9 GiB | 1.1 / 1.4 / 2.0 GiB |
+| IQ4_NL (deleted quant, kept for record) | 512 / 2048 / 8192 | 2123 / 2864 / 2985 | 52.4 / 49.9 / 37.3 | 516 ms / 945 ms / 3093 ms | 6.0 GiB | 1.1 / 1.4 / 2.0 GiB |
+| Q4_K_M (deleted quant, kept for record) | 512 / 2048 / 8192 | 1952 / 2616 / 2761 | 49.6 / 45.9 / 35.0 | 557 ms / 1040 ms / 3319 ms | 6.4 GiB | 1.2 / 1.4 / 2.1 GiB |
+| UD-Q4_K_XL (deleted quant, kept for record) | 512 / 2048 / 8192 | 562 / 1007 / 3255 | 49.3 / 46.0 / 35.2 | 1276 ms / 1491 ms / 2185 ms | 6.4 GiB | 1.2 / 1.4 / 2.1 GiB |
+| Nymphaea RP (IQ4_XS-class) | 512 / 2048 / 8192 | (identical to IQ4_XS) | 56.3 / 37.9 | 2.9s @8K | 5.9 GiB | (identical) |
+
+Scores (8B only; 14B excluded):
+
+| Benchmark | Build | n | Result |
+|---|---|---:|---|
+| IFEval strict / loose | nymphaea-rp (IQ4_XS) | 541 | **66.7 / 68.4** (17 trunc) |
+| IFEval strict / loose | ministral-iq4xs Q4_K_M (Modal) | 541 | 56.6 / 64.1 (2 trunc) |
+| IFEval strict / loose | ministral-iq4xs IQ4_XS (Modal) | 541 | 56.2 / 66.4 (1 trunc) |
+| IFEval strict / loose | ministral-iq4xs IQ4_XS (local, active) | 541 | 55.8 / 63.8 (0 trunc) |
+| IFEval strict / loose | ministral-iq4xs IQ3_S (Modal) | 541 | 49.9 / 56.4 (39 trunc) |
+| IFBench single-turn (prompt loose / strict) | IQ4_XS (Modal) | 300 | 26.3 / 20.0 (10 token-limited) |
+| EvalPlus pass@1 (HumanEval base/+ / MBPP base/+) | IQ4_XS (Modal) | 164 / 378 | 0.835 / 0.787 / 0.743 / 0.624 |
+| EvalPlus pass@1 (HumanEval base/+ / MBPP base/+) | Nymphaea RP (local) | 164 / 378 | 0.811 / 0.768 / 0.798 / 0.687 |
+| Grace Chatbot Elo (blind pairwise) | Ministral 3 8B | 6 scripts / 21 turns | **1539** (most likeable in sample) |
 
 ### Combined — 3-model comparison (canvas 40 / decode 25 / TTFT@8K 20 / memory 15)
 
