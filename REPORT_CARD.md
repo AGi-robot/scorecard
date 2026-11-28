@@ -218,7 +218,7 @@ Scores (8B only; 14B excluded):
 | IFBench single-turn (prompt loose / strict) | ministral3-8b-abliterated-iq4xs (Modal) | 300 | 26.3 / 20.0 (10 token-limited) |
 | EvalPlus pass@1 (HumanEval base/+ / MBPP base/+) | ministral3-8b-abliterated-iq4xs (Modal) | 164 / 378 | 0.835 / 0.787 / 0.743 / 0.624 |
 | EvalPlus pass@1 (HumanEval base/+ / MBPP base/+) | ministral3-8b-nymphaea-rp-iq4xs (local) | 164 / 378 | 0.811 / 0.768 / 0.798 / 0.687 |
-| Grace Chatbot Elo (blind pairwise) | Ministral 3 8B (source run label: `ministral`) | 6 scripts / 21 turns | **1539** (most likeable in sample) |
+| Grace Chatbot Elo (blind pairwise) | ministral3-14b (source run label: `ministral`) | 6 scripts / 21 turns | **1539** (most likeable in sample) |
 
 ### Combined — 3-model comparison (canvas 40 / decode 25 / TTFT@8K 20 / memory 15)
 
@@ -313,7 +313,7 @@ the model:
 
 | Model | Votes | Elo | Win rate | Per-dimension wins |
 |---|---:|---:|---:|---|
-| ministral | 16 | **1539** | 31% | coherence 3/3, overall 5/5, persona 3/3, warmth 5/5 |
+| ministral3-14b (source label: `ministral`) | 16 | **1539** | 31% | coherence 3/3, overall 5/5, persona 3/3, warmth 5/5 |
 | swift1.5-qwen3.8-27B | 11 | 1461 | 18% | coherence 3/3, overall 2/2, persona 4/4, warmth 2/2 |
 
 Small n — single rater, six scripts. Treat as a directional signal only.
@@ -322,7 +322,7 @@ Small n — single rater, six scripts. Treat as a directional signal only.
 
 ## What the numbers say
 
-**Ministral is the most likeable model in the small blind persona sample, while
+**Ministral 3 14B is the most likeable model in the small blind persona sample, while
 its 8B variants show mixed instruction-following results.** It wins the blind
 persona test (Elo 1539); on IFEval, Nymphaea RP leads the tested Ministral
 8B variants, while IQ4_XS remains the active low-VRAM router default.
