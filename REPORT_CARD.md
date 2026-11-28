@@ -39,7 +39,7 @@ side. Per-benchmark raw data and the exact protocol live in each suite's
 | `bonsai-2.5` | Ternary Bonsai 2.5 27B Q2_0-MTP + mmproj BF16 (llama.cpp b12766, `--reasoning-budget 512`) | 27B | Reasoning agent (most consistent renderer) | 🟡 |
 | `swift1.5-qwen3.8-27B` | Swift 1.5 Qwen 3.8 27B GSQ-RCO IQ3_S MTP | 27B | Back-end agent for reasoning, tool calling, and vision | 🟡 |
 
-Legend: 🟢 final candidate · 🟡 considering · 🔴 rejected
+Legend: 🟢 Selected · 🟡 Under consideration · 🔴 Rejected
 
 In this planned split, visual inputs can be routed to `swift1.5-qwen3.8-27B`, so Ministral vision
 is not needed unless the front-end must process images directly. Scores for the
