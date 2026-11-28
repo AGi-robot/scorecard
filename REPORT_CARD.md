@@ -1,13 +1,4 @@
-| Model | Quant | Speculation | Decode@512/2K/8K | Prefill@512/2K/8K | TTFT@512/2K/8K | VRAM |
-|---|---|---|---:|---:|---:|---:|
-| **Ornith-1.5-35B-A3B-Heretic-MTP-APEX-GSQ-RCO-IQ3_XXS** + mmproj BF16 | IQ3_XXS | MTP+ngram (vrm256) | 122.9/111.1/**121.8** | 882/1654/1896 | 601ms/1.25s/4.34s | ~11.3GB |
-| Occamy 1.0 i1 abliterated | Q4_K_M | ngram, vrm512 (no MTP head) | 116.7/106.9/109.3 | 467/1041/1810 | 1.12s/1.98s/4.55s | ~11.0GB |
-| Occamy 1.0 apex abliterated | Q6_K | ngram, vrm512 (no MTP head) | 104.0/86.7/81.9 | 383/993/1474 | 1.37s/2.08s/5.58s | ~11.0GB |
-| JoyFox Qwen3.6 RP Aggressive | Q6_K | MTP+ngram | 33.2/70.5/82.6 | 36/696/1208 | 14.65s/2.98s/6.81s | ~11.2GB |
-| Gemma 4 26B A4B StyleTune V2 | Q6_K | ngram only (MTP drafter mismatched) | 116.8/116.6/111.5 | 1084/1530/1766 | 497ms/2.73s/7.68s | — |
-| Gemma 4 26B A4B StyleTune V2 | Q6_K | MTP+ngram (mismatched drafter) | 22.8/18.7/13.6 | 71/100/88 | 7.36s/20.54s/93.50s | ~10.4GB |
-| Bonsai 2.5 27B | Q2_0 ternary | none (llama.cpp b12766) | 32.4/31.8/30.2 | 514/569/578 | 1.09s/3.76s/14.50s | ~10.6GB (2 GPUs) |
-| Inkling-2-Mini | Q4_K | ngram (no MTP head) | 23.9/21.1/21.3 | 122/136/130 | 4.48s/15.29s/63.15s | ~5.9GB |# AGi Scorecard
+# AGi Scorecard
 
 Model benchmark results for the Grace project. Each section identifies its
 scorer and protocol; custom harness checks and partial historical runs are
@@ -46,7 +37,7 @@ side. Per-benchmark raw data and the exact protocol live in each suite's
 | `occamy-i1` | Occamy 1.0 i1-Q4_K_M + mmproj F16 (RustingStrata 1.3.1, ctx 16384) | 30B MoE | Daily-driver MoE agent | 🟡 Under consideration | Canvas results vary from 0 to 7/10; all tested variants hit the output-token cap. |
 | `occamy-apex` | Occamy 1.0 APEX I-Quality + mmproj F16 (RustingStrata 1.3.1, ctx 16384) | 30B MoE | Best-quality MoE agent | 🔵 Top contender | Canvas leader at 10/10 twice; truncates at the output-token cap in all tested variants. |
 | `bonsai-2.5` | Ternary Bonsai 2.5 27B Q2_0-MTP + mmproj BF16 (llama.cpp b12766, `--reasoning-budget 512`) | 27B | Reasoning agent (most consistent renderer) | 🟡 Under consideration | Never truncates; Canvas scores are lower than Occamy APEX, and long-context TTFT is 14.5s at 8K. |
-| `ornith-1.5-35b-a3b-heretic` | **Ornith-1.5-35B-A3B-Heretic-MTP-APEX-GSQ-RCO-IQ3_XXS.gguf** + `mmproj-Ornith-1.5-35B-A3B-Heretic-MTP-BF16.gguf` (RustingStrata 1.4.2, ctx 16384) | 35B-A3B | Fast uncensored MoE agent | 🔵 Top contender | Fastest uncensored agentic model tested: 121.8 tok/s decode @8K with MTP+ngram (see Agentic inference perf). Quality/canvas/IFEval not yet benchmarked. |
+| `ornith-1.5-35b-a3b-heretic` | **Ornith-1.5-35B-A3B-Heretic-MTP-APEX-GSQ-RCO-IQ3_S.gguf** + `mmproj-Ornith-1.5-35B-A3B-Heretic-MTP-BF16.gguf` (RustingStrata 1.4.2, ctx 16384) | 35B-A3B | Fast uncensored MoE agent | 🔵 Top contender | Fastest uncensored agentic model tested: 121.8 tok/s decode @8K with MTP+ngram (IQ3_XXS perf; IQ3_S re-bench pending). Quality/canvas/IFEval not yet benchmarked. |
 | `swift1.5-qwen3.8-27B` | Swift 1.5 Qwen 3.8 27B GSQ-RCO IQ3_S MTP | 27B | Back-end agent for reasoning, tool calling, and vision | 🟡 Under consideration | Candidate for vision routing; comparable end-to-end Grace evaluation is pending. |
 
 Legend: 🟢 Selected · 🔵 Top contender · 🟡 Under consideration · 🔴 Rejected
@@ -103,20 +94,21 @@ minicpm5-2b is ~2.7× faster to decode and prefill than the 4B models and uses t
 
 ### Agentic models — inference perf (RustingStrata 1.4.2, ctx 16384, temp 0, 256 output, 2 reps)
 
-Best Ornith config (calibrated + sweep): `--gpu --spec-type ngram-map-k4v,ngram-cache --mtp 1 --vram-margin 256 --chunk 2048 --ctx 16384 --thinking-budget 2048`. Calibrate: `strata-Ornith-1.5-35B-A3B-Heretic-MTP-APEX-GSQ-RCO-IQ3_XXS.json`.  
-Occamy i1 calibrate: `chunk 2048, mtp 0, short 32` (`strata-occamy-1.0-abliterated-safetensors.i1-Q4_K_M.json`); vrm256 sweep gave 112.3/104.5/103.5 decode @512/2K/8K (below prior 109.3@8K recorded run) — keeping prior recorded run as best.
+Best Ornith config (calibrated + sweep on IQ3_XXS; IQ3_S re-bench pending): `--gpu --spec-type ngram-map-k4v,ngram-cache --mtp 1 --vram-margin 256 --chunk 2048 --ctx 16384 --thinking-budget 2048`. Calibrate: `strata-Ornith-1.5-35B-A3B-Heretic-MTP-APEX-GSQ-RCO-IQ3_XXS.json`.  
+Occamy i1 calibrate: `chunk 2048, mtp 0, short 32` (`strata-occamy-1.0-abliterated-safetensors.i1-Q4_K_M.json`); vrm256 sweep best: 112.3/104.5/103.5 decode @512/2K/8K (known calibrated settings; replaces earlier uncalibrated run).
 
-| Model | Quant | Speculation | Decode@512/2K/8K | Prefill@8K | TTFT@8K | VRAM |
+| Model | Quant | Speculation | Decode@512/2K/8K | Prefill@512/2K/8K | TTFT@512/2K/8K | VRAM |
 |---|---|---|---:|---:|---:|---:|
-| **Ornith-1.5-35B-A3B-Heretic-MTP-APEX-GSQ-RCO-IQ3_XXS** + mmproj BF16 | IQ3_XXS | MTP+ngram (vrm256) | 122.9/111.1/**121.8** | — | 4.34s | ~11.3GB |
-| Ornith (same, baseline calibrated) | IQ3_XXS | MTP+ngram | 121.3/119.2/110.9 | 1768 | 4.61s | ~11.3GB |
-| Occamy 1.0 i1 abliterated | Q4_K_M | ngram (no MTP head) | 116.7/106.9/109.3 | 1810 | 4.55s | ~11.0GB |
-| Occamy 1.0 apex abliterated | Q6_K | ngram (no MTP head) | 104.0/86.7/81.9 | 1475 | 5.58s | ~11.0GB |
-| JoyFox Qwen3.6 RP Aggressive | Q6_K | MTP+ngram | 33.2/70.5/82.6 | 1208 | 6.81s | ~11.2GB |
-| Gemma 4 26B A4B StyleTune V2 | Q6_K | ngram only (MTP drafter mismatched) | 116.8/116.6/111.5 | 1766 | 7.68s | — |
-| Gemma 4 26B A4B StyleTune V2 | Q6_K | MTP+ngram (mismatched drafter) | 22.8/18.7/13.6 | 87.6 | 93.5s | ~10.4GB |
-| Bonsai 2.5 27B | Q2_0 ternary | none (llama.cpp b12766) | 32.4/31.8/30.2 | 578 | 14.5s | ~10.6GB (2 GPUs) |
-| Inkling-2-Mini | Q4_K | ngram (no MTP head) | 23.9/21.1/21.3 | 130 | 63.2s | ~5.9GB |
+| **Ornith-1.5-35B-A3B-Heretic-MTP-APEX-GSQ-RCO-IQ3_S** + mmproj BF16 | IQ3_S | MTP+ngram (vrm256) | 122.9/111.1/**121.8*** | 882/1654/1896* | 601ms/1.25s/4.34s* | ~11.3GB* |
+| Occamy 1.0 i1 abliterated | Q4_K_M | ngram, vrm256 (no MTP head) | 112.3/104.5/103.5 | 533/1074/1336 | 999ms/1.93s/6.15s | ~11.0GB |
+| Occamy 1.0 apex abliterated | Q6_K | ngram, vrm512 (no MTP head) | 104.0/86.7/81.9 | 383/993/1474 | 1.37s/2.08s/5.58s | ~11.0GB |
+| JoyFox Qwen3.6 RP Aggressive | Q6_K | MTP+ngram | 33.2/70.5/82.6 | 36/696/1208 | 14.65s/2.98s/6.81s | ~11.2GB |
+| Gemma 4 26B A4B StyleTune V2 | Q6_K | ngram only (MTP drafter mismatched) | 116.8/116.6/111.5 | 1084/1530/1766 | 497ms/2.73s/7.68s | — |
+| Gemma 4 26B A4B StyleTune V2 | Q6_K | MTP+ngram (mismatched drafter) | 22.8/18.7/13.6 | 71/100/88 | 7.36s/20.54s/93.50s | ~10.4GB |
+| Bonsai 2.5 27B | Q2_0 ternary | none (llama.cpp b12766) | 32.4/31.8/30.2 | 514/569/578 | 1.09s/3.76s/14.50s | ~10.6GB (2 GPUs) |
+| Inkling-2-Mini | Q4_K | ngram (no MTP head) | 23.9/21.1/21.3 | 122/136/130 | 4.48s/15.29s/63.15s | ~5.9GB |
+
+\*Ornith perf measured on IQ3_XXS before swap; IQ3_S re-bench pending.
 
 Notes: Occamy has no MTP head; Ornith MTP gives +28% over ngram-only. Gemma MTP drafter (unsloth base) mismatches StyleTune V2 and tanks speed; without MTP Gemma is fast. Inkling has no MTP head. JoyFox native MTP gives minimal gain over ngram-only.
 
