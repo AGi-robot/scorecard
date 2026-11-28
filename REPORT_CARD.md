@@ -99,6 +99,7 @@ minicpm5-2b is ~2.7× faster to decode and prefill than the 4B models and uses t
 - **Occamy i1 Q4_K_M**: `ngram, vrm256, chunk2048, mtp0, short32` — `strata-occamy-1.0-abliterated-safetensors.i1-Q4_K_M.json`
 - **Occamy apex Q6_K**: `ngram, vrm512, chunk2048, mtp0, short32` — `strata-occamy-1.0-abliterated-APEX-I-QUALITY-Q6_K.json`
 - **JoyFox Q6_K**: `MTP+ngram, vrm512, chunk4096, mtp2, short32` — `strata-JoyFox-Qwen3.6-35B-A3B-RP-Aggressive.i1-Q6_K.json`
+- **Gemma 4 26B A4B StyleTune V2 Q6_K**: `ngram, chunk512, mtp0, short32` (sweep running) — `strata-Gemma-4-26B-A4B-StyleTune-V2.i1-Q6_K.json`
 
 | Model | Quant | Speculation | Decode@512/2K/8K | Prefill@512/2K/8K | TTFT@512/2K/8K | VRAM |
 |---|---|---|---:|---:|---:|---:|
