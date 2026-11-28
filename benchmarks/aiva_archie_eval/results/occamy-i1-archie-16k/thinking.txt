@@ -1,0 +1,369 @@
+Let me build a comprehensive, professional animated explainer HTML file. This is a complex single-file project that needs:
+
+1. A pipeline visualization (left → right) with 10 stages
+2. Animated packets flowing along connectors
+3. Working controls: Play/Pause/Restart/Step
+4. Stage indicator
+5. Tooltips/descriptions for each node
+6. Dark professional theme
+7. Responsive at 1280×800
+8. All required keywords present
+9. Zero external dependencies
+
+Let me design the architecture carefully:
+
+Pipeline stages (left to right):
+1. User (speaks/types in browser)
+2. Console WebUI (browser-local appearance prefs; runtime config read-only)
+3. rosbridge WebSocket (127.0.0.1:9090)
+4. telepathy_receptor (ROS 2 adapter node)
+5. Interactive conversation engine (persona SOUL.md + user profile USER.md)
+6. llama.cpp router (one llama-server process, models/llama-router.ini, port 8080)
+   - Ministral 3 8B chat
+   - voyage-4-nano embeddings
+7. Mind ConversationStore (SQLite memory, recent/add_exchange, 8-turn window)
+8. Sidecars: vector Canvas + Imaging capabilities, health/agi_logging
+9. Response path back through same chain to WebUI
+10. Caption: orchestrated by AIVA/launch.sh
+
+Let me think about the layout. I'll use a combination of CSS Grid/Flexbox for the node layout and SVG/Canvas for the animated packets.
+
+Actually, let me use a canvas-based approach for the packets and HTML elements for the nodes. Or I could do everything with SVG. Let me think about what gives the best visual result.
+
+I'll use HTML nodes positioned with CSS, and an SVG overlay for the connectors and animated packets. This gives me the best of both: crisp text in nodes, smooth animation in SVG.
+
+Let me plan the layout:
+- Top: title bar
+- Main area: pipeline nodes arranged left to right, with the response path returning on the bottom row (right to left)
+- Bottom: controls and stage indicator
+
+Actually, the flow is:
+Forward path (top, left to right): User → WebUI → rosbridge → telepathy_receptor → interactive engine → llama.cpp router → Ministral/Canvas/Memory sidecars
+Return path (bottom, right to left): back through the chain to WebUI → User
+
+Let me design it as a loop: forward on top row left→right, return on bottom row right→left.
+
+Let me map out the nodes:
+
+Top row (forward):
+1. User
+2. Console WebUI
+3. rosbridge
+4. telepathy_receptor
+5. Interactive conversation engine
+6. llama.cpp router
+7. Ministral 3 8B (with side branch to memory and canvas)
+
+Bottom row (return, right to left):
+- Response flows back from Ministral area → ... → WebUI → User
+
+Actually, let me reconsider. The response path goes "back through the same chain to the WebUI". So it goes back through: llama.cpp router → telepathy_receptor → rosbridge → WebUI → User.
+
+Let me layout:
+- Top row: User → WebUI → rosbridge → telepathy_receptor → Interactive engine → llama.cpp router → Ministral
+- Bottom row: (return path) Ministral → ... → WebUI → User
+
+With side branches from the router area down to Memory (SQLite) and Canvas (vector + Imaging).
+
+Let me code this up. I'll use a canvas for the animated dots/packets and HTML divs for the nodes.
+
+Let me think about the animation system:
+- Stages 1-9 (or 1-10)
+- Each stage highlights the corresponding node
+- Packets (dots) travel along the connectors
+- Play mode auto-advances
+- Step mode advances one stage at a time
+
+Let me define the stages:
+1. User speaks/types
+2. Console WebUI (appearance prefs)
+3. rosbridge WebSocket (127.0.0.1:9090)
+4. telepathy_receptor (ROS 2 adapter)
+5. Interactive conversation engine (SOUL.md + USER.md)
+6. llama.cpp router (port 8080, routes to Ministral 3 8B)
+7. Ministral 3 8B chat (response generation)
+8. Side-branch: Memory (SQLite) + Canvas (vector/Imaging)
+9. Response path back through chain
+10. Arrives back at WebUI → User
+
+Wait, the prompt says "Stage indicator (e.g. 'Stage 3/9: telepathy_receptor')" so 9 stages. Let me re-read.
+
+The architecture has 10 items listed, but the stage indicator example shows "Stage 3/9". Let me map 9 stages:
+
+1. User
+2. Console WebUI
+3. rosbridge
+4. telepathy_receptor
+5. Interactive conversation engine
+6. llama.cpp router → Ministral 3 8B
+7. Memory (SQLite) + Canvas sidecars
+8. Response path back
+9. Arrives at WebUI/User
+
+Hmm, let me just do 9 stages that cover the pipeline. Actually, let me do 10 stages to match the 10 architecture items, but the example "Stage 3/9" is just an example format. Let me do 10 stages.
+
+Actually, let me re-read: "Stage indicator (e.g. 'Stage 3/9: telepathy_receptor')". The 9 here is just an example. I'll do 10 stages to match all 10 architecture items.
+
+Let me now write the code. This will be a substantial single HTML file.
+
+Let me design the visual layout:
+
+```
++------------------------------------------------------------------+
+|  HOW GRACE WORKS  |  AIVA PC Companion Runtime - Architecture  |
++------------------------------------------------------------------+
+|                                                                  |
+|   [User] → [Console WebUI] → [rosbridge] → [telepathy_] →      |
+|   [Interactive] → [llama.cpp router] → [Ministral]              |
+|        ↓                                                              |
+|        ← ← ← ← ← ← ← ← ← ← ← ← ← ← ← ← ← ← ← ← ← ← ← ← ← ← ← |
+|   [Memory]  [Canvas]  [Imaging]  [health/agi_logging]           |
+|                                                                  |
++------------------------------------------------------------------+
+|  [Play] [Pause] [Restart] [Step]   Stage 3/10: rosbridge        |
++------------------------------------------------------------------+
+```
+
+Hmm, let me think more carefully about the layout to make it professional and readable at 1280×800.
+
+I'll do a horizontal pipeline on the top, with the return path on the bottom, and sidecars below the router.
+
+Let me write the full code now.
+
+For the animation, I'll use requestAnimationFrame to move dots along predefined paths (polyline paths between nodes). Each stage corresponds to a segment of the path. When a stage is active, a packet animates along that segment.
+
+Let me define paths:
+- Forward path: User → WebUI → rosbridge → telepathy → interactive → router → Ministral
+- Side branches: router → Memory, router → Canvas
+- Return path: Ministral → ... → router → telepathy → rosbridge → WebUI → User (bottom row, right to left)
+
+Let me code this step by step.
+
+I'll position nodes with absolute positioning in a container, compute their centers, and draw paths between them.
+
+Let me write the HTML structure:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How Grace Works — AIVA PC Companion Runtime</title>
+<style>
+  /* Dark professional theme */
+</style>
+</head>
+<body>
+  <div id="app">
+    <header>...</header>
+    <main id="pipeline">
+      <!-- nodes positioned absolutely -->
+      <svg id="paths" ...></svg>
+      <!-- packets drawn on svg -->
+    </main>
+    <footer>
+      <div id="controls">...</div>
+      <div id="stage-indicator">...</div>
+    </footer>
+    <div id="legend">...</div>
+  </div>
+  <script>
+    // Animation logic
+  </script>
+</body>
+</html>
+```
+
+Let me write the full implementation now. I need to be very careful about:
+- All required keywords: WebUI, rosbridge, telepathy, interactive, llama.cpp, Ministral, memory, Canvas, launch.sh
+- Zero console errors
+- Responsive at 1280×800
+- Working controls
+
+Let me write it all out.
+
+For the nodes, I'll create them as divs with class "node", positioned absolutely within the pipeline container. The SVG overlay will have paths drawn between node centers.
+
+Let me define the node data:
+
+```js
+const stages = [
+  { id: 'user', label: 'User', sublabel: 'Speaks/types in the browser', x: 0, y: 0 },
+  { id: 'webui', label: 'Console WebUI', sublabel: 'Browser-local appearance prefs; runtime config read-only', x: 1, y: 0 },
+  { id: 'rosbridge', label: 'rosbridge', sublabel: 'WebSocket at 127.0.0.1:9090', x: 2, y: 0 },
+  { id: 'telepathy', label: 'telepathy_receptor', sublabel: 'ROS 2 adapter node', x: 3, y: 0 },
+  { id: 'interactive', label: 'Interactive conversation engine', sublabel: 'Uses persona (SOUL.md) + user profile (USER.md)', x: 4, y: 0 },
+  { id: 'router', label: 'llama.cpp router', sublabel: 'One llama-server process, models/llama-router.ini, port 8080', x: 5, y: 0 },
+  { id: 'ministral', label: 'Ministral 3 8B', sublabel: 'Chat model + voyage-4-nano embeddings', x: 6, y: 0 },
+  { id: 'memory', label: 'Mind ConversationStore', sublabel: 'SQLite memory, recent/add_exchange, 8-turn window', x: 5, y: 1 },
+  { id: 'canvas', label: 'Canvas Sidecar', sublabel: 'Vector + Imaging capabilities, health/agi_logging', x: 6, y: 1 },
+  { id: 'return', label: 'Response Path', sublabel: 'Back through the chain to WebUI', x: 3, y: 1 },
+];
+```
+
+Hmm, this is getting complex with positioning. Let me simplify by using a grid-based layout and computing pixel positions from grid coordinates.
+
+Actually, let me just use pixel positions directly based on a 1280×800 canvas. I'll compute positions as percentages to be responsive.
+
+Let me use a percentage-based approach: each node has a left% and top%, and I compute pixel positions in the resize handler.
+
+Let me design the layout more carefully:
+
+Top row (forward path), y ≈ 25%:
+- User at x=2%
+- WebUI at x=14%
+- rosbridge at x=26%
+- telepathy at x=38%
+- Interactive at x=50%
+- router at x=62%
+- Ministral at x=74%
+
+Sidecars (below router/ministral), y ≈ 55%:
+- Memory at x=62%
+- Canvas at x=74%
+- Imaging/health at x=86%
+
+Bottom row (return path), y ≈ 75%:
+- Return path nodes going right to left
+
+Actually, let me simplify. The return path goes back through the same chain. Let me have a single return path line at the bottom that goes from right to left, with the response packet flowing along it.
+
+Let me restructure:
+
+Forward path (top row, left to right):
+User → WebUI → rosbridge → telepathy_receptor → Interactive engine → llama.cpp router → Ministral
+
+Side branches (from router area, going down):
+- llama.cpp router → Memory (SQLite)
+- llama.cpp router → Canvas (vector + Imaging)
+
+Return path (bottom row, right to left):
+Ministral area → (through sidecars) → router → telepathy → rosbridge → WebUI → User
+
+Let me just code this. I'll use a clean approach with the SVG paths defined as polylines.
+
+Let me write the complete code now. I'll be thorough.
+
+For the packet animation, I'll have a "packet" object that has a current stage and progress (0-1) along the current segment. On each frame, I update the progress. When it reaches 1, I advance to the next stage.
+
+In Play mode, the stage advances automatically every N seconds (or when the packet reaches the end of a segment). In Step mode, clicking Step advances one stage.
+
+Let me also add:
+- Node highlighting (glow/border when active)
+- Packet as a glowing dot
+- Connector lines
+- Legend explaining colors/symbols
+
+Let me write it all now. This will be a long file but I'll make it clean and professional.
+
+Let me think about the color scheme:
+- Background: #0d1117 (dark)
+- Node bg: #161b22
+- Node border: #30363d
+- Active node border: #58a6ff (blue)
+- Active node glow: rgba(88, 166, 255, 0.3)
+- Text: #e6edf3 (light)
+- Subtext: #8b949e
+- Connector: #30363d
+- Active connector: #58a6ff
+- Packet: #58a6ff with glow
+- Accent: #f0883e (orange for AIVA branding)
+
+Let me write the full code.
+
+I'll structure the JS as:
+1. Stage definitions
+2. Layout computation (positions)
+3. SVG path generation
+4. Animation loop (requestAnimationFrame)
+5. Controls (play/pause/restart/step)
+6. Stage indicator update
+7. Node tooltip on hover
+
+Let me code it up carefully.
+
+For the paths, I'll define them as arrays of {x, y} points in percentage, then convert to pixels on resize.
+
+Forward path segments:
+1. User → WebUI
+2. WebUI → rosbridge
+3. rosbridge → telepathy_receptor
+4. telepathy_receptor → Interactive engine
+5. Interactive engine → llama.cpp router
+6. llama.cpp router → Ministral
+7. (side branch) llama.cpp router → Memory
+8. (side branch) llama.cpp router → Canvas
+9. Return path: Ministral → (bottom right) → ... → User
+
+Hmm, let me think about how to handle the side branches and return path in the stage progression.
+
+The 10 stages:
+1. User speaks/types
+2. Console WebUI processes input
+3. rosbridge WebSocket sends message
+4. telepathy_receptor (ROS 2 adapter) receives
+5. Interactive conversation engine (SOUL.md + USER.md)
+6. llama.cpp router routes to Ministral 3 8B
+7. Ministral 3 8B generates response (with side-branch to Memory + Canvas)
+8. Response flows back through the chain
+9. Response passes through rosbridge
+10. Response arrives at WebUI → User
+
+Actually, let me simplify to 9 stages as the example suggests, combining some:
+
+1. User
+2. Console WebUI
+3. rosbridge
+4. telepathy_receptor
+5. Interactive conversation engine
+6. llama.cpp router → Ministral 3 8B
+7. Memory (SQLite) + Canvas sidecars
+8. Response path back through chain
+9. Arrives at WebUI → User
+
+Hmm, but I want to show the Ministral node being active too. Let me do 10 stages:
+
+1. User
+2. Console WebUI
+3. rosbridge
+4. telepathy_receptor
+5. Interactive conversation engine
+6. llama.cpp router
+7. Ministral 3 8B (with Memory + Canvas side-branch)
+8. Response path begins (return)
+9. Response through rosbridge/telepathy
+10. Response arrives at WebUI → User
+
+Let me go with 10 stages. The stage indicator will show "Stage 7/10: Ministral 3 8B" etc.
+
+Now let me think about the packet animation. I'll have a packet that travels along the path. The path is a continuous polyline:
+
+Forward: User → WebUI → rosbridge → telepathy → interactive → router → Ministral
+Side: router → Memory, router → Canvas
+Return: Ministral → (down to bottom row) → (right to left along bottom) → User
+
+Actually, for the return path, let me have it go from Ministral down to the bottom row, then left along the bottom row back to User.
+
+Let me define the full path as a sequence of points:
+1. User (start)
+2. WebUI
+3. rosbridge
+4. telepathy
+5. interactive
+6. router
+7. Ministral (end of forward)
+8. (side branch to Memory) - maybe a detour
+9. (side branch to Canvas)
+10. (back to main path)
+11. Return: Ministral → bottom-right → ... → bottom-left → User
+
+This is getting complicated. Let me simplify the animation:
+
+- The packet travels along the forward path (top row, left to right)
+- At the router node, a side-branch packet goes down to Memory and Canvas
+- Then the main packet continues to Ministral
+- Then a return packet travels along the bottom row (right to left) back to User
+
+I'll manage this with stages. Each stage has:
+- A "travel" segment (from one node to the next)

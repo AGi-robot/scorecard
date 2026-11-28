@@ -1,0 +1,158 @@
+[
+ {
+  "kind": "ellipse",
+  "line_height": 1,
+  "color": "#ffd27a",
+  "fill_color": "#ffd27a",
+  "fill": true,
+  "width": 0,
+  "height": 0,
+  "x": 0,
+  "y": 0
+ },
+ {
+  "kind": "ellipse",
+  "line_height": 1,
+  "color": "#ffe6a8",
+  "fill_color": "#ffe6a8",
+  "fill": true,
+  "width": 0,
+  "height": 0,
+  "x": 0,
+  "y": 0
+ },
+ {
+  "kind": "rectangle",
+  "line_height": 1,
+  "color": "#3a2f3a",
+  "fill_color": "#3a2f3a",
+  "fill": true,
+  "width": 0,
+  "height": 0,
+  "x": 0,
+  "y": 0
+ },
+ {
+  "kind": "rectangle",
+  "line_height": 1,
+  "color": "#ffd27a",
+  "fill_color": "#ffd27a",
+  "fill": true,
+  "width": 0,
+  "height": 0,
+  "x": 0,
+  "y": 0
+ },
+ {
+  "kind": "ellipse",
+  "line_height": 1,
+  "color": "#241d2b",
+  "fill_color": "#241d2b",
+  "fill": true,
+  "width": 0,
+  "height": 0,
+  "x": 0,
+  "y": 0
+ },
+ {
+  "kind": "rectangle",
+  "line_height": 1,
+  "color": "#b23b3b",
+  "fill_color": "#b23b3b",
+  "fill": true,
+  "width": 0,
+  "height": 0,
+  "x": 0,
+  "y": 0
+ },
+ {
+  "kind": "rectangle",
+  "line_height": 1,
+  "color": "#b23b3b",
+  "fill_color": "#b23b3b",
+  "fill": true,
+  "width": 0,
+  "height": 0,
+  "x": 0,
+  "y": 0
+ },
+ {
+  "kind": "path",
+  "line_height": 1,
+  "smooth": true,
+  "color": "#2e2436",
+  "fill_color": "#2e2436",
+  "fill": true,
+  "points": [
+   [
+    60,
+    620
+   ],
+   [
+    140,
+    540
+   ],
+   [
+    260,
+    520
+   ],
+   [
+    360,
+    540
+   ],
+   [
+    300,
+    620
+   ],
+   [
+    60,
+    620
+   ]
+  ]
+ },
+ {
+  "kind": "path",
+  "line_height": 1,
+  "smooth": true,
+  "color": "#1c1622",
+  "fill_color": "#1c1622",
+  "fill": true,
+  "points": [
+   [
+    420,
+    620
+   ],
+   [
+    470,
+    540
+   ],
+   [
+    560,
+    520
+   ],
+   [
+    640,
+    560
+   ],
+   [
+    600,
+    620
+   ],
+   [
+    420,
+    620
+   ]
+  ]
+ },
+ {
+  "kind": "ellipse",
+  "line_height": 1,
+  "color": "#cdd6f0",
+  "fill_color": "#cdd6f0",
+  "fill": true,
+  "width": 0,
+  "height": 0,
+  "x": 0,
+  "y": 0
+ }
+]

@@ -1,0 +1,82 @@
+[
+ {
+  "kind": "delete",
+  "id": "tower",
+  "fill": false
+ },
+ {
+  "kind": "style",
+  "id": "lighthouse",
+  "fill_color": "#e8e0d0"
+ },
+ {
+  "kind": "style",
+  "id": "lighthouse_shadow",
+  "fill_color": "#b8a890"
+ },
+ {
+  "kind": "path",
+  "id": "lamp_glow",
+  "stroke": false,
+  "smooth": true,
+  "fill_color": "#ffd88a",
+  "fill": true,
+  "points": [
+   [
+    355,
+    310
+   ],
+   [
+    350,
+    280
+   ],
+   [
+    360,
+    250
+   ],
+   [
+    375,
+    235
+   ],
+   [
+    390,
+    250
+   ],
+   [
+    400,
+    280
+   ],
+   [
+    395,
+    310
+   ],
+   [
+    355,
+    310
+   ]
+  ]
+ },
+ {
+  "kind": "ellipse",
+  "x": 360,
+  "y": 265,
+  "width": 30,
+  "height": 30,
+  "id": "lamp",
+  "stroke": false,
+  "fill_color": "#fff5d0",
+  "fill": true
+ },
+ {
+  "kind": "ellipse",
+  "x": 340,
+  "y": 240,
+  "width": 70,
+  "height": 70,
+  "opacity": 0.35,
+  "align": "center",
+  "id": "lamp_halo",
+  "stroke": false,
+  "fill": true
+ }
+]

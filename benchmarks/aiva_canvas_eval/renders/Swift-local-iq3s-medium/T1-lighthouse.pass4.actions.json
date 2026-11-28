@@ -1,0 +1,164 @@
+[
+ {
+  "kind": "rectangle",
+  "line_height": 1,
+  "color": "#2b2350",
+  "fill_color": "#2b2350",
+  "fill": true,
+  "width": 0,
+  "height": 0,
+  "x": 0,
+  "y": 0
+ },
+ {
+  "kind": "rectangle",
+  "line_height": 1,
+  "color": "#1d2b3a",
+  "fill_color": "#1d2b3a",
+  "fill": true,
+  "width": 0,
+  "height": 0,
+  "x": 0,
+  "y": 0
+ },
+ {
+  "kind": "path",
+  "line_height": 1,
+  "color": "#241d2b",
+  "fill_color": "#241d2b",
+  "fill": true,
+  "points": [
+   [
+    35,
+    620
+   ],
+   [
+    120,
+    540
+   ],
+   [
+    260,
+    510
+   ],
+   [
+    420,
+    540
+   ],
+   [
+    520,
+    560
+   ],
+   [
+    640,
+    540
+   ],
+   [
+    760,
+    560
+   ],
+   [
+    900,
+    540
+   ],
+   [
+    965,
+    620
+   ],
+   [
+    35,
+    620
+   ]
+  ]
+ },
+ {
+  "kind": "path",
+  "line_height": 1,
+  "color": "#efe6d2",
+  "fill_color": "#efe6d2",
+  "fill": true,
+  "points": [
+   [
+    360,
+    470
+   ],
+   [
+    378,
+    215
+   ],
+   [
+    422,
+    215
+   ],
+   [
+    440,
+    470
+   ],
+   [
+    360,
+    470
+   ]
+  ]
+ },
+ {
+  "kind": "path",
+  "line_height": 1,
+  "color": "#c9bda2",
+  "fill_color": "#c9bda2",
+  "fill": true,
+  "points": [
+   [
+    400,
+    470
+   ],
+   [
+    410,
+    215
+   ],
+   [
+    422,
+    215
+   ],
+   [
+    440,
+    470
+   ],
+   [
+    400,
+    470
+   ]
+  ]
+ },
+ {
+  "kind": "path",
+  "line_height": 1,
+  "color": "#7a2f34",
+  "fill_color": "#7a2f34",
+  "fill": true,
+  "points": [
+   [
+    352,
+    215
+   ],
+   [
+    352,
+    188
+   ],
+   [
+    400,
+    172
+   ],
+   [
+    448,
+    188
+   ],
+   [
+    448,
+    215
+   ],
+   [
+    352,
+    215
+   ]
+  ]
+ }
+]

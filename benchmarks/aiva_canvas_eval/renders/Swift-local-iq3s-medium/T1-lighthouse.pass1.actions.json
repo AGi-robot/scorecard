@@ -1,0 +1,273 @@
+[
+ {
+  "kind": "path",
+  "smooth": true,
+  "color": "#1b2340",
+  "fill_color": "#1b2340",
+  "fill": true,
+  "points": [
+   [
+    0,
+    0
+   ],
+   [
+    1000,
+    0
+   ],
+   [
+    1000,
+    650
+   ],
+   [
+    0,
+    650
+   ],
+   [
+    0,
+    0
+   ]
+  ]
+ },
+ {
+  "kind": "rectangle",
+  "color": "#16323f",
+  "fill_color": "#16323f",
+  "fill": true,
+  "width": 0,
+  "height": 0,
+  "x": 0,
+  "y": 0
+ },
+ {
+  "kind": "curve",
+  "color": "#241d2b",
+  "fill_color": "#241d2b",
+  "fill": true,
+  "points": [
+   [
+    40,
+    620
+   ],
+   [
+    120,
+    500
+   ],
+   [
+    260,
+    470
+   ],
+   [
+    420,
+    480
+   ],
+   [
+    560,
+    510
+   ],
+   [
+    640,
+    620
+   ],
+   [
+    40,
+    620
+   ]
+  ]
+ },
+ {
+  "kind": "path",
+  "smooth": true,
+  "color": "#e9e2d6",
+  "fill_color": "#e9e2d6",
+  "fill": true,
+  "points": [
+   [
+    325,
+    470
+   ],
+   [
+    338,
+    250
+   ],
+   [
+    382,
+    250
+   ],
+   [
+    395,
+    470
+   ],
+   [
+    325,
+    470
+   ]
+  ]
+ },
+ {
+  "kind": "rectangle",
+  "color": "#b23b3b",
+  "fill_color": "#b23b3b",
+  "fill": true,
+  "width": 0,
+  "height": 0,
+  "x": 0,
+  "y": 0
+ },
+ {
+  "kind": "rectangle",
+  "color": "#b23b3b",
+  "fill_color": "#b23b3b",
+  "fill": true,
+  "width": 0,
+  "height": 0,
+  "x": 0,
+  "y": 0
+ },
+ {
+  "kind": "rectangle",
+  "color": "#3a2f3a",
+  "fill_color": "#3a2f3a",
+  "fill": true,
+  "width": 0,
+  "height": 0,
+  "x": 0,
+  "y": 0
+ },
+ {
+  "kind": "rectangle",
+  "color": "#ffd27a",
+  "fill_color": "#ffd27a",
+  "fill": true,
+  "width": 0,
+  "height": 0,
+  "x": 0,
+  "y": 0
+ },
+ {
+  "kind": "path",
+  "smooth": true,
+  "color": "#7a2f34",
+  "fill_color": "#7a2f34",
+  "fill": true,
+  "points": [
+   [
+    338,
+    205
+   ],
+   [
+    345,
+    182
+   ],
+   [
+    375,
+    182
+   ],
+   [
+    382,
+    205
+   ],
+   [
+    338,
+    205
+   ]
+  ]
+ },
+ {
+  "kind": "ellipse",
+  "color": "#ffcf7a",
+  "fill_color": "#ffcf7a",
+  "fill": true,
+  "width": 0,
+  "height": 0,
+  "x": 0,
+  "y": 0
+ },
+ {
+  "kind": "curve",
+  "color": "#ffe6a8",
+  "fill_color": "#ffe6a8",
+  "fill": true,
+  "points": [
+   [
+    345,
+    215
+   ],
+   [
+    60,
+    150
+   ],
+   [
+    60,
+    260
+   ],
+   [
+    345,
+    215
+   ]
+  ]
+ },
+ {
+  "kind": "curve",
+  "color": "#ffe6a8",
+  "fill_color": "#ffe6a8",
+  "fill": true,
+  "points": [
+   [
+    375,
+    215
+   ],
+   [
+    940,
+    150
+   ],
+   [
+    940,
+    260
+   ],
+   [
+    375,
+    215
+   ]
+  ]
+ },
+ {
+  "kind": "ellipse",
+  "color": "#f3ead6",
+  "fill_color": "#f3ead6",
+  "fill": true,
+  "width": 0,
+  "height": 0,
+  "x": 0,
+  "y": 0
+ },
+ {
+  "kind": "ellipse",
+  "color": "#cdd6f0",
+  "fill_color": "#cdd6f0",
+  "fill": true,
+  "width": 0,
+  "height": 0,
+  "x": 0,
+  "y": 0
+ },
+ {
+  "kind": "ellipse",
+  "color": "#cdd6f0",
+  "fill_color": "#cdd6f0",
+  "fill": true,
+  "width": 0,
+  "height": 0,
+  "x": 0,
+  "y": 0
+ },
+ {
+  "kind": "ellipse",
+  "color": "#cdd6f0",
+  "fill_color": "#cdd6f0",
+  "fill": true,
+  "width": 0,
+  "height": 0,
+  "x": 0,
+  "y": 0
+ }
+]

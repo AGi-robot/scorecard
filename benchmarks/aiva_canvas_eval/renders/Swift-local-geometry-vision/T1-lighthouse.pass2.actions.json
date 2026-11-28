@@ -1,0 +1,234 @@
+[
+ {
+  "kind": "ellipse",
+  "x": 380,
+  "y": 78,
+  "width": 80,
+  "height": 50,
+  "opacity": 0.3,
+  "id": "outer-glow",
+  "stroke": false,
+  "color": "#ffb347",
+  "fill_color": "#ffb347",
+  "fill": true
+ },
+ {
+  "kind": "curve",
+  "id": "rocky-base",
+  "stroke": false,
+  "color": "#2a2a3e",
+  "fill_color": "#2a2a3e",
+  "fill": true,
+  "points": [
+   [
+    360,
+    420
+   ],
+   [
+    355,
+    405
+   ],
+   [
+    370,
+    395
+   ],
+   [
+    400,
+    390
+   ],
+   [
+    430,
+    390
+   ],
+   [
+    460,
+    395
+   ],
+   [
+    475,
+    405
+   ],
+   [
+    478,
+    420
+   ],
+   [
+    460,
+    430
+   ],
+   [
+    430,
+    435
+   ],
+   [
+    400,
+    435
+   ],
+   [
+    370,
+    430
+   ],
+   [
+    360,
+    420
+   ]
+  ]
+ },
+ {
+  "kind": "path",
+  "id": "rock-patch1",
+  "stroke": false,
+  "color": "#35354a",
+  "fill_color": "#35354a",
+  "fill": true,
+  "points": [
+   [
+    100,
+    440
+   ],
+   [
+    160,
+    425
+   ],
+   [
+    230,
+    435
+   ],
+   [
+    280,
+    420
+   ],
+   [
+    320,
+    440
+   ],
+   [
+    280,
+    460
+   ],
+   [
+    200,
+    465
+   ],
+   [
+    130,
+    455
+   ],
+   [
+    100,
+    440
+   ]
+  ]
+ },
+ {
+  "kind": "path",
+  "id": "rock-patch2",
+  "stroke": false,
+  "color": "#30304a",
+  "fill_color": "#30304a",
+  "fill": true,
+  "points": [
+   [
+    550,
+    430
+   ],
+   [
+    620,
+    415
+   ],
+   [
+    700,
+    425
+   ],
+   [
+    760,
+    410
+   ],
+   [
+    800,
+    430
+   ],
+   [
+    760,
+    455
+   ],
+   [
+    680,
+    460
+   ],
+   [
+    590,
+    450
+   ],
+   [
+    550,
+    430
+   ]
+  ]
+ },
+ {
+  "kind": "style",
+  "opacity": 0.5,
+  "id": "beam-left",
+  "color": "#ffd700",
+  "fill_color": "#ffd700"
+ },
+ {
+  "kind": "style",
+  "opacity": 0.5,
+  "id": "beam-right",
+  "color": "#ffd700",
+  "fill_color": "#ffd700"
+ },
+ {
+  "kind": "ellipse",
+  "x": 370,
+  "y": 415,
+  "width": 110,
+  "height": 25,
+  "opacity": 0.25,
+  "id": "light-pool",
+  "stroke": false,
+  "color": "#e8875a",
+  "fill_color": "#e8875a",
+  "fill": true
+ },
+ {
+  "kind": "rectangle",
+  "x": 378,
+  "y": 136,
+  "width": 84,
+  "height": 6,
+  "id": "gallery-rail",
+  "stroke": false,
+  "color": "#d4c8b0",
+  "fill_color": "#d4c8b0",
+  "fill": true
+ },
+ {
+  "kind": "rectangle",
+  "x": 445,
+  "y": 142,
+  "width": 20,
+  "height": 268,
+  "opacity": 0.4,
+  "id": "tower-shadow",
+  "stroke": false,
+  "color": "#c8b8a0",
+  "fill_color": "#c8b8a0",
+  "fill": true
+ },
+ {
+  "kind": "rectangle",
+  "x": 375,
+  "y": 142,
+  "width": 18,
+  "height": 268,
+  "opacity": 0.3,
+  "id": "tower-highlight",
+  "stroke": false,
+  "color": "#fffef5",
+  "fill_color": "#fffef5",
+  "fill": true
+ }
+]

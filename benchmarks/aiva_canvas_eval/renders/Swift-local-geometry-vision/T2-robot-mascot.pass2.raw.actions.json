@@ -1,0 +1,202 @@
+[
+ {
+  "kind": "curve",
+  "id": "arm_l",
+  "color": "#2e8a8a",
+  "fill_color": "#2e8a8a",
+  "fill": true,
+  "stroke": false,
+  "points": [
+   [
+    432,
+    300
+   ],
+   [
+    400,
+    310
+   ],
+   [
+    385,
+    340
+   ],
+   [
+    390,
+    370
+   ],
+   [
+    410,
+    375
+   ],
+   [
+    425,
+    350
+   ],
+   [
+    432,
+    320
+   ]
+  ]
+ },
+ {
+  "kind": "curve",
+  "id": "arm_r",
+  "color": "#2e8a8a",
+  "fill_color": "#2e8a8a",
+  "fill": true,
+  "stroke": false,
+  "points": [
+   [
+    568,
+    300
+   ],
+   [
+    600,
+    310
+   ],
+   [
+    615,
+    340
+   ],
+   [
+    610,
+    370
+   ],
+   [
+    590,
+    375
+   ],
+   [
+    575,
+    350
+   ],
+   [
+    568,
+    320
+   ]
+  ]
+ },
+ {
+  "kind": "ellipse",
+  "id": "amber_light",
+  "color": "#f5a623",
+  "fill_color": "#f5a623",
+  "fill": true,
+  "stroke": false,
+  "x": 488,
+  "y": 295,
+  "width": 24,
+  "height": 24
+ },
+ {
+  "kind": "ellipse",
+  "id": "amber_glow",
+  "color": "#ffd54f",
+  "fill_color": "#ffd54f",
+  "fill": true,
+  "stroke": false,
+  "x": 493,
+  "y": 300,
+  "width": 12,
+  "height": 12,
+  "opacity": 0.6
+ },
+ {
+  "kind": "ellipse",
+  "id": "body_highlight",
+  "color": "#5bbfbf",
+  "fill_color": "#5bbfbf",
+  "fill": true,
+  "stroke": false,
+  "x": 445,
+  "y": 265,
+  "width": 50,
+  "height": 70,
+  "opacity": 0.35
+ },
+ {
+  "kind": "ellipse",
+  "id": "head_highlight",
+  "color": "#5bbfbf",
+  "fill_color": "#5bbfbf",
+  "fill": true,
+  "stroke": false,
+  "x": 462,
+  "y": 168,
+  "width": 35,
+  "height": 30,
+  "opacity": 0.35
+ },
+ {
+  "kind": "ellipse",
+  "id": "eye_hl_l",
+  "color": "#ffffff",
+  "fill_color": "#ffffff",
+  "fill": true,
+  "stroke": false,
+  "x": 473,
+  "y": 198,
+  "width": 7,
+  "height": 7,
+  "opacity": 0.8
+ },
+ {
+  "kind": "ellipse",
+  "id": "eye_hl_r",
+  "color": "#ffffff",
+  "fill_color": "#ffffff",
+  "fill": true,
+  "stroke": false,
+  "x": 511,
+  "y": 198,
+  "width": 7,
+  "height": 7,
+  "opacity": 0.8
+ },
+ {
+  "kind": "ellipse",
+  "id": "bench_floor_shadow",
+  "color": "#8a7a65",
+  "fill_color": "#8a7a65",
+  "fill": true,
+  "stroke": false,
+  "x": 160,
+  "y": 615,
+  "width": 680,
+  "height": 18,
+  "opacity": 0.25
+ },
+ {
+  "kind": "curve",
+  "id": "hand_l",
+  "color": "#2e8a8a",
+  "fill_color": "#2e8a8a",
+  "fill": true,
+  "stroke": false,
+  "points": [
+   [
+    390,
+    365
+   ],
+   [
+    380,
+    375
+   ],
+   [
+    385,
+    390
+   ],
+   [
+    400,
+    390
+   ],
+   [
+    410,
+    380
+   ],
+   [
+    405,
+    368
+   ]
+  ]
+ }
+]

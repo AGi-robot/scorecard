@@ -1,0 +1,162 @@
+[
+ {
+  "kind": "delete",
+  "id": "beam-left",
+  "color": "#ffd700",
+  "fill_color": "#ffd700",
+  "fill": false
+ },
+ {
+  "kind": "delete",
+  "id": "beam-right",
+  "color": "#ffd700",
+  "fill_color": "#ffd700",
+  "fill": false
+ },
+ {
+  "kind": "curve",
+  "opacity": 0.45,
+  "id": "beam-left-v2",
+  "stroke": false,
+  "color": "#ffd700",
+  "fill_color": "#ffd700",
+  "fill": true,
+  "points": [
+   [
+    395,
+    102
+   ],
+   [
+    290,
+    72
+   ],
+   [
+    185,
+    68
+   ],
+   [
+    155,
+    95
+   ],
+   [
+    185,
+    128
+   ],
+   [
+    290,
+    122
+   ],
+   [
+    395,
+    118
+   ]
+  ]
+ },
+ {
+  "kind": "curve",
+  "opacity": 0.45,
+  "id": "beam-right-v2",
+  "stroke": false,
+  "color": "#ffd700",
+  "fill_color": "#ffd700",
+  "fill": true,
+  "points": [
+   [
+    445,
+    102
+   ],
+   [
+    550,
+    72
+   ],
+   [
+    655,
+    68
+   ],
+   [
+    685,
+    95
+   ],
+   [
+    655,
+    128
+   ],
+   [
+    550,
+    122
+   ],
+   [
+    445,
+    118
+   ]
+  ]
+ },
+ {
+  "kind": "delete",
+  "id": "tower-shadow",
+  "color": "#c8b8a0",
+  "fill_color": "#c8b8a0",
+  "fill": false
+ },
+ {
+  "kind": "curve",
+  "opacity": 0.35,
+  "id": "tower-shadow-v2",
+  "stroke": false,
+  "color": "#c8b8a0",
+  "fill_color": "#c8b8a0",
+  "fill": true,
+  "points": [
+   [
+    448,
+    148
+   ],
+   [
+    458,
+    250
+   ],
+   [
+    456,
+    400
+   ],
+   [
+    448,
+    408
+   ],
+   [
+    442,
+    250
+   ],
+   [
+    442,
+    148
+   ],
+   [
+    448,
+    148
+   ]
+  ]
+ },
+ {
+  "kind": "style",
+  "opacity": 0.95,
+  "id": "lamp-glow",
+  "color": "#ffe066",
+  "fill_color": "#ffe066"
+ },
+ {
+  "kind": "ellipse",
+  "x": 375,
+  "y": 72,
+  "width": 90,
+  "height": 55,
+  "line_height": 1.2,
+  "opacity": 0.25,
+  "id": "lamp-halo",
+  "stroke": false,
+  "smooth": true,
+  "color": "#ffb347",
+  "fill_color": "#ffb347",
+  "fill": true
+ }
+]

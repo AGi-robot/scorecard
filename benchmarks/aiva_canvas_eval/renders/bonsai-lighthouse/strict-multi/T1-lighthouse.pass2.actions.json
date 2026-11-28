@@ -1,0 +1,226 @@
+[
+ {
+  "kind": "delete",
+  "id": "tower",
+  "fill": false
+ },
+ {
+  "kind": "delete",
+  "id": "stripe1",
+  "fill": false
+ },
+ {
+  "kind": "delete",
+  "id": "stripe2",
+  "fill": false
+ },
+ {
+  "kind": "delete",
+  "id": "stripe3",
+  "fill": false
+ },
+ {
+  "kind": "delete",
+  "id": "gallery",
+  "fill": false
+ },
+ {
+  "kind": "path",
+  "id": "lighthouse",
+  "stroke": false,
+  "smooth": true,
+  "fill_color": "#e8e0d0",
+  "fill": true,
+  "points": [
+   [
+    355,
+    510
+   ],
+   [
+    350,
+    400
+   ],
+   [
+    355,
+    310
+   ],
+   [
+    370,
+    300
+   ],
+   [
+    385,
+    300
+   ],
+   [
+    400,
+    310
+   ],
+   [
+    405,
+    400
+   ],
+   [
+    400,
+    510
+   ],
+   [
+    355,
+    510
+   ]
+  ]
+ },
+ {
+  "kind": "path",
+  "id": "lighthouse_shadow",
+  "stroke": false,
+  "smooth": true,
+  "fill_color": "#b8a890",
+  "fill": true,
+  "points": [
+   [
+    390,
+    510
+   ],
+   [
+    388,
+    400
+   ],
+   [
+    392,
+    310
+   ],
+   [
+    400,
+    300
+   ],
+   [
+    405,
+    310
+   ],
+   [
+    405,
+    400
+   ],
+   [
+    403,
+    510
+   ],
+   [
+    390,
+    510
+   ]
+  ]
+ },
+ {
+  "kind": "curve",
+  "id": "stripe1",
+  "stroke": false,
+  "fill_color": "#b84a4a",
+  "fill": true,
+  "points": [
+   [
+    353,
+    470
+   ],
+   [
+    351,
+    430
+   ],
+   [
+    355,
+    425
+   ],
+   [
+    395,
+    425
+   ],
+   [
+    399,
+    430
+   ],
+   [
+    397,
+    470
+   ],
+   [
+    353,
+    470
+   ]
+  ]
+ },
+ {
+  "kind": "curve",
+  "id": "stripe2",
+  "stroke": false,
+  "fill_color": "#b84a4a",
+  "fill": true,
+  "points": [
+   [
+    352,
+    390
+   ],
+   [
+    350,
+    350
+   ],
+   [
+    354,
+    345
+   ],
+   [
+    396,
+    345
+   ],
+   [
+    400,
+    350
+   ],
+   [
+    398,
+    390
+   ],
+   [
+    352,
+    390
+   ]
+  ]
+ },
+ {
+  "kind": "curve",
+  "id": "stripe3",
+  "stroke": false,
+  "fill_color": "#b84a4a",
+  "fill": true,
+  "points": [
+   [
+    351,
+    315
+   ],
+   [
+    349,
+    285
+   ],
+   [
+    353,
+    280
+   ],
+   [
+    397,
+    280
+   ],
+   [
+    401,
+    285
+   ],
+   [
+    399,
+    315
+   ],
+   [
+    351,
+    315
+   ]
+  ]
+ }
+]

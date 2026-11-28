@@ -1,0 +1,119 @@
+[
+ {
+  "kind": "ellipse",
+  "x": 0,
+  "y": 180,
+  "width": 520,
+  "height": 420,
+  "opacity": 0.12,
+  "id": "morning-light",
+  "stroke": false,
+  "color": "#f5d89a",
+  "fill_color": "#f5d89a",
+  "fill": true
+ },
+ {
+  "kind": "line",
+  "width": 1.2,
+  "opacity": 0.22,
+  "id": "wood-grain-2",
+  "stroke": true,
+  "color": "#7a5a28",
+  "fill_color": "#7a5a28",
+  "fill": false,
+  "points": [
+   [
+    80,
+    440
+   ],
+   [
+    920,
+    435
+   ]
+  ]
+ },
+ {
+  "kind": "line",
+  "width": 1,
+  "opacity": 0.18,
+  "id": "wood-grain-3",
+  "stroke": true,
+  "color": "#6b4a1e",
+  "fill_color": "#6b4a1e",
+  "fill": false,
+  "points": [
+   [
+    120,
+    510
+   ],
+   [
+    780,
+    505
+   ]
+  ]
+ },
+ {
+  "kind": "curve",
+  "id": "apple-top-dip",
+  "stroke": false,
+  "color": "#8b1a1a",
+  "fill_color": "#8b1a1a",
+  "fill": true,
+  "points": [
+   [
+    338,
+    372
+   ],
+   [
+    342,
+    365
+   ],
+   [
+    350,
+    362
+   ],
+   [
+    358,
+    365
+   ],
+   [
+    362,
+    372
+   ],
+   [
+    350,
+    375
+   ],
+   [
+    338,
+    372
+   ]
+  ]
+ },
+ {
+  "kind": "ellipse",
+  "x": 572,
+  "y": 352,
+  "width": 96,
+  "height": 10,
+  "opacity": 0.45,
+  "id": "cup-interior-shadow",
+  "stroke": false,
+  "color": "#b8a890",
+  "fill_color": "#b8a890",
+  "fill": true
+ },
+ {
+  "kind": "ellipse",
+  "x": 380,
+  "y": 520,
+  "width": 280,
+  "height": 30,
+  "opacity": 0.08,
+  "id": "table-warm-reflection",
+  "stroke": false,
+  "color": "#c4944a",
+  "fill_color": "#c4944a",
+  "fill": true
+ }
+]

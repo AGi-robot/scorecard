@@ -1,0 +1,425 @@
+[
+ {
+  "kind": "rectangle",
+  "id": "sky",
+  "fill": true,
+  "stroke": false,
+  "x": 0,
+  "y": 0,
+  "width": 1000,
+  "height": 650,
+  "gradient": "linear",
+  "gradient_angle": 90,
+  "gradient_stops": [
+   {
+    "offset": 0,
+    "color": "#141433"
+   },
+   {
+    "offset": 0.45,
+    "color": "#3a2a5e"
+   },
+   {
+    "offset": 0.72,
+    "color": "#a04a5e"
+   },
+   {
+    "offset": 0.88,
+    "color": "#e07a4a"
+   },
+   {
+    "offset": 1,
+    "color": "#f2a85e"
+   }
+  ]
+ },
+ {
+  "kind": "ellipse",
+  "id": "moon",
+  "fill": true,
+  "stroke": false,
+  "x": 790,
+  "y": 110,
+  "width": 58,
+  "height": 58,
+  "fill_color": "#f4e6c8"
+ },
+ {
+  "kind": "ellipse",
+  "id": "moonhalo",
+  "fill": true,
+  "stroke": false,
+  "x": 760,
+  "y": 80,
+  "width": 118,
+  "height": 118,
+  "fill_color": "#f4e6c8",
+  "opacity": 0.18
+ },
+ {
+  "kind": "rectangle",
+  "id": "sea",
+  "fill": true,
+  "stroke": false,
+  "x": 0,
+  "y": 380,
+  "width": 1000,
+  "height": 270,
+  "gradient": "linear",
+  "gradient_angle": 90,
+  "gradient_stops": [
+   {
+    "offset": 0,
+    "color": "#5a3a5e"
+   },
+   {
+    "offset": 0.35,
+    "color": "#2e2a52"
+   },
+   {
+    "offset": 1,
+    "color": "#14142e"
+   }
+  ]
+ },
+ {
+  "kind": "line",
+  "id": "sea1",
+  "stroke": true,
+  "points": [
+   [
+    120,
+    420
+   ],
+   [
+    300,
+    420
+   ]
+  ],
+  "color": "#7a5a8a",
+  "opacity": 0.5
+ },
+ {
+  "kind": "line",
+  "id": "sea2",
+  "stroke": true,
+  "points": [
+   [
+    560,
+    450
+   ],
+   [
+    820,
+    450
+   ]
+  ],
+  "color": "#7a5a8a",
+  "opacity": 0.4
+ },
+ {
+  "kind": "line",
+  "id": "sea3",
+  "stroke": true,
+  "points": [
+   [
+    200,
+    500
+   ],
+   [
+    420,
+    500
+   ]
+  ],
+  "color": "#5a4a7a",
+  "opacity": 0.4
+ },
+ {
+  "kind": "line",
+  "id": "sea4",
+  "stroke": true,
+  "points": [
+   [
+    600,
+    540
+   ],
+   [
+    900,
+    540
+   ]
+  ],
+  "color": "#5a4a7a",
+  "opacity": 0.35
+ },
+ {
+  "kind": "curve",
+  "id": "headland",
+  "fill": true,
+  "stroke": false,
+  "points": [
+   [
+    0,
+    650
+   ],
+   [
+    0,
+    520
+   ],
+   [
+    120,
+    500
+   ],
+   [
+    260,
+    540
+   ],
+   [
+    360,
+    470
+   ],
+   [
+    470,
+    500
+   ],
+   [
+    560,
+    470
+   ],
+   [
+    680,
+    520
+   ],
+   [
+    820,
+    490
+   ],
+   [
+    1000,
+    520
+   ],
+   [
+    1000,
+    650
+   ]
+  ],
+  "fill_color": "#1a1428"
+ },
+ {
+  "kind": "curve",
+  "id": "headland2",
+  "fill": true,
+  "stroke": false,
+  "points": [
+   [
+    0,
+    650
+   ],
+   [
+    0,
+    560
+   ],
+   [
+    150,
+    545
+   ],
+   [
+    300,
+    575
+   ],
+   [
+    450,
+    540
+   ],
+   [
+    600,
+    575
+   ],
+   [
+    760,
+    545
+   ],
+   [
+    1000,
+    570
+   ],
+   [
+    1000,
+    650
+   ]
+  ],
+  "fill_color": "#241a38"
+ },
+ {
+  "kind": "curve",
+  "id": "tower",
+  "fill": true,
+  "stroke": false,
+  "points": [
+   [
+    360,
+    500
+   ],
+   [
+    360,
+    300
+   ],
+   [
+    395,
+    300
+   ],
+   [
+    395,
+    500
+   ],
+   [
+    360,
+    500
+   ]
+  ],
+  "fill_color": "#e8e0d0"
+ },
+ {
+  "kind": "curve",
+  "id": "tower",
+  "fill": true,
+  "stroke": false,
+  "points": [
+   [
+    355,
+    505
+   ],
+   [
+    355,
+    300
+   ],
+   [
+    405,
+    300
+   ],
+   [
+    405,
+    505
+   ],
+   [
+    355,
+    505
+   ]
+  ],
+  "fill_color": "#e8e0d0"
+ },
+ {
+  "kind": "curve",
+  "id": "stripe1",
+  "fill": true,
+  "stroke": false,
+  "points": [
+   [
+    355,
+    470
+   ],
+   [
+    355,
+    430
+   ],
+   [
+    405,
+    430
+   ],
+   [
+    405,
+    470
+   ],
+   [
+    355,
+    470
+   ]
+  ],
+  "fill_color": "#b84a4a"
+ },
+ {
+  "kind": "curve",
+  "id": "stripe2",
+  "fill": true,
+  "stroke": false,
+  "points": [
+   [
+    355,
+    390
+   ],
+   [
+    355,
+    350
+   ],
+   [
+    405,
+    350
+   ],
+   [
+    405,
+    390
+   ],
+   [
+    355,
+    390
+   ]
+  ],
+  "fill_color": "#b84a4a"
+ },
+ {
+  "kind": "curve",
+  "id": "stripe3",
+  "fill": true,
+  "stroke": false,
+  "points": [
+   [
+    355,
+    315
+   ],
+   [
+    355,
+    285
+   ],
+   [
+    405,
+    285
+   ],
+   [
+    405,
+    315
+   ],
+   [
+    355,
+    315
+   ]
+  ],
+  "fill_color": "#b84a4a"
+ },
+ {
+  "kind": "curve",
+  "id": "gallery",
+  "fill": true,
+  "stroke": false,
+  "points": [
+   [
+    345,
+    300
+   ],
+   [
+    345,
+    285
+   ],
+   [
+    415,
+    285
+   ],
+   [
+    415,
+    300
+   ],
+   [
+    345,
+    300
+   ]
+  ],
+  "fill_color": "#2a2438"
+ }
+]

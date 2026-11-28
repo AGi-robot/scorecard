@@ -1,0 +1,234 @@
+[
+ {
+  "kind": "ellipse",
+  "id": "outer-glow",
+  "color": "#ffb347",
+  "fill_color": "#ffb347",
+  "fill": true,
+  "stroke": false,
+  "x": 380,
+  "y": 78,
+  "width": 80,
+  "height": 50,
+  "opacity": 0.3
+ },
+ {
+  "kind": "curve",
+  "id": "rocky-base",
+  "color": "#2a2a3e",
+  "fill_color": "#2a2a3e",
+  "fill": true,
+  "stroke": false,
+  "points": [
+   [
+    360,
+    420
+   ],
+   [
+    355,
+    405
+   ],
+   [
+    370,
+    395
+   ],
+   [
+    400,
+    390
+   ],
+   [
+    430,
+    390
+   ],
+   [
+    460,
+    395
+   ],
+   [
+    475,
+    405
+   ],
+   [
+    478,
+    420
+   ],
+   [
+    460,
+    430
+   ],
+   [
+    430,
+    435
+   ],
+   [
+    400,
+    435
+   ],
+   [
+    370,
+    430
+   ],
+   [
+    360,
+    420
+   ]
+  ]
+ },
+ {
+  "kind": "path",
+  "id": "rock-patch1",
+  "color": "#35354a",
+  "fill_color": "#35354a",
+  "fill": true,
+  "stroke": false,
+  "points": [
+   [
+    100,
+    440
+   ],
+   [
+    160,
+    425
+   ],
+   [
+    230,
+    435
+   ],
+   [
+    280,
+    420
+   ],
+   [
+    320,
+    440
+   ],
+   [
+    280,
+    460
+   ],
+   [
+    200,
+    465
+   ],
+   [
+    130,
+    455
+   ],
+   [
+    100,
+    440
+   ]
+  ]
+ },
+ {
+  "kind": "path",
+  "id": "rock-patch2",
+  "color": "#30304a",
+  "fill_color": "#30304a",
+  "fill": true,
+  "stroke": false,
+  "points": [
+   [
+    550,
+    430
+   ],
+   [
+    620,
+    415
+   ],
+   [
+    700,
+    425
+   ],
+   [
+    760,
+    410
+   ],
+   [
+    800,
+    430
+   ],
+   [
+    760,
+    455
+   ],
+   [
+    680,
+    460
+   ],
+   [
+    590,
+    450
+   ],
+   [
+    550,
+    430
+   ]
+  ]
+ },
+ {
+  "kind": "style",
+  "id": "beam-left",
+  "color": "#ffd700",
+  "fill_color": "#ffd700",
+  "opacity": 0.5
+ },
+ {
+  "kind": "style",
+  "id": "beam-right",
+  "color": "#ffd700",
+  "fill_color": "#ffd700",
+  "opacity": 0.5
+ },
+ {
+  "kind": "ellipse",
+  "id": "light-pool",
+  "color": "#e8875a",
+  "fill_color": "#e8875a",
+  "fill": true,
+  "stroke": false,
+  "x": 370,
+  "y": 415,
+  "width": 110,
+  "height": 25,
+  "opacity": 0.25
+ },
+ {
+  "kind": "rectangle",
+  "id": "gallery-rail",
+  "color": "#d4c8b0",
+  "fill_color": "#d4c8b0",
+  "fill": true,
+  "stroke": false,
+  "x": 378,
+  "y": 136,
+  "width": 84,
+  "height": 6
+ },
+ {
+  "kind": "rectangle",
+  "id": "tower-shadow",
+  "color": "#c8b8a0",
+  "fill_color": "#c8b8a0",
+  "fill": true,
+  "stroke": false,
+  "x": 445,
+  "y": 142,
+  "width": 20,
+  "height": 268,
+  "opacity": 0.4
+ },
+ {
+  "kind": "rectangle",
+  "id": "tower-highlight",
+  "color": "#fffef5",
+  "fill_color": "#fffef5",
+  "fill": true,
+  "stroke": false,
+  "x": 375,
+  "y": 142,
+  "width": 18,
+  "height": 268,
+  "opacity": 0.3
+ }
+]

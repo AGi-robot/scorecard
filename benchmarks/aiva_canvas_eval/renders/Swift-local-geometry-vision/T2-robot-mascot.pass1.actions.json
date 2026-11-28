@@ -1,0 +1,289 @@
+[
+ {
+  "kind": "rectangle",
+  "x": 0,
+  "y": 0,
+  "width": 1000,
+  "height": 650,
+  "id": "wall",
+  "stroke": false,
+  "color": "#d9cfc0",
+  "fill_color": "#d9cfc0",
+  "fill": true
+ },
+ {
+  "kind": "rectangle",
+  "x": 0,
+  "y": 560,
+  "width": 1000,
+  "height": 90,
+  "id": "floor",
+  "stroke": false,
+  "color": "#b0a08a",
+  "fill_color": "#b0a08a",
+  "fill": true
+ },
+ {
+  "kind": "rectangle",
+  "x": 120,
+  "y": 120,
+  "width": 300,
+  "height": 18,
+  "id": "shelf",
+  "stroke": false,
+  "color": "#b8a88f",
+  "fill_color": "#b8a88f",
+  "fill": true
+ },
+ {
+  "kind": "polygon",
+  "id": "bench_top",
+  "stroke": false,
+  "color": "#a87b4f",
+  "fill_color": "#a87b4f",
+  "fill": true,
+  "points": [
+   [
+    180,
+    420
+   ],
+   [
+    820,
+    420
+   ],
+   [
+    860,
+    470
+   ],
+   [
+    140,
+    470
+   ]
+  ]
+ },
+ {
+  "kind": "rectangle",
+  "x": 140,
+  "y": 470,
+  "width": 720,
+  "height": 60,
+  "id": "bench_front",
+  "stroke": false,
+  "color": "#8a6239",
+  "fill_color": "#8a6239",
+  "fill": true
+ },
+ {
+  "kind": "rectangle",
+  "x": 180,
+  "y": 530,
+  "width": 40,
+  "height": 90,
+  "id": "leg_l",
+  "stroke": false,
+  "color": "#6e4d2c",
+  "fill_color": "#6e4d2c",
+  "fill": true
+ },
+ {
+  "kind": "rectangle",
+  "x": 780,
+  "y": 530,
+  "width": 40,
+  "height": 90,
+  "id": "leg_r",
+  "stroke": false,
+  "color": "#6e4d2c",
+  "fill_color": "#6e4d2c",
+  "fill": true
+ },
+ {
+  "kind": "curve",
+  "id": "cable_red",
+  "stroke": true,
+  "color": "#d9534f",
+  "fill_color": "#d9534f",
+  "fill": false,
+  "points": [
+   [
+    820,
+    450
+   ],
+   [
+    900,
+    470
+   ],
+   [
+    920,
+    540
+   ],
+   [
+    880,
+    600
+   ]
+  ]
+ },
+ {
+  "kind": "curve",
+  "id": "cable_blue",
+  "stroke": true,
+  "color": "#4a90d9",
+  "fill_color": "#4a90d9",
+  "fill": false,
+  "points": [
+   [
+    180,
+    450
+   ],
+   [
+    110,
+    480
+   ],
+   [
+    90,
+    560
+   ],
+   [
+    130,
+    610
+   ]
+  ]
+ },
+ {
+  "kind": "ellipse",
+  "x": 440,
+  "y": 412,
+  "width": 130,
+  "height": 22,
+  "opacity": 0.15,
+  "id": "robot_shadow",
+  "stroke": false,
+  "color": "#000000",
+  "fill_color": "#000000",
+  "fill": true
+ },
+ {
+  "kind": "curve",
+  "id": "robot_body",
+  "stroke": false,
+  "color": "#3a9e9e",
+  "fill_color": "#3a9e9e",
+  "fill": true,
+  "points": [
+   [
+    430,
+    420
+   ],
+   [
+    420,
+    300
+   ],
+   [
+    440,
+    250
+   ],
+   [
+    500,
+    240
+   ],
+   [
+    560,
+    250
+   ],
+   [
+    580,
+    300
+   ],
+   [
+    570,
+    420
+   ]
+  ]
+ },
+ {
+  "kind": "curve",
+  "id": "robot_head",
+  "stroke": false,
+  "color": "#3a9e9e",
+  "fill_color": "#3a9e9e",
+  "fill": true,
+  "points": [
+   [
+    450,
+    250
+   ],
+   [
+    445,
+    190
+   ],
+   [
+    470,
+    160
+   ],
+   [
+    500,
+    155
+   ],
+   [
+    530,
+    160
+   ],
+   [
+    555,
+    190
+   ],
+   [
+    550,
+    250
+   ]
+  ]
+ },
+ {
+  "kind": "ellipse",
+  "x": 460,
+  "y": 180,
+  "width": 80,
+  "height": 60,
+  "id": "face_plate",
+  "stroke": false,
+  "color": "#6fc4c4",
+  "fill_color": "#6fc4c4",
+  "fill": true
+ },
+ {
+  "kind": "ellipse",
+  "x": 470,
+  "y": 195,
+  "width": 22,
+  "height": 26,
+  "id": "eye_l",
+  "stroke": false,
+  "color": "#ffffff",
+  "fill_color": "#ffffff",
+  "fill": true
+ },
+ {
+  "kind": "ellipse",
+  "x": 508,
+  "y": 195,
+  "width": 22,
+  "height": 26,
+  "id": "eye_r",
+  "stroke": false,
+  "color": "#ffffff",
+  "fill_color": "#ffffff",
+  "fill": true
+ },
+ {
+  "kind": "ellipse",
+  "x": 477,
+  "y": 203,
+  "width": 9,
+  "height": 11,
+  "id": "pupil_l",
+  "stroke": false,
+  "color": "#2b2b2b",
+  "fill_color": "#2b2b2b",
+  "fill": true
+ }
+]

@@ -1,0 +1,47 @@
+[
+ {
+  "kind": "style",
+  "id": "warm_cone",
+  "color": "#ffaa33",
+  "fill_color": "#ffaa33",
+  "opacity": 0.32
+ },
+ {
+  "kind": "ellipse",
+  "id": "cabin_shadow",
+  "color": "#b8c4d0",
+  "fill_color": "#b8c4d0",
+  "fill": true,
+  "stroke": false,
+  "x": 410,
+  "y": 442,
+  "width": 200,
+  "height": 18,
+  "opacity": 0.4
+ },
+ {
+  "kind": "rectangle",
+  "id": "chimney",
+  "color": "#2a1c10",
+  "fill_color": "#2a1c10",
+  "fill": true,
+  "stroke": false,
+  "x": 555,
+  "y": 272,
+  "width": 18,
+  "height": 38
+ },
+ {
+  "kind": "ellipse",
+  "id": "snow_warm_reflect",
+  "color": "#f5c87a",
+  "fill_color": "#f5c87a",
+  "fill": true,
+  "stroke": false,
+  "x": 505,
+  "y": 455,
+  "width": 90,
+  "height": 22,
+  "opacity": 0.25
+ }
+]

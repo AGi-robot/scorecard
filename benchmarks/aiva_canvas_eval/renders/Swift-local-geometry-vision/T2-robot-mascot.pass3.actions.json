@@ -1,0 +1,204 @@
+[
+ {
+  "kind": "delete",
+  "id": "cable_red",
+  "color": "#c0392b",
+  "fill_color": "#c0392b",
+  "fill": false
+ },
+ {
+  "kind": "delete",
+  "id": "cable_blue",
+  "color": "#3a7bc8",
+  "fill_color": "#3a7bc8",
+  "fill": false
+ },
+ {
+  "kind": "path",
+  "id": "cable_red2",
+  "stroke": false,
+  "smooth": true,
+  "color": "#c0392b",
+  "fill_color": "#c0392b",
+  "fill": true,
+  "points": [
+   [
+    848,
+    462
+   ],
+   [
+    872,
+    505
+   ],
+   [
+    908,
+    548
+   ],
+   [
+    912,
+    588
+   ],
+   [
+    924,
+    588
+   ],
+   [
+    918,
+    545
+   ],
+   [
+    882,
+    502
+   ],
+   [
+    858,
+    462
+   ],
+   [
+    848,
+    462
+   ]
+  ]
+ },
+ {
+  "kind": "path",
+  "id": "cable_blue2",
+  "stroke": false,
+  "smooth": true,
+  "color": "#3a7bc8",
+  "fill_color": "#3a7bc8",
+  "fill": true,
+  "points": [
+   [
+    152,
+    462
+   ],
+   [
+    128,
+    508
+   ],
+   [
+    102,
+    552
+   ],
+   [
+    100,
+    592
+   ],
+   [
+    112,
+    592
+   ],
+   [
+    114,
+    550
+   ],
+   [
+    138,
+    508
+   ],
+   [
+    162,
+    462
+   ],
+   [
+    152,
+    462
+   ]
+  ]
+ },
+ {
+  "kind": "curve",
+  "id": "hand_r",
+  "stroke": false,
+  "color": "#2e8a8a",
+  "fill_color": "#2e8a8a",
+  "fill": true,
+  "points": [
+   [
+    572,
+    362
+   ],
+   [
+    565,
+    372
+   ],
+   [
+    570,
+    385
+   ],
+   [
+    585,
+    385
+   ],
+   [
+    592,
+    372
+   ],
+   [
+    588,
+    362
+   ],
+   [
+    572,
+    362
+   ]
+  ]
+ },
+ {
+  "kind": "curve",
+  "id": "shelf_jar",
+  "stroke": false,
+  "color": "#8b7355",
+  "fill_color": "#8b7355",
+  "fill": true,
+  "points": [
+   [
+    210,
+    120
+   ],
+   [
+    205,
+    105
+   ],
+   [
+    210,
+    92
+   ],
+   [
+    225,
+    92
+   ],
+   [
+    230,
+    105
+   ],
+   [
+    225,
+    120
+   ],
+   [
+    210,
+    120
+   ]
+  ]
+ },
+ {
+  "kind": "line",
+  "id": "body_seam",
+  "stroke": true,
+  "color": "#2e8a8a",
+  "fill_color": "#2e8a8a",
+  "fill": false,
+  "points": [
+   [
+    435,
+    310
+   ],
+   [
+    555,
+    310
+   ]
+  ]
+ }
+]

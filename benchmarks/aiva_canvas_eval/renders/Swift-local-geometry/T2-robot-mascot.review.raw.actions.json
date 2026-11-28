@@ -1,0 +1,190 @@
+[
+ {
+  "kind": "rectangle",
+  "id": "robot_neck",
+  "color": "#3a9e9e",
+  "fill_color": "#3a9e9e",
+  "fill": true,
+  "stroke": false,
+  "x": 462,
+  "y": 258,
+  "width": 36,
+  "height": 28
+ },
+ {
+  "kind": "curve",
+  "id": "robot_arm_l",
+  "color": "#3a9e9e",
+  "fill_color": "#3a9e9e",
+  "fill": true,
+  "stroke": false,
+  "points": [
+   [
+    418,
+    335
+   ],
+   [
+    385,
+    340
+   ],
+   [
+    372,
+    365
+   ],
+   [
+    378,
+    390
+   ],
+   [
+    398,
+    395
+   ],
+   [
+    418,
+    385
+   ],
+   [
+    418,
+    335
+   ]
+  ]
+ },
+ {
+  "kind": "curve",
+  "id": "robot_arm_r",
+  "color": "#3a9e9e",
+  "fill_color": "#3a9e9e",
+  "fill": true,
+  "stroke": false,
+  "points": [
+   [
+    542,
+    335
+   ],
+   [
+    575,
+    340
+   ],
+   [
+    588,
+    365
+   ],
+   [
+    582,
+    390
+   ],
+   [
+    562,
+    395
+   ],
+   [
+    542,
+    385
+   ],
+   [
+    542,
+    335
+   ]
+  ]
+ },
+ {
+  "kind": "ellipse",
+  "id": "robot_foot_l",
+  "color": "#2d7a7a",
+  "fill_color": "#2d7a7a",
+  "fill": true,
+  "stroke": false,
+  "x": 428,
+  "y": 413,
+  "width": 28,
+  "height": 16
+ },
+ {
+  "kind": "ellipse",
+  "id": "robot_foot_r",
+  "color": "#2d7a7a",
+  "fill_color": "#2d7a7a",
+  "fill": true,
+  "stroke": false,
+  "x": 504,
+  "y": 413,
+  "width": 28,
+  "height": 16
+ },
+ {
+  "kind": "curve",
+  "id": "cable_left",
+  "color": "#5a4a3a",
+  "fill_color": "#5a4a3a",
+  "fill": false,
+  "stroke": true,
+  "points": [
+   [
+    100,
+    455
+   ],
+   [
+    72,
+    478
+   ],
+   [
+    52,
+    525
+   ],
+   [
+    42,
+    575
+   ],
+   [
+    36,
+    615
+   ],
+   [
+    34,
+    625
+   ],
+   [
+    33,
+    630
+   ]
+  ]
+ },
+ {
+  "kind": "curve",
+  "id": "cable_right",
+  "color": "#5a4a3a",
+  "fill_color": "#5a4a3a",
+  "fill": false,
+  "stroke": true,
+  "points": [
+   [
+    900,
+    455
+   ],
+   [
+    928,
+    478
+   ],
+   [
+    948,
+    525
+   ],
+   [
+    958,
+    575
+   ],
+   [
+    964,
+    615
+   ],
+   [
+    966,
+    625
+   ],
+   [
+    967,
+    630
+   ]
+  ]
+ }
+]

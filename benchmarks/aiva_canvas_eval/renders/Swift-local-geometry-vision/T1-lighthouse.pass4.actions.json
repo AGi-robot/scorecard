@@ -1,0 +1,120 @@
+[
+ {
+  "kind": "delete",
+  "id": "beam-left-v2",
+  "color": "#ffd700",
+  "fill_color": "#ffd700",
+  "fill": false
+ },
+ {
+  "kind": "delete",
+  "id": "beam-right-v2",
+  "color": "#ffd700",
+  "fill_color": "#ffd700",
+  "fill": false
+ },
+ {
+  "kind": "curve",
+  "opacity": 0.4,
+  "id": "beam-left-new",
+  "stroke": false,
+  "color": "#ffd700",
+  "fill_color": "#ffd700",
+  "fill": true,
+  "points": [
+   [
+    400,
+    95
+   ],
+   [
+    280,
+    62
+   ],
+   [
+    150,
+    68
+   ],
+   [
+    110,
+    100
+   ],
+   [
+    150,
+    138
+   ],
+   [
+    280,
+    142
+   ],
+   [
+    400,
+    115
+   ]
+  ]
+ },
+ {
+  "kind": "curve",
+  "opacity": 0.4,
+  "id": "beam-right-new",
+  "stroke": false,
+  "color": "#ffd700",
+  "fill_color": "#ffd700",
+  "fill": true,
+  "points": [
+   [
+    440,
+    95
+   ],
+   [
+    560,
+    62
+   ],
+   [
+    690,
+    68
+   ],
+   [
+    730,
+    100
+   ],
+   [
+    690,
+    138
+   ],
+   [
+    560,
+    142
+   ],
+   [
+    440,
+    115
+   ]
+  ]
+ },
+ {
+  "kind": "ellipse",
+  "x": 385,
+  "y": 420,
+  "width": 80,
+  "height": 18,
+  "opacity": 0.2,
+  "id": "rock-warm-glow",
+  "stroke": false,
+  "color": "#e8875a",
+  "fill_color": "#e8875a",
+  "fill": true
+ },
+ {
+  "kind": "ellipse",
+  "x": 180,
+  "y": 55,
+  "width": 4,
+  "height": 4,
+  "opacity": 0.6,
+  "id": "star1",
+  "stroke": false,
+  "color": "#ffffff",
+  "fill_color": "#ffffff",
+  "fill": true
+ }
+]

@@ -1,6 +1,0 @@
-{
-  "path": "/opt/agi/models/inkling-2-mini/Inkling-2-Mini-AD-Q4_K.gguf",
-  "size_bytes": 16525559776,
-  "mtime_ns": 1795495166701758241,
-  "backend_version": "version: 1.1.0-dev (build 12808, commit ed2153e70)\nbuilt with GNU 13.4.0 for Linux x86_64"
-}

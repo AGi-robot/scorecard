@@ -1,0 +1,144 @@
+[
+ {
+  "kind": "delete",
+  "id": "roof_snow",
+  "color": "#e8eef4",
+  "fill_color": "#e8eef4"
+ },
+ {
+  "kind": "polygon",
+  "id": "roof_snow_cap",
+  "color": "#e8eef4",
+  "fill_color": "#e8eef4",
+  "fill": true,
+  "stroke": false,
+  "points": [
+   [
+    393,
+    342
+   ],
+   [
+    510,
+    254
+   ],
+   [
+    627,
+    342
+   ],
+   [
+    608,
+    342
+   ],
+   [
+    510,
+    268
+   ],
+   [
+    412,
+    342
+   ]
+  ]
+ },
+ {
+  "kind": "move",
+  "id": "light_spill",
+  "color": "#ffdd55",
+  "fill_color": "#ffdd55",
+  "dx": 30,
+  "dy": 12
+ },
+ {
+  "kind": "style",
+  "id": "light_spill",
+  "color": "#ff9922",
+  "fill_color": "#ff9922",
+  "opacity": 0.22
+ },
+ {
+  "kind": "polygon",
+  "id": "warm_cone",
+  "color": "#ffaa33",
+  "fill_color": "#ffaa33",
+  "fill": true,
+  "stroke": false,
+  "points": [
+   [
+    530,
+    407
+   ],
+   [
+    562,
+    407
+   ],
+   [
+    590,
+    470
+   ],
+   [
+    502,
+    470
+   ]
+  ]
+ },
+ {
+  "kind": "ellipse",
+  "id": "star_1",
+  "color": "#c8d4e8",
+  "fill_color": "#c8d4e8",
+  "fill": true,
+  "stroke": false,
+  "x": 180,
+  "y": 80,
+  "width": 4,
+  "height": 4
+ },
+ {
+  "kind": "ellipse",
+  "id": "star_2",
+  "color": "#b8c8e0",
+  "fill_color": "#b8c8e0",
+  "fill": true,
+  "stroke": false,
+  "x": 340,
+  "y": 55,
+  "width": 3,
+  "height": 3
+ },
+ {
+  "kind": "ellipse",
+  "id": "star_3",
+  "color": "#c8d4e8",
+  "fill_color": "#c8d4e8",
+  "fill": true,
+  "stroke": false,
+  "x": 680,
+  "y": 100,
+  "width": 4,
+  "height": 4
+ },
+ {
+  "kind": "ellipse",
+  "id": "star_4",
+  "color": "#a8b8d0",
+  "fill_color": "#a8b8d0",
+  "fill": true,
+  "stroke": false,
+  "x": 120,
+  "y": 150,
+  "width": 3,
+  "height": 3
+ },
+ {
+  "kind": "rectangle",
+  "id": "wall_warm_tint",
+  "color": "#ff8822",
+  "fill_color": "#ff8822",
+  "fill": true,
+  "stroke": false,
+  "x": 520,
+  "y": 370,
+  "width": 45,
+  "height": 45,
+  "opacity": 0.12
+ }
+]

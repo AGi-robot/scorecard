@@ -1,0 +1,84 @@
+[
+ {
+  "kind": "ellipse",
+  "id": "table-morning-wash",
+  "color": "#d4a855",
+  "fill_color": "#d4a855",
+  "fill": true,
+  "stroke": false,
+  "x": 0,
+  "y": 330,
+  "width": 420,
+  "height": 270,
+  "opacity": 0.07
+ },
+ {
+  "kind": "ellipse",
+  "id": "cup-rim-light",
+  "color": "#fff8ee",
+  "fill_color": "#fff8ee",
+  "fill": true,
+  "stroke": false,
+  "x": 562,
+  "y": 346,
+  "width": 50,
+  "height": 10,
+  "opacity": 0.6
+ },
+ {
+  "kind": "path",
+  "id": "apple-warm-glow",
+  "color": "#f0a070",
+  "fill_color": "#f0a070",
+  "fill": true,
+  "stroke": false,
+  "points": [
+   [
+    285,
+    410
+   ],
+   [
+    278,
+    440
+   ],
+   [
+    282,
+    475
+   ],
+   [
+    295,
+    490
+   ],
+   [
+    305,
+    470
+   ],
+   [
+    308,
+    435
+   ],
+   [
+    298,
+    410
+   ],
+   [
+    285,
+    410
+   ]
+  ],
+  "opacity": 0.35
+ },
+ {
+  "kind": "ellipse",
+  "id": "apple-base-contact",
+  "color": "#4a2a10",
+  "fill_color": "#4a2a10",
+  "fill": true,
+  "stroke": false,
+  "x": 310,
+  "y": 512,
+  "width": 80,
+  "height": 12,
+  "opacity": 0.25
+ }
+]

@@ -1,0 +1,328 @@
+The user wants a single self-contained HTML file that renders a professional animated explainer titled "How Grace Works" for the AIVA PC companion runtime. Let me carefully go through all the requirements.
+
+Let me plan the architecture:
+
+**Pipeline (left → right):**
+1. User — speaks/types in the browser.
+2. Console WebUI (browser-local appearance prefs; runtime config is read-only).
+3. rosbridge WebSocket at 127.0.0.1:9090.
+4. telepathy_receptor — ROS 2 adapter node.
+5. Interactive conversation engine — uses persona (SOUL.md) + user profile (USER.md).
+6. llama.cpp router — exactly ONE llama-server process, config models/llama-router.ini, routes by model name on port 8080:
+   - Ministral 3 8B chat
+   - voyage-4-nano embeddings
+7. Mind ConversationStore — SQLite memory (recent/add_exchange, 8-turn window).
+8. Sidecars: vector Canvas + Imaging capabilities, health/agi_logging.
+9. Response path back through the same chain to the WebUI.
+10. A caption: orchestrated by AIVA/launch.sh (builds shell workspace, starts router + rosbridge + chat + telepathy). AuRoRA is a separate system — do NOT show AuRoRA/CNC/TIC/HRM.
+
+**Required features:**
+- Dark professional theme, clean typography, generous whitespace, legend.
+- Animated packets/dots flowing along connectors from User → WebUI → rosbridge → telepathy_receptor → interactive engine → llama.cpp router → Ministral, with a side-branch animation to Memory and Canvas, then response packets flowing back.
+- Controls that WORK: Play / Pause / Restart / Step buttons plus a stage indicator (e.g. "Stage 3/9: telepathy_receptor"). Stepping must advance one stage at a time; Play must auto-advance with smooth animation.
+- Each stage node shows a 1-line description tooltip/label.
+- Responsive: readable at 1280×800 without scrolling sideways.
+- Zero console errors when opened in a browser.
+
+**Quality bar:**
+Layout · typography · colour/professionalism · motion smoothness · flow clarity · legend/labels.
+
+**Constraints:**
+- Single HTML file only. Inline `<style>` and `<script>`.
+- No external URLs. No fetch() to network.
+- Vanilla JS or inline SVG/Canvas animation. CSS @keyframes and/or requestAnimationFrame.
+- Must include (case-insensitive): WebUI, rosbridge, telepathy, interactive, llama.cpp, Ministral, memory, Canvas, launch.sh.
+
+Let me design this carefully.
+
+I'll create a layout with nodes arranged in a flow. Given the requirement of 1280×800 without sideways scroll, I need to be careful with layout. Let me think about a grid layout.
+
+Let me think about the stages. The stage indicator says "Stage 3/9" so there are 9 stages. Let me map:
+
+1. User
+2. Console WebUI
+3. rosbridge
+4. telepathy_receptor
+5. Interactive conversation engine
+6. llama.cpp router
+7. Mind ConversationStore (memory)
+8. Sidecars (Canvas + Imaging + health)
+9. Response path back
+
+Actually, let me reconsider. The request path is:
+User → WebUI → rosbridge → telepathy_receptor → interactive engine → llama.cpp router → Ministral (with embeddings via voyage)
+
+Then response path back.
+
+Let me define 9 stages for the stage indicator:
+1. User (speaks/types)
+2. Console WebUI
+3. rosbridge WebSocket
+4. telepathy_receptor
+5. Interactive conversation engine
+6. llama.cpp router (Ministral + voyage)
+7. Mind ConversationStore (memory)
+8. Sidecars (Canvas/Imaging/health)
+9. Response back to WebUI
+
+That's 9 stages. 
+
+Now for the layout. I want a professional flow. Let me do a multi-row layout that snakes:
+
+Row 1 (left to right): User, WebUI, rosbridge, telepathy_receptor
+Row 2 (right to left, or a snake): interactive engine, llama.cpp router, then memory & sidecars below
+
+Actually, let me think about a cleaner layout. I'll use a 3-column, 3-row grid maybe. Or a horizontal flow with a return path.
+
+Let me do this layout:
+
+```
+[User] --> [WebUI] --> [rosbridge] --> [telepathy]
+                                              |
+[Response] <-- [interactive] <-- [llama.cpp router]
+                                              |
+                                     [memory] / [Canvas]
+```
+
+Hmm, let me think more carefully. A snake pattern works well:
+
+Row 1 (L→R): User, WebUI, rosbridge, telepathy_receptor
+Row 2 (R→L): interactive engine, llama.cpp router, (memory, Canvas sidecars)
+
+Actually let me make it a clean flow with the response path shown as a separate colored flow.
+
+Let me design a layout that's readable:
+
+Top row: User → WebUI → rosbridge → telepathy_receptor
+Middle row: interactive engine → llama.cpp router → Ministral/voyage
+Bottom: memory & sidecars as side branches
+Response: a return path
+
+Let me use a grid approach with CSS. I'll place nodes at specific grid positions and draw connectors with SVG or CSS lines.
+
+Actually, for the animation of packets along connectors, I need to know the geometry. Let me use absolute positioning within a container and compute packet positions based on node centers.
+
+Let me think about the approach:
+- A container div with relative positioning.
+- Nodes positioned absolutely (or in a grid).
+- An SVG overlay for connectors (lines/arrows).
+- Packet elements that move along the connectors.
+
+For the animation, I'll have a sequence of stages. Each stage has a "from" node and a "to" node. The packet animates from center of "from" to center of "to". When it arrives, we advance to the next stage.
+
+Let me define the flow as a list of stages, each with:
+- id
+- label (short, for stage indicator)
+- description (for tooltip/label)
+- from node
+- to node
+- direction (forward/backward)
+
+Let me define nodes with IDs:
+- user
+- webui
+- rosbridge
+- telepathy
+- engine
+- router
+- memory
+- sidecars
+- response (this is the return, maybe just a label)
+
+Let me define the 9 stages:
+
+Stage 1: User → WebUI (forward)
+Stage 2: WebUI → rosbridge (forward)
+Stage 3: rosbridge → telepathy_receptor (forward)
+Stage 4: telepathy_receptor → interactive engine (forward)
+Stage 5: interactive engine → llama.cpp router (forward)
+Stage 6: llama.cpp router → Ministral (within router node, or router → memory/sidecars branch)
+Stage 7: branch to Memory + Canvas (sidecars)
+Stage 8: response from router back... 
+
+Hmm, let me reconsider. The request goes in, Ministral processes, then response comes back through the chain.
+
+Let me make it cleaner:
+
+Forward path:
+1. User → WebUI
+2. WebUI → rosbridge
+3. rosbridge → telepathy_receptor
+4. telepathy_receptor → interactive engine
+5. interactive engine → llama.cpp router
+6. llama.cpp router → Ministral 3 8B (and voyage embeddings)
+
+Then a branch:
+7. router ↔ Memory (ConversationStore) and Sidecars (Canvas/Imaging)
+
+Response path (backward):
+8. Ministral → router → engine → telepathy → rosbridge → WebUI
+9. WebUI → User (display response)
+
+Let me define 9 stages clearly:
+
+1. **User** — "You speak or type a request in the browser." (User → WebUI)
+2. **Console WebUI** — "Browser-local UI; reads runtime config (read-only)." (WebUI → rosbridge)
+3. **rosbridge** — "WebSocket at 127.0.0.1:9090 bridges the UI to ROS 2." (rosbridge → telepathy)
+4. **telepathy_receptor** — "ROS 2 adapter node forwards the message." (telepathy → engine)
+5. **Interactive engine** — "Applies SOUL.md persona + USER.md profile." (engine → router)
+6. **llama.cpp router** — "Routes by model name on port 8080 (Ministral + voyage)." (router → Ministral)
+7. **Memory & Sidecars** — "ConversationStore (SQLite, 8-turn) + Canvas/Imaging/health." (branch)
+8. **Response** — "Ministral reply routes back through the chain." (backward)
+9. **WebUI** — "Response rendered back in the Console WebUI." (→ User)
+
+That's 9 stages. 
+
+Now let me think about the visual layout. I'll use a grid. Let me place nodes:
+
+Positions (I'll use a coordinate system within the container):
+
+Let me use a layout like:
+
+```
+User(0,0) --> WebUI(1,0) --> rosbridge(2,0) --> telepathy(3,0)
+                                                    |
+interactive(2,1) --> router(1,1) --> Ministral(0,1)  [snake back]
+                                                    |
+memory(0,2) sidecars(1,2) ...
+```
+
+Hmm, this is getting complicated. Let me simplify with a cleaner grid.
+
+Actually, let me do a horizontal flow with two rows and a snake:
+
+Row 1 (y=0): User, WebUI, rosbridge, telepathy_receptor  (left to right)
+Row 2 (y=1): interactive_engine, llama_router, Ministral  (left to right, but connection from telepathy drops down)
+
+Wait, the flow from telepathy should go to interactive engine. If telepathy is at top-right and interactive engine is at bottom-left, that's a long snake.
+
+Let me reconsider. Maybe:
+
+Row 1 (left to right): User, WebUI, rosbridge, telepathy_receptor
+Row 2 (left to right): interactive_engine, llama_router, Ministral (+ voyage)
+
+Connection: telepathy (row1 right) → interactive_engine (row2 left)? That's a diagonal. Or I could put interactive_engine right under telepathy.
+
+Let me use a 4-column grid:
+
+Columns: 0, 1, 2, 3
+Row 1: User(0), WebUI(1), rosbridge(2), telepathy(3)
+Row 2: engine(0), router(1), Ministral(2), [memory/sidecars](3)
+
+Hmm, but the connection telepathy→engine would be diagonal from (3,0) to (0,1).
+
+Alternative snake:
+Row 1 (L→R): User(0), WebUI(1), rosbridge(2), telepathy(3)
+Row 2 (R→L): engine(3), router(2), Ministral(1), ... 
+
+So telepathy(3,0) → engine(3,1) is a straight down connection. Then engine(3,1) → router(2,1) → Ministral(1,1) going left. That's a nice snake.
+
+Then Ministral(1,1) branches down to memory and sidecars.
+
+Response path: Ministral → router → engine → (up) telepathy → rosbridge → WebUI → User. But those are in row 1. So response goes from row 2 back up to row 1 and left.
+
+This is getting complex but doable. Let me think about whether to show the response as a separate flow (different color) or reuse the same nodes.
+
+I think the cleanest is:
+- Forward flow: blue/cyan packets moving right/down.
+- Response flow: green/emerald packets moving left/up.
+
+Let me define the stages with explicit from/to node coordinates and animate a packet between them.
+
+Let me define node positions in a normalized coordinate space, then map to pixels. Actually, let me just use absolute pixel positions computed from the container, or use CSS grid and measure node positions with getBoundingClientRect.
+
+I think using CSS grid for layout and measuring positions dynamically is robust for responsiveness. But for the packet animation along connectors, I need to draw connectors too. Let me use an SVG that fills the container and draw lines between node centers.
+
+Actually, a cleaner approach: place nodes in a CSS grid. Compute each node's center relative to the container. Draw SVG connectors between consecutive nodes. Animate packets by moving them from one center to another.
+
+Let me use a fixed aspect container but responsive. Hmm, responsiveness is important. Let me make the container use relative units or a max-width and scale.
+
+Let me use a container with a fixed logical size (e.g., 1200px wide) but it scales. Actually, "readable at 1280×800 without scrolling sideways" — so at 1280 wide, everything fits. Let me design for ~1200px content width.
+
+Let me use a layout where I define nodes in a grid and use percentages. I'll set the explainer container to width 100% max 1200px, and position nodes using percentages of the container width.
+
+Let me define a coordinate system: the container is W wide. I'll place nodes at fractions of W.
+
+Let me use a 4-column layout. Column centers at x = 1/8, 3/8, 5/8, 7/8 of width (i.e., 12.5%, 37.5%, 62.5%, 87.5%). Rows at y = ...
+
+Let me define rows:
+- Row A (top): y = 20%
+- Row B (middle): y = 50%
+- Row C (bottom): y = 78%
+
+Nodes:
+- User: col 0, row A → (12.5%, 20%)
+- WebUI: col 1, row A → (37.5%, 20%)
+- rosbridge: col 2, row A → (62.5%, 20%)
+- telepathy: col 3, row A → (87.5%, 20%)
+- engine: col 3, row B → (87.5%, 50%)  [under telepathy]
+- router: col 2, row B → (62.5%, 50%)
+- Ministral: col 1, row B → (37.5%, 50%)
+- memory: col 0, row B → (12.5%, 50%)  [sidecar]
+- sidecars: ... 
+
+Hmm wait, let me reconsider. Ministral is the model. Memory and Sidecars are branches off the router/engine.
+
+Let me restructure:
+
+Row A (request in): User, WebUI, rosbridge, telepathy
+Row B: engine, router, Ministral (snake back left)
+Row C: memory, sidecars (side branches below)
+
+Connections (forward):
+- User → WebUI (row A, right)
+- WebUI → rosbridge (row A, right)
+- rosbridge → telepathy (row A, right)
+- telepathy → engine (down to row B)
+- engine → router (row B, left)
+- router → Ministral (row B, left)
+
+Branches:
+- router → memory (down)
+- router → sidecars (down)
+
+Response (backward):
+- Ministral → router (already have, but response direction)
+- router → engine
+- engine → telepathy
+- telepathy → rosbridge
+- rosbridge → WebUI
+- WebUI → User
+
+Hmm, but if I show Ministral at col 1 row B, and the response goes back through router (col 2), engine (col 3), then up to telepathy (col 3 row A), rosbridge (col 2 row A), WebUI (col 1 row A), User (col 0 row A). That works as a snake in reverse.
+
+Let me finalize node positions:
+
+Row A (y=20%): 
+- User (col 0, x=12.5%)
+- WebUI (col 1, x=37.5%)
+- rosbridge (col 2, x=62.5%)
+- telepathy (col 3, x=87.5%)
+
+Row B (y=50%):
+- engine (col 3, x=87.5%)
+- router (col 2, x=62.5%)
+- Ministral (col 1, x=37.5%)
+
+Row C (y=78%):
+- memory (col 0, x=12.5%)
+- sidecars (col 1, x=37.5%)
+
+Wait, but engine at col 3 row B is right under telepathy (col 3 row A). Good, telepathy → engine is straight down.
+
+engine (col 3 row B) → router (col 2 row B): left. Good.
+router (col 2 row B) → Ministral (col 1 row B): left. Good.
+router (col 2 row B) → memory (col 0 row C)? That's diagonal. Hmm. Let me put memory under router. 
+
+Let me adjust: 
+- memory under router: memory at col 2 row C (x=62.5%, y=78%)
+- sidecars under... let me put sidecars at col 1 row C.
+
+Actually, let me reconsider the whole thing. The router connects to Ministral (model), and also to Memory and Sidecars. Let me place:
+
+Row B: engine (col 3), router (col 2), Ministral (col 1)
+Row C: memory (col 2, under router), sidecars (col 1, under Ministral)
+
+Branches:
+- router (col2, rowB) → memory (col2, rowC): straight down. 
+- router (col2, rowB) → sidecars?

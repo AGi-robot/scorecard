@@ -92,7 +92,7 @@ def rows():
 
     # --- Grace Chatbot Eval: Elo + win rates -------------------------
     votes = []
-    for p in sorted(glob.glob(str(HERE / "grace_chatbot_eval" / "results" / "*votes*.jsonl"))):
+    for p in sorted(glob.glob(str(HERE / "aiva_chat_eval" / "results" / "*votes*.jsonl"))):
         for line in open(p):
             line = line.strip()
             if not line:
@@ -146,7 +146,7 @@ def rows():
     # --- Grace Canvas Eval: check_score / valid_rate ------------------
     # New lighthouse-matrix files nest metrics under "summary" and add a
     # deterministic "structural" scene-graph score alongside the checks.
-    for p in sorted(glob.glob(str(HERE / "grace_canvas_eval" / "results" / "*.json"))):
+    for p in sorted(glob.glob(str(HERE / "aiva_canvas_eval" / "results" / "*.json"))):
         if Path(p).name == "structural-rescore.json":
             continue
         d = load_json(p)
@@ -168,7 +168,7 @@ def rows():
         })
 
     # --- Lighthouse structural rescore (deterministic scene-graph judge) ---
-    struct_path = HERE / "grace_canvas_eval" / "results" / "structural-rescore.json"
+    struct_path = HERE / "aiva_canvas_eval" / "results" / "structural-rescore.json"
     struct_data = load_json(struct_path)
     if struct_data:
         for row in struct_data.get("rows", []):

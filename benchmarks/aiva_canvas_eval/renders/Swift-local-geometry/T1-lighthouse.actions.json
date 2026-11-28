@@ -1,0 +1,400 @@
+[
+ {
+  "kind": "rectangle",
+  "x": 0,
+  "y": 0,
+  "width": 1000,
+  "height": 650,
+  "gradient_angle": 90,
+  "id": "sky",
+  "gradient": "linear",
+  "stroke": false,
+  "color": "#2b2a52",
+  "fill_color": "#2b2a52",
+  "gradient_stops": [
+   {
+    "offset": 0,
+    "color": "#241f4a"
+   },
+   {
+    "offset": 0.5,
+    "color": "#5b3a63"
+   },
+   {
+    "offset": 0.8,
+    "color": "#c96b4a"
+   },
+   {
+    "offset": 1,
+    "color": "#e8895a"
+   }
+  ],
+  "fill": true
+ },
+ {
+  "kind": "rectangle",
+  "x": 0,
+  "y": 420,
+  "width": 1000,
+  "height": 230,
+  "gradient_angle": 90,
+  "id": "sea",
+  "gradient": "linear",
+  "stroke": false,
+  "color": "#1e3a4a",
+  "fill_color": "#1e3a4a",
+  "gradient_stops": [
+   {
+    "offset": 0,
+    "color": "#3a5566"
+   },
+   {
+    "offset": 1,
+    "color": "#16283a"
+   }
+  ],
+  "fill": true
+ },
+ {
+  "kind": "ellipse",
+  "x": 815,
+  "y": 80,
+  "width": 46,
+  "height": 46,
+  "opacity": 0.85,
+  "id": "moon",
+  "stroke": false,
+  "color": "#f4e9d0",
+  "fill_color": "#f4e9d0",
+  "fill": true
+ },
+ {
+  "kind": "curve",
+  "id": "headland",
+  "stroke": false,
+  "color": "#241d2b",
+  "fill_color": "#241d2b",
+  "fill": true,
+  "points": [
+   [
+    60,
+    620
+   ],
+   [
+    120,
+    520
+   ],
+   [
+    220,
+    470
+   ],
+   [
+    340,
+    455
+   ],
+   [
+    470,
+    470
+   ],
+   [
+    600,
+    455
+   ],
+   [
+    720,
+    480
+   ],
+   [
+    820,
+    540
+   ],
+   [
+    900,
+    600
+   ],
+   [
+    960,
+    620
+   ]
+  ]
+ },
+ {
+  "kind": "curve",
+  "id": "tower",
+  "stroke": false,
+  "color": "#f2ede4",
+  "fill_color": "#f2ede4",
+  "fill": true,
+  "points": [
+   [
+    400,
+    475
+   ],
+   [
+    408,
+    360
+   ],
+   [
+    425,
+    250
+   ],
+   [
+    438,
+    190
+   ],
+   [
+    470,
+    182
+   ],
+   [
+    502,
+    190
+   ],
+   [
+    515,
+    250
+   ],
+   [
+    532,
+    360
+   ],
+   [
+    540,
+    475
+   ],
+   [
+    470,
+    480
+   ]
+  ]
+ },
+ {
+  "kind": "curve",
+  "id": "band1",
+  "stroke": false,
+  "color": "#c0392b",
+  "fill_color": "#c0392b",
+  "fill": true,
+  "points": [
+   [
+    425,
+    300
+   ],
+   [
+    447,
+    296
+   ],
+   [
+    470,
+    295
+   ],
+   [
+    493,
+    296
+   ],
+   [
+    515,
+    300
+   ],
+   [
+    515,
+    322
+   ],
+   [
+    470,
+    326
+   ]
+  ]
+ },
+ {
+  "kind": "curve",
+  "id": "band2",
+  "stroke": false,
+  "color": "#c0392b",
+  "fill_color": "#c0392b",
+  "fill": true,
+  "points": [
+   [
+    415,
+    380
+   ],
+   [
+    442,
+    376
+   ],
+   [
+    470,
+    375
+   ],
+   [
+    498,
+    376
+   ],
+   [
+    525,
+    380
+   ],
+   [
+    525,
+    402
+   ],
+   [
+    470,
+    406
+   ]
+  ]
+ },
+ {
+  "kind": "rectangle",
+  "x": 445,
+  "y": 150,
+  "width": 50,
+  "height": 40,
+  "id": "lantern",
+  "stroke": false,
+  "color": "#2e2e3e",
+  "fill_color": "#2e2e3e",
+  "fill": true
+ },
+ {
+  "kind": "curve",
+  "id": "roof",
+  "stroke": false,
+  "color": "#c0392b",
+  "fill_color": "#c0392b",
+  "fill": true,
+  "points": [
+   [
+    440,
+    150
+   ],
+   [
+    455,
+    125
+   ],
+   [
+    485,
+    125
+   ],
+   [
+    500,
+    150
+   ]
+  ]
+ },
+ {
+  "kind": "ellipse",
+  "x": 458,
+  "y": 158,
+  "width": 24,
+  "height": 26,
+  "id": "lamp",
+  "stroke": false,
+  "color": "#ffd27a",
+  "fill_color": "#ffd27a",
+  "fill": true
+ },
+ {
+  "kind": "ellipse",
+  "x": 370,
+  "y": 70,
+  "width": 200,
+  "height": 200,
+  "line_height": 1,
+  "opacity": 0.5,
+  "id": "glow",
+  "stroke": false,
+  "color": "#ffd98a",
+  "fill_color": "#ffd98a",
+  "fill": true
+ },
+ {
+  "kind": "polygon",
+  "opacity": 0.18,
+  "id": "beamL",
+  "stroke": false,
+  "color": "#ffe6a8",
+  "fill_color": "#ffe6a8",
+  "fill": true,
+  "points": [
+   [
+    470,
+    170
+   ],
+   [
+    120,
+    120
+   ],
+   [
+    120,
+    235
+   ]
+  ]
+ },
+ {
+  "kind": "polygon",
+  "opacity": 0.18,
+  "id": "beamR",
+  "stroke": false,
+  "color": "#ffe6a8",
+  "fill_color": "#ffe6a8",
+  "fill": true,
+  "points": [
+   [
+    470,
+    170
+   ],
+   [
+    880,
+    110
+   ],
+   [
+    880,
+    240
+   ]
+  ]
+ },
+ {
+  "kind": "ellipse",
+  "x": 462,
+  "y": 248,
+  "width": 16,
+  "height": 22,
+  "id": "towerwin",
+  "stroke": false,
+  "color": "#ffd98a",
+  "fill_color": "#ffd98a",
+  "fill": true
+ },
+ {
+  "kind": "path",
+  "id": "rock1",
+  "stroke": false,
+  "smooth": true,
+  "color": "#1a1420",
+  "fill_color": "#1a1420",
+  "fill": true,
+  "points": [
+   [
+    120,
+    620
+   ],
+   [
+    160,
+    560
+   ],
+   [
+    240,
+    545
+   ],
+   [
+    300,
+    575
+   ],
+   [
+    320,
+    620
+   ]
+  ]
+ }
+]

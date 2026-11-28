@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How Grace Works — AIVA PC Companion Runtime</title>
+<style>
+  :root{
+    --bg:#0b0f14; --panel:#10161f; --panel2:#141c27; --line:#223041;
+    --ink:#e8eef5; --muted:#8fa1b3; --dim:#5c6c7d;
+    --cyan:#38d6f5; --green:#4ade80; --amber:#fbbf24; --violet:#a78bfa;
+    --red:#f87171;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html,body{height:100%;}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.5;
+    padding:28px 32px 40px;
+    min-width:1280px;
+  }
+  header{margin-bottom:20px;}
+  h1{
+    font-size:26px; font-weight:650; letter-spacing:.3px;
+    background:linear-gradient(90deg,#e8eef5,#9fb4c8);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .sub{color:var(--muted); font-size:14px; margin-top:4px;}
+  .sub b{color:var(--cyan); font-weight:600;}
+  main{max-width:1340px; margin:0 auto;}
+  .diagram-wrap{
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:14px;
+    box-shadow:0 10px 40px rgba(0,0,0,.35);
+  }
+  svg{display:block; width:100%; height:auto; max-width:1300px; margin:0 auto;}
+  .controls{
+    display:flex; align-items:center; gap:14px; flex-wrap:wrap;
+    margin-top:16px;
+  }
+  button{
+    font:inherit; font-size:14px; font-weight:600;
+    color:var(--ink); background:var(--panel2);
+    border:1px solid var(--line); border-radius:9px;
+    padding:9px 18px; cursor:pointer;
+    transition:background .15s, border-color .15s, transform .05s;
+  }
+  button:hover:not(:disabled){background:#1a2433; border-color:#33465c;}
+  button:active:not(:disabled){transform:translateY(1px);}
+  button:disabled{opacity:.4; cursor:not-allowed;}
+  button.primary{background:#123241; border-color:#1d5a72; color:#bfeaff;}
+  button.primary:hover:not(:disabled){background:#164055;}
+  #stageIndicator{
+    margin-left:auto;
+    font-size:14px; font-weight:600; color:var(--cyan);
+    background:var(--panel2); border:1px solid var(--line);
+    border-radius:9px; padding:9px 16px; white-space:nowrap;
+    min-width:280px; text-align:right;
+  }
+  #stageIndicator .dim{color:var(--muted); font-weight:400;}
+  .legend{
+    display:flex; gap:26px; flex-wrap:wrap;
+    margin-top:16px; padding:12px 18px;
+    background:var(--panel); border:1px solid var(--line); border-radius:12px;
+    font-size:13px; color:var(--muted);
+  }
+  .legend .item{display:flex; align-items:center; gap:9px;}
+  .swatch{width:14px; height:14px; border-radius:50%; display:inline-block;}
+  .swatch.req{background:var(--cyan); box-shadow:0 0 8px rgba(56,214,245,.7);}
+  .swatch.resp{background:var(--green); box-shadow:0 0 8px rgba(74,222,128,.7);}
+  .swatch.side{background:var(--amber); box-shadow:0 0 8px rgba(251,191,36,.7);}
+  .swatch.line{width:26px; height:3px; border-radius:2px; background:var(--line);}
+  .swatch.line.dashed{background:repeating-linear-gradient(90deg,var(--line) 0 5px,transparent 5px 9px);}
+  .caption{
+    margin-top:16px; font-size:13px; color:var(--muted);
+    border-left:3px solid var(--violet);
+    padding:10px 16px; background:var(--panel); border-radius:0 10px 10px 0;
+  }
+  .caption b{color:var(--ink);}
+  .caption .no{color:var(--dim);}
+  /* SVG styles */
+  .connector{stroke:var(--line); stroke-width:2; fill:none;}
+  .connector.side{stroke:#3a4a5e;}
+  .connector.active{stroke:var(--cyan); stroke-width:3;}
+  .connector.active.resp{stroke:var(--green);}
+  .connector.active.side{stroke:var(--amber);}
+  .node rect{
+    fill:var(--panel2); stroke:var(--line); stroke-width:1.5;
+    transition:stroke .2s, fill .2s;
+  }
+  .node.active rect{stroke:var(--cyan); fill:#142836; filter:drop-shadow(0 0 10px rgba(56,214,245,.35));}
+  .node.done rect{stroke:#2e4a63; fill:#101a24;}
+  .node .name{font-size:13.5px; font-weight:600; fill:var(--ink);}
+  .node .desc{font-size:10.5px; fill:var(--muted);}
+  .node .tag{font-size:9.5px; fill:var(--dim); letter-spacing:.4px;}
+  .packet{filter:drop-shadow(0 0 6px currentColor);}
+  .arrow{fill:var(--line); transition:fill .2s;}
+  .arrow.active{fill:var(--cyan);}
+  .arrow.active.resp{fill:var(--green);}
+  .arrow.active.side{fill:var(--amber);}
+  .badge{font-size:11px; font-weight:700; fill:var(--muted);}
+  .badge.active{fill:var(--cyan);}
+  .badge.done{fill:#3d5570;}
+  .label{font-size:10.5px; fill:var(--dim);}
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>How Grace Works</h1>
+    <div class="sub">AIVA PC companion runtime — the full request &amp; response pipeline, from browser to model and back.</div>
+  </header>
+
+  <div class="diagram-wrap">
+    <svg id="diagram" viewBox="0 0 1280 640" role="img" aria-label="Grace runtime pipeline diagram">
+      <!-- connectors (request) -->
+      <path id="p1" class="connector" d="M160,195 H200"/>
+      <path id="p2" class="connector" d="M330,195 H370"/>
+      <path id="p3" class="connector" d="M500,195 H530"/>
+      <path id="p4" class="connector" d="M680,195 H710"/>
+      <path id="p5" class="connector" d="M870,195 H900"/>
+      <path id="p6" class="connector" d="M975,230 V380"/>
+      <path id="p7" class="connector" d="M1050,230 V380 H1080"/>
+      <path id="p8" class="connector side" d="M790,230 V380"/>
+      <path id="p9" class="connector side" d="M790,450 V540"/>
+      <!-- connectors (response) -->
+      <path id="r1" class="connector" d="M975,380 V230"/>
+      <path id="r2" class="connector" d="M900,195 H870"/>
+      <path id="r3" class="connector" d="M710,195 H680"/>
+      <path id="r4" class="connector" d="M530,195 H500"/>
+      <path id="r5" class="connector" d="M370,195 H330"/>
+      <path id="r6" class="connector" d="M200,195 H160"/>
+      <!-- arrows -->
+      <path class="arrow" d="M196,191 L200,195 L196,199"/>
+      <path class="arrow" d="M366,191 L370,195 L366,199"/>
+      <path class="arrow" d="M526,191 L530,195 L526,199"/>
+      <path class="arrow" d="M706,191 L710,195 L706,199"/>
+      <path class="arrow" d="M896,191 L900,195 L896,199"/>
+      <path class="arrow" d="M971,376 L975,380 L979,376"/>
+      <path class="arrow" d="M1076,376 L1080,380 L1076,384"/>
+      <path class="arrow" d="M786,446 L790,450 L794,446"/>
+      <path class="arrow" d="M971,234 L975,230 L979,234"/>
+      <path class="arrow" d="M874,191 L870,195 L874,199"/>
+      <path class="arrow" d="M714,191 L710,195 L714,199"/>
+      <path class="arrow" d="M534,191 L530,195 L534,199"/>
+      <path class="arrow" d="M374,191 L370,195 L374,199"/>
+      <path class="arrow" d="M204,191 L200,195 L204,199"/>
+      <!-- nodes -->
+      <g class="node" id="n-user">
+        <rect x="40" y="160" width="120" height="70" rx="10"/>
+        <text class="name" x="100" y="188" text-anchor="middle">User</text>
+        <text class="desc" x="100" y="206" text-anchor="middle">Speaks or types in the browser</text>
+        <text class="tag" x="100" y="222" text-anchor="middle">STAGE 1</text>
+        <title>User — speaks or types in the browser</title>
+      </g>
+      <g class="node" id="n-webui">
+        <rect x="200" y="160" width="130" height="70" rx="10"/>
+        <text class="name" x="265" y="188" text-anchor="middle">Console WebUI</text>
+        <text class="desc" x="265" y="206" text-anchor="middle">Browser-local prefs; config read-only</text>
+        <text class="tag" x="265" y="222" text-anchor="middle">STAGE 2</text>
+        <title>Console WebUI — browser-local appearance prefs; runtime config is read-only</title>
+      </g>
+      <g class="node" id="n-rosbridge">
+        <rect x="370" y="160" width="130" height="70" rx="10"/>
+        <text class="name" x="435" y="188" text-anchor="middle">rosbridge</text>
+        <text class="desc" x="435" y="206" text-anchor="middle">WebSocket 127.0.0.1:9090</text>
+        <text class="tag" x="435" y="222" text-anchor="middle">STAGE 3</text>
+        <title>rosbridge — WebSocket bridge at 127.0.0.1:9090</title>
+      </g>
+      <g class="node" id="n-telepathy">
+        <rect x="530" y="160" width="150" height="70" rx="10"/>
+        <text class="name" x="605" y="188" text-anchor="middle">telepathy_receptor</text>
+        <text class="desc" x="605" y="206" text-anchor="middle">ROS 2 adapter node</text>
+        <text class="tag" x="605" y="222" text-anchor="middle">STAGE 4</text>
+        <title>telepathy_receptor — ROS 2 adapter node</title>
+      </g>
+      <g class="node" id="n-engine">
+        <rect x="710" y="160" width="160" height="70" rx="10"/>
+        <text class="name" x="790" y="188" text-anchor="middle">Interactive engine</text>
+        <text class="desc" x="790" y="206" text-anchor="middle">SOUL.md + USER.md</text>
+        <text class="tag" x="790" y="222" text-anchor="middle">STAGE 5</text>
+        <title>Interactive conversation engine — uses persona (SOUL.md) + user profile (USER.md)</title>
+      </g>
+      <g class="node" id="n-router">
+        <rect x="900" y="160" width="150" height="70" rx="10"/>
+        <text class="name" x="975" y="188" text-anchor="middle">llama.cpp router</text>
+        <text class="desc" x="975" y="206" text-anchor="middle">llama-server · port 8080</text>
+        <text class="tag" x="975" y="222" text-anchor="middle">STAGE 6</text>
+        <title>llama.cpp router — exactly one llama-server process, models/llama-router.ini, routes by model name on port 8080</title>
+      </g>
+      <g class="node" id="n-ministral">
+        <rect x="900" y="380" width="150" height="70" rx="10"/>
+        <text class="name" x="975" y="408" text-anchor="middle">Ministral 3 8B chat</text>
+        <text class="desc" x="975" y="426" text-anchor="middle">Routed by model name</text>
+        <text class="tag" x="975" y="442" text-anchor="middle">STAGE 7</text>
+        <title>Ministral 3 8B chat — routed by model name; voyage-4-nano embeddings</title>
+      </g>
+      <g class="node" id="n-embeddings">
+        <rect x="1080" y="380" width="150" height="70" rx="10"/>
+        <text class="name" x="1155" y="408" text-anchor="middle">voyage-4-nano</text>
+        <text class="desc" x="1155" y="426" text-anchor="middle">embeddings model</text>
+        <text class="tag" x="1155" y="442" text-anchor="middle">side branch</text>
+        <title>voyage-4-nano embeddings — second model served by the same llama.cpp router</title>
+      </g>
+      <g class="node" id="n-memory">
+        <rect x="710" y="380" width="160" height="70" rx="10"/>
+        <text class="name" x="790" y="408" text-anchor="middle">Mind ConversationStore</text>
+        <text class="desc" x="790" y="426" text-anchor="middle">SQLite memory · 8-turn window</text>
+        <text class="tag" x="790" y="442" text-anchor="middle">STAGE 8</text>
+        <title>Mind ConversationStore — SQLite memory, recent/add_exchange, 8-turn window</title>
+      </g>
+      <g class="node" id="n-sidecars">
+        <rect x="710" y="540" width="340" height="70" rx="10"/>
+        <text class="name" x="880" y="568" text-anchor="middle">Sidecars</text>
+        <text class="desc" x="880" y="586" text-anchor="middle">Vector Canvas · Imaging · health / agi_logging</text>
+        <text class="tag" x="880" y="602" text-anchor="middle">STAGE 9</text>
+        <title>Sidecars — vector Canvas + Imaging capabilities, health / agi_logging</title>
+      </g>
+      <!-- packets -->
+      <circle id="packetReq" class="packet" r="6" fill="var(--cyan)" style="color:var(--cyan); display:none"/>
+      <circle id="packetResp" class="packet" r="6" fill="var(--green)" style="color:var(--green); display:none"/>
+    </svg>
+  </div>
+
+  <div class="controls">
+    <button id="btnPlay" class="primary">▶ Play</button>
+    <button id="btnPause">⏸ Pause</button>
+    <button id="btnRestart">↺ Restart</button>
+    <button id="btnStep">⏭ Step</button>
+    <div id="stageIndicator"><span class="dim">Stage 1/9:</span> User</div>
+  </div>
+
+  <div class="legend">
+    <div class="item"><span class="swatch req"></span>Request packet (User → model)</div>
+    <div class="item"><span class="swatch resp"></span>Response packet (model → User)</div>
+    <div class="item"><span class="swatch side"></span>Side branch (memory / sidecars)</div>
+    <div class="item"><span class="swatch line"></span>Connector</div>
+    <div class="item"><span class="swatch line dashed"></span>Idle connector</div>
+  </div>
+
+  <p class="caption">
+    Orchestrated by <b>AIVA/launch.sh</b> — builds the shell workspace, then starts the
+    llama.cpp router + rosbridge + chat + telepathy. <span class="no">AuRoRA is a separate system and is not part of this pipeline.</span>
+  </p>
+</main>
+
+<script>
+(function(){
+  "use strict";
+
+  var stages = [
+    {id:"user",      name:"User",                        desc:"Speaks or types in the browser"},
+    {id:"webui",     name:"Console WebUI",               desc:"Browser-local appearance prefs; runtime config is read-only"},
+    {id:"rosbridge", name:"rosbridge",                   desc:"WebSocket bridge at 127.0.0.1:9090"},
+    {id:"telepathy", name:"telepathy_receptor",          desc:"ROS 2 adapter node"},
+    {id:"engine",    name:"Interactive conversation engine", desc:"Uses persona (SOUL.md) + user profile (USER.md)"},
+    {id:"router",    name:"llama.cpp router",            desc:"One llama-server, models/llama-router.ini, port 8080"},
+    {id:"ministral", name:"Ministral 3 8B chat",         desc:"Routed by model name; voyage-4-nano embeddings"},
+    {id:"memory",    name:"Mind ConversationStore",      desc:"SQLite memory — recent/add_exchange, 8-turn window"},
+    {id:"sidecars",  name:"Sidecars",                    desc:"Vector Canvas + Imaging; health / agi_logging"}
+  ];
+
+  // Request transitions: index = stage being entered (1-based target)
+  var reqTransitions = [
+    {to:1, path:"p1"},
+    {to:2, path:"p2"},
+    {to:3, path:"p3"},
+    {to:4, path:"p4"},
+    {to:5, path:"p5"},
+    {to:6, path:"p6"},
+    {to:7, path:"p8"},
+    {to:8, path:"p9"}
+  ];
+  // Response transitions (back through the same chain)
+  var respTransitions = [
+    {to:5, path:"r1"},
+    {to:4, path:"r2"},
+    {to:3, path:"r3"},
+    {to:2, path:"r4"},
+    {to:1, path:"r5"},
+    {to:0, path:"r6"}
+  ];
+
+  var svg = document.getElementById("diagram");
+  var packetReq = document.getElementById("packetReq");
+  var packetResp = document.getElementById("packetResp");
+  var stageIndicator = document.getElementById("stageIndicator");
+  var btnPlay = document.getElementById("btnPlay");
+  var btnPause = document.getElementById("btnPause");
+  var btnRestart = document.getElementById("btnRestart");
+  var btnStep = document.getElementById("btnStep");
+
+  var state = {
+    stage: 0,          // current stage index (0-based)
+    phase: "idle",     // idle | transition | done
+    playing: false,
+    reqIdx: 0,         // next request transition index
+    respIdx: 0,        // next response transition index
+    anim: null         // active animation
+  };
+
+  var DUR = 1100;      // ms per transition
+  var GAP = 350;       // ms pause between transitions
+
+  function $(id){ return document.getElementById(id); }
+  function nodeEl(i){ return $("n-" + stages[i].id); }
+
+  function setStageIndicator(stageIdx, response){
+    if (response !== undefined && response !== null){
+      stageIndicator.innerHTML = '<span class="dim">Response:</span> ' + stages[stageIdx].name;
+    } else {
+      stageIndicator.innerHTML = '<span class="dim">Stage ' + (stageIdx + 1) + '/9:</span> ' + stages[stageIdx].name;
+    }
+  }
+
+  function markNodes(){
+    for (var i = 0; i < stages.length; i++){
+      var el = nodeEl(i);
+      el.classList.remove("active", "done");
+      if (i < state.stage) el.classList.add("done");
+      else if (i === state.stage) el.classList.add("active");
+    }
+  }
+
+  function setConnectorActive(pathId, kind){
+    var p = $(pathId);
+    p.classList.remove("active");
+    if (kind) p.classList.add("active", kind);
+  }
+
+  function clearConnectors(){
+    var ids = ["p1","p2","p3","p4","p5","p6","p7","p8","p9","r1","r2","r3","r4","r5","r6"];
+    for (var i = 0; i < ids.length; i++) setConnectorActive(ids[i], null);
+  }
+
+  function easeInOut(t){ return t < 0.5 ? 2*t*t : 1 - Math.pow(-2*t + 2, 2) / 2; }
+
+  function animateTransition(pathId, kind, onDone){
+    var path = $(pathId);
+    var len = path.getTotalLength();
+    var packet = kind === "resp" ? packetResp : packetReq;
+    packet.style.display = "block";
+    setConnectorActive(pathId, kind);
+
+    var start = performance.now();
+    var raf = null;
+
+    function tick(now){
+      var t = Math.min(1, (now - start) / DUR);
+      var pt = path.getPointAtLength(easeInOut(t) * len);
+      packet.setAttribute("cx", pt.x);
+      packet.setAttribute("cy", pt.y);
+      if (t < 1){
+        raf = requestAnimationFrame(tick);
+      } else {
+        packet.style.display = "none";
+        if (onDone) onDone();
+      }
+    }
+    raf = requestAnimationFrame(tick);
+    state.anim = {raf: raf, cancel: function(){ if (raf) cancelAnimationFrame(raf); }};
+  }
+
+  function nextTransition(){
+    if (state.reqIdx < reqTransitions.length){
+      var tr = reqTransitions[state.reqIdx];
+      state.reqIdx++;
+      animateTransition(tr.path, "req", function(){
+        state.stage = tr.to;
+        markNodes();
+        setStageIndicator(state.stage);
+        if (state.playing) scheduleNext();
+      });
+    } else if (state.respIdx < respTransitions.length){
+      var rt = respTransitions[state.respIdx];
+      state.respIdx++;
+      animateTransition(rt.path, "resp", function(){
+        state.stage = rt.to;
+        markNodes();
+        setStageIndicator(state.stage, true);
+        if (state.playing) scheduleNext();
+      });
+    } else {
+      finish();
+    }
+  }
+
+  function scheduleNext(){
+    if (state.phase !== "idle") return;
+    state.phase = "transition";
+    setTimeout(function(){
+      if (!state.playing) return;
+      if (state.phase !== "idle") return;
+      nextTransition();
+    }, GAP);
+  }
+
+  function finish(){
+    state.phase = "done";
+    state.playing = false;
+    markNodes();
+    setStageIndicator(0);
+    stageIndicator.innerHTML = '<span class="dim">Complete:</span> full request &amp; response cycle finished';
+    updateButtons();
+  }
+
+  function reset(){
+    if (state.anim) state.anim.cancel();
+    state.stage = 0;
+    state.phase = "idle";
+    state.playing = false;
+    state.reqIdx = 0;
+    state.respIdx = 0;
+    packetReq.style.display = "none";
+    packetResp.style.display = "none";
+    clearConnectors();
+    markNodes();
+    setStageIndicator(0);
+    updateButtons();
+  }
+
+  function updateButtons(){
+    btnPlay.disabled = state.phase === "done" || state.playing;
+    btnPause.disabled = !state.playing;
+    btnStep.disabled = state.phase === "done";
+    btnPlay.textContent = state.playing ? "▶ Playing" : "▶ Play";
+  }
+
+  btnPlay.addEventListener("click", function(){
+    if (state.phase === "done") return;
+    state.playing = true;
+    updateButtons();
+    if (state.phase === "idle") scheduleNext();
+  });
+
+  btnPause.addEventListener("click", function(){
+    state.playing = false;
+    updateButtons();
+  });
+
+  btnRestart.addEventListener("click", function(){
+    reset();
+  });
+
+  btnStep.addEventListener("click", function(){
+    if (state.phase === "done") return;
+    state.playing = false;
+    updateButtons();
+    if (state.phase === "idle") nextTransition();
+  });
+
+  markNodes();
+  setStageIndicator(0);
+  updateButtons();
+})();
+</script>
+</body>
+</html>

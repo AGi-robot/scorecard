@@ -1,0 +1,58 @@
+[
+ {
+  "kind": "style",
+  "opacity": 0.35,
+  "id": "T1-lighthouse-p1-15",
+  "fill_color": "#e8a87c"
+ },
+ {
+  "kind": "style",
+  "id": "T1-lighthouse-p1-12",
+  "fill_color": "#f2d5a0"
+ },
+ {
+  "kind": "style",
+  "id": "T1-lighthouse-p1-13",
+  "fill_color": "#f7e6c0"
+ },
+ {
+  "kind": "style",
+  "id": "T1-lighthouse-p1-14",
+  "fill_color": "#ffd98a"
+ },
+ {
+  "kind": "style",
+  "id": "T1-lighthouse-p1-10",
+  "fill_color": "#4a3a33"
+ },
+ {
+  "kind": "style",
+  "id": "T1-lighthouse-p1-11",
+  "fill_color": "#e8d5b0"
+ },
+ {
+  "kind": "style",
+  "id": "T1-lighthouse-p1-5",
+  "fill_color": "#e8d5b0"
+ },
+ {
+  "kind": "style",
+  "id": "T1-lighthouse-p1-6",
+  "fill_color": "#c96a4a"
+ },
+ {
+  "kind": "style",
+  "id": "T1-lighthouse-p1-7",
+  "fill_color": "#c96a4a"
+ },
+ {
+  "kind": "style",
+  "size": 18,
+  "line_height": 2,
+  "opacity": 0.55,
+  "align": "center",
+  "id": "T1-lighthouse-p1-8",
+  "text": "#e8d5b0",
+  "fill_color": "#e8d5b0"
+ }
+]

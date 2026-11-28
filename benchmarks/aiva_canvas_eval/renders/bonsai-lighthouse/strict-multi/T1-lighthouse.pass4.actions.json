@@ -1,0 +1,33 @@
+[
+ {
+  "kind": "style",
+  "id": "lighthouse",
+  "fill_color": "#f0e8d8"
+ },
+ {
+  "kind": "style",
+  "id": "lighthouse_shadow",
+  "fill_color": "#c4b49c"
+ },
+ {
+  "kind": "style",
+  "id": "lamp_glow",
+  "fill_color": "#ffcf6e"
+ },
+ {
+  "kind": "style",
+  "id": "lamp",
+  "fill_color": "#fffbe8"
+ },
+ {
+  "kind": "style",
+  "opacity": 0.45,
+  "id": "lamp_halo",
+  "fill_color": "#ffd88a"
+ },
+ {
+  "kind": "style",
+  "id": "moon",
+  "fill_color": "#f8f0d8"
+ }
+]

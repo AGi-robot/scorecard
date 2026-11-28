@@ -1,0 +1,455 @@
+[
+ {
+  "kind": "rectangle",
+  "x": 0,
+  "y": 0,
+  "width": 1000,
+  "height": 650,
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#1a1535",
+  "gradient": "linear",
+  "gradient_angle": 90,
+  "gradient_color": "#e8a878",
+  "gradient_stops": [
+   {
+    "offset": 0,
+    "color": "#1a1535"
+   },
+   {
+    "offset": 0.3,
+    "color": "#2e2550"
+   },
+   {
+    "offset": 0.6,
+    "color": "#7a4a5a"
+   },
+   {
+    "offset": 0.85,
+    "color": "#c87a5a"
+   },
+   {
+    "offset": 1.0,
+    "color": "#e8a878"
+   }
+  ]
+ },
+ {
+  "kind": "curve",
+  "id": "distant-hills",
+  "points": [
+   [
+    0,
+    440
+   ],
+   [
+    80,
+    425
+   ],
+   [
+    160,
+    435
+   ],
+   [
+    250,
+    420
+   ],
+   [
+    340,
+    430
+   ],
+   [
+    430,
+    418
+   ],
+   [
+    520,
+    428
+   ],
+   [
+    610,
+    415
+   ],
+   [
+    700,
+    425
+   ],
+   [
+    790,
+    418
+   ],
+   [
+    880,
+    430
+   ],
+   [
+    950,
+    422
+   ],
+   [
+    1000,
+    435
+   ]
+  ],
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#2a2040"
+ },
+ {
+  "kind": "rectangle",
+  "x": 0,
+  "y": 450,
+  "width": 1000,
+  "height": 120,
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#1e2840",
+  "gradient": "linear",
+  "gradient_angle": 90,
+  "gradient_color": "#2a3850",
+  "gradient_stops": [
+   {
+    "offset": 0,
+    "color": "#2a3850"
+   },
+   {
+    "offset": 1.0,
+    "color": "#1e2840"
+   }
+  ]
+ },
+ {
+  "kind": "curve",
+  "id": "headland",
+  "points": [
+   [
+    0,
+    650
+   ],
+   [
+    0,
+    540
+   ],
+   [
+    40,
+    520
+   ],
+   [
+    90,
+    535
+   ],
+   [
+    140,
+    505
+   ],
+   [
+    200,
+    520
+   ],
+   [
+    260,
+    495
+   ],
+   [
+    320,
+    510
+   ],
+   [
+    380,
+    485
+   ],
+   [
+    440,
+    500
+   ],
+   [
+    500,
+    480
+   ],
+   [
+    560,
+    495
+   ],
+   [
+    620,
+    475
+   ],
+   [
+    690,
+    495
+   ],
+   [
+    750,
+    510
+   ],
+   [
+    820,
+    490
+   ],
+   [
+    880,
+    510
+   ],
+   [
+    940,
+    525
+   ],
+   [
+    1000,
+    540
+   ],
+   [
+    1000,
+    650
+   ]
+  ],
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#15121f"
+ },
+ {
+  "kind": "curve",
+  "id": "lighthouse-tower",
+  "points": [
+   [
+    465,
+    485
+   ],
+   [
+    470,
+    300
+   ],
+   [
+    482,
+    190
+   ],
+   [
+    490,
+    175
+   ],
+   [
+    510,
+    175
+   ],
+   [
+    518,
+    190
+   ],
+   [
+    528,
+    300
+   ],
+   [
+    535,
+    485
+   ],
+   [
+    520,
+    490
+   ],
+   [
+    480,
+    490
+   ],
+   [
+    465,
+    485
+   ]
+  ],
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#d8d0c0"
+ },
+ {
+  "kind": "polygon",
+  "id": "lantern-base",
+  "points": [
+   480,
+   175,
+   520,
+   175,
+   520,
+   160,
+   480,
+   160
+  ],
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#4a4540"
+ },
+ {
+  "kind": "polygon",
+  "id": "lantern-glass",
+  "points": [
+   484,
+   160,
+   516,
+   160,
+   514,
+   140,
+   486,
+   140
+  ],
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#f0c870"
+ },
+ {
+  "kind": "polygon",
+  "id": "lantern-roof",
+  "points": [
+   480,
+   140,
+   520,
+   140,
+   515,
+   128,
+   485,
+   128
+  ],
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#3a3530"
+ },
+ {
+  "kind": "ellipse",
+  "x": 500,
+  "y": 150,
+  "width": 120,
+  "height": 120,
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#f0a030",
+  "gradient": "radial",
+  "gradient_color": "#f0a03000",
+  "opacity": 0.35
+ },
+ {
+  "kind": "ellipse",
+  "x": 500,
+  "y": 150,
+  "width": 60,
+  "height": 60,
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#ffd080",
+  "opacity": 0.6
+ },
+ {
+  "kind": "curve",
+  "id": "rock-foreground-left",
+  "points": [
+   [
+    0,
+    650
+   ],
+   [
+    0,
+    580
+   ],
+   [
+    30,
+    570
+   ],
+   [
+    70,
+    585
+   ],
+   [
+    110,
+    560
+   ],
+   [
+    150,
+    575
+   ],
+   [
+    190,
+    555
+   ],
+   [
+    230,
+    570
+   ],
+   [
+    260,
+    650
+   ]
+  ],
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#0e0c15"
+ },
+ {
+  "kind": "curve",
+  "id": "rock-foreground-right",
+  "points": [
+   [
+    740,
+    650
+   ],
+   [
+    770,
+    560
+   ],
+   [
+    810,
+    575
+   ],
+   [
+    850,
+    555
+   ],
+   [
+    890,
+    570
+   ],
+   [
+    930,
+    560
+   ],
+   [
+    970,
+    580
+   ],
+   [
+    1000,
+    570
+   ],
+   [
+    1000,
+    650
+   ]
+  ],
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#0e0c15"
+ },
+ {
+  "kind": "line",
+  "id": "light-beam",
+  "points": [
+   [
+    500,
+    145
+   ],
+   [
+    500,
+    60
+   ]
+  ],
+  "color": "#f0c060",
+  "width": 3,
+  "opacity": 0.4
+ },
+ {
+  "kind": "ellipse",
+  "x": 490,
+  "y": 140,
+  "width": 20,
+  "height": 20,
+  "fill": true,
+  "stroke": false,
+  "fill_color": "#ffe0a0"
+ }
+]

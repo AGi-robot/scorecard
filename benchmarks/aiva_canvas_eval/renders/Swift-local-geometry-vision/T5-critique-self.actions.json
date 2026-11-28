@@ -1,0 +1,620 @@
+[
+ {
+  "kind": "rectangle",
+  "x": 0,
+  "y": 0,
+  "width": 1000,
+  "height": 650,
+  "gradient_angle": 90,
+  "id": "sky_bg",
+  "gradient": "linear",
+  "stroke": false,
+  "color": "#0a1628",
+  "fill_color": "#0a1628",
+  "gradient_stops": [
+   {
+    "offset": 0,
+    "color": "#060e1a"
+   },
+   {
+    "offset": 0.6,
+    "color": "#0f1e30"
+   },
+   {
+    "offset": 1,
+    "color": "#1a2a40"
+   }
+  ],
+  "fill": true
+ },
+ {
+  "kind": "rectangle",
+  "x": 0,
+  "y": 430,
+  "width": 1000,
+  "height": 220,
+  "id": "snow_ground",
+  "stroke": false,
+  "color": "#dce4ec",
+  "fill_color": "#dce4ec",
+  "fill": true
+ },
+ {
+  "kind": "polygon",
+  "id": "distant_trees",
+  "stroke": false,
+  "color": "#0c1a10",
+  "fill_color": "#0c1a10",
+  "fill": true,
+  "points": [
+   [
+    0,
+    430
+   ],
+   [
+    0,
+    370
+   ],
+   [
+    40,
+    340
+   ],
+   [
+    80,
+    365
+   ],
+   [
+    120,
+    330
+   ],
+   [
+    160,
+    360
+   ],
+   [
+    200,
+    325
+   ],
+   [
+    240,
+    355
+   ],
+   [
+    280,
+    320
+   ],
+   [
+    320,
+    350
+   ],
+   [
+    360,
+    335
+   ],
+   [
+    400,
+    355
+   ],
+   [
+    440,
+    340
+   ],
+   [
+    480,
+    360
+   ],
+   [
+    520,
+    345
+   ],
+   [
+    560,
+    365
+   ],
+   [
+    600,
+    340
+   ],
+   [
+    640,
+    360
+   ],
+   [
+    680,
+    330
+   ],
+   [
+    720,
+    355
+   ],
+   [
+    760,
+    325
+   ],
+   [
+    800,
+    350
+   ],
+   [
+    840,
+    335
+   ],
+   [
+    880,
+    360
+   ],
+   [
+    920,
+    340
+   ],
+   [
+    960,
+    365
+   ],
+   [
+    1000,
+    345
+   ],
+   [
+    1000,
+    430
+   ]
+  ]
+ },
+ {
+  "kind": "polygon",
+  "id": "pine_left_1",
+  "stroke": false,
+  "color": "#0e1f12",
+  "fill_color": "#0e1f12",
+  "fill": true,
+  "points": [
+   [
+    110,
+    120
+   ],
+   [
+    60,
+    430
+   ],
+   [
+    160,
+    430
+   ]
+  ]
+ },
+ {
+  "kind": "polygon",
+  "id": "pine_left_2",
+  "stroke": false,
+  "color": "#112418",
+  "fill_color": "#112418",
+  "fill": true,
+  "points": [
+   [
+    220,
+    180
+   ],
+   [
+    170,
+    430
+   ],
+   [
+    270,
+    430
+   ]
+  ]
+ },
+ {
+  "kind": "polygon",
+  "id": "pine_right_1",
+  "stroke": false,
+  "color": "#0e1f12",
+  "fill_color": "#0e1f12",
+  "fill": true,
+  "points": [
+   [
+    800,
+    140
+   ],
+   [
+    750,
+    430
+   ],
+   [
+    850,
+    430
+   ]
+  ]
+ },
+ {
+  "kind": "polygon",
+  "id": "pine_right_2",
+  "stroke": false,
+  "color": "#112418",
+  "fill_color": "#112418",
+  "fill": true,
+  "points": [
+   [
+    900,
+    200
+   ],
+   [
+    855,
+    430
+   ],
+   [
+    945,
+    430
+   ]
+  ]
+ },
+ {
+  "kind": "rectangle",
+  "x": 420,
+  "y": 340,
+  "width": 180,
+  "height": 110,
+  "id": "cabin_walls",
+  "stroke": false,
+  "color": "#3a2a1a",
+  "fill_color": "#3a2a1a",
+  "fill": true
+ },
+ {
+  "kind": "polygon",
+  "id": "cabin_roof",
+  "stroke": false,
+  "color": "#261a0e",
+  "fill_color": "#261a0e",
+  "fill": true,
+  "points": [
+   [
+    400,
+    340
+   ],
+   [
+    510,
+    262
+   ],
+   [
+    620,
+    340
+   ]
+  ]
+ },
+ {
+  "kind": "rectangle",
+  "x": 530,
+  "y": 375,
+  "width": 32,
+  "height": 32,
+  "id": "window",
+  "stroke": false,
+  "color": "#ffcc33",
+  "fill_color": "#ffcc33",
+  "fill": true
+ },
+ {
+  "kind": "ellipse",
+  "x": 490,
+  "y": 440,
+  "width": 110,
+  "height": 80,
+  "opacity": 0.3,
+  "id": "light_spill",
+  "stroke": false,
+  "smooth": true,
+  "color": "#ffdd55",
+  "fill_color": "#ffdd55",
+  "fill": true
+ },
+ {
+  "kind": "polygon",
+  "id": "roof_snow",
+  "stroke": false,
+  "color": "#e8eef4",
+  "fill_color": "#e8eef4",
+  "fill": true,
+  "points": [
+   [
+    405,
+    338
+   ],
+   [
+    510,
+    264
+   ],
+   [
+    615,
+    338
+   ],
+   [
+    600,
+    338
+   ],
+   [
+    510,
+    272
+   ],
+   [
+    420,
+    338
+   ]
+  ]
+ },
+ {
+  "kind": "ellipse",
+  "x": 810,
+  "y": 65,
+  "width": 42,
+  "height": 42,
+  "id": "moon",
+  "stroke": false,
+  "color": "#e8e4d0",
+  "fill_color": "#e8e4d0",
+  "fill": true
+ },
+ {
+  "kind": "rectangle",
+  "x": 455,
+  "y": 385,
+  "width": 28,
+  "height": 65,
+  "id": "door",
+  "stroke": false,
+  "color": "#221508",
+  "fill_color": "#221508",
+  "fill": true
+ },
+ {
+  "kind": "path",
+  "id": "snow_drift",
+  "stroke": false,
+  "smooth": true,
+  "color": "#e4ecf2",
+  "fill_color": "#e4ecf2",
+  "fill": true,
+  "points": [
+   [
+    0,
+    520
+   ],
+   [
+    150,
+    490
+   ],
+   [
+    350,
+    510
+   ],
+   [
+    550,
+    495
+   ],
+   [
+    750,
+    515
+   ],
+   [
+    900,
+    500
+   ],
+   [
+    1000,
+    520
+   ],
+   [
+    1000,
+    650
+   ],
+   [
+    0,
+    650
+   ]
+  ]
+ },
+ {
+  "kind": "ellipse",
+  "x": 515,
+  "y": 360,
+  "width": 62,
+  "height": 62,
+  "opacity": 0.15,
+  "id": "window_glow",
+  "stroke": false,
+  "smooth": true,
+  "color": "#ffaa22",
+  "fill_color": "#ffaa22",
+  "fill": true
+ },
+ {
+  "kind": "delete",
+  "id": "roof_snow",
+  "color": "#e8eef4",
+  "fill_color": "#e8eef4",
+  "fill": false
+ },
+ {
+  "kind": "polygon",
+  "id": "roof_snow_cap",
+  "stroke": false,
+  "color": "#e8eef4",
+  "fill_color": "#e8eef4",
+  "fill": true,
+  "points": [
+   [
+    393,
+    342
+   ],
+   [
+    510,
+    254
+   ],
+   [
+    627,
+    342
+   ],
+   [
+    608,
+    342
+   ],
+   [
+    510,
+    268
+   ],
+   [
+    412,
+    342
+   ]
+  ]
+ },
+ {
+  "kind": "move",
+  "dx": 30,
+  "dy": 12,
+  "id": "light_spill",
+  "color": "#ffdd55",
+  "fill_color": "#ffdd55",
+  "fill": false
+ },
+ {
+  "kind": "style",
+  "opacity": 0.22,
+  "id": "light_spill",
+  "color": "#ff9922",
+  "fill_color": "#ff9922"
+ },
+ {
+  "kind": "polygon",
+  "id": "warm_cone",
+  "stroke": false,
+  "color": "#ffaa33",
+  "fill_color": "#ffaa33",
+  "fill": true,
+  "points": [
+   [
+    530,
+    407
+   ],
+   [
+    562,
+    407
+   ],
+   [
+    590,
+    470
+   ],
+   [
+    502,
+    470
+   ]
+  ]
+ },
+ {
+  "kind": "ellipse",
+  "x": 180,
+  "y": 80,
+  "width": 4,
+  "height": 4,
+  "id": "star_1",
+  "stroke": false,
+  "color": "#c8d4e8",
+  "fill_color": "#c8d4e8",
+  "fill": true
+ },
+ {
+  "kind": "ellipse",
+  "x": 340,
+  "y": 55,
+  "width": 3,
+  "height": 3,
+  "id": "star_2",
+  "stroke": false,
+  "color": "#b8c8e0",
+  "fill_color": "#b8c8e0",
+  "fill": true
+ },
+ {
+  "kind": "ellipse",
+  "x": 680,
+  "y": 100,
+  "width": 4,
+  "height": 4,
+  "id": "star_3",
+  "stroke": false,
+  "color": "#c8d4e8",
+  "fill_color": "#c8d4e8",
+  "fill": true
+ },
+ {
+  "kind": "ellipse",
+  "x": 120,
+  "y": 150,
+  "width": 3,
+  "height": 3,
+  "id": "star_4",
+  "stroke": false,
+  "color": "#a8b8d0",
+  "fill_color": "#a8b8d0",
+  "fill": true
+ },
+ {
+  "kind": "rectangle",
+  "x": 520,
+  "y": 370,
+  "width": 45,
+  "height": 45,
+  "opacity": 0.12,
+  "id": "wall_warm_tint",
+  "stroke": false,
+  "color": "#ff8822",
+  "fill_color": "#ff8822",
+  "fill": true
+ },
+ {
+  "kind": "style",
+  "opacity": 0.32,
+  "id": "warm_cone",
+  "color": "#ffaa33",
+  "fill_color": "#ffaa33"
+ },
+ {
+  "kind": "ellipse",
+  "x": 410,
+  "y": 442,
+  "width": 200,
+  "height": 18,
+  "opacity": 0.4,
+  "id": "cabin_shadow",
+  "stroke": false,
+  "color": "#b8c4d0",
+  "fill_color": "#b8c4d0",
+  "fill": true
+ },
+ {
+  "kind": "rectangle",
+  "x": 555,
+  "y": 272,
+  "width": 18,
+  "height": 38,
+  "id": "chimney",
+  "stroke": false,
+  "color": "#2a1c10",
+  "fill_color": "#2a1c10",
+  "fill": true
+ },
+ {
+  "kind": "ellipse",
+  "x": 505,
+  "y": 455,
+  "width": 90,
+  "height": 22,
+  "opacity": 0.25,
+  "id": "snow_warm_reflect",
+  "stroke": false,
+  "color": "#f5c87a",
+  "fill_color": "#f5c87a",
+  "fill": true
+ }
+]

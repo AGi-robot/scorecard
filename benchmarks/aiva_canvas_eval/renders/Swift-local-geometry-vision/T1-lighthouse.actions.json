@@ -1,0 +1,1095 @@
+[
+ {
+  "kind": "rectangle",
+  "x": 0,
+  "y": 0,
+  "width": 1000,
+  "height": 650,
+  "gradient_angle": 90,
+  "id": "sky",
+  "gradient": "linear",
+  "stroke": false,
+  "color": "#1a1a3e",
+  "fill_color": "#1a1a3e",
+  "gradient_stops": [
+   {
+    "offset": 0,
+    "color": "#12122e"
+   },
+   {
+    "offset": 0.35,
+    "color": "#2d1f4e"
+   },
+   {
+    "offset": 0.6,
+    "color": "#6b3a5a"
+   },
+   {
+    "offset": 0.8,
+    "color": "#c0546a"
+   },
+   {
+    "offset": 1,
+    "color": "#e8875a"
+   }
+  ],
+  "fill": true
+ },
+ {
+  "kind": "path",
+  "id": "cloud1",
+  "stroke": false,
+  "smooth": true,
+  "color": "#4a3060",
+  "fill_color": "#4a3060",
+  "fill": true,
+  "points": [
+   [
+    120,
+    180
+   ],
+   [
+    200,
+    150
+   ],
+   [
+    320,
+    140
+   ],
+   [
+    400,
+    160
+   ],
+   [
+    380,
+    190
+   ],
+   [
+    280,
+    200
+   ],
+   [
+    160,
+    195
+   ],
+   [
+    120,
+    180
+   ]
+  ]
+ },
+ {
+  "kind": "path",
+  "id": "cloud2",
+  "stroke": false,
+  "smooth": true,
+  "color": "#5a3868",
+  "fill_color": "#5a3868",
+  "fill": true,
+  "points": [
+   [
+    550,
+    120
+   ],
+   [
+    650,
+    100
+   ],
+   [
+    780,
+    110
+   ],
+   [
+    850,
+    130
+   ],
+   [
+    820,
+    155
+   ],
+   [
+    700,
+    160
+   ],
+   [
+    580,
+    150
+   ],
+   [
+    550,
+    120
+   ]
+  ]
+ },
+ {
+  "kind": "path",
+  "id": "cloud3",
+  "stroke": false,
+  "smooth": true,
+  "color": "#3d2850",
+  "fill_color": "#3d2850",
+  "fill": true,
+  "points": [
+   [
+    700,
+    220
+   ],
+   [
+    800,
+    200
+   ],
+   [
+    920,
+    210
+   ],
+   [
+    960,
+    235
+   ],
+   [
+    900,
+    255
+   ],
+   [
+    780,
+    250
+   ],
+   [
+    710,
+    240
+   ],
+   [
+    700,
+    220
+   ]
+  ]
+ },
+ {
+  "kind": "path",
+  "id": "headland",
+  "stroke": false,
+  "smooth": true,
+  "color": "#1a1a2a",
+  "fill_color": "#1a1a2a",
+  "fill": true,
+  "points": [
+   [
+    0,
+    420
+   ],
+   [
+    80,
+    390
+   ],
+   [
+    180,
+    400
+   ],
+   [
+    280,
+    370
+   ],
+   [
+    380,
+    385
+   ],
+   [
+    480,
+    365
+   ],
+   [
+    580,
+    380
+   ],
+   [
+    680,
+    360
+   ],
+   [
+    780,
+    375
+   ],
+   [
+    880,
+    355
+   ],
+   [
+    965,
+    370
+   ],
+   [
+    1000,
+    390
+   ],
+   [
+    1000,
+    650
+   ],
+   [
+    0,
+    650
+   ],
+   [
+    0,
+    420
+   ]
+  ]
+ },
+ {
+  "kind": "curve",
+  "id": "rock-detail",
+  "stroke": false,
+  "color": "#252538",
+  "fill_color": "#252538",
+  "fill": true,
+  "points": [
+   [
+    50,
+    450
+   ],
+   [
+    150,
+    430
+   ],
+   [
+    250,
+    445
+   ],
+   [
+    350,
+    425
+   ],
+   [
+    450,
+    440
+   ],
+   [
+    550,
+    420
+   ],
+   [
+    650,
+    435
+   ],
+   [
+    750,
+    415
+   ],
+   [
+    850,
+    430
+   ],
+   [
+    950,
+    420
+   ],
+   [
+    965,
+    460
+   ],
+   [
+    900,
+    480
+   ],
+   [
+    750,
+    470
+   ],
+   [
+    600,
+    485
+   ],
+   [
+    450,
+    475
+   ],
+   [
+    300,
+    490
+   ],
+   [
+    150,
+    480
+   ],
+   [
+    50,
+    495
+   ],
+   [
+    50,
+    450
+   ]
+  ]
+ },
+ {
+  "kind": "path",
+  "id": "tower",
+  "stroke": false,
+  "smooth": true,
+  "color": "#f5f0e8",
+  "fill_color": "#f5f0e8",
+  "fill": true,
+  "points": [
+   [
+    375,
+    410
+   ],
+   [
+    378,
+    350
+   ],
+   [
+    385,
+    250
+   ],
+   [
+    392,
+    170
+   ],
+   [
+    395,
+    140
+   ],
+   [
+    445,
+    140
+   ],
+   [
+    448,
+    170
+   ],
+   [
+    455,
+    250
+   ],
+   [
+    462,
+    350
+   ],
+   [
+    465,
+    410
+   ],
+   [
+    375,
+    410
+   ]
+  ]
+ },
+ {
+  "kind": "rectangle",
+  "x": 382,
+  "y": 310,
+  "width": 76,
+  "height": 35,
+  "id": "band-lower",
+  "stroke": false,
+  "color": "#c0392b",
+  "fill_color": "#c0392b",
+  "fill": true
+ },
+ {
+  "kind": "rectangle",
+  "x": 390,
+  "y": 210,
+  "width": 60,
+  "height": 30,
+  "id": "band-upper",
+  "stroke": false,
+  "color": "#c0392b",
+  "fill_color": "#c0392b",
+  "fill": true
+ },
+ {
+  "kind": "curve",
+  "id": "lamp-room",
+  "stroke": false,
+  "color": "#e8e0d0",
+  "fill_color": "#e8e0d0",
+  "fill": true,
+  "points": [
+   [
+    388,
+    140
+   ],
+   [
+    388,
+    115
+   ],
+   [
+    395,
+    105
+   ],
+   [
+    445,
+    105
+   ],
+   [
+    452,
+    115
+   ],
+   [
+    452,
+    140
+   ],
+   [
+    388,
+    140
+   ]
+  ]
+ },
+ {
+  "kind": "ellipse",
+  "x": 395,
+  "y": 95,
+  "width": 50,
+  "height": 30,
+  "opacity": 0.9,
+  "id": "lamp-glow",
+  "gradient": "radial",
+  "stroke": false,
+  "color": "#ffd700",
+  "fill_color": "#ffd700",
+  "gradient_stops": [
+   {
+    "offset": 0,
+    "color": "#fff8d0"
+   },
+   {
+    "offset": 0.4,
+    "color": "#ffd700"
+   },
+   {
+    "offset": 1,
+    "color": "#ff8c00"
+   }
+  ],
+  "fill": true
+ },
+ {
+  "kind": "curve",
+  "opacity": 0.35,
+  "id": "beam-left",
+  "stroke": false,
+  "color": "#ffd700",
+  "fill_color": "#ffd700",
+  "fill": true,
+  "points": [
+   [
+    400,
+    110
+   ],
+   [
+    300,
+    80
+   ],
+   [
+    180,
+    60
+   ],
+   [
+    160,
+    100
+   ],
+   [
+    280,
+    120
+   ],
+   [
+    400,
+    125
+   ],
+   [
+    400,
+    110
+   ]
+  ]
+ },
+ {
+  "kind": "curve",
+  "opacity": 0.35,
+  "id": "beam-right",
+  "stroke": false,
+  "color": "#ffd700",
+  "fill_color": "#ffd700",
+  "fill": true,
+  "points": [
+   [
+    440,
+    110
+   ],
+   [
+    540,
+    75
+   ],
+   [
+    680,
+    55
+   ],
+   [
+    700,
+    95
+   ],
+   [
+    560,
+    115
+   ],
+   [
+    440,
+    125
+   ],
+   [
+    440,
+    110
+   ]
+  ]
+ },
+ {
+  "kind": "rectangle",
+  "x": 408,
+  "y": 370,
+  "width": 24,
+  "height": 40,
+  "id": "door",
+  "stroke": false,
+  "color": "#3a2a2a",
+  "fill_color": "#3a2a2a",
+  "fill": true
+ },
+ {
+  "kind": "ellipse",
+  "x": 412,
+  "y": 260,
+  "width": 16,
+  "height": 22,
+  "opacity": 0.8,
+  "id": "window1",
+  "stroke": false,
+  "color": "#ffd700",
+  "fill_color": "#ffd700",
+  "fill": true
+ },
+ {
+  "kind": "ellipse",
+  "x": 412,
+  "y": 180,
+  "width": 14,
+  "height": 20,
+  "opacity": 0.7,
+  "id": "window2",
+  "stroke": false,
+  "color": "#ffd700",
+  "fill_color": "#ffd700",
+  "fill": true
+ },
+ {
+  "kind": "ellipse",
+  "x": 380,
+  "y": 78,
+  "width": 80,
+  "height": 50,
+  "opacity": 0.3,
+  "id": "outer-glow",
+  "stroke": false,
+  "color": "#ffb347",
+  "fill_color": "#ffb347",
+  "fill": true
+ },
+ {
+  "kind": "curve",
+  "id": "rocky-base",
+  "stroke": false,
+  "color": "#2a2a3e",
+  "fill_color": "#2a2a3e",
+  "fill": true,
+  "points": [
+   [
+    360,
+    420
+   ],
+   [
+    355,
+    405
+   ],
+   [
+    370,
+    395
+   ],
+   [
+    400,
+    390
+   ],
+   [
+    430,
+    390
+   ],
+   [
+    460,
+    395
+   ],
+   [
+    475,
+    405
+   ],
+   [
+    478,
+    420
+   ],
+   [
+    460,
+    430
+   ],
+   [
+    430,
+    435
+   ],
+   [
+    400,
+    435
+   ],
+   [
+    370,
+    430
+   ],
+   [
+    360,
+    420
+   ]
+  ]
+ },
+ {
+  "kind": "path",
+  "id": "rock-patch1",
+  "stroke": false,
+  "color": "#35354a",
+  "fill_color": "#35354a",
+  "fill": true,
+  "points": [
+   [
+    100,
+    440
+   ],
+   [
+    160,
+    425
+   ],
+   [
+    230,
+    435
+   ],
+   [
+    280,
+    420
+   ],
+   [
+    320,
+    440
+   ],
+   [
+    280,
+    460
+   ],
+   [
+    200,
+    465
+   ],
+   [
+    130,
+    455
+   ],
+   [
+    100,
+    440
+   ]
+  ]
+ },
+ {
+  "kind": "path",
+  "id": "rock-patch2",
+  "stroke": false,
+  "color": "#30304a",
+  "fill_color": "#30304a",
+  "fill": true,
+  "points": [
+   [
+    550,
+    430
+   ],
+   [
+    620,
+    415
+   ],
+   [
+    700,
+    425
+   ],
+   [
+    760,
+    410
+   ],
+   [
+    800,
+    430
+   ],
+   [
+    760,
+    455
+   ],
+   [
+    680,
+    460
+   ],
+   [
+    590,
+    450
+   ],
+   [
+    550,
+    430
+   ]
+  ]
+ },
+ {
+  "kind": "style",
+  "opacity": 0.5,
+  "id": "beam-left",
+  "color": "#ffd700",
+  "fill_color": "#ffd700"
+ },
+ {
+  "kind": "style",
+  "opacity": 0.5,
+  "id": "beam-right",
+  "color": "#ffd700",
+  "fill_color": "#ffd700"
+ },
+ {
+  "kind": "ellipse",
+  "x": 370,
+  "y": 415,
+  "width": 110,
+  "height": 25,
+  "opacity": 0.25,
+  "id": "light-pool",
+  "stroke": false,
+  "color": "#e8875a",
+  "fill_color": "#e8875a",
+  "fill": true
+ },
+ {
+  "kind": "rectangle",
+  "x": 378,
+  "y": 136,
+  "width": 84,
+  "height": 6,
+  "id": "gallery-rail",
+  "stroke": false,
+  "color": "#d4c8b0",
+  "fill_color": "#d4c8b0",
+  "fill": true
+ },
+ {
+  "kind": "rectangle",
+  "x": 445,
+  "y": 142,
+  "width": 20,
+  "height": 268,
+  "opacity": 0.4,
+  "id": "tower-shadow",
+  "stroke": false,
+  "color": "#c8b8a0",
+  "fill_color": "#c8b8a0",
+  "fill": true
+ },
+ {
+  "kind": "rectangle",
+  "x": 375,
+  "y": 142,
+  "width": 18,
+  "height": 268,
+  "opacity": 0.3,
+  "id": "tower-highlight",
+  "stroke": false,
+  "color": "#fffef5",
+  "fill_color": "#fffef5",
+  "fill": true
+ },
+ {
+  "kind": "delete",
+  "id": "beam-left",
+  "color": "#ffd700",
+  "fill_color": "#ffd700",
+  "fill": false
+ },
+ {
+  "kind": "delete",
+  "id": "beam-right",
+  "color": "#ffd700",
+  "fill_color": "#ffd700",
+  "fill": false
+ },
+ {
+  "kind": "curve",
+  "opacity": 0.45,
+  "id": "beam-left-v2",
+  "stroke": false,
+  "color": "#ffd700",
+  "fill_color": "#ffd700",
+  "fill": true,
+  "points": [
+   [
+    395,
+    102
+   ],
+   [
+    290,
+    72
+   ],
+   [
+    185,
+    68
+   ],
+   [
+    155,
+    95
+   ],
+   [
+    185,
+    128
+   ],
+   [
+    290,
+    122
+   ],
+   [
+    395,
+    118
+   ]
+  ]
+ },
+ {
+  "kind": "curve",
+  "opacity": 0.45,
+  "id": "beam-right-v2",
+  "stroke": false,
+  "color": "#ffd700",
+  "fill_color": "#ffd700",
+  "fill": true,
+  "points": [
+   [
+    445,
+    102
+   ],
+   [
+    550,
+    72
+   ],
+   [
+    655,
+    68
+   ],
+   [
+    685,
+    95
+   ],
+   [
+    655,
+    128
+   ],
+   [
+    550,
+    122
+   ],
+   [
+    445,
+    118
+   ]
+  ]
+ },
+ {
+  "kind": "delete",
+  "id": "tower-shadow",
+  "color": "#c8b8a0",
+  "fill_color": "#c8b8a0",
+  "fill": false
+ },
+ {
+  "kind": "curve",
+  "opacity": 0.35,
+  "id": "tower-shadow-v2",
+  "stroke": false,
+  "color": "#c8b8a0",
+  "fill_color": "#c8b8a0",
+  "fill": true,
+  "points": [
+   [
+    448,
+    148
+   ],
+   [
+    458,
+    250
+   ],
+   [
+    456,
+    400
+   ],
+   [
+    448,
+    408
+   ],
+   [
+    442,
+    250
+   ],
+   [
+    442,
+    148
+   ],
+   [
+    448,
+    148
+   ]
+  ]
+ },
+ {
+  "kind": "style",
+  "opacity": 0.95,
+  "id": "lamp-glow",
+  "color": "#ffe066",
+  "fill_color": "#ffe066"
+ },
+ {
+  "kind": "ellipse",
+  "x": 375,
+  "y": 72,
+  "width": 90,
+  "height": 55,
+  "line_height": 1.2,
+  "opacity": 0.25,
+  "id": "lamp-halo",
+  "stroke": false,
+  "smooth": true,
+  "color": "#ffb347",
+  "fill_color": "#ffb347",
+  "fill": true
+ },
+ {
+  "kind": "delete",
+  "id": "beam-left-v2",
+  "color": "#ffd700",
+  "fill_color": "#ffd700",
+  "fill": false
+ },
+ {
+  "kind": "delete",
+  "id": "beam-right-v2",
+  "color": "#ffd700",
+  "fill_color": "#ffd700",
+  "fill": false
+ },
+ {
+  "kind": "curve",
+  "opacity": 0.4,
+  "id": "beam-left-new",
+  "stroke": false,
+  "color": "#ffd700",
+  "fill_color": "#ffd700",
+  "fill": true,
+  "points": [
+   [
+    400,
+    95
+   ],
+   [
+    280,
+    62
+   ],
+   [
+    150,
+    68
+   ],
+   [
+    110,
+    100
+   ],
+   [
+    150,
+    138
+   ],
+   [
+    280,
+    142
+   ],
+   [
+    400,
+    115
+   ]
+  ]
+ },
+ {
+  "kind": "curve",
+  "opacity": 0.4,
+  "id": "beam-right-new",
+  "stroke": false,
+  "color": "#ffd700",
+  "fill_color": "#ffd700",
+  "fill": true,
+  "points": [
+   [
+    440,
+    95
+   ],
+   [
+    560,
+    62
+   ],
+   [
+    690,
+    68
+   ],
+   [
+    730,
+    100
+   ],
+   [
+    690,
+    138
+   ],
+   [
+    560,
+    142
+   ],
+   [
+    440,
+    115
+   ]
+  ]
+ },
+ {
+  "kind": "ellipse",
+  "x": 385,
+  "y": 420,
+  "width": 80,
+  "height": 18,
+  "opacity": 0.2,
+  "id": "rock-warm-glow",
+  "stroke": false,
+  "color": "#e8875a",
+  "fill_color": "#e8875a",
+  "fill": true
+ },
+ {
+  "kind": "ellipse",
+  "x": 180,
+  "y": 55,
+  "width": 4,
+  "height": 4,
+  "opacity": 0.6,
+  "id": "star1",
+  "stroke": false,
+  "color": "#ffffff",
+  "fill_color": "#ffffff",
+  "fill": true
+ }
+]

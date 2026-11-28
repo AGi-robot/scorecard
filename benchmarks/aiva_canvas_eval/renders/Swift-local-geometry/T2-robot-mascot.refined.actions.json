@@ -1,0 +1,441 @@
+[
+ {
+  "kind": "rectangle",
+  "x": 0,
+  "y": 0,
+  "width": 1000,
+  "height": 650,
+  "id": "bg_wall",
+  "stroke": false,
+  "color": "#c4b49a",
+  "fill_color": "#c4b49a",
+  "fill": true
+ },
+ {
+  "kind": "rectangle",
+  "x": 640,
+  "y": 130,
+  "width": 260,
+  "height": 14,
+  "id": "wall_shelf",
+  "stroke": false,
+  "color": "#8a7a62",
+  "fill_color": "#8a7a62",
+  "fill": true
+ },
+ {
+  "kind": "rectangle",
+  "x": 680,
+  "y": 95,
+  "width": 35,
+  "height": 35,
+  "id": "tool_jar",
+  "stroke": false,
+  "color": "#6b5d4a",
+  "fill_color": "#6b5d4a",
+  "fill": true
+ },
+ {
+  "kind": "rectangle",
+  "x": 740,
+  "y": 100,
+  "width": 12,
+  "height": 30,
+  "id": "tool_wrench",
+  "stroke": false,
+  "color": "#7a6e5c",
+  "fill_color": "#7a6e5c",
+  "fill": true
+ },
+ {
+  "kind": "rectangle",
+  "x": 100,
+  "y": 425,
+  "width": 800,
+  "height": 28,
+  "id": "bench_top",
+  "stroke": false,
+  "color": "#9b7b4f",
+  "fill_color": "#9b7b4f",
+  "fill": true
+ },
+ {
+  "kind": "rectangle",
+  "x": 100,
+  "y": 453,
+  "width": 800,
+  "height": 72,
+  "id": "bench_front",
+  "stroke": false,
+  "color": "#7d6239",
+  "fill_color": "#7d6239",
+  "fill": true
+ },
+ {
+  "kind": "rectangle",
+  "x": 125,
+  "y": 525,
+  "width": 28,
+  "height": 95,
+  "id": "bench_leg_l",
+  "stroke": false,
+  "color": "#6b5230",
+  "fill_color": "#6b5230",
+  "fill": true
+ },
+ {
+  "kind": "rectangle",
+  "x": 847,
+  "y": 525,
+  "width": 28,
+  "height": 95,
+  "id": "bench_leg_r",
+  "stroke": false,
+  "color": "#6b5230",
+  "fill_color": "#6b5230",
+  "fill": true
+ },
+ {
+  "kind": "curve",
+  "id": "robot_body",
+  "stroke": false,
+  "color": "#3a9e9e",
+  "fill_color": "#3a9e9e",
+  "fill": true,
+  "points": [
+   [
+    430,
+    418
+   ],
+   [
+    412,
+    365
+   ],
+   [
+    418,
+    298
+   ],
+   [
+    480,
+    282
+   ],
+   [
+    542,
+    298
+   ],
+   [
+    548,
+    365
+   ],
+   [
+    530,
+    418
+   ]
+  ]
+ },
+ {
+  "kind": "curve",
+  "id": "robot_head",
+  "stroke": false,
+  "color": "#4ab0b0",
+  "fill_color": "#4ab0b0",
+  "fill": true,
+  "points": [
+   [
+    428,
+    262
+   ],
+   [
+    418,
+    210
+   ],
+   [
+    442,
+    178
+   ],
+   [
+    480,
+    172
+   ],
+   [
+    518,
+    178
+   ],
+   [
+    542,
+    210
+   ],
+   [
+    532,
+    262
+   ]
+  ]
+ },
+ {
+  "kind": "ellipse",
+  "x": 448,
+  "y": 212,
+  "width": 22,
+  "height": 26,
+  "id": "robot_eye_l",
+  "stroke": false,
+  "color": "#ffffff",
+  "fill_color": "#ffffff",
+  "fill": true
+ },
+ {
+  "kind": "ellipse",
+  "x": 490,
+  "y": 212,
+  "width": 22,
+  "height": 26,
+  "id": "robot_eye_r",
+  "stroke": false,
+  "color": "#ffffff",
+  "fill_color": "#ffffff",
+  "fill": true
+ },
+ {
+  "kind": "ellipse",
+  "x": 455,
+  "y": 220,
+  "width": 10,
+  "height": 12,
+  "id": "pupil_l",
+  "stroke": false,
+  "color": "#2a2a2a",
+  "fill_color": "#2a2a2a",
+  "fill": true
+ },
+ {
+  "kind": "ellipse",
+  "x": 497,
+  "y": 220,
+  "width": 10,
+  "height": 12,
+  "id": "pupil_r",
+  "stroke": false,
+  "color": "#2a2a2a",
+  "fill_color": "#2a2a2a",
+  "fill": true
+ },
+ {
+  "kind": "line",
+  "width": 4,
+  "id": "antenna_stem",
+  "stroke": true,
+  "color": "#2d7a7a",
+  "fill_color": "#2d7a7a",
+  "fill": false,
+  "points": [
+   [
+    480,
+    172
+   ],
+   [
+    480,
+    148
+   ]
+  ]
+ },
+ {
+  "kind": "ellipse",
+  "x": 473,
+  "y": 138,
+  "width": 14,
+  "height": 14,
+  "id": "antenna_tip",
+  "stroke": false,
+  "color": "#f5a623",
+  "fill_color": "#f5a623",
+  "fill": true
+ },
+ {
+  "kind": "rectangle",
+  "x": 462,
+  "y": 258,
+  "width": 36,
+  "height": 28,
+  "id": "robot_neck",
+  "stroke": false,
+  "color": "#3a9e9e",
+  "fill_color": "#3a9e9e",
+  "fill": true
+ },
+ {
+  "kind": "curve",
+  "id": "robot_arm_l",
+  "stroke": false,
+  "color": "#3a9e9e",
+  "fill_color": "#3a9e9e",
+  "fill": true,
+  "points": [
+   [
+    418,
+    335
+   ],
+   [
+    385,
+    340
+   ],
+   [
+    372,
+    365
+   ],
+   [
+    378,
+    390
+   ],
+   [
+    398,
+    395
+   ],
+   [
+    418,
+    385
+   ],
+   [
+    418,
+    335
+   ]
+  ]
+ },
+ {
+  "kind": "curve",
+  "id": "robot_arm_r",
+  "stroke": false,
+  "color": "#3a9e9e",
+  "fill_color": "#3a9e9e",
+  "fill": true,
+  "points": [
+   [
+    542,
+    335
+   ],
+   [
+    575,
+    340
+   ],
+   [
+    588,
+    365
+   ],
+   [
+    582,
+    390
+   ],
+   [
+    562,
+    395
+   ],
+   [
+    542,
+    385
+   ],
+   [
+    542,
+    335
+   ]
+  ]
+ },
+ {
+  "kind": "ellipse",
+  "x": 428,
+  "y": 413,
+  "width": 28,
+  "height": 16,
+  "id": "robot_foot_l",
+  "stroke": false,
+  "color": "#2d7a7a",
+  "fill_color": "#2d7a7a",
+  "fill": true
+ },
+ {
+  "kind": "ellipse",
+  "x": 504,
+  "y": 413,
+  "width": 28,
+  "height": 16,
+  "id": "robot_foot_r",
+  "stroke": false,
+  "color": "#2d7a7a",
+  "fill_color": "#2d7a7a",
+  "fill": true
+ },
+ {
+  "kind": "curve",
+  "id": "cable_left",
+  "stroke": true,
+  "color": "#5a4a3a",
+  "fill_color": "#5a4a3a",
+  "fill": false,
+  "points": [
+   [
+    100,
+    455
+   ],
+   [
+    72,
+    478
+   ],
+   [
+    52,
+    525
+   ],
+   [
+    42,
+    575
+   ],
+   [
+    36,
+    615
+   ],
+   [
+    34,
+    625
+   ],
+   [
+    33,
+    630
+   ]
+  ]
+ },
+ {
+  "kind": "curve",
+  "id": "cable_right",
+  "stroke": true,
+  "color": "#5a4a3a",
+  "fill_color": "#5a4a3a",
+  "fill": false,
+  "points": [
+   [
+    900,
+    455
+   ],
+   [
+    928,
+    478
+   ],
+   [
+    948,
+    525
+   ],
+   [
+    958,
+    575
+   ],
+   [
+    964,
+    615
+   ],
+   [
+    966,
+    625
+   ],
+   [
+    967,
+    630
+   ]
+  ]
+ }
+]

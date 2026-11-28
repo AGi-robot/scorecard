@@ -1,0 +1,120 @@
+{
+  "label": "occamy-i1-archie-16k",
+  "model": "occamy-i1",
+  "base_url": "http://127.0.0.1:8082/v1",
+  "bytes": 25192,
+  "passed": 19,
+  "total": 21,
+  "failed": [
+    "no_external_urls",
+    "browser_functional"
+  ],
+  "checks": [
+    {
+      "name": "single_html_doctype",
+      "ok": true,
+      "detail": "has <!DOCTYPE html>"
+    },
+    {
+      "name": "no_external_urls",
+      "ok": false,
+      "detail": "3 external URL(s)"
+    },
+    {
+      "name": "mentions_webui",
+      "ok": true,
+      "detail": "found: webui"
+    },
+    {
+      "name": "mentions_rosbridge",
+      "ok": true,
+      "detail": "found: rosbridge"
+    },
+    {
+      "name": "mentions_telepathy",
+      "ok": true,
+      "detail": "found: telepathy"
+    },
+    {
+      "name": "mentions_interactive",
+      "ok": true,
+      "detail": "found: interactive"
+    },
+    {
+      "name": "mentions_llama_cpp",
+      "ok": true,
+      "detail": "found: llama.cpp"
+    },
+    {
+      "name": "mentions_ministral",
+      "ok": true,
+      "detail": "found: ministral"
+    },
+    {
+      "name": "mentions_memory",
+      "ok": true,
+      "detail": "found: memory"
+    },
+    {
+      "name": "mentions_canvas",
+      "ok": true,
+      "detail": "found: canvas"
+    },
+    {
+      "name": "mentions_launch_sh",
+      "ok": true,
+      "detail": "found: launch.sh"
+    },
+    {
+      "name": "excludes_aurora",
+      "ok": true,
+      "detail": "clean (exclusion notes allowed): aurora"
+    },
+    {
+      "name": "excludes_cnc",
+      "ok": true,
+      "detail": "clean (exclusion notes allowed): cnc"
+    },
+    {
+      "name": "excludes_hrm",
+      "ok": true,
+      "detail": "clean (exclusion notes allowed): hrm"
+    },
+    {
+      "name": "has_animation",
+      "ok": true,
+      "detail": "keyframes/rAF found"
+    },
+    {
+      "name": "control_play",
+      "ok": true,
+      "detail": "found button/label: play"
+    },
+    {
+      "name": "control_pause",
+      "ok": true,
+      "detail": "found button/label: pause"
+    },
+    {
+      "name": "control_step",
+      "ok": true,
+      "detail": "found button/label: step"
+    },
+    {
+      "name": "control_restart",
+      "ok": true,
+      "detail": "found button/label: restart"
+    },
+    {
+      "name": "has_script_style",
+      "ok": true,
+      "detail": "inline <style>+<script>"
+    },
+    {
+      "name": "browser_functional",
+      "ran": true,
+      "ok": false,
+      "detail": "zero console errors; controls STUCK (step=False, play=False); step: 'undefined User Speaks / types in the browser You speak or type a request in the ' -> 'undefined User Speaks / types in the browser You speak or type a request in the '; play: 'undefined User Speaks / types in the browser You speak or type a request in the ' -> 'undefined User Speaks / types in the browser You speak or type a request in the '"
+    }
+  ]
+}

@@ -1,7 +1,0 @@
-{
-  "path": "/home/oppa-ai/AGi/models/ministral3-8b/Ministral-3-8B-Nymphaea-RP.i1-IQ4_XS.gguf",
-  "size_bytes": 4696413504,
-  "mtime_ns": 1795665218361776895,
-  "backend_version": "version: 1.1.0-dev (build 12808, commit ed2153e70)\nbuilt with GNU 13.4.0 for Linux x86_64",
-  "server_reused": true
-}

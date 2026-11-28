@@ -1,0 +1,38 @@
+[
+ {
+  "kind": "style",
+  "opacity": 0.18,
+  "id": "T1-lighthouse-p1-15",
+  "fill_color": "#ffd98a"
+ },
+ {
+  "kind": "style",
+  "opacity": 1,
+  "id": "T1-lighthouse-p1-8",
+  "fill_color": "#e8d5b0"
+ },
+ {
+  "kind": "style",
+  "id": "T1-lighthouse-p1-9",
+  "fill_color": "#c96a4a"
+ },
+ {
+  "kind": "style",
+  "id": "T1-lighthouse-p1-10",
+  "fill_color": "#3a2e28"
+ },
+ {
+  "kind": "style",
+  "id": "T1-lighthouse-p1-11",
+  "fill_color": "#f0e0c0"
+ },
+ {
+  "kind": "style",
+  "size": 1.5,
+  "line_height": 1.2,
+  "opacity": 0.85,
+  "align": "center",
+  "id": "T1-lighthouse-p1-12",
+  "fill_color": "#ffe8b0"
+ }
+]

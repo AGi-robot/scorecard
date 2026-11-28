@@ -157,7 +157,7 @@ class TransportTests(unittest.TestCase):
 
     def test_chatbot_loser_and_tie_are_counted(self):
         import scorecard_all
-        out = self.root / "grace_chatbot_eval/results"
+        out = self.root / "aiva_chat_eval/results"
         out.mkdir(parents=True)
         vote = {"left": "winner", "right": "loser", "script": "one", "overall": "A"}
         (out / "fixture_votes.jsonl").write_text(json.dumps(vote) + "\n")

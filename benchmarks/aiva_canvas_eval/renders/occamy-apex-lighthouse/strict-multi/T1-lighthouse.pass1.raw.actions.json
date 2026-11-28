@@ -1,0 +1,35 @@
+[
+ {
+  "kind": "rectangle",
+  "x": 0,
+  "y": 0,
+  "width": 1000,
+  "height": 650,
+  "fill": true,
+  "fill_color": "#0f0c29",
+  "gradient_angle": 90,
+  "gradient_color": "#302b63",
+  "gradient_stops": [
+   {
+    "offset": 0,
+    "color": "#0f0c29"
+   },
+   {
+    "offset": 0.35,
+    "color": "#302b63"
+   },
+   {
+    "offset": 0.65,
+    "color": "#7a3b5c"
+   },
+   {
+    "offset": 0.85,
+    "color": "#c4667a"
+   },
+   {
+    "offset": 1,
+    "color": "#e8a87c"
+   }
+  ]
+ }
+]

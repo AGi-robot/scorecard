@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How Grace Works — AIVA PC Companion Runtime</title>
+<style>
+  :root{
+    --bg:#0b1017;
+    --bg2:#0f1720;
+    --panel:#131c28;
+    --panel2:#182231;
+    --line:#243247;
+    --ink:#e8eef7;
+    --muted:#9fb0c6;
+    --dim:#6f8099;
+    --cyan:#38e0d0;
+    --blue:#5b9cff;
+    --violet:#b78cff;
+    --amber:#ffcf5c;
+    --emerald:#57e08a;
+    --pink:#ff77b0;
+    --card:#161f2c;
+    --shadow:0 10px 30px rgba(0,0,0,.45);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    font-family:'Segoe UI',system-ui,-apple-system,Roboto,Helvetica,Arial,sans-serif;
+    background:radial-gradient(1200px 700px at 70% -10%, #16202e 0%, var(--bg) 55%);
+    color:var(--ink);
+    -webkit-font-smoothing:antialiased;
+    min-height:100vh;
+    padding:22px;
+  }
+  .wrap{max-width:1240px;margin:0 auto;}
+
+  /* Header */
+  header.top{
+    display:flex;align-items:flex-start;justify-content:space-between;
+    gap:20px;border-bottom:1px solid var(--line);padding-bottom:16px;margin-bottom:18px;
+  }
+  .title h1{font-size:30px;font-weight:700;letter-spacing:.5px;margin:0;color:#fff;}
+  .title h1 .grad{
+    background:linear-gradient(90deg,var(--cyan),var(--blue) 60%,var(--violet));
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .title p{color:var(--muted);margin:6px 0 0;font-size:14px;line-height:1.5;max-width:640px;}
+  .badge{
+    align-self:flex-start;border:1px solid var(--line);background:var(--panel);
+    border-radius:12px;padding:10px 14px;text-align:right;min-width:150px;
+  }
+  .badge .k{font-size:12px;color:var(--dim);letter-spacing:1px;text-transform:uppercase;}
+  .badge .v{font-size:15px;color:var(--cyan);font-weight:600;margin-top:4px;}
+  .badge .v2{font-size:13px;color:var(--muted);margin-top:8px;}
+
+  /* Stage meter */
+  .meter{
+    display:flex;align-items:center;justify-content:space-between;gap:16px;
+    background:linear-gradient(180deg,var(--panel2),var(--panel));
+    border:1px solid var(--line);border-radius:14px;padding:14px 18px;margin-bottom:18px;
+    box-shadow:var(--shadow);
+  }
+  .meter .stage-label{font-size:15px;color:var(--muted);}
+  .meter .stage-label b{color:#fff;}
+  .meter .stage-name{font-size:18px;font-weight:700;color:var(--cyan);margin-top:3px;}
+  .meter .stage-desc{font-size:13px;color:var(--muted);margin-top:3px;max-width:520px;}
+  .controls{display:flex;gap:10px;align-items:center;}
+  .btn{
+    font-family:inherit;font-size:14px;font-weight:600;color:var(--ink);
+    background:var(--panel2);border:1px solid var(--line);border-radius:10px;
+    padding:9px 16px;cursor:pointer;transition:.15s ease;
+  }
+  .btn:hover{border-color:var(--cyan);color:#fff;}
+  .btn:active{transform:translateY(1px);}
+  .btn.primary{background:linear-gradient(180deg,#1d3b38,#142627);border-color:#2f6f6a;color:var(--cyan);}
+  .btn.ghost{background:transparent;}
+  .meter .progress{flex:1;height:8px;background:#0c141d;border:1px solid var(--line);border-radius:20px;overflow:hidden;}
+  .meter .progress i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--cyan),var(--blue));transition:width .3s ease;}
+
+  /* Diagram */
+  .stage{
+    position:relative;background:var(--bg2);border:1px solid var(--line);
+    border-radius:16px;box-shadow:var(--shadow);padding:6px;
+    height:520px;overflow:hidden;
+  }
+  .grid{position:relative;width:100%;height:100%;}
+  svg.connectors{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;}
+  .node{
+    position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+    min-width:132px;max-width:210px;background:var(--card);border:1px solid var(--line);
+    border-radius:12px;padding:10px 12px;box-shadow:0 6px 18px rgba(0,0,0,.4);
+    text-align:center;transition:box-shadow .3s ease, border-color .3s ease, transform .2s ease;
+    cursor:default;
+  }
+  .node .dot{display:inline-block;width:11px;height:11px;border-radius:50%;margin-right:8px;vertical-align:middle;}
+  .node .nm{font-size:14px;font-weight:700;color:#fff;line-height:1.2;}
+  .node .sub{font-size:11px;color:var(--dim);margin-top:3px;line-height:1.3;}
+  .node .tag{display:inline-block;margin-top:7px;font-size:10px;letter-spacing:.6px;text-transform:uppercase;color:var(--dim);border:1px solid var(--line);border-radius:6px;padding:2px 5px;}
+  .node.active{border-color:var(--cyan);box-shadow:0 0 0 2px rgba(56,224,208,.35),0 8px 22px rgba(0,0,0,.5);}
+  .node.active .dot{background:var(--cyan);box-shadow:0 0 12px var(--cyan);}
+  .node.done{border-color:var(--emerald);}
+  .node .tip{
+    position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);
+    background:#0a1118;border:1px solid var(--line);color:var(--muted);font-size:12px;
+    padding:7px 10px;border-radius:9px;white-space:nowrap;opacity:0;pointer-events:none;
+    transition:opacity .2s ease;z-index:20;box-shadow:var(--shadow);
+  }
+  .node:hover .tip{opacity:1;}
+  .node .tip b{color:#fff;}
+
+  /* packet */
+  .packet{
+    position:absolute;width:22px;height:22px;border-radius:50%;
+    transform:translate(-50%,-50%);opacity:0;pointer-events:none;
+    background:radial-gradient(circle at 30% 30%,#fff,rgba(56,224,208,.9));
+    box-shadow:0 0 18px rgba(56,224,208,.7),0 0 4px #fff;
+    transition:opacity .2s ease;
+  }
+  .packet.flow{opacity:1;}
+  .packet.resp{
+    background:radial-gradient(circle at 30% 30%,#fff,rgba(87,224,138,.9));
+    box-shadow:0 0 18px rgba(87,224,138,.7),0 0 4px #fff;
+  }
+
+  /* Legend */
+  .legend{
+    display:flex;flex-wrap:wrap;gap:14px 22px;margin-top:18px;
+    background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 20px;
+  }
+  .legend h3{margin:0 0 8px;font-size:13px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);}
+  .legend .cols{display:flex;flex-wrap:wrap;gap:10px 26px;}
+  .legend .item{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--muted);}
+  .legend .swatch{width:14px;height:14px;border-radius:4px;display:inline-block;}
+  .legend .sw.cyan{background:var(--cyan);}
+  .legend .sw.emerald{background:var(--emerald);}
+  .legend .sw.blue{background:var(--blue);}
+  .legend .sw.violet{background:var(--violet);}
+  .legend .sw.amber{background:var(--amber);}
+
+  .foot{margin-top:16px;color:var(--dim);font-size:12px;line-height:1.6;}
+  .foot b{color:var(--cyan);}
+
+  @media(max-width:900px){
+    .title h1{font-size:24px;}
+    .badge{display:none;}
+    .stage{height:620px;}
+    .node{min-width:110px;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <div class="title">
+      <h1>How <span class="grad">Grace</span> Works</h1>
+      <p>The AIVA&nbsp;PC&nbsp;companion runtime. A request leaves you, travels through the Console&nbsp;WebUI and rosbridge, is adapted by <b>telepathy</b>, served by the <b>llama.cpp</b> router to <b>Ministral</b>, and returns — backed by SQLite <b>memory</b> and vector <b>Canvas</b> sidecars, orchestrated by <b>launch.sh</b>.</p>
+    </div>
+    <div class="badge">
+      <div class="k">Runtime</div>
+      <div class="v">AIVA PC Companion</div>
+      <div class="v2">orchestrated by <b>AIVA/launch.sh</b><br>one llama-server · one rosbridge</div>
+    </div>
+  </header>
+
+  <div class="meter">
+    <div>
+      <div class="stage-label">Stage <b id="stageNum">1</b> / <b id="stageTotal">9</b></div>
+      <div class="stage-name" id="stageName">User</div>
+      <div class="stage-desc" id="stageDesc">You speak or type a request in the browser.</div>
+    </div>
+    <div class="controls">
+      <button class="btn primary" id="playBtn">Play</button>
+      <button class="btn" id="pauseBtn" disabled>Pause</button>
+      <button class="btn ghost" id="stepBtn">Step</button>
+      <button class="btn" id="restartBtn">Restart</button>
+    </div>
+    <div class="progress"><i id="bar"></i></div>
+  </div>
+
+  <div class="stage">
+    <div class="grid" id="grid">
+      <svg class="connectors" id="svg" viewBox="0 0 100 52" preserveAspectRatio="xMidYMid slice"></svg>
+      <!-- nodes injected by JS -->
+      <div class="packet" id="packet"></div>
+    </div>
+  </div>
+
+  <div class="legend">
+    <h3>Legend</h3>
+    <div class="cols">
+      <div class="item"><span class="sw cyan"></span> Request path (forward)</div>
+      <div class="item"><span class="sw emerald"></span> Response path (return)</div>
+      <div class="item"><span class="sw blue"></span> rosbridge / telepathy</div>
+      <div class="item"><span class="sw violet"></span> llama.cpp router · Ministral</div>
+      <div class="item"><span class="sw amber"></span> memory &amp; Canvas sidecars</div>
+    </div>
+  </div>
+
+  <p class="foot">
+    Orchestrated by <b>AIVA/launch.sh</b> — builds the shell workspace and starts router + rosbridge + chat + telepathy. <b>AuRoRA</b> is a separate system and is intentionally not shown.
+  </p>
+
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var grid = document.getElementById('grid');
+  var svg = document.getElementById('svg');
+  var packet = document.getElementById('packet');
+
+  // Node definitions. Positions are percentages of the grid box.
+  // Row A (top) = request in; Row B = engine/router/model snake; Row C = sidecars.
+  var nodes = {
+    user:      {x: 6.5,  y: 16,  color:'#e8eef7', nm:'User',        sub:'You speak or type', tag:'source'},
+    webui:     {x: 27.5, y: 16,  color:'#38e0d0', nm:'Console WebUI', sub:'Browser-local prefs · read-only config', tag:'UI'},
+    rosbridge: {x: 48.5, y: 16,  color:'#5b9cff', nm:'rosbridge',     sub:'WebSocket @ 127.0.0.1:9090', tag:'WS'},
+    telepathy: {x: 69.5, y: 16,  color:'#5b9cff', nm:'telepathy_receptor', sub:'ROS 2 adapter node', tag:'ROS2'},
+    engine:    {x: 69.5, y: 44,  color:'#b78cff', nm:'Interactive engine', sub:'SOUL.md persona + USER.md profile', tag:'LLM'},
+    router:    {x: 48.5, y: 44,  color:'#b78cff', nm:'llama.cpp router',  sub:'one llama-server · port 8080', tag:'router'},
+    ministral: {x: 27.5, y: 44,  color:'#b78cff', nm:'Ministral 3 8B',  sub:'chat + voyage-4-nano embeddings', tag:'model'},
+    memory:    {x: 48.5, y: 74,  color:'#ffcf5c', nm:'Mind ConversationStore', sub:'SQLite · add_exchange · 8-turn window', tag:'memory'},
+    sidecars:  {x: 27.5, y: 74,  color:'#ffcf5c', nm:'Canvas & Imaging',  sub:'vector Canvas · Imaging · health/agi_logging', tag:'sidecars'}
+  };
+
+  // Build DOM nodes
+  Object.keys(nodes).forEach(function(id){
+    var n = nodes[id];
+    var el = document.createElement('div');
+    el.className = 'node';
+    el.id = 'node-'+id;
+    el.style.left = n.x + '%';
+    el.style.top  = n.y + '%';
+    el.innerHTML =
+      '<span class="tip"><b>'+n.nm+'</b> — '+n.sub+'</span>'+
+      '<span class="dot" style="background:'+n.color+';box-shadow:0 0 8px '+n.color+'"></span>'+
+      '<span class="nm">'+n.nm+'</span>'+
+      '<div class="sub">'+n.sub+'</div>'+
+      '<span class="tag">'+n.tag+'</span>';
+    grid.appendChild(el);
+  });
+
+  // Connector definitions: [from, to, kind] kind: 'fwd' | 'resp' | 'branch'
+  var conns = [
+    ['user','webui','fwd'],
+    ['webui','rosbridge','fwd'],
+    ['rosbridge','telepathy','fwd'],
+    ['telepathy','engine','fwd'],
+    ['engine','router','fwd'],
+    ['router','ministral','fwd'],
+    ['router','memory','branch'],
+    ['router','sidecars','branch'],
+    ['ministral','router','resp'],
+    ['router','engine','resp'],
+    ['engine','telepathy','resp'],
+    ['telepathy','rosbridge','resp'],
+    ['rosbridge','webui','resp'],
+    ['webui','user','resp']
+  ];
+
+  function nodeCenter(id){
+    var n = nodes[id];
+    return {x:n.x, y:n.y};
+  }
+
+  // Draw connectors as smooth paths in the SVG viewBox (100 x 52)
+  function drawConnectors(){
+    var ns = 'http://www.w3.org/2000/svg';
+    conns.forEach(function(c){
+      var from = nodeCenter(c[0]), to = nodeCenter(c[1]);
+      var path = document.createElementNS(ns,'path');
+      var d = smoothPath(from, to);
+      path.setAttribute('d', d);
+      var cls = c[2]==='resp' ? 'resp' : (c[2]==='branch' ? 'branch' : 'fwd');
+      path.setAttribute('class', cls);
+      path.setAttribute('fill','none');
+      var col = cls==='resp' ? '#57e08a' : (cls==='branch' ? '#ffcf5c' : '#5b9cff');
+      path.setAttribute('stroke', col);
+      path.setAttribute('stroke-opacity','0.35');
+      path.setAttribute('stroke-width','0.6');
+      path.setAttribute('stroke-dasharray','0.4 0.9');
+      svg.appendChild(path);
+    });
+    // arrowheads
+    conns.forEach(function(c){
+      var to = nodeCenter(c[1]);
+      var marker = document.createElementNS(ns,'path');
+      var col = c[2]==='resp' ? '#57e08a' : (c[2]==='branch' ? '#ffcf5c' : '#5b9cff');
+      marker.setAttribute('d','M0 0 L -3 -1.4 L -3 1.4 Z');
+      marker.setAttribute('fill', col);
+      marker.setAttribute('fill-opacity','0.55');
+      marker.setAttribute('transform','translate('+to.x+','+to.y+') rotate(180)');
+      svg.appendChild(marker);
+    });
+  }
+
+  function smoothPath(from, to){
+    if(from.x === to.x){
+      return 'M '+from.x+' '+from.y+' L '+to.x+' '+to.y;
+    }
+    var mid = (from.x + to.x)/2;
+    return 'M '+from.x+' '+from.y+' C '+mid+' '+from.y+', '+mid+' '+to.y+', '+to.x+' '+to.y;
+  }
+
+  drawConnectors();
+
+  // Stages for the meter (9 stages)
+  var stages = [
+    {id:'user',      name:'User',        desc:'You speak or type a request in the browser.', from:'user',   to:'webui',   kind:'fwd'},
+    {id:'webui',     name:'Console WebUI', desc:'Browser-local UI forwards the message over rosbridge.', from:'webui',  to:'rosbridge', kind:'fwd'},
+    {id:'rosbridge', name:'rosbridge',     desc:'WebSocket at 127.0.0.1:9090 bridges the UI to ROS 2.', from:'rosbridge', to:'telepathy', kind:'fwd'},
+    {id:'telepathy', name:'telepathy_receptor', desc:'ROS 2 adapter node forwards the message to the engine.', from:'telepathy', to:'engine', kind:'fwd'},
+    {id:'engine',    name:'Interactive engine', desc:'Applies SOUL.md persona + USER.md profile.', from:'engine', to:'router', kind:'fwd'},
+    {id:'router',    name:'llama.cpp router',   desc:'Routes by model name on port 8080 (Ministral + voyage).', from:'router', to:'ministral', kind:'fwd'},
+    {id:'memory',    name:'Memory & Canvas',    desc:'ConversationStore (SQLite, 8-turn) + vector Canvas / Imaging / health.', from:'router', to:'memory', kind:'branch'},
+    {id:'response',  name:'Response path',      desc:'Ministral reply routes back through the same chain.', from:'ministral', to:'user', kind:'resp'},
+    {id:'done',      name:'Back in WebUI',      desc:'The response is rendered back in the Console WebUI.', from:'webui', to:'user', kind:'resp'}
+  ];
+
+  var stageNum = document.getElementById('stageNum');
+  var stageTotal = document.getElementById('stageTotal');
+  var stageName = document.getElementById('stageName');
+  var stageDesc = document.getElementById('stageDesc');
+  var bar = document.getElementById('bar');
+  var playBtn = document.getElementById('playBtn');
+  var pauseBtn = document.getElementById('pauseBtn');
+  var stepBtn = document.getElementById('stepBtn');
+  var restartBtn = document.getElementById('restartBtn');
+
+  stageTotal.textContent = stages.length;
+
+  var current = 0;
+  var playing = false;
+  var animating = false;
+  var stepTimer = null;
+
+  function clearActive(){
+    Object.keys(nodes).forEach(function(id){
+      var el = document.getElementById('node-'+id);
+      if(el){ el.classList.remove('active','done'); }
+    });
+  }
+
+  function markDone(id){
+    var el = document.getElementById('node-'+id);
+    if(el){ el.classList.add('done'); }
+  }
+
+  function updateMeter(s){
+    stageNum.textContent = current;
+    stageName.textContent = s.name;
+    stageDesc.textContent = s.desc;
+    bar.style.width = ((current-1)/stages.length*100) + '%';
+  }
+
+  // Animate a packet from one node to another
+  function animatePacket(fromId, toId, kind, done){
+    var from = nodeCenter(fromId);
+    var to = nodeCenter(toId);
+    packet.classList.remove('flow','resp');
+    // reset position
+    packet.style.left = from.x + '%';
+    packet.style.top  = from.y + '%';
+
+    var start = performance.now();
+    var dur = 900;
+    packet.classList.add('flow');
+    if(kind === 'resp') packet.classList.add('resp');
+
+    function ease(t){ return t<0.5 ? (t*t) : (1-Math.pow(-2*t+2,2)/2); }
+
+    function frame(now){
+      var t = (now - start)/dur;
+      if(t >= 1){
+        t = 1;
+        packet.style.left = to.x + '%';
+        packet.style.top  = to.y + '%';
+        packet.classList.remove('flow');
+        if(done) done();
+        return;
+      }
+      var e = ease(t);
+      var x = from.x + (to.x - from.x)*e;
+      var y = from.y + (to.y - from.y)*e;
+      packet.style.left = x + '%';
+      packet.style.top  = y + '%';
+      requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+  }
+
+  function applyStage(idx){
+    clearActive();
+    var s = stages[idx];
+    // light up the "to" node as active
+    var toNode = s.to;
+    var el = document.getElementById('node-'+toNode);
+    if(el){ el.classList.add('active'); }
+    // mark prior nodes as done
+    var seen = {};
+    Object.keys(nodes).forEach(function(id){ seen[id]=false; });
+    // mark the chain up to current as done
+    var chain = ['user','webui','rosbridge','telepathy','engine','router','ministral','memory','sidecars'];
+    chain.forEach(function(id){ if(seen[id]===false){ /* handled below */ } });
+    // Simple: mark all nodes except active as done
+    Object.keys(nodes).forEach(function(id){
+      var el2 = document.getElementById('node-'+id);
+      if(el2 && id !== toNode){ el2.classList.add('done'); }
+    });
+    updateMeter(s);
+  }
+
+  function goTo(idx){
+    if(idx < 0 || idx >= stages.length) return;
+    current = idx + 1;
+    var s = stages[idx];
+    // advance packet then update meter when it lands
+    animatePacket(s.from, s.to, s.kind, function(){
+      applyStage(idx);
+      if(playing && current < stages.length){
+        // small pause then next
+        setTimeout(function(){
+          if(playing){
+            current++;
+            next();
+          }
+        }, 250);
+      } else if(playing && current >= stages.length){
+        play();
+      }
+    });
+  }
+
+  function next(){
+    if(current >= stages.length){
+      current = 1;
+    }
+    goTo(current - 1);
+  }
+
+  function play(){
+    if(playing) return;
+    playing = true;
+    playBtn.textContent = 'Pause';
+    pauseBtn.disabled = false;
+    if(current >= stages.length){
+      current = 1;
+    }
+    goTo(current - 1);
+  }
+
+  function pause(){
+    playing = false;
+    playBtn.textContent = 'Play';
+    pauseBtn.disabled = true;
+  }
+
+  function restart(){
+    pause();
+    current = 1;
+    clearActive();
+    packet.classList.remove('flow','resp');
+    packet.style.opacity = '0';
+    updateMeter(stages[0]);
+    applyStage(0);
+  }
+
+  function step(){
+    pause();
+    if(current >= stages.length){
+      current = 1;
+    }
+    goTo(current - 1);
+  }
+
+  playBtn.addEventListener('click', function(){
+    if(playing){ pause(); } else { play(); }
+  });
+  pauseBtn.addEventListener('click', pause);
+  stepBtn.addEventListener('click', step);
+  restartBtn.addEventListener('click', restart);
+
+  // initial paint
+  applyStage(0);
+  updateMeter(stages[0]);
+
+})();
+</script>
+</body>
+</html>

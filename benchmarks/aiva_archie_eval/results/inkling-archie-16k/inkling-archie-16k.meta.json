@@ -1,0 +1,7 @@
+{
+  "model": "inkling-2-mini",
+  "max_tokens": 16000,
+  "reasoning_effort": null,
+  "think_off": false,
+  "prompt_sha256": "73a1b2e824dff45cf803feca3a0160b21b85fe37b9f050e26c5181b35f7c7467"
+}

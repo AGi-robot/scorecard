@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How Grace Works — AIVA PC Companion Runtime</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0b0f14;--surface:#12171f;--card:#161c26;--card-hover:#1a2230;
+  --border:#252d38;--border-active:#3b82f6;--border-glow:rgba(59,130,246,.35);
+  --text:#e2e8f0;--text-muted:#8b95a7;--text-bright:#f8fafc;
+  --accent:#3b82f6;--accent-2:#8b5cf6;--accent-3:#10b981;--accent-4:#f59e0b;
+  --pink:#ec4899;--cyan:#06b6d4;
+  --radius:10px;--radius-sm:6px;
+  --font:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarel,sans-serif;
+  --mono:"SF Mono","Fira Code","Fira Mono",JetBrains Mono,Consolas,monospace;
+}
+html{font-size:15px}
+body{
+  background:var(--bg);color:var(--text);font-family:var(--font);
+  min-height:100vh;overflow-x:hidden;line-height:1.5;
+  display:flex;flex-direction:column;
+}
+/* ── Header ── */
+header{
+  text-align:center;padding:1.6rem 1rem .6rem;
+}
+header .eyebrow{
+  font-size:.72rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:.35rem;
+}
+header h1{
+  font-size:1.9rem;font-weight:800;letter-spacing:-.02em;color:var(--text-bright);
+}
+header h1 span{background:linear-gradient(135deg,var(--accent),var(--accent-2));
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+header .subtitle{font-size:.82rem;color:var(--text-muted);max-width:620px;margin:.3rem auto 0;}
+
+/* ── Pipeline container ── */
+#pipeline-wrap{
+  flex:1;display:flex;align-items:center;justify-content:center;
+  padding:.5rem 1rem 1rem;position:relative;min-height:0;
+}
+#pipeline{
+  position:relative;width:100%;max-width:1280px;height:520px;
+  background:var(--surface);border:1px solid var(--border);border-radius:14px;
+  overflow:hidden;
+}
+#pipeline .grid-bg{
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(59,130,246,.03) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(59,130,246,.03) 1px,transparent 1px);
+  background-size:40px 40px;pointer-events:none;z-index:0;
+}
+
+/* ── SVG connectors ── */
+#connectors{position:absolute;inset:0;z-index:1;pointer-events:none;}
+#connectors line,#connectors path{stroke:var(--border);stroke-width:2;fill:none;}
+#connectors line.active,#connectors path.active{
+  stroke:var(--accent);stroke-width:2.5;
+  filter:drop-shadow(0 0 6px var(--border-glow));
+}
+#connectors .branch{stroke-dasharray:5 4;opacity:.6;}
+#connectors .branch.active{opacity:1;stroke:var(--accent-3);}
+
+/* ── Nodes ── */
+.node{
+  position:absolute;z-index:5;display:flex;flex-direction:column;align-items:center;
+  width:118px;cursor:default;transition:transform .25s,filter .25s;
+}
+.node .node-card{
+  width:100%;background:var(--card);border:1px solid var(--border);
+  border-radius:var(--radius);padding:.55rem .45rem;text-align:center;
+  transition:all .3s;position:relative;
+}
+.node.active .node-card{
+  border-color:var(--accent);background:var(--card-hover);
+  box-shadow:0 0 0 3px var(--border-glow),0 4px 20px rgba(59,130,246,.15);
+  transform:translateY(-2px);
+}
+.node.done .node-card{border-color:var(--accent-3);background:rgba(16,185,129,.06);}
+.node .badge{
+  width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:1.05rem;margin:0 auto .3rem;background:rgba(59,130,246,.12);color:var(--accent);
+}
+.node .nlabel{font-size:.7rem;font-weight:700;color:var(--text-bright);line-height:1.2;}
+.node .ndesc{font-size:.58rem;color:var(--text-muted);line-height:1.25;margin-top:.15rem;}
+.node .stage-num{
+  position:absolute;top:-8px;left:50%;transform:translateX(-50%);
+  background:var(--accent);color:#fff;font-size:.58rem;font-weight:700;
+  width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+}
+.node .tooltip{
+  display:none;position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);
+  background:#1e2632;border:1px solid var(--border);border-radius:var(--radius-sm);
+  padding:.45rem .6rem;font-size:.62rem;color:var(--text);white-space:nowrap;
+  z-index:20;box-shadow:0 8px 24px rgba(0,0,0,.4);
+}
+.node .tooltip::after{
+  content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);
+  border:5px solid transparent;border-top-color:var(--border);
+}
+.node:hover .tooltip{display:block;}
+
+/* ── Sidecar cluster ── */
+.sidecar-cluster{
+  position:absolute;z-index:5;display:flex;flex-direction:column;gap:.35rem;
+}
+.sidecar-cluster .sc-node{
+  background:var(--card);border:1px solid var(--border);border-radius:var(--radius-sm);
+  padding:.35rem .55rem;display:flex;align-items:center;gap:.4rem;
+  font-size:.6rem;transition:all .3s;min-width:130px;
+}
+.sidecar-cluster .sc-node .sc-dot{
+  width:8px;height:8px;border-radius:50%;flex-shrink:0;
+}
+.sidecar-cluster .sc-node.active{border-color:var(--accent-3);box-shadow:0 0 0 2px rgba(16,185,129,.25);}
+
+/* ── Packets ── */
+.packet{
+  position:absolute;z-index:8;width:10px;height:10px;border-radius:50%;
+  pointer-events:none;
+}
+.packet .glow{
+  position:absolute;inset:-6px;border-radius:50%;
+  background:radial-gradient(circle,var(--accent),transparent 70%);
+  opacity:.45;animation:pulse 1.2s ease-in-out infinite;
+}
+@keyframes pulse{0%,100%{transform:scale(1);opacity:.45}50%{transform:scale(1.5);opacity:.2}}
+.packet.forward{background:var(--accent);box-shadow:0 0 10px var(--accent);}
+.packet.return{background:var(--pink);box-shadow:0 0 10px var(--pink);}
+.packet.side{background:var(--accent-3);box-shadow:0 0 10px var(--accent-3);}
+
+/* ── Response label ── */
+.response-label{
+  position:absolute;z-index:4;font-size:.6rem;font-weight:600;
+  color:var(--pink);letter-spacing:.05em;opacity:0;transition:opacity .3s;
+}
+.response-label.visible{opacity:1;}
+
+/* ── Footer / Controls ── */
+footer{
+  padding:.6rem 1rem 1rem;
+}
+#controls-bar{
+  max-width:1280px;margin:0 auto;display:flex;align-items:center;gap:.8rem;
+  flex-wrap:wrap;
+}
+#stage-indicator{
+  flex:1 1 100%;text-align:center;font-size:.82rem;font-weight:600;
+  color:var(--text-bright);padding:.3rem 0;
+}
+#stage-indicator .stage-num-display{color:var(--accent);font-family:var(--mono);}
+#btn-group{display:flex;gap:.45rem;justify-content:center;}
+button{
+  background:var(--card);border:1px solid var(--border);color:var(--text);
+  font-family:var(--font);font-size:.72rem;font-weight:600;
+  padding:.42rem .9rem;border-radius:var(--radius-sm);cursor:pointer;
+  display:inline-flex;align-items:center;gap:.35rem;transition:all .2s;
+}
+button:hover{background:var(--card-hover);border-color:var(--accent);}
+button:active{transform:scale(.97);}
+button.primary{background:var(--accent);border-color:var(--accent);color:#fff;}
+button.primary:hover{background:#2563eb;}
+button .icon{font-size:.85rem;}
+
+/* ── Legend ── */
+#legend{
+  max-width:1280px;margin:.5rem auto 0;display:flex;flex-wrap:wrap;gap:.5rem 1.4rem;
+  justify-content:center;padding:.45rem .6rem;
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);
+}
+#legend .leg-item{display:flex;align-items:center;gap:.35rem;font-size:.64rem;color:var(--text-muted);}
+#legend .leg-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;}
+#legend .leg-line{width:18px;height:2px;border-radius:1px;flex-shrink:0;}
+
+/* ── Caption ── */
+#caption{
+  max-width:1280px;margin:.4rem auto 0;text-align:center;
+  font-size:.62rem;color:var(--text-muted);font-style:italic;
+}
+#caption strong{color:var(--accent-4);font-style:normal;}
+
+/* ── Responsive ── */
+@media(max-width:1280px){
+  #pipeline{height:500px;}
+  .node{width:100px;}
+  .node .nlabel{font-size:.62rem;}
+  .node .ndesc{font-size:.53rem;}
+  .node .badge{width:28px;height:28px;font-size:.85rem;}
+  .sidecar-cluster .sc-node{min-width:110px;font-size:.55rem;}
+}
+@media(max-width:900px){
+  #pipeline{height:620px;}
+  .node{width:82px;}
+  .node .nlabel{font-size:.56rem;}
+  .node .ndesc{display:none;}
+  .node .badge{width:24px;height:24px;font-size:.7rem;}
+  .sidecar-cluster .sc-node{min-width:95px;font-size:.5rem;padding:.25rem .4rem;}
+  #legend{gap:.3rem .8rem;}
+  #legend .leg-item{font-size:.56rem;}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="eyebrow">AIVA PC Companion Runtime</div>
+  <h1>How <span>Grace</span> Works</h1>
+  <p class="subtitle">Animated explainer of the request pipeline — from your voice or keystrokes to the AI response displayed in your console.</p>
+</header>
+
+<div id="pipeline-wrap">
+  <div id="pipeline">
+    <div class="grid-bg"></div>
+    <svg id="connectors" xmlns="http://www.w3.org/2000/svg"></svg>
+    <!-- Nodes injected by JS -->
+  </div>
+</div>
+
+<footer>
+  <div id="controls-bar">
+    <div id="stage-indicator">Stage <span class="stage-num-display">1</span>/9 — <span id="stage-name">User</span></div>
+    <div id="btn-group">
+      <button class="primary" id="btn-play"><span class="icon">▶</span> Play</button>
+      <button id="btn-pause"><span class="icon">⏸</span> Pause</button>
+      <button id="btn-step"><span class="icon">⏭</span> Step</button>
+      <button id="btn-restart"><span class="icon">↺</span> Restart</button>
+    </div>
+  </div>
+  <div id="legend">
+    <div class="leg-item"><span class="leg-dot" style="background:var(--accent)"></span>Forward request packet</div>
+    <div class="leg-item"><span class="leg-dot" style="background:var(--pink)"></span>Response packet (return)</div>
+    <div class="leg-item"><span class="leg-dot" style="background:var(--accent-3)"></span>Side-branch (Memory / Canvas)</div>
+    <div class="leg-item"><span class="leg-line" style="background:var(--accent)"></span>Active connector</div>
+    <div class="leg-item"><span class="leg-line" style="background:var(--border);border:1px dashed var(--border)"></span>Side-branch path</div>
+    <div class="leg-item"><span class="leg-dot" style="background:var(--accent-3);border:2px solid var(--accent-3)"></span>Completed stage</div>
+  </div>
+  <div id="caption">Orchestrated by <strong>AIVA / launch.sh</strong> — builds the shell workspace, starts the router, rosbridge, chat, and telepathy nodes. AuRoRA is a separate system and is not part of this pipeline.</div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ── Stage definitions ── */
+  var STAGES = [
+    { id:1,  name:"User",            desc:"You speak or type in the browser.",
+      icon:"⌨️", color:"var(--accent)" },
+    { id:2,  name:"Console WebUI",   desc:"Browser-local appearance prefs; runtime config is read-only.",
+      icon:"🖥️", color:"var(--accent)" },
+    { id:3,  name:"rosbridge",       desc:"WebSocket bridge at 127.0.0.1:9090.",
+      icon:"🔌", color:"var(--cyan)" },
+    { id:4,  name:"telepathy_receptor", desc:"ROS 2 adapter node relaying messages.",
+      icon:"📡", color:"var(--cyan)" },
+    { id:5,  name:"Interactive engine", desc:"Conversation engine using SOUL.md persona + USER.md profile.",
+      icon:"⚙️", color:"var(--accent-2)" },
+    { id:6,  name:"llama.cpp router", desc:"Single llama-server on port 8080; routes by model name via models/llama-router.ini.",
+      icon:"🔀", color:"var(--accent-4)" },
+    { id:7,  name:"Ministral 3 8B",   desc:"8B chat model inference (with voyage-4-nano embeddings).",
+      icon:"🧠", color:"var(--accent-2)" },
+    { id:8,  name:"Memory & Sidecars", desc:"SQLite ConversationStore (8-turn window), vector Canvas, Imaging, health + agi_logging.",
+      icon:"💾", color:"var(--accent-3)" },
+    { id:9,  name:"Response path",    desc:"Reply flows back through the chain to the WebUI display.",
+      icon:"↩️", color:"var(--pink)" },
+  ];
+
+  /* ── Layout positions (percent of container) ── */
+  // Top row: 7 nodes left-to-right (stages 1-7)
+  // Stage 8 cluster: below-right between stages 6/7
+  // Bottom row: return path (stage 9) right-to-left beneath
+  function getLayout(w, h) {
+    var topY = 50;
+    var botY = h - 70;
+    var gap = w / 8;
+    var topX = [];
+    for (var i = 0; i < 7; i++) {
+      topX.push(gap * (1.2 + i));
+    }
+    // Stage 8 positions (sidecar cluster)
+    var s8x = w * 0.72;
+    var s8y = h * 0.52;
+    // Return path nodes (stages 9 is the return flow, drawn as a row of 7 under)
+    var retX = [];
+    for (var i = 0; i < 7; i++) {
+      retX.push(w - gap * (1.2 + i));
+    }
+    return {
+      topY: topY, botY: botY, gap: gap,
+      topX: topX, retX: retX,
+      s8x: s8x, s8y: s8y,
+      w: w, h: h
+    };
+  }
+
+  /* ── State ── */
+  var pipeline = document.getElementById("pipeline");
+  var svg = document.getElementById("connectors");
+  var stageNameEl = document.getElementById("stage-name");
+  var stageNumEl = document.querySelector(".stage-num-display");
+  var btnPlay = document.getElementById("btn-play");
+  var btnPause = document.getElementById("btn-pause");
+  var btnStep = document.getElementById("btn-step");
+  var btnRestart = document.getElementById("btn-restart");
+
+  var currentStage = 0; // 0-based index into STAGES
+  var isPlaying = false;
+  var animId = null;
+  var lastTime = 0;
+  var packetSpeed = 0.00045; // progress per ms
+  var sideSpeed = 0.00038;
+
+  // Packets
+  var packets = [];
+  var nodes = [];
+  var connectors = [];
+  var sidecarEls = [];
+
+  /* ── Build DOM ── */
+  function buildNodes() {
+    var layout = getLayout(pipeline.offsetWidth, pipeline.offsetHeight);
+    var topX = layout.topX, topY = layout.topY;
+
+    // Forward row nodes (stages 1-7)
+    for (var i = 0; i < 7; i++) {
+      var s = STAGES[i];
+      var el = document.createElement("div");
+      el.className = "node";
+      el.style.left = (topX[i] - 50) + "px";
+      el.style.top = topY + "px";
+      el.innerHTML =
+        '<div class="node-card">' +
+          '<div class="stage-num">' + s.id + '</div>' +
+          '<div class="badge">' + s.icon + '</div>' +
+          '<div class="nlabel">' + s.name + '</div>' +
+          '<div class="ndesc">' + s.desc + '</div>' +
+        '</div>' +
+        '<div class="tooltip">' + s.desc + '</div>';
+      pipeline.appendChild(el);
+      nodes.push({ el: el, stage: i, x: topX[i], y: topY + 35, layout: layout });
+    }
+
+    // Stage 8: sidecar cluster (Memory + Canvas + Imaging + health)
+    var s8 = STAGES[7];
+    var cluster = document.createElement("div");
+    cluster.className = "sidecar-cluster";
+    cluster.style.left = (layout.s8x - 65) + "px";
+    cluster.style.top = (layout.s8y - 30) + "px";
+    var scItems = [
+      { name: "Mind ConversationStore", sub: "SQLite · add_exchange · 8-turn window", color: "var(--accent-3)" },
+      { name: "Vector Canvas", sub: "2D/3D vector capability", color: "var(--cyan)" },
+      { name: "Imaging", sub: "Image generation / processing", color: "var(--pink)" },
+      { name: "Health & agi_logging", sub: "System health monitoring", color: "var(--accent-4)" },
+    ];
+    for (var j = 0; j < scItems.length; j++) {
+      var it = scItems[j];
+      var sc = document.createElement("div");
+      sc.className = "sc-node";
+      sc.innerHTML = '<span class="sc-dot" style="background:' + it.color + '"></span><div><strong>' + it.name + '</strong><br><span style="color:var(--text-muted);font-size:.52rem">' + it.sub + '</span></div>';
+      cluster.appendChild(sc);
+      sidecarEls.push({ el: sc, name: it.name, color: it.color });
+    }
+    // Stage 8 label
+    var s8label = document.createElement("div");
+    s8label.className = "node";
+    s8label.style.left = (layout.s8x - 50) + "px";
+    s8label.style.top = (layout.s8y - 75) + "px";
+    s8label.innerHTML =
+      '<div class="node-card">' +
+        '<div class="stage-num">' + s8.id + '</div>' +
+        '<div class="badge" style="background:rgba(16,185,129,.12);color:var(--accent-3)">' + s8.icon + '</div>' +
+        '<div class="nlabel">' + s8.name + '</div>' +
+        '<div class="ndesc">' + s8.desc + '</div>' +
+      '</div>';
+    pipeline.appendChild(s8label);
+    nodes.push({ el: s8label, stage: 7, x: layout.s8x, y: layout.s8y - 40, layout: layout });
+
+    // Return row (stage 9) — 7 nodes right-to-left
+    var retX = layout.retX, retY = layout.botY;
+    for (var k = 0; k < 7; k++) {
+      var s = STAGES[8];
+      var el = document.createElement("div");
+      el.className = "node";
+      el.style.left = (retX[k] - 50) + "px";
+      el.style.top = retY + "px";
+      el.innerHTML =
+        '<div class="node-card">' +
+          '<div class="stage-num">' + s.id + '</div>' +
+          '<div class="badge" style="background:rgba(236,72,153,.12);color:var(--pink)">' + s.icon + '</div>' +
+          '<div class="nlabel">' + s.name + '</div>' +
+          '<div class="ndesc">' + s.desc + '</div>' +
+        '</div>';
+      pipeline.appendChild(el);
+      nodes.push({ el: el, stage: 8, x: retX[k], y: retY + 35, layout: layout });
+    }
+  }
+
+  /* ── Build connectors ── */
+  function buildConnectors() {
+    var layout = getLayout(pipeline.offsetWidth, pipeline.offsetHeight);
+    svg.innerHTML = "";
+    var ns = "http://www.w3.org/2000/svg";
+
+    // Forward path: stages 1→2→3→4→5→6→7
+    for (var i = 0; i < 6; i++) {
+      var line = document.createElementNS(ns, "line");
+      line.setAttribute("x1", nodes[i].x);
+      line.setAttribute("y1", nodes[i].y);
+      line.setAttribute("x2", nodes[i + 1].x);
+      line.setAttribute("y2", nodes[i + 1].y);
+      line.setAttribute("class", "conn conn-forward");
+      line.setAttribute("data-stage", i);
+      svg.appendChild(line);
+      connectors.push({ el: line, from: i, to: i + 1, type: "forward" });
+    }
+
+    // Stage 7 → Stage 8 (side branch)
+    var s7 = nodes[6];
+    var s8 = nodes[7];
+    var branch = document.createElementNS(ns, "path");
+    var d = "M " + s7.x + " " + (s7.y + 20) +
+            " C " + (s7.x + 60) + " " + (s7.y + 20) +
+            " " + (s8.x - 40) + " " + (s8.y - 30) +
+            " " + (s8.x) + " " + (s8.y - 20);
+    branch.setAttribute("d", d);
+    branch.setAttribute("class", "conn branch conn-side");
+    branch.setAttribute("data-stage", "7-8");
+    svg.appendChild(branch);
+    connectors.push({ el: branch, from: 6, to: 7, type: "side" });
+
+    // Sidecar connections (from stage 8 node to each sidecar)
+    for (var m = 0; m < sidecarEls.length; m++) {
+      var scLine = document.createElementNS(ns, "line");
+      scLine.setAttribute("x1", s8.x);
+      scLine.setAttribute("y1", s8.y + 10);
+      scLine.setAttribute("x2", s8.x + (m % 2 === 0 ? -30 : 30));
+      scLine.setAttribute("y2", s8.y + 55 + m * 22);
+      scLine.setAttribute("class", "conn branch conn-sidecar");
+      scLine.setAttribute("data-sidecar", m);
+      svg.appendChild(scLine);
+    }
+
+    // Return path: stages 9 row right-to-left (7 segments)
+    for (var n = 0; n < 6; n++) {
+      var rLine = document.createElementNS(ns, "line");
+      rLine.setAttribute("x1", nodes[8 + n].x);
+      rLine.setAttribute("y1", nodes[8 + n].y);
+      rLine.setAttribute("x2", nodes[8 + n + 1].x);
+      rLine.setAttribute("y2", nodes[8 + n + 1].y);
+      rLine.setAttribute("class", "conn conn-return");
+      rLine.setAttribute("data-stage", (8 + n));
+      svg.appendChild(rLine);
+      connectors.push({ el: rLine, from: 8 + n, to: 8 + n + 1, type: "return" });
+    }
+
+    // Vertical connector: stage 7 (top-right) down to return row start
+    var vert1 = document.createElementNS(ns, "line");
+    vert1.setAttribute("x1", nodes[6].x);
+    vert1.setAttribute("y1", nodes[6].y + 20);
+    vert1.setAttribute("x2", nodes[14].x);
+    vert1.setAttribute("y2", nodes[14].y - 20);
+    vert1.setAttribute("class", "conn conn-return");
+    vert1.setAttribute("data-stage", "7-9");
+    svg.appendChild(vert1);
+    connectors.push({ el: vert1, from: 6, to: 14, type: "return" });
+
+    // Vertical connector: return row end up to stage 1
+    var vert2 = document.createElementNS(ns, "line");
+    vert2.setAttribute("x1", nodes[14].x);
+    vert2.setAttribute("y1", nodes[14].y - 20);
+    vert2.setAttribute("x2", nodes[0].x);
+    vert2.setAttribute("y2", nodes[0].y + 20);
+    vert2.setAttribute("class", "conn conn-return");
+    vert2.setAttribute("data-stage", "9-1");
+    svg.appendChild(vert2);
+    connectors.push({ el: vert2, from: 14, to: 0, type: "return" });
+
+    // Response label
+    var rLabel = document.createElement("div");
+    rLabel.className = "response-label";
+    rLabel.id = "resp-label";
+    rLabel.style.left = (nodes[14].x + 15) + "px";
+    rLabel.style.top = ((nodes[14].y + nodes[0].y) / 2 - 10) + "px";
+    rLabel.textContent = "← RESPONSE ←";
+    pipeline.appendChild(rLabel);
+  }
+
+  /* ── Packet system ── */
+  function createPacket(type, path, speed) {
+    var el = document.createElement("div");
+    el.className = "packet " + type;
+    el.innerHTML = '<div class="glow"></div>';
+    pipeline.appendChild(el);
+    var pkt = { el: el, type: type, path: path, t: 0, speed: speed, active: false };
+    packets.push(pkt);
+    return pkt;
+  }
+
+  function initPackets() {
+    // Forward packet: follows stages 0→1→2→3→4→5→6
+    var fwdPath = [];
+    for (var i = 0; i < 7; i++) {
+      fwdPath.push({ x: nodes[i].x, y: nodes[i].y });
+    }
+    createPacket("forward", fwdPath, packetSpeed);
+
+    // Side packet: stage 6 → stage 8 (sidecar) and back
+    var sidePath = [
+      { x: nodes[6].x, y: nodes[6].y },
+      { x: nodes[7].x, y: nodes[7].y }
+    ];
+    createPacket("side", sidePath, sideSpeed);
+
+    // Return packet: follows return row 14→15→...→20 (stages 9)
+    var retPath = [];
+    for (var i = 14; i <= 20; i++) {
+      retPath.push({ x: nodes[i].x, y: nodes[i].y });
+    }
+    createPacket("return", retPath, packetSpeed);
+  }
+
+  function updatePackets(dt) {
+    // Forward packet
+    var fwd = packets[0];
+    if (fwd.active) {
+      fwd.t += fwd.speed * dt;
+      if (fwd.t >= 1) {
+        fwd.t = 0;
+        // advance to next segment
+        if (fwd.segment === undefined) fwd.segment = 0;
+        fwd.segment++;
+        if (fwd.segment >= fwd.path.length - 1) {
+          // reached end (stage 7), trigger side branch
+          fwd.segment = fwd.path.length - 1;
+          // activate side packet
+          var side = packets[1];
+          side.active = true;
+          side.t = 0;
+          side.segment = 0;
+        }
+      }
+      // position
+      var seg = fwd.segment || 0;
+      var p0 = fwd.path[seg];
+      var p1 = fwd.path[Math.min(seg + 1, fwd.path.length - 1)];
+      var t = fwd.t;
+      var nx = p0.x + (p1.x - p0.x) * t;
+      var ny = p0.y + (p1.y - p0.y) * t;
+      fwd.el.style.left = (nx - 5) + "px";
+      fwd.el.style.top = (ny - 5) + "px";
+      fwd.el.style.display = "block";
+    } else {
+      fwd.el.style.display = "none";
+    }
+
+    // Side packet
+    var side = packets[1];
+    if (side.active) {
+      side.t += side.speed * dt;
+      if (side.t >= 1) {
+        side.t = 0;
+        if (side.segment === undefined) side.segment = 0;
+        side.segment++;
+        if (side.segment >= side.path.length - 1) {
+          // reached sidecar, now return
+          side.segment = side.path.length - 1;
+          side.returning = true;
+        }
+        if (side.returning && side.segment >= 0) {
+          // go back
+          side.t = 0;
+          side.segment = side.path.length - 2;
+          side.returning = false;
+          // after returning, activate return packet
+          var ret = packets[2];
+          ret.active = true;
+          ret.t = 0;
+          ret.segment = 0;
+        }
+      }
+      var seg = side.segment || 0;
+      var p0, p1;
+      if (side.returning) {
+        p0 = side.path[side.path.length - 1 - seg];
+        p1 = side.path[side.path.length - 1 - (seg + 1)];
+      } else {
+        p0 = side.path[seg];
+        p1 = side.path[seg + 1];
+      }
+      var t = side.t;
+      var nx = p0.x + (p1.x - p0.x) * t;
+      var ny = p0.y + (p1.y - p0.y) * t;
+      side.el.style.left = (nx - 5) + "px";
+      side.el.style.top = (ny - 5) + "px";
+      side.el.style.display = "block";
+    } else {
+      side.el.style.display = "none";
+    }
+
+    // Return packet
+    var ret = packets[2];
+    if (ret.active) {
+      ret.t += ret.speed * dt;
+      if (ret.t >= 1) {
+        ret.t = 0;
+        if (ret.segment === undefined) ret.segment = 0;
+        ret.segment++;
+        if (ret.segment >= ret.path.length - 1) {
+          // back to start, loop
+          ret.segment = 0;
+          // reset forward
+          fwd.segment = 0;
+          fwd.active = true;
+          side.active = false;
+          ret.active = false;
+          if (isPlaying) {
+            currentStage = 0;
+            updateStageDisplay();
+          }
+        }
+      }
+      var seg = ret.segment || 0;
+      var p0 = ret.path[seg];
+      var p1 = ret.path[Math.min(seg + 1, ret.path.length - 1)];
+      var t = ret.t;
+      var nx = p0.x + (p1.x - p0.x) * t;
+      var ny = p0.y + (p1.y - p0.y) * t;
+      ret.el.style.left = (nx - 5) + "px";
+      ret.el.style.top = (ny - 5) + "px";
+      ret.el.style.display = "block";
+    } else {
+      ret.el.style.display = "none";
+    }
+  }
+
+  /* ── Stage management ── */
+  function updateStageDisplay() {
+    var s = STAGES[currentStage];
+    stageNameEl.textContent = s.name;
+    stageNumEl.textContent = s.id;
+
+    // Reset all nodes
+    for (var i = 0; i < nodes.length; i++) {
+      nodes[i].el.classList.remove("active", "done");
+    }
+    // Mark done up to current
+    for (var j = 0; j < currentStage; j++) {
+      if (nodes[j]) nodes[j].el.classList.add("done");
+    }
+    // Active
+    if (nodes[currentStage]) {
+      nodes[currentStage].el.classList.add("active");
+    }
+
+    // Highlight connectors
+    for (var k = 0; k < connectors.length; k++) {
+      connectors[k].el.classList.remove("active");
+    }
+    // Highlight current connector
+    if (currentStage < 7) {
+      // forward connector
+      for (var m = 0; m < connectors.length; m++) {
+        if (connectors[m].type === "forward" && connectors[m].from === currentStage) {
+          connectors[m].el.classList.add("active");
+        }
+      }
+    } else if (currentStage === 7) {
+      // side branch
+      for (var n = 0; n < connectors.length; n++) {
+        if (connectors[n].type === "side" && connectors[n].from === 6) {
+          connectors[n].el.classList.add("active");
+        }
+      }
+      // highlight sidecars
+      for (var p = 0; p < sidecarEls.length; p++) {
+        sidecarEls[p].el.classList.add("active");
+      }
+    } else if (currentStage === 8) {
+      // return path
+      for (var q = 0; q < connectors.length; q++) {
+        if (connectors[q].type === "return") {
+          connectors[q].el.classList.add("active");
+        }
+      }
+      var rLabel = document.getElementById("resp-label");
+      if (rLabel) rLabel.classList.add("visible");
+    }
+  }
+
+  function advanceStage() {
+    if (currentStage < STAGES.length - 1) {
+      currentStage++;
+      updateStageDisplay();
+      // Trigger packet for this stage
+      triggerPacketForStage(currentStage);
+    } else {
+      // Loop back
+      currentStage = 0;
+      updateStageDisplay();
+      packets[0].segment = 0;
+      packets[0].active = true;
+      packets[1].active = false;
+      packets[1].segment = 0;
+      packets[2].active = false;
+      packets[2].segment = 0;
+    }
+  }
+
+  function triggerPacketForStage(stage) {
+    // Packets move continuously in play mode; stepping just highlights
+    // In step mode, we also nudge the packet
+    if (stage < 7) {
+      var fwd = packets[0];
+      fwd.active = true;
+      fwd.segment = stage;
+      fwd.t = 0;
+    } else if (stage === 7) {
+      var side = packets[1];
+      side.active = true;
+      side.segment = 0;
+      side.t = 0;
+      side.returning = false;
+    } else if (stage === 8) {
+      var ret = packets[2];
+      ret.active = true;
+      ret.segment = 0;
+      ret.t = 0;
+    }
+  }
+
+  /* ── Animation loop ── */
+  function animate(timestamp) {
+    if (!lastTime) lastTime = timestamp;
+    var dt = timestamp - lastTime;
+    lastTime = timestamp;
+
+    updatePackets(dt);
+
+    // In play mode, auto-advance stages based on packet position
+    if (isPlaying) {
+      var fwd = packets[0];
+      if (fwd.active && !fwd.returning) {
+        var targetStage = fwd.segment;
+        if (targetStage !== undefined && targetStage !== currentStage && targetStage < 7) {
+          currentStage = targetStage;
+          updateStageDisplay();
+        }
+      }
+      var side = packets[1];
+      if (side.active && currentStage < 7) {
+        // side packet active means we're at stage 7
+        if (currentStage !== 7) {
+          currentStage = 7;
+          updateStageDisplay();
+        }
+      }
+      var ret = packets[2];
+      if (ret.active && currentStage < 8) {
+        if (currentStage !== 8) {
+          currentStage = 8;
+          updateStageDisplay();
+        }
+      }
+    }
+
+    animId = requestAnimationFrame(animate);
+  }
+
+  /* ── Controls ── */
+  function startPlay() {
+    if (isPlaying) return;
+    isPlaying = true;
+    lastTime = 0;
+    // Activate forward packet if not active
+    if (!packets[0].active) {
+      packets[0].active = true;
+      packets[0].segment = currentStage;
+      packets[0].t = 0;
+    }
+    btnPlay.classList.add("primary");
+    animId = requestAnimationFrame(animate);
+  }
+
+  function pausePlay() {
+    isPlaying = false;
+    if (animId) {
+      cancelAnimationFrame(animId);
+      animId = null;
+    }
+  }
+
+  function restart() {
+    pausePlay();
+    currentStage = 0;
+    packets[0].active = true;
+    packets[0].segment = 0;
+    packets[0].t = 0;
+    packets[1].active = false;
+    packets[1].segment = 0;
+    packets[1].t = 0;
+    packets[1].returning = false;
+    packets[2].active = false;
+    packets[2].segment = 0;
+    packets[2].t = 0;
+    updateStageDisplay();
+    // Auto-start play after restart
+    setTimeout(function() { startPlay(); }, 300);
+  }
+
+  function stepForward() {
+    pausePlay();
+    advanceStage();
+    // Nudge packet
+    if (currentStage < 7) {
+      packets[0].active = true;
+      packets[0].segment = currentStage;
+      packets[0].t = 0;
+    } else if (currentStage === 7) {
+      packets[1].active = true;
+      packets[1].segment = 0;
+      packets[1].t = 0;
+      packets[1].returning = false;
+    } else if (currentStage === 8) {
+      packets[2].active = true;
+      packets[2].segment = 0;
+      packets[2].t = 0;
+    }
+  }
+
+  btnPlay.addEventListener("click", function() {
+    if (isPlaying) {
+      pausePlay();
+    } else {
+      startPlay();
+    }
+  });
+
+  btnPause.addEventListener("click", pausePlay);
+  btnStep.addEventListener("click", stepForward);
+  btnRestart.addEventListener("click", restart);
+
+  /* ── Keyboard shortcuts ── */
+  document.addEventListener("keydown", function(e) {
+    if (e.code === "Space") {
+      e.preventDefault();
+      if (isPlaying) pausePlay(); else startPlay();
+    } else if (e.code === "ArrowRight") {
+      e.preventDefault();
+      stepForward();
+    } else if (e.code === "KeyR") {
+      e.preventDefault();
+      restart();
+    }
+  });
+
+  /* ── Resize handler ── */
+  var resizeTimeout;
+  window.addEventListener("resize", function() {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(function() {
+      // Clear and rebuild
+      pipeline.innerHTML = '<div class="grid-bg"></div>';
+      // Re-append SVG
+      var newSvg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+      newSvg.id = "connectors";
+      newSvg.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+      newSvg.style.cssText = "position:absolute;inset:0;z-index:1;pointer-events:none;";
+      pipeline.insertBefore(newSvg, pipeline.querySelector(".grid-bg").nextSibling);
+      svg = newSvg;
+      nodes = [];
+      sidecarEls = [];
+      packets.forEach(function(p) { p.el.remove(); });
+      packets = [];
+      buildNodes();
+      buildConnectors();
+      initPackets();
+      updateStageDisplay();
+    }, 200);
+  });
+
+  /* ── Init ── */
+  function init() {
+    buildNodes();
+    buildConnectors();
+    initPackets();
+    updateStageDisplay();
+    // Start first packet
+    packets[0].active = true;
+    packets[0].segment = 0;
+    packets[0].t = 0;
+    // Auto-play
+    setTimeout(function() { startPlay(); }, 600);
+  }
+
+  // Wait for layout
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
+  }
+
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,642 @@
+[
+ {
+  "kind": "rectangle",
+  "x": 0,
+  "y": 0,
+  "width": 1000,
+  "height": 650,
+  "gradient_angle": 90,
+  "id": "sky",
+  "gradient": "linear",
+  "stroke": false,
+  "gradient_color": "#e8a87c",
+  "gradient_stops": [
+   {
+    "offset": 0,
+    "color": "#1a1a3e"
+   },
+   {
+    "offset": 0.35,
+    "color": "#3a3050"
+   },
+   {
+    "offset": 0.65,
+    "color": "#7a4a5a"
+   },
+   {
+    "offset": 1,
+    "color": "#d4856a"
+   }
+  ],
+  "fill": true
+ },
+ {
+  "kind": "curve",
+  "id": "sea",
+  "stroke": false,
+  "fill_color": "#2a4a5e",
+  "fill": true,
+  "points": [
+   [
+    0,
+    425
+   ],
+   [
+    120,
+    422
+   ],
+   [
+    280,
+    426
+   ],
+   [
+    450,
+    423
+   ],
+   [
+    620,
+    427
+   ],
+   [
+    780,
+    424
+   ],
+   [
+    900,
+    426
+   ],
+   [
+    1000,
+    425
+   ],
+   [
+    1000,
+    465
+   ],
+   [
+    0,
+    465
+   ]
+  ]
+ },
+ {
+  "kind": "curve",
+  "id": "headland",
+  "stroke": false,
+  "fill_color": "#2a2a3a",
+  "fill": true,
+  "points": [
+   [
+    0,
+    650
+   ],
+   [
+    0,
+    510
+   ],
+   [
+    30,
+    505
+   ],
+   [
+    60,
+    515
+   ],
+   [
+    90,
+    500
+   ],
+   [
+    130,
+    508
+   ],
+   [
+    170,
+    495
+   ],
+   [
+    210,
+    505
+   ],
+   [
+    250,
+    490
+   ],
+   [
+    290,
+    500
+   ],
+   [
+    330,
+    485
+   ],
+   [
+    370,
+    495
+   ],
+   [
+    410,
+    480
+   ],
+   [
+    450,
+    490
+   ],
+   [
+    490,
+    475
+   ],
+   [
+    530,
+    485
+   ],
+   [
+    570,
+    470
+   ],
+   [
+    610,
+    480
+   ],
+   [
+    650,
+    475
+   ],
+   [
+    690,
+    485
+   ],
+   [
+    730,
+    495
+   ],
+   [
+    770,
+    510
+   ],
+   [
+    810,
+    520
+   ],
+   [
+    850,
+    535
+   ],
+   [
+    890,
+    555
+   ],
+   [
+    930,
+    580
+   ],
+   [
+    965,
+    610
+   ],
+   [
+    1000,
+    650
+   ]
+  ]
+ },
+ {
+  "kind": "curve",
+  "id": "headland2",
+  "stroke": false,
+  "fill_color": "#35354a",
+  "fill": true,
+  "points": [
+   [
+    0,
+    650
+   ],
+   [
+    0,
+    540
+   ],
+   [
+    50,
+    530
+   ],
+   [
+    110,
+    540
+   ],
+   [
+    170,
+    525
+   ],
+   [
+    230,
+    535
+   ],
+   [
+    290,
+    520
+   ],
+   [
+    350,
+    530
+   ],
+   [
+    410,
+    515
+   ],
+   [
+    470,
+    525
+   ],
+   [
+    530,
+    510
+   ],
+   [
+    590,
+    520
+   ],
+   [
+    650,
+    515
+   ],
+   [
+    710,
+    530
+   ],
+   [
+    770,
+    545
+   ],
+   [
+    830,
+    565
+   ],
+   [
+    890,
+    590
+   ],
+   [
+    940,
+    620
+   ],
+   [
+    1000,
+    650
+   ]
+  ]
+ },
+ {
+  "kind": "polygon",
+  "id": "tower",
+  "stroke": false,
+  "smooth": true,
+  "fill_color": "#e8dcc8",
+  "fill": true,
+  "points": [
+   [
+    475,
+    210
+   ],
+   [
+    525,
+    210
+   ],
+   [
+    540,
+    490
+   ],
+   [
+    460,
+    490
+   ]
+  ]
+ },
+ {
+  "kind": "polygon",
+  "id": "lantern_room",
+  "stroke": false,
+  "smooth": true,
+  "fill_color": "#3a3a4a",
+  "fill": true,
+  "points": [
+   [
+    468,
+    185
+   ],
+   [
+    532,
+    185
+   ],
+   [
+    532,
+    210
+   ],
+   [
+    468,
+    210
+   ]
+  ]
+ },
+ {
+  "kind": "polygon",
+  "id": "lamp_glow",
+  "gradient": "radial",
+  "stroke": false,
+  "fill_color": "#ff8c00",
+  "gradient_color": "#ffb347",
+  "fill": true,
+  "points": [
+   [
+    500,
+    190
+   ]
+  ]
+ },
+ {
+  "kind": "style",
+  "gradient_angle": 90,
+  "id": "tower",
+  "gradient": "linear",
+  "fill_color": "#d4c4a8",
+  "gradient_color": "#f0e0c4",
+  "gradient_stops": [
+   {
+    "offset": 0,
+    "color": "#c8b898"
+   },
+   {
+    "offset": 0.5,
+    "color": "#e0d0b0"
+   },
+   {
+    "offset": 1,
+    "color": "#f2e2c8"
+   }
+  ]
+ },
+ {
+  "kind": "delete",
+  "id": "lamp_glow",
+  "fill": false
+ },
+ {
+  "kind": "ellipse",
+  "x": 438,
+  "y": 162,
+  "width": 124,
+  "height": 96,
+  "id": "lamp_glow",
+  "gradient": "radial",
+  "stroke": false,
+  "fill_color": "#ffb347",
+  "gradient_color": "#ff6a00",
+  "gradient_stops": [
+   {
+    "offset": 0,
+    "color": "#ffe0a0"
+   },
+   {
+    "offset": 0.3,
+    "color": "#ffb347"
+   },
+   {
+    "offset": 0.7,
+    "color": "#ff8c00"
+   },
+   {
+    "offset": 1,
+    "color": "#cc5500"
+   }
+  ],
+  "fill": true
+ },
+ {
+  "kind": "polygon",
+  "id": "gallery_deck",
+  "smooth": true,
+  "fill_color": "#4a4a5a",
+  "fill": true,
+  "points": [
+   [
+    458,
+    210
+   ],
+   [
+    542,
+    210
+   ],
+   [
+    545,
+    216
+   ],
+   [
+    455,
+    216
+   ]
+  ]
+ },
+ {
+  "kind": "polygon",
+  "id": "lantern_glass",
+  "smooth": true,
+  "fill_color": "#ffcc66",
+  "fill": true,
+  "points": [
+   [
+    472,
+    188
+   ],
+   [
+    528,
+    188
+   ],
+   [
+    528,
+    208
+   ],
+   [
+    472,
+    208
+   ]
+  ]
+ },
+ {
+  "kind": "style",
+  "id": "lantern_room",
+  "fill_color": "#2a2a3a"
+ },
+ {
+  "kind": "path",
+  "id": "cast_shadow",
+  "stroke": false,
+  "smooth": true,
+  "fill_color": "#1a1a2e",
+  "fill": true,
+  "points": [
+   [
+    440,
+    495
+   ],
+   [
+    460,
+    490
+   ],
+   [
+    540,
+    492
+   ],
+   [
+    580,
+    510
+   ],
+   [
+    600,
+    540
+   ],
+   [
+    560,
+    560
+   ],
+   [
+    480,
+    555
+   ],
+   [
+    430,
+    530
+   ],
+   [
+    420,
+    510
+   ]
+  ]
+ },
+ {
+  "kind": "curve",
+  "id": "headland_highlight",
+  "stroke": false,
+  "fill_color": "#3a3a50",
+  "fill": true,
+  "points": [
+   [
+    0,
+    650
+   ],
+   [
+    0,
+    520
+   ],
+   [
+    40,
+    515
+   ],
+   [
+    100,
+    525
+   ],
+   [
+    180,
+    510
+   ],
+   [
+    260,
+    520
+   ],
+   [
+    340,
+    505
+   ],
+   [
+    420,
+    515
+   ],
+   [
+    490,
+    500
+   ],
+   [
+    560,
+    515
+   ],
+   [
+    640,
+    505
+   ],
+   [
+    720,
+    520
+   ],
+   [
+    800,
+    540
+   ],
+   [
+    880,
+    570
+   ],
+   [
+    950,
+    610
+   ],
+   [
+    1000,
+    650
+   ]
+  ]
+ },
+ {
+  "kind": "ellipse",
+  "x": 120,
+  "y": 60,
+  "width": 4,
+  "height": 4,
+  "id": "star1",
+  "stroke": false,
+  "fill_color": "#f0e8d8",
+  "fill": true
+ },
+ {
+  "kind": "ellipse",
+  "x": 280,
+  "y": 45,
+  "width": 3,
+  "height": 3,
+  "id": "star2",
+  "stroke": false,
+  "fill_color": "#f0e8d8",
+  "fill": true
+ },
+ {
+  "kind": "ellipse",
+  "x": 750,
+  "y": 80,
+  "width": 4,
+  "height": 4,
+  "id": "star3",
+  "stroke": false,
+  "fill_color": "#f0e8d8",
+  "fill": true
+ },
+ {
+  "kind": "ellipse",
+  "x": 880,
+  "y": 50,
+  "width": 3,
+  "height": 3,
+  "id": "star4",
+  "stroke": false,
+  "fill_color": "#f0e8d8",
+  "fill": true
+ },
+ {
+  "kind": "ellipse",
+  "x": 60,
+  "y": 130,
+  "width": 3,
+  "height": 3,
+  "id": "star5",
+  "stroke": false,
+  "fill_color": "#f0e8d8",
+  "fill": true
+ }
+]

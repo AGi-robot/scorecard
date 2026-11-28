@@ -1,6 +1,0 @@
-{
-  "path": "/opt/agi/models/occamy-1.0/occamy-1.0.i1-Q4_K_M.gguf",
-  "size_bytes": 21166758752,
-  "mtime_ns": 1795592707300620345,
-  "backend_version": "version: 1.1.0-dev (build 12808, commit ed2153e70)\nbuilt with GNU 13.4.0 for Linux x86_64"
-}

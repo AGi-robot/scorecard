@@ -1,0 +1,692 @@
+[
+ {
+  "kind": "rectangle",
+  "x": 0,
+  "y": 0,
+  "width": 1000,
+  "height": 650,
+  "gradient_angle": 0,
+  "id": "bg",
+  "stroke": false,
+  "color": "#f5e8d3",
+  "fill_color": "#f5e8d3",
+  "gradient_color": "#dfc4a0",
+  "fill": true
+ },
+ {
+  "kind": "rectangle",
+  "x": 0,
+  "y": 330,
+  "width": 1000,
+  "height": 320,
+  "gradient_angle": 0,
+  "id": "table",
+  "stroke": false,
+  "color": "#9b7434",
+  "fill_color": "#9b7434",
+  "gradient_color": "#7a5a28",
+  "fill": true
+ },
+ {
+  "kind": "rectangle",
+  "x": 0,
+  "y": 600,
+  "width": 1000,
+  "height": 50,
+  "id": "table-edge",
+  "stroke": false,
+  "color": "#6b4a1e",
+  "fill_color": "#6b4a1e",
+  "fill": true
+ },
+ {
+  "kind": "curve",
+  "id": "apple-body",
+  "stroke": false,
+  "color": "#c0392b",
+  "fill_color": "#c0392b",
+  "fill": true,
+  "points": [
+   [
+    350,
+    370
+   ],
+   [
+    305,
+    368
+   ],
+   [
+    272,
+    400
+   ],
+   [
+    268,
+    445
+   ],
+   [
+    278,
+    490
+   ],
+   [
+    310,
+    515
+   ],
+   [
+    350,
+    520
+   ],
+   [
+    390,
+    515
+   ],
+   [
+    422,
+    490
+   ],
+   [
+    432,
+    445
+   ],
+   [
+    428,
+    400
+   ],
+   [
+    395,
+    368
+   ],
+   [
+    350,
+    370
+   ]
+  ]
+ },
+ {
+  "kind": "path",
+  "id": "apple-highlight",
+  "stroke": false,
+  "smooth": true,
+  "color": "#e86350",
+  "fill_color": "#e86350",
+  "fill": true,
+  "points": [
+   [
+    315,
+    395
+   ],
+   [
+    288,
+    405
+   ],
+   [
+    280,
+    440
+   ],
+   [
+    285,
+    475
+   ],
+   [
+    305,
+    500
+   ],
+   [
+    325,
+    485
+   ],
+   [
+    320,
+    445
+   ],
+   [
+    315,
+    395
+   ]
+  ]
+ },
+ {
+  "kind": "path",
+  "id": "apple-shadow",
+  "stroke": false,
+  "smooth": true,
+  "color": "#8b1a1a",
+  "fill_color": "#8b1a1a",
+  "fill": true,
+  "points": [
+   [
+    395,
+    395
+   ],
+   [
+    420,
+    410
+   ],
+   [
+    428,
+    445
+   ],
+   [
+    422,
+    485
+   ],
+   [
+    400,
+    505
+   ],
+   [
+    380,
+    490
+   ],
+   [
+    385,
+    445
+   ],
+   [
+    395,
+    395
+   ]
+  ]
+ },
+ {
+  "kind": "line",
+  "width": 4,
+  "id": "apple-stem",
+  "stroke": true,
+  "color": "#5d3a1a",
+  "fill_color": "#5d3a1a",
+  "fill": false,
+  "points": [
+   [
+    350,
+    370
+   ],
+   [
+    345,
+    345
+   ]
+  ]
+ },
+ {
+  "kind": "path",
+  "id": "apple-leaf",
+  "stroke": false,
+  "smooth": true,
+  "color": "#5a8c3a",
+  "fill_color": "#5a8c3a",
+  "fill": true,
+  "points": [
+   [
+    345,
+    348
+   ],
+   [
+    320,
+    325
+   ],
+   [
+    340,
+    305
+   ],
+   [
+    365,
+    315
+   ],
+   [
+    355,
+    340
+   ],
+   [
+    345,
+    348
+   ]
+  ]
+ },
+ {
+  "kind": "ellipse",
+  "x": 370,
+  "y": 505,
+  "width": 120,
+  "height": 25,
+  "opacity": 0.35,
+  "id": "apple-cast-shadow",
+  "stroke": false,
+  "color": "#5a3d1e",
+  "fill_color": "#5a3d1e",
+  "fill": true
+ },
+ {
+  "kind": "curve",
+  "id": "cup-body",
+  "stroke": false,
+  "color": "#f0e8dc",
+  "fill_color": "#f0e8dc",
+  "fill": true,
+  "points": [
+   [
+    565,
+    355
+   ],
+   [
+    558,
+    365
+   ],
+   [
+    552,
+    420
+   ],
+   [
+    558,
+    475
+   ],
+   [
+    572,
+    488
+   ],
+   [
+    620,
+    492
+   ],
+   [
+    668,
+    488
+   ],
+   [
+    682,
+    475
+   ],
+   [
+    688,
+    420
+   ],
+   [
+    682,
+    365
+   ],
+   [
+    675,
+    355
+   ],
+   [
+    620,
+    350
+   ],
+   [
+    565,
+    355
+   ]
+  ]
+ },
+ {
+  "kind": "path",
+  "id": "cup-highlight",
+  "stroke": false,
+  "smooth": true,
+  "color": "#faf5ee",
+  "fill_color": "#faf5ee",
+  "fill": true,
+  "points": [
+   [
+    570,
+    370
+   ],
+   [
+    562,
+    380
+   ],
+   [
+    558,
+    420
+   ],
+   [
+    562,
+    465
+   ],
+   [
+    575,
+    480
+   ],
+   [
+    590,
+    470
+   ],
+   [
+    585,
+    420
+   ],
+   [
+    580,
+    375
+   ],
+   [
+    570,
+    370
+   ]
+  ]
+ },
+ {
+  "kind": "path",
+  "id": "cup-shadow",
+  "stroke": false,
+  "smooth": true,
+  "color": "#c4b49e",
+  "fill_color": "#c4b49e",
+  "fill": true,
+  "points": [
+   [
+    665,
+    370
+   ],
+   [
+    678,
+    385
+   ],
+   [
+    682,
+    420
+   ],
+   [
+    678,
+    465
+   ],
+   [
+    665,
+    480
+   ],
+   [
+    650,
+    470
+   ],
+   [
+    655,
+    420
+   ],
+   [
+    660,
+    375
+   ],
+   [
+    665,
+    370
+   ]
+  ]
+ },
+ {
+  "kind": "path",
+  "id": "cup-handle",
+  "stroke": false,
+  "smooth": true,
+  "color": "#e8ddd0",
+  "fill_color": "#e8ddd0",
+  "fill": true,
+  "points": [
+   [
+    682,
+    385
+   ],
+   [
+    712,
+    378
+   ],
+   [
+    728,
+    400
+   ],
+   [
+    728,
+    435
+   ],
+   [
+    712,
+    455
+   ],
+   [
+    682,
+    448
+   ]
+  ]
+ },
+ {
+  "kind": "ellipse",
+  "x": 640,
+  "y": 485,
+  "width": 110,
+  "height": 22,
+  "opacity": 0.3,
+  "id": "cup-cast-shadow",
+  "stroke": false,
+  "color": "#5a3d1e",
+  "fill_color": "#5a3d1e",
+  "fill": true
+ },
+ {
+  "kind": "ellipse",
+  "x": 558,
+  "y": 348,
+  "width": 124,
+  "height": 18,
+  "id": "cup-rim",
+  "stroke": false,
+  "color": "#d4c5b0",
+  "fill_color": "#d4c5b0",
+  "fill": true
+ },
+ {
+  "kind": "line",
+  "width": 1.5,
+  "opacity": 0.3,
+  "id": "wood-grain-1",
+  "stroke": true,
+  "color": "#7a5a28",
+  "fill_color": "#7a5a28",
+  "fill": false,
+  "points": [
+   [
+    50,
+    380
+   ],
+   [
+    950,
+    375
+   ]
+  ]
+ },
+ {
+  "kind": "ellipse",
+  "x": 0,
+  "y": 180,
+  "width": 520,
+  "height": 420,
+  "opacity": 0.12,
+  "id": "morning-light",
+  "stroke": false,
+  "color": "#f5d89a",
+  "fill_color": "#f5d89a",
+  "fill": true
+ },
+ {
+  "kind": "line",
+  "width": 1.2,
+  "opacity": 0.22,
+  "id": "wood-grain-2",
+  "stroke": true,
+  "color": "#7a5a28",
+  "fill_color": "#7a5a28",
+  "fill": false,
+  "points": [
+   [
+    80,
+    440
+   ],
+   [
+    920,
+    435
+   ]
+  ]
+ },
+ {
+  "kind": "line",
+  "width": 1,
+  "opacity": 0.18,
+  "id": "wood-grain-3",
+  "stroke": true,
+  "color": "#6b4a1e",
+  "fill_color": "#6b4a1e",
+  "fill": false,
+  "points": [
+   [
+    120,
+    510
+   ],
+   [
+    780,
+    505
+   ]
+  ]
+ },
+ {
+  "kind": "curve",
+  "id": "apple-top-dip",
+  "stroke": false,
+  "color": "#8b1a1a",
+  "fill_color": "#8b1a1a",
+  "fill": true,
+  "points": [
+   [
+    338,
+    372
+   ],
+   [
+    342,
+    365
+   ],
+   [
+    350,
+    362
+   ],
+   [
+    358,
+    365
+   ],
+   [
+    362,
+    372
+   ],
+   [
+    350,
+    375
+   ],
+   [
+    338,
+    372
+   ]
+  ]
+ },
+ {
+  "kind": "ellipse",
+  "x": 572,
+  "y": 352,
+  "width": 96,
+  "height": 10,
+  "opacity": 0.45,
+  "id": "cup-interior-shadow",
+  "stroke": false,
+  "color": "#b8a890",
+  "fill_color": "#b8a890",
+  "fill": true
+ },
+ {
+  "kind": "ellipse",
+  "x": 380,
+  "y": 520,
+  "width": 280,
+  "height": 30,
+  "opacity": 0.08,
+  "id": "table-warm-reflection",
+  "stroke": false,
+  "color": "#c4944a",
+  "fill_color": "#c4944a",
+  "fill": true
+ },
+ {
+  "kind": "ellipse",
+  "x": 0,
+  "y": 330,
+  "width": 420,
+  "height": 270,
+  "opacity": 0.07,
+  "id": "table-morning-wash",
+  "stroke": false,
+  "color": "#d4a855",
+  "fill_color": "#d4a855",
+  "fill": true
+ },
+ {
+  "kind": "ellipse",
+  "x": 562,
+  "y": 346,
+  "width": 50,
+  "height": 10,
+  "opacity": 0.6,
+  "id": "cup-rim-light",
+  "stroke": false,
+  "color": "#fff8ee",
+  "fill_color": "#fff8ee",
+  "fill": true
+ },
+ {
+  "kind": "path",
+  "opacity": 0.35,
+  "id": "apple-warm-glow",
+  "stroke": false,
+  "color": "#f0a070",
+  "fill_color": "#f0a070",
+  "fill": true,
+  "points": [
+   [
+    285,
+    410
+   ],
+   [
+    278,
+    440
+   ],
+   [
+    282,
+    475
+   ],
+   [
+    295,
+    490
+   ],
+   [
+    305,
+    470
+   ],
+   [
+    308,
+    435
+   ],
+   [
+    298,
+    410
+   ],
+   [
+    285,
+    410
+   ]
+  ]
+ },
+ {
+  "kind": "ellipse",
+  "x": 310,
+  "y": 512,
+  "width": 80,
+  "height": 12,
+  "opacity": 0.25,
+  "id": "apple-base-contact",
+  "stroke": false,
+  "color": "#4a2a10",
+  "fill_color": "#4a2a10",
+  "fill": true
+ }
+]

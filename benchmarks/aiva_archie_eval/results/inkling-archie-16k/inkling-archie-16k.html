@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How Grace Works — AIVA PC Companion Runtime</title>
+<style>
+  :root{
+    --bg:#0b0f17;
+    --bg-2:#101623;
+    --panel:#141b2a;
+    --panel-2:#182134;
+    --line:#26314a;
+    --line-soft:#1d2740;
+    --text:#e8edf7;
+    --muted:#93a1bd;
+    --faint:#5f6d8a;
+    --accent:#5eead4;      /* teal */
+    --accent-2:#7dd3fc;    /* sky */
+    --accent-3:#c4b5fd;    /* violet */
+    --warn:#fbbf24;
+    --good:#34d399;
+    --node-fill:#161e30;
+    --node-stroke:#2b3a5c;
+    --node-active:#1d2a45;
+    --shadow:0 10px 30px rgba(0,0,0,.45);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    background:
+      radial-gradient(1200px 700px at 15% -10%, #16203a 0%, transparent 60%),
+      radial-gradient(1000px 600px at 110% 10%, #1a1430 0%, transparent 55%),
+      var(--bg);
+    color:var(--text);
+    font-family:"Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+    display:flex;flex-direction:column;
+    min-height:100vh;
+    overflow-x:hidden;
+  }
+  /* ---------- Header ---------- */
+  header{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:14px 26px 10px;
+    border-bottom:1px solid var(--line-soft);
+    gap:16px;flex-wrap:wrap;
+  }
+  .brand{display:flex;align-items:center;gap:14px;min-width:0}
+  .logo{
+    width:44px;height:44px;border-radius:12px;flex:0 0 auto;
+    background:linear-gradient(135deg,#0f766e,#155e75 55%,#1e3a8a);
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:0 0 0 1px rgba(94,234,212,.25), 0 6px 18px rgba(20,184,166,.25);
+    font-size:22px;font-weight:700;color:#eafffb;letter-spacing:-1px;
+  }
+  h1{font-size:22px;font-weight:650;letter-spacing:.2px;line-height:1.15}
+  .subtitle{font-size:12.5px;color:var(--muted);margin-top:3px;letter-spacing:.2px}
+  .badge{
+    font-size:11px;color:var(--accent);border:1px solid rgba(94,234,212,.35);
+    background:rgba(94,234,212,.08);padding:5px 11px;border-radius:999px;
+    letter-spacing:.6px;text-transform:uppercase;white-space:nowrap;
+  }
+  /* ---------- Controls ---------- */
+  .controls{
+    display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+    padding:12px 26px;border-bottom:1px solid var(--line-soft);
+    background:linear-gradient(180deg, rgba(20,27,42,.6), rgba(16,22,35,.2));
+  }
+  .btn{
+    appearance:none;border:1px solid var(--line);background:var(--panel);
+    color:var(--text);font-size:13px;font-weight:600;letter-spacing:.3px;
+    padding:9px 16px;border-radius:9px;cursor:pointer;
+    display:inline-flex;align-items:center;gap:8px;
+    transition:transform .12s ease, border-color .15s ease, background .15s ease, box-shadow .15s ease;
+    font-family:inherit;
+  }
+  .btn:hover{border-color:#3a4c74;background:var(--panel-2);transform:translateY(-1px)}
+  .btn:active{transform:translateY(0)}
+  .btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  .btn.primary{background:linear-gradient(135deg,#0d9488,#0e7490);border-color:#14b8a6;color:#eafffb}
+  .btn.primary:hover{box-shadow:0 6px 18px rgba(20,184,166,.35)}
+  .btn.ghost{background:transparent}
+  .btn .ico{font-size:13px;line-height:1}
+  .stage-pill{
+    margin-left:auto;display:flex;align-items:center;gap:10px;
+    background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:8px 14px;min-width:280px;
+  }
+  .stage-pill .dot{width:9px;height:9px;border-radius:50%;background:var(--faint);flex:0 0 auto;transition:background .2s}
+  .stage-pill.live .dot{background:var(--accent);box-shadow:0 0 10px var(--accent);animation:pulse 1.1s ease-in-out infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+  .stage-pill .txt{font-size:13px;font-weight:600;letter-spacing:.2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .stage-pill .txt small{display:block;font-weight:500;color:var(--muted);font-size:11px;margin-top:1px;letter-spacing:.2px}
+  .progress{
+    height:4px;background:var(--line-soft);border-radius:99px;overflow:hidden;
+    margin:0 26px;position:relative;
+  }
+  .progress > i{display:block;height:100%;width:0%;background:linear-gradient(90deg,var(--accent),var(--accent-2));transition:width .35s ease;border-radius:99px}
+  /* ---------- Diagram ---------- */
+  .stage-wrap{flex:1 1 auto;display:flex;align-items:center;justify-content:center;padding:14px 18px 6px;min-height:0}
+  .diagram{width:100%;max-width:1240px;height:auto;max-height:calc(100vh - 250px);min-height:380px}
+  svg{width:100%;height:100%;display:block}
+  .node{cursor:default}
+  .node rect.body{fill:var(--node-fill);stroke:var(--node-stroke);stroke-width:1.5;transition:fill .25s, stroke .25s, filter .25s}
+  .node text{fill:var(--text);font-family:inherit}
+  .node .title{font-size:13.5px;font-weight:650;letter-spacing:.2px}
+  .node .sub{font-size:10.5px;fill:var(--muted);font-weight:500}
+  .node .tag{font-size:9px;fill:var(--faint);letter-spacing:1.2px;text-transform:uppercase;font-weight:700}
+  .node.active rect.body{fill:var(--node-active);stroke:var(--accent);filter:drop-shadow(0 0 10px rgba(94,234,212,.45))}
+  .node.active .tag{fill:var(--accent)}
+  .node.done rect.body{stroke:#2f6f5f}
+  .node.done .tag{fill:var(--good)}
+  .node.response rect.body{stroke:var(--accent-3);filter:drop-shadow(0 0 10px rgba(196,181,253,.4))}
+  .node.response .tag{fill:var(--accent-3)}
+  .conn{fill:none;stroke:var(--line);stroke-width:2;stroke-linecap:round}
+  .conn.flow{stroke:#3b4d75;stroke-dasharray:6 7;animation:dash 1.1s linear infinite}
+  @keyframes dash{to{stroke-dashoffset:-13}}
+  .conn.return{stroke:#3a3358;stroke-dasharray:4 8}
+  .arrow{fill:#3b4d75}
+  .packet{fill:var(--accent);filter:drop-shadow(0 0 6px rgba(94,234,212,.9))}
+  .packet.resp{fill:var(--accent-3);filter:drop-shadow(0 0 6px rgba(196,181,253,.9))}
+  .packet.side{fill:var(--accent-2);filter:drop-shadow(0 0 6px rgba(125,211,252,.9))}
+  .label-chip{font-size:9.5px;fill:var(--faint);letter-spacing:.8px;text-transform:uppercase;font-weight:700}
+  /* ---------- Legend / caption ---------- */
+  .legend{
+    display:flex;align-items:center;gap:18px;flex-wrap:wrap;
+    padding:10px 26px;border-top:1px solid var(--line-soft);
+    background:rgba(16,22,35,.55);
+  }
+  .legend .item{display:flex;align-items:center;gap:7px;font-size:11.5px;color:var(--muted)}
+  .legend .swatch{width:14px;height:14px;border-radius:4px;flex:0 0 auto}
+  .legend .swatch.req{background:var(--accent);box-shadow:0 0 8px rgba(94,234,212,.7)}
+  .legend .swatch.resp{background:var(--accent-3);box-shadow:0 0 8px rgba(196,181,253,.7)}
+  .legend .swatch.side{background:var(--accent-2);box-shadow:0 0 8px rgba(125,211,252,.7)}
+  .legend .swatch.node{background:var(--node-fill);border:1.5px solid var(--node-stroke)}
+  .legend .swatch.active{background:var(--node-active);border:1.5px solid var(--accent)}
+  .caption{
+    padding:10px 26px 14px;font-size:12px;color:var(--muted);line-height:1.55;
+    border-top:1px solid var(--line-soft);
+  }
+  .caption b{color:var(--text);font-weight:650}
+  .caption code{font-family:"Cascadia Code","SF Mono",Consolas,monospace;font-size:11px;color:var(--accent);background:rgba(94,234,212,.08);padding:1px 6px;border-radius:5px;border:1px solid rgba(94,234,212,.18)}
+  .tooltip{
+    position:fixed;z-index:50;pointer-events:none;max-width:300px;
+    background:#0d1320;border:1px solid #2c3a5c;border-radius:10px;
+    padding:10px 12px;font-size:12px;line-height:1.5;color:var(--text);
+    box-shadow:var(--shadow);opacity:0;transform:translateY(4px);
+    transition:opacity .15s ease, transform .15s ease;
+  }
+  .tooltip.show{opacity:1;transform:translateY(0)}
+  .tooltip .t-title{font-weight:700;color:var(--accent);font-size:12px;margin-bottom:3px;letter-spacing:.3px}
+  .tooltip .t-desc{color:var(--muted)}
+  @media (max-width:900px){
+    .stage-pill{margin-left:0;width:100%}
+    h1{font-size:18px}
+    .diagram{min-height:300px}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand">
+    <div class="logo">G</div>
+    <div>
+      <h1>How Grace Works</h1>
+      <div class="subtitle">AIVA PC companion runtime · request path &amp; response flow</div>
+    </div>
+  </div>
+  <div class="badge">AIVA · Grace</div>
+</header>
+
+<div class="controls">
+  <button class="btn primary" id="btnPlay"><span class="ico">▶</span> Play</button>
+  <button class="btn" id="btnPause"><span class="ico">❚❚</span> Pause</button>
+  <button class="btn" id="btnRestart"><span class="ico">⟲</span> Restart</button>
+  <button class="btn" id="btnStep"><span class="ico">⏭</span> Step</button>
+  <div class="stage-pill" id="stagePill">
+    <span class="dot"></span>
+    <span class="txt" id="stageTxt">Stage 1/9: User<small>Ready — press Play or Step</small></span>
+  </div>
+</div>
+<div class="progress"><i id="progressBar"></i></div>
+
+<div class="stage-wrap">
+  <div class="diagram">
+    <svg id="svg" viewBox="0 0 1240 640" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Grace request path diagram">
+      <defs>
+        <marker id="arrowReq" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0,0 L10,5 L0,10 z" fill="#3b4d75"></path>
+        </marker>
+        <marker id="arrowResp" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0,0 L10,5 L0,10 z" fill="#4a3f6e"></path>
+        </marker>
+        <marker id="arrowSide" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0,0 L10,5 L0,10 z" fill="#2f5a7a"></path>
+        </marker>
+      </defs>
+
+      <!-- ===== connectors (drawn first, under nodes) ===== -->
+      <!-- main row -->
+      <path id="c-user-webui"    class="conn" d="M150,150 L178,150" marker-end="url(#arrowReq)"/>
+      <path id="c-webui-ros"     class="conn" d="M330,150 L358,150" marker-end="url(#arrowReq)"/>
+      <path id="c-ros-tele"      class="conn" d="M510,150 L538,150" marker-end="url(#arrowReq)"/>
+      <path id="c-tele-engine"   class="conn" d="M690,150 L718,150" marker-end="url(#arrowReq)"/>
+      <path id="c-engine-router" class="conn" d="M880,150 L908,150" marker-end="url(#arrowReq)"/>
+      <path id="c-router-min"    class="conn" d="M1060,150 L1088,150" marker-end="url(#arrowReq)"/>
+
+      <!-- side branches -->
+      <path id="c-engine-mem"    class="conn" d="M800,182 L800,392" marker-end="url(#arrowSide)"/>
+      <path id="c-router-side"   class="conn" d="M985,182 L985,392" marker-end="url(#arrowSide)"/>
+      <path id="c-router-emb"    class="conn" d="M985,182 L985,300" marker-end="url(#arrowSide)"/>
+
+      <!-- response return path (dashed, along bottom) -->
+      <path id="c-return" class="conn return" d="M1155,182 L1155,560 L85,560 L85,182" marker-end="url(#arrowResp)"/>
+
+      <!-- ===== nodes ===== -->
+      <!-- Stage 1: User -->
+      <g class="node" id="n-user" data-stage="1">
+        <rect class="body" x="20" y="112" width="130" height="76" rx="12"></rect>
+        <text class="tag" x="85" y="132" text-anchor="middle">Stage 1</text>
+        <text class="title" x="85" y="152" text-anchor="middle">User</text>
+        <text class="sub" x="85" y="172" text-anchor="middle">speaks / types</text>
+      </g>
+
+      <!-- Stage 2: Console WebUI -->
+      <g class="node" id="n-webui" data-stage="2">
+        <rect class="body" x="178" y="112" width="152" height="76" rx="12"></rect>
+        <text class="tag" x="254" y="132" text-anchor="middle">Stage 2</text>
+        <text class="title" x="254" y="152" text-anchor="middle">Console WebUI</text>
+        <text class="sub" x="254" y="172" text-anchor="middle">appearance prefs · read-only</text>
+      </g>
+
+      <!-- Stage 3: rosbridge -->
+      <g class="node" id="n-ros" data-stage="3">
+        <rect class="body" x="358" y="112" width="152" height="76" rx="12"></rect>
+        <text class="tag" x="434" y="132" text-anchor="middle">Stage 3</text>
+        <text class="title" x="434" y="152" text-anchor="middle">rosbridge</text>
+        <text class="sub" x="434" y="172" text-anchor="middle">WS · 127.0.0.1:9090</text>
+      </g>
+
+      <!-- Stage 4: telepathy_receptor -->
+      <g class="node" id="n-tele" data-stage="4">
+        <rect class="body" x="538" y="112" width="152" height="76" rx="12"></rect>
+        <text class="tag" x="614" y="132" text-anchor="middle">Stage 4</text>
+        <text class="title" x="614" y="152" text-anchor="middle">telepathy_receptor</text>
+        <text class="sub" x="614" y="172" text-anchor="middle">ROS 2 adapter node</text>
+      </g>
+
+      <!-- Stage 5: Interactive engine -->
+      <g class="node" id="n-engine" data-stage="5">
+        <rect class="body" x="718" y="112" width="162" height="76" rx="12"></rect>
+        <text class="tag" x="799" y="132" text-anchor="middle">Stage 5</text>
+        <text class="title" x="799" y="152" text-anchor="middle">Interactive engine</text>
+        <text class="sub" x="799" y="172" text-anchor="middle">SOUL.md + USER.md</text>
+      </g>
+
+      <!-- Stage 6: llama.cpp router -->
+      <g class="node" id="n-router" data-stage="6">
+        <rect class="body" x="908" y="112" width="152" height="76" rx="12"></rect>
+        <text class="tag" x="984" y="132" text-anchor="middle">Stage 6</text>
+        <text class="title" x="984" y="152" text-anchor="middle">llama.cpp router</text>
+        <text class="sub" x="984" y="172" text-anchor="middle">1 server · :8080</text>
+      </g>
+
+      <!-- Stage 7: Ministral -->
+      <g class="node" id="n-min" data-stage="7">
+        <rect class="body" x="1088" y="112" width="142" height="76" rx="12"></rect>
+        <text class="tag" x="1159" y="132" text-anchor="middle">Stage 7</text>
+        <text class="title" x="1159" y="152" text-anchor="middle">Ministral 3 8B</text>
+        <text class="sub" x="1159" y="172" text-anchor="middle">chat · via router</text>
+      </g>
+
+      <!-- Stage 8: Memory -->
+      <g class="node" id="n-mem" data-stage="8">
+        <rect class="body" x="718" y="392" width="162" height="76" rx="12"></rect>
+        <text class="tag" x="799" y="412" text-anchor="middle">Stage 8</text>
+        <text class="title" x="799" y="432" text-anchor="middle">Mind ConversationStore</text>
+        <text class="sub" x="799" y="452" text-anchor="middle">SQLite · 8-turn window</text>
+      </g>
+
+      <!-- Stage 9: Sidecars -->
+      <g class="node" id="n-side" data-stage="9">
+        <rect class="body" x="908" y="392" width="152" height="76" rx="12"></rect>
+        <text class="tag" x="984" y="412" text-anchor="middle">Stage 9</text>
+        <text class="title" x="984" y="432" text-anchor="middle">Sidecars</text>
+        <text class="sub" x="984" y="452" text-anchor="middle">Canvas · Imaging · health</text>
+      </g>
+
+      <!-- voyage-4-nano chip (router sub-route) -->
+      <g class="node" id="n-emb" data-stage="6">
+        <rect class="body" x="908" y="300" width="152" height="52" rx="10"></rect>
+        <text class="tag" x="984" y="318" text-anchor="middle">Router sub-route</text>
+        <text class="title" x="984" y="336" text-anchor="middle">voyage-4-nano</text>
+        <text class="sub" x="984" y="350" text-anchor="middle">embeddings</text>
+      </g>
+
+      <!-- response return label -->
+      <text class="label-chip" x="620" y="552" text-anchor="middle">Response path — same chain, reversed</text>
+
+      <!-- packets layer -->
+      <g id="packets"></g>
+    </svg>
+  </div>
+</div>
+
+<div class="legend">
+  <div class="item"><span class="swatch req"></span>Request packet</div>
+  <div class="item"><span class="swatch resp"></span>Response packet</div>
+  <div class="item"><span class="swatch side"></span>Side-branch packet</div>
+  <div class="item"><span class="swatch node"></span>Stage node</div>
+  <div class="item"><span class="swatch active"></span>Active stage</div>
+</div>
+
+<div class="caption">
+  <b>Orchestration:</b> Grace is launched by <code>AIVA/launch.sh</code>, which builds the shell workspace and starts the router, rosbridge, chat and telepathy_receptor.
+  <b>AuRoRA</b> is a separate system and is intentionally not shown here.
+</div>
+
+<div class="tooltip" id="tooltip"><div class="t-title"></div><div class="t-desc"></div></div>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ---------- Stage definitions ---------- */
+  var STAGES = [
+    { id:1, key:"user",   label:"User",                  desc:"User speaks or types in the browser.",                                  node:"n-user",   conn:null,                  kind:"req"  },
+    { id:2, key:"webui",  label:"Console WebUI",         desc:"Browser-local appearance prefs; runtime config is read-only.",          node:"n-webui",  conn:"c-user-webui",        kind:"req"  },
+    { id:3, key:"ros",    label:"rosbridge",             desc:"WebSocket bridge at 127.0.0.1:9090.",                                   node:"n-ros",    conn:"c-webui-ros",         kind:"req"  },
+    { id:4, key:"tele",   label:"telepathy_receptor",    desc:"ROS 2 adapter node that receives the request.",                        node:"n-tele",   conn:"c-ros-tele",          kind:"req"  },
+    { id:5, key:"engine", label:"Interactive engine",    desc:"Conversation engine using persona (SOUL.md) + user profile (USER.md).", node:"n-engine", conn:"c-tele-engine",       kind:"req"  },
+    { id:6, key:"router", label:"llama.cpp router",      desc:"One llama-server · models/llama-router.ini · port 8080.",              node:"n-router", conn:"c-engine-router",     kind:"req"  },
+    { id:7, key:"min",    label:"Ministral 3 8B",        desc:"Chat model routed by name (voyage-4-nano embeddings also routed).",    node:"n-min",    conn:"c-router-min",        kind:"req"  },
+    { id:8, key:"mem",    label:"Mind ConversationStore",desc:"SQLite memory — recent / add_exchange, 8-turn window.",                node:"n-mem",    conn:"c-engine-mem",        kind:"side" },
+    { id:9, key:"side",   label:"Sidecars",              desc:"Vector Canvas + Imaging capabilities · health / agi_logging.",         node:"n-side",   conn:"c-router-side",       kind:"side" }
+  ];
+
+  var RESPONSE_STAGES = [
+    { key:"min",    node:"n-min",    conn:"c-router-min",    label:"Ministral 3 8B" },
+    { key:"router", node:"n-router", conn:"c-engine-router", label:"llama.cpp router" },
+    { key:"engine", node:"n-engine", conn:"c-tele-engine",   label:"Interactive engine" },
+    { key:"tele",   node:"n-tele",   conn:"c-ros-tele",      label:"telepathy_receptor" },
+    { key:"ros",    node:"n-ros",    conn:"c-webui-ros",     label:"rosbridge" },
+    { key:"webui",  node:"n-webui",  conn:"c-user-webui",    label:"Console WebUI" },
+    { key:"user",   node:"n-user",   conn:null,              label:"User" }
+  ];
+
+  var STAGE_MS = 1500;      // per-stage auto-advance time
+  var PACKET_MS = 900;      // packet travel time
+  var RESPONSE_MS = 1100;
+
+  /* ---------- DOM refs ---------- */
+  var svg = document.getElementById("svg");
+  var packetsLayer = document.getElementById("packets");
+  var stagePill = document.getElementById("stagePill");
+  var stageTxt = document.getElementById("stageTxt");
+  var progressBar = document.getElementById("progressBar");
+  var tooltip = document.getElementById("tooltip");
+  var tooltipTitle = tooltip.querySelector(".t-title");
+  var tooltipDesc = tooltip.querySelector(".t-desc");
+
+  var nodes = {};
+  STAGES.forEach(function(s){ nodes[s.key] = document.getElementById(s.node); });
+  RESPONSE_STAGES.forEach(function(s){ nodes[s.key] = document.getElementById(s.node); });
+
+  /* ---------- State ---------- */
+  var state = {
+    phase: "request",     // "request" | "response" | "done"
+    stageIndex: 0,        // 0..8 for request; 0..6 for response
+    playing: false,
+    timer: null,
+    raf: null,
+    packet: null,         // current packet animation
+    packetStart: 0,
+    packetDur: 0,
+    packetPath: null,
+    packetKind: "req",
+    packetReverse: false,
+    packetFrom: null,
+    packetTo: null
+  };
+
+  /* ---------- Helpers ---------- */
+  function el(id){ return document.getElementById(id); }
+  function pathEl(id){ return el(id); }
+
+  function clearPackets(){
+    while (packetsLayer.firstChild) packetsLayer.removeChild(packetsLayer.firstChild);
+  }
+
+  function setNodeState(key, cls){
+    var n = nodes[key];
+    if (!n) return;
+    n.classList.remove("active","done","response");
+    if (cls) n.classList.add(cls);
+  }
+
+  function resetNodes(){
+    Object.keys(nodes).forEach(function(k){
+      var n = nodes[k];
+      if (n) n.classList.remove("active","done","response");
+    });
+  }
+
+  function setProgress(frac){
+    progressBar.style.width = Math.round(frac * 100) + "%";
+  }
+
+  function setStageLabel(text, sub){
+    stageTxt.innerHTML = text + (sub ? "<small>" + sub + "</small>" : "");
+  }
+
+  /* ---------- Packet animation ---------- */
+  function spawnPacket(pathId, kind, reverse, dur, onDone){
+    clearPackets();
+    var path = pathEl(pathId);
+    if (!path){ if (onDone) onDone(); return; }
+    var len = path.getTotalLength();
+    var circle = document.createElementNS("http://www.w3.org/2000/svg","circle");
+    circle.setAttribute("r","6");
+    circle.setAttribute("class","packet " + (kind === "resp" ? "resp" : (kind === "side" ? "side" : "")));
+    packetsLayer.appendChild(circle);
+
+    var start = performance.now();
+    var durMs = dur || PACKET_MS;
+
+    function frame(now){
+      var t = (now - start) / durMs;
+      if (t >= 1){
+        clearPackets();
+        if (onDone) onDone();
+        return;
+      }
+      var eased = t < 0.5 ? 2*t*t : 1 - Math.pow(-2*t + 2, 2) / 2; // easeInOutQuad
+      var dist = reverse ? len * (1 - eased) : len * eased;
+      var pt = path.getPointAtLength(dist);
+      circle.setAttribute("cx", pt.x);
+      circle.setAttribute("cy", pt.y);
+      state.raf = requestAnimationFrame(frame);
+    }
+    state.raf = requestAnimationFrame(frame);
+  }
+
+  function cancelPacket(){
+    if (state.raf) cancelAnimationFrame(state.raf);
+    state.raf = null;
+    clearPackets();
+  }
+
+  /* ---------- Stage rendering ---------- */
+  function renderRequestStage(idx){
+    var s = STAGES[idx];
+    resetNodes();
+    // mark previous stages done
+    for (var i = 0; i < idx; i++){
+      var prev = STAGES[i];
+      if (prev.key !== "user") setNodeState(prev.key, "done");
+    }
+    setNodeState(s.key, "active");
+    setStageLabel("Stage " + (idx+1) + "/9: " + s.label, s.desc);
+    setProgress((idx + 1) / 9);
+    stagePill.classList.add("live");
+
+    // animate packet along connector (if any)
+    if (s.conn){
+      spawnPacket(s.conn, s.kind, false, PACKET_MS, null);
+    } else {
+      clearPackets();
+    }
+  }
+
+  function renderResponseStage(idx){
+    var s = RESPONSE_STAGES[idx];
+    resetNodes();
+    // mark earlier response stages done
+    for (var i = 0; i < idx; i++){
+      setNodeState(RESPONSE_STAGES[i].key, "done");
+    }
+    setNodeState(s.key, "response");
+    setStageLabel("Response " + (idx+1) + "/7: " + s.label, "Response path — same chain, reversed");
+    setProgress(1);
+    stagePill.classList.add("live");
+
+    if (s.conn){
+      spawnPacket(s.conn, "resp", true, RESPONSE_MS, null);
+    } else {
+      clearPackets();
+    }
+  }
+
+  function renderDone(){
+    resetNodes();
+    STAGES.forEach(function(s){ setNodeState(s.key, "done"); });
+    setStageLabel("Complete", "Request → response cycle finished — press Restart to replay");
+    setProgress(1);
+    stagePill.classList.remove("live");
+    clearPackets();
+  }
+
+  /* ---------- Flow control ---------- */
+  function stopTimer(){
+    if (state.timer){ clearTimeout(state.timer); state.timer = null; }
+  }
+
+  function scheduleNext(){
+    stopTimer();
+    if (!state.playing) return;
+    state.timer = setTimeout(function(){ advance(); }, STAGE_MS);
+  }
+
+  function advance(){
+    if (state.phase === "request"){
+      if (state.stageIndex < STAGES.length - 1){
+        state.stageIndex++;
+        renderRequestStage(state.stageIndex);
+        scheduleNext();
+      } else {
+        // move to response phase
+        state.phase = "response";
+        state.stageIndex = 0;
+        renderResponseStage(0);
+        scheduleNext();
+      }
+    } else if (state.phase === "response"){
+      if (state.stageIndex < RESPONSE_STAGES.length - 1){
+        state.stageIndex++;
+        renderResponseStage(state.stageIndex);
+        scheduleNext();
+      } else {
+        state.phase = "done";
+        state.playing = false;
+        renderDone();
+        updateButtons();
+      }
+    }
+  }
+
+  function play(){
+    if (state.phase === "done"){ reset(); }
+    state.playing = true;
+    updateButtons();
+    scheduleNext();
+  }
+
+  function pause(){
+    state.playing = false;
+    stopTimer();
+    cancelPacket();
+    stagePill.classList.remove("live");
+    updateButtons();
+  }
+
+  function restart(){
+    pause();
+    reset();
+    updateButtons();
+  }
+
+  function step(){
+    pause();
+    if (state.phase === "done"){ reset(); }
+    advance();
+    updateButtons();
+  }
+
+  function reset(){
+    state.phase = "request";
+    state.stageIndex = 0;
+    state.playing = false;
+    stopTimer();
+    cancelPacket();
+    renderRequestStage(0);
+    stagePill.classList.remove("live");
+  }
+
+  function updateButtons(){
+    document.getElementById("btnPlay").style.opacity = state.playing ? "0.45" : "1";
+    document.getElementById("btnPause").style.opacity = state.playing ? "1" : "0.45";
+  }
+
+  /* ---------- Buttons ---------- */
+  document.getElementById("btnPlay").addEventListener("click", play);
+  document.getElementById("btnPause").addEventListener("click", pause);
+  document.getElementById("btnRestart").addEventListener("click", restart);
+  document.getElementById("btnStep").addEventListener("click", step);
+
+  /* ---------- Tooltip ---------- */
+  var tipNodes = document.querySelectorAll(".node");
+  tipNodes.forEach(function(n){
+    var stage = STAGES.find(function(s){ return s.node === n.id; });
+    var resp = RESPONSE_STAGES.find(function(s){ return s.node === n.id; });
+    var title = stage ? stage.label : (resp ? resp.label : n.id);
+    var desc = stage ? stage.desc : (resp ? "Response path — same chain, reversed." : "");
+    n.addEventListener("mouseenter", function(e){
+      tooltipTitle.textContent = title;
+      tooltipDesc.textContent = desc;
+      tooltip.classList.add("show");
+      positionTooltip(e);
+    });
+    n.addEventListener("mousemove", positionTooltip);
+    n.addEventListener("mouseleave", function(){ tooltip.classList.remove("show"); });
+  });
+
+  function positionTooltip(e){
+    var pad = 14;
+    var x = e.clientX + pad;
+    var y = e.clientY + pad;
+    var rect = tooltip.getBoundingClientRect();
+    if (x + rect.width > window.innerWidth - 8) x = e.clientX - rect.width - pad;
+    if (y + rect.height > window.innerHeight - 8) y = e.clientY - rect.height - pad;
+    tooltip.style.left = x + "px";
+    tooltip.style.top = y + "px";
+  }
+
+  /* ---------- Init ---------- */
+  reset();
+  updateButtons();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,400 @@
+[
+ {
+  "kind": "rectangle",
+  "x": 0,
+  "y": 0,
+  "width": 1000,
+  "height": 650,
+  "gradient_angle": 90,
+  "id": "T1-lighthouse-p1-1",
+  "gradient": "linear",
+  "stroke": false,
+  "fill_color": "#1a1535",
+  "gradient_color": "#e8a878",
+  "gradient_stops": [
+   {
+    "offset": 0,
+    "color": "#1a1535"
+   },
+   {
+    "offset": 0.3,
+    "color": "#2e2550"
+   },
+   {
+    "offset": 0.6,
+    "color": "#7a4a5a"
+   },
+   {
+    "offset": 0.85,
+    "color": "#c87a5a"
+   },
+   {
+    "offset": 1.0,
+    "color": "#e8a878"
+   }
+  ],
+  "fill": true
+ },
+ {
+  "kind": "curve",
+  "id": "distant-hills",
+  "stroke": false,
+  "fill_color": "#2a2040",
+  "fill": true,
+  "points": [
+   [
+    0,
+    440
+   ],
+   [
+    80,
+    425
+   ],
+   [
+    160,
+    435
+   ],
+   [
+    250,
+    420
+   ],
+   [
+    340,
+    430
+   ],
+   [
+    430,
+    418
+   ],
+   [
+    520,
+    428
+   ],
+   [
+    610,
+    415
+   ],
+   [
+    700,
+    425
+   ],
+   [
+    790,
+    418
+   ],
+   [
+    880,
+    430
+   ],
+   [
+    950,
+    422
+   ],
+   [
+    1000,
+    435
+   ]
+  ]
+ },
+ {
+  "kind": "rectangle",
+  "x": 0,
+  "y": 450,
+  "width": 1000,
+  "height": 120,
+  "gradient_angle": 90,
+  "id": "T1-lighthouse-p1-3",
+  "gradient": "linear",
+  "stroke": false,
+  "fill_color": "#1e2840",
+  "gradient_color": "#2a3850",
+  "gradient_stops": [
+   {
+    "offset": 0,
+    "color": "#2a3850"
+   },
+   {
+    "offset": 1.0,
+    "color": "#1e2840"
+   }
+  ],
+  "fill": true
+ },
+ {
+  "kind": "path",
+  "id": "headland",
+  "stroke": false,
+  "smooth": true,
+  "fill_color": "#15121f",
+  "fill": true,
+  "points": [
+   [
+    0,
+    650
+   ],
+   [
+    0,
+    540
+   ],
+   [
+    40,
+    520
+   ],
+   [
+    90,
+    535
+   ],
+   [
+    140,
+    505
+   ],
+   [
+    200,
+    520
+   ],
+   [
+    260,
+    495
+   ],
+   [
+    320,
+    510
+   ],
+   [
+    380,
+    485
+   ],
+   [
+    440,
+    500
+   ],
+   [
+    500,
+    480
+   ],
+   [
+    560,
+    495
+   ],
+   [
+    620,
+    475
+   ],
+   [
+    690,
+    495
+   ],
+   [
+    750,
+    510
+   ],
+   [
+    820,
+    490
+   ],
+   [
+    880,
+    510
+   ],
+   [
+    940,
+    525
+   ],
+   [
+    1000,
+    540
+   ],
+   [
+    1000,
+    650
+   ]
+  ]
+ },
+ {
+  "kind": "path",
+  "id": "lighthouse-tower",
+  "stroke": false,
+  "smooth": true,
+  "fill_color": "#d8d0c0",
+  "fill": true,
+  "points": [
+   [
+    465,
+    485
+   ],
+   [
+    470,
+    300
+   ],
+   [
+    482,
+    190
+   ],
+   [
+    490,
+    175
+   ],
+   [
+    510,
+    175
+   ],
+   [
+    518,
+    190
+   ],
+   [
+    528,
+    300
+   ],
+   [
+    535,
+    485
+   ],
+   [
+    520,
+    490
+   ],
+   [
+    480,
+    490
+   ],
+   [
+    465,
+    485
+   ]
+  ]
+ },
+ {
+  "kind": "ellipse",
+  "x": 500,
+  "y": 150,
+  "width": 60,
+  "height": 60,
+  "opacity": 0.6,
+  "id": "T1-lighthouse-p1-10",
+  "stroke": false,
+  "fill_color": "#ffd080",
+  "fill": true
+ },
+ {
+  "kind": "path",
+  "id": "rock-foreground-left",
+  "stroke": false,
+  "smooth": true,
+  "fill_color": "#0e0c15",
+  "fill": true,
+  "points": [
+   [
+    0,
+    650
+   ],
+   [
+    0,
+    580
+   ],
+   [
+    30,
+    570
+   ],
+   [
+    70,
+    585
+   ],
+   [
+    110,
+    560
+   ],
+   [
+    150,
+    575
+   ],
+   [
+    190,
+    555
+   ],
+   [
+    230,
+    570
+   ],
+   [
+    260,
+    650
+   ]
+  ]
+ },
+ {
+  "kind": "path",
+  "id": "rock-foreground-right",
+  "stroke": false,
+  "smooth": true,
+  "fill_color": "#0e0c15",
+  "fill": true,
+  "points": [
+   [
+    740,
+    650
+   ],
+   [
+    770,
+    560
+   ],
+   [
+    810,
+    575
+   ],
+   [
+    850,
+    555
+   ],
+   [
+    890,
+    570
+   ],
+   [
+    930,
+    560
+   ],
+   [
+    970,
+    580
+   ],
+   [
+    1000,
+    570
+   ],
+   [
+    1000,
+    650
+   ]
+  ]
+ },
+ {
+  "kind": "line",
+  "width": 3,
+  "opacity": 0.4,
+  "id": "light-beam",
+  "color": "#f0c060",
+  "fill": false,
+  "points": [
+   [
+    500,
+    145
+   ],
+   [
+    500,
+    60
+   ]
+  ]
+ },
+ {
+  "kind": "ellipse",
+  "x": 490,
+  "y": 140,
+  "width": 20,
+  "height": 20,
+  "id": "T1-lighthouse-p1-14",
+  "stroke": false,
+  "fill_color": "#ffe0a0",
+  "fill": true
+ }
+]

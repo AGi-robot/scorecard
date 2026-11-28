@@ -1,6 +1,0 @@
-{
-  "path": "/opt/agi/models/occamy-1.0/occamy-1.0-APEX-I-Quality.gguf",
-  "size_bytes": 22819401760,
-  "mtime_ns": 1795664197128759442,
-  "backend_version": "version: 1.1.0-dev (build 12808, commit ed2153e70)\nbuilt with GNU 13.4.0 for Linux x86_64"
-}

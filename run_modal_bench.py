@@ -77,13 +77,13 @@ BENCHES = {
     "canvas": {
         "group": "grace",
         "name": "Canvas Eval",
-        "script": BENCH / "grace_canvas_eval" / "grace_canvas_eval.py",
+        "script": BENCH / "aiva_canvas_eval" / "aiva_canvas_eval.py",
         "desc": "Vector canvas, protocol v4; checks + optional judge",
         "args": lambda m, o: [
             "--base-url", m["base_url"], "--model", m["model"],
             "--label", f"{m['label']}-canvas",
-            "--out", str(HERE / "benchmarks" / "grace_canvas_eval" / "results" / f"{m['label']}-canvas.json"),
-            "--out-dir", str(HERE / "benchmarks" / "grace_canvas_eval" / "renders" / f"{m['label']}-canvas"),
+            "--out", str(HERE / "benchmarks" / "aiva_canvas_eval" / "results" / f"{m['label']}-canvas.json"),
+            "--out-dir", str(HERE / "benchmarks" / "aiva_canvas_eval" / "renders" / f"{m['label']}-canvas"),
         ] + (["--task", o.task] if o.task else [])
         + (["--limit", str(o.limit)] if o.limit else [])
         + (["--single-pass"] if o.single_pass else []),

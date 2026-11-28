@@ -1,0 +1,253 @@
+[
+ {
+  "kind": "rectangle",
+  "id": "bg_wall",
+  "color": "#c4b49a",
+  "fill_color": "#c4b49a",
+  "fill": true,
+  "stroke": false,
+  "x": 0,
+  "y": 0,
+  "width": 1000,
+  "height": 650
+ },
+ {
+  "kind": "rectangle",
+  "id": "wall_shelf",
+  "color": "#8a7a62",
+  "fill_color": "#8a7a62",
+  "fill": true,
+  "stroke": false,
+  "x": 640,
+  "y": 130,
+  "width": 260,
+  "height": 14
+ },
+ {
+  "kind": "rectangle",
+  "id": "tool_jar",
+  "color": "#6b5d4a",
+  "fill_color": "#6b5d4a",
+  "fill": true,
+  "stroke": false,
+  "x": 680,
+  "y": 95,
+  "width": 35,
+  "height": 35
+ },
+ {
+  "kind": "rectangle",
+  "id": "tool_wrench",
+  "color": "#7a6e5c",
+  "fill_color": "#7a6e5c",
+  "fill": true,
+  "stroke": false,
+  "x": 740,
+  "y": 100,
+  "width": 12,
+  "height": 30
+ },
+ {
+  "kind": "rectangle",
+  "id": "bench_top",
+  "color": "#9b7b4f",
+  "fill_color": "#9b7b4f",
+  "fill": true,
+  "stroke": false,
+  "x": 100,
+  "y": 425,
+  "width": 800,
+  "height": 28
+ },
+ {
+  "kind": "rectangle",
+  "id": "bench_front",
+  "color": "#7d6239",
+  "fill_color": "#7d6239",
+  "fill": true,
+  "stroke": false,
+  "x": 100,
+  "y": 453,
+  "width": 800,
+  "height": 72
+ },
+ {
+  "kind": "rectangle",
+  "id": "bench_leg_l",
+  "color": "#6b5230",
+  "fill_color": "#6b5230",
+  "fill": true,
+  "stroke": false,
+  "x": 125,
+  "y": 525,
+  "width": 28,
+  "height": 95
+ },
+ {
+  "kind": "rectangle",
+  "id": "bench_leg_r",
+  "color": "#6b5230",
+  "fill_color": "#6b5230",
+  "fill": true,
+  "stroke": false,
+  "x": 847,
+  "y": 525,
+  "width": 28,
+  "height": 95
+ },
+ {
+  "kind": "curve",
+  "id": "robot_body",
+  "color": "#3a9e9e",
+  "fill_color": "#3a9e9e",
+  "fill": true,
+  "stroke": false,
+  "points": [
+   [
+    430,
+    418
+   ],
+   [
+    412,
+    365
+   ],
+   [
+    418,
+    298
+   ],
+   [
+    480,
+    282
+   ],
+   [
+    542,
+    298
+   ],
+   [
+    548,
+    365
+   ],
+   [
+    530,
+    418
+   ]
+  ]
+ },
+ {
+  "kind": "curve",
+  "id": "robot_head",
+  "color": "#4ab0b0",
+  "fill_color": "#4ab0b0",
+  "fill": true,
+  "stroke": false,
+  "points": [
+   [
+    428,
+    262
+   ],
+   [
+    418,
+    210
+   ],
+   [
+    442,
+    178
+   ],
+   [
+    480,
+    172
+   ],
+   [
+    518,
+    178
+   ],
+   [
+    542,
+    210
+   ],
+   [
+    532,
+    262
+   ]
+  ]
+ },
+ {
+  "kind": "ellipse",
+  "id": "robot_eye_l",
+  "color": "#ffffff",
+  "fill_color": "#ffffff",
+  "fill": true,
+  "stroke": false,
+  "x": 448,
+  "y": 212,
+  "width": 22,
+  "height": 26
+ },
+ {
+  "kind": "ellipse",
+  "id": "robot_eye_r",
+  "color": "#ffffff",
+  "fill_color": "#ffffff",
+  "fill": true,
+  "stroke": false,
+  "x": 490,
+  "y": 212,
+  "width": 22,
+  "height": 26
+ },
+ {
+  "kind": "ellipse",
+  "id": "pupil_l",
+  "color": "#2a2a2a",
+  "fill_color": "#2a2a2a",
+  "fill": true,
+  "stroke": false,
+  "x": 455,
+  "y": 220,
+  "width": 10,
+  "height": 12
+ },
+ {
+  "kind": "ellipse",
+  "id": "pupil_r",
+  "color": "#2a2a2a",
+  "fill_color": "#2a2a2a",
+  "fill": true,
+  "stroke": false,
+  "x": 497,
+  "y": 220,
+  "width": 10,
+  "height": 12
+ },
+ {
+  "kind": "line",
+  "id": "antenna_stem",
+  "color": "#2d7a7a",
+  "fill_color": "#2d7a7a",
+  "fill": false,
+  "stroke": true,
+  "points": [
+   [
+    480,
+    172
+   ],
+   [
+    480,
+    148
+   ]
+  ],
+  "width": 4
+ },
+ {
+  "kind": "ellipse",
+  "id": "antenna_tip",
+  "color": "#f5a623",
+  "fill_color": "#f5a623",
+  "fill": true,
+  "stroke": false,
+  "x": 473,
+  "y": 138,
+  "width": 14,
+  "height": 14
+ }
+]

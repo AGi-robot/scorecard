@@ -1,0 +1,117 @@
+[
+ {
+  "kind": "delete",
+  "id": "body_seam",
+  "color": "#2e8a8a",
+  "fill_color": "#2e8a8a",
+  "fill": false
+ },
+ {
+  "kind": "curve",
+  "opacity": 0.4,
+  "id": "panel_seam",
+  "stroke": true,
+  "color": "#2e8a8a",
+  "fill_color": "#2e8a8a",
+  "fill": false,
+  "points": [
+   [
+    445,
+    340
+   ],
+   [
+    470,
+    345
+   ],
+   [
+    500,
+    345
+   ],
+   [
+    525,
+    340
+   ]
+  ]
+ },
+ {
+  "kind": "rectangle",
+  "x": 485,
+  "y": 245,
+  "width": 30,
+  "height": 18,
+  "id": "neck",
+  "stroke": false,
+  "color": "#3a9e9e",
+  "fill_color": "#3a9e9e",
+  "fill": true
+ },
+ {
+  "kind": "path",
+  "id": "wrench",
+  "stroke": false,
+  "smooth": true,
+  "color": "#8a8a8a",
+  "fill_color": "#8a8a8a",
+  "fill": true,
+  "points": [
+   [
+    280,
+    445
+   ],
+   [
+    275,
+    430
+   ],
+   [
+    290,
+    425
+   ],
+   [
+    310,
+    430
+   ],
+   [
+    315,
+    445
+   ],
+   [
+    305,
+    450
+   ],
+   [
+    290,
+    448
+   ],
+   [
+    280,
+    445
+   ]
+  ]
+ },
+ {
+  "kind": "ellipse",
+  "x": 530,
+  "y": 270,
+  "width": 35,
+  "height": 100,
+  "opacity": 0.3,
+  "id": "body_shadow_r",
+  "stroke": false,
+  "color": "#2a7a7a",
+  "fill_color": "#2a7a7a",
+  "fill": true
+ },
+ {
+  "kind": "ellipse",
+  "x": 350,
+  "y": 425,
+  "width": 200,
+  "height": 12,
+  "opacity": 0.4,
+  "id": "bench_highlight",
+  "stroke": false,
+  "color": "#c49a6c",
+  "fill_color": "#c49a6c",
+  "fill": true
+ }
+]

@@ -1,0 +1,273 @@
+The user is asking for a single self-contained HTML file that includes an animated explainer. Let me build it carefully.
+
+Architecture: User → Console WebUI → rosbridge (127.0.0.1:9090) → telepathy_receptor → Interactive conversation engine → llama.cpp router (port 8080) → Ministral 3 8B chat + voyage-4-nano embeddings → Mind ConversationStore (SQLite memory) → Sidecars (Canvas, Imaging, health/agi_logging) → response path back.
+
+Controls: Play/Pause/Restart/Step, stage indicator "Stage X/9". Stepping advances one stage at a time.
+
+Required words: WebUI, rosbridge, telepathy, interactive, llama.cpp, Ministral, memory, Canvas, launch.sh.
+
+Design: dark theme, nodes laid out horizontally, animated packets moving along the connectors. Use SVG for the diagram, animate dots with JS (requestAnimationFrame) or CSS.
+
+Let me design the layout:
+
+- Header: title "How Grace Works", subtitle "AIVA PC companion runtime — request & response pipeline".
+- Main diagram: SVG with nodes. 9 stages:
+  1. User
+  2. Console WebUI
+  3. rosbridge
+  4. telepathy_receptor
+  5. Interactive conversation engine
+  6. llama.cpp router
+  7. Ministral 3 8B chat (+ voyage-4-nano embeddings)
+  8. Mind ConversationStore (SQLite memory)
+  9. Sidecars (Canvas, Imaging, health/agi_logging)
+
+Then the response path goes back.
+
+Actually, the spec says "Stage 3/9: telepathy_receptor" — so 9 stages. Let me define the stages:
+
+1. User
+2. Console WebUI
+3. rosbridge
+4. telepathy_receptor
+5. Interactive conversation engine
+6. llama.cpp router
+7. Ministral 3 8B chat
+8. Mind ConversationStore (memory)
+9. Sidecars (Canvas / Imaging)
+
+Response path: back through the same chain.
+
+Layout: main row of nodes 1–7, with memory and sidecars as side branches below. Connectors: horizontal lines between nodes, plus branches going down to memory and sidecars.
+
+Animation: packets (circles) moving along the path. When playing, the stage advances and packets animate along the connector between the current stage and the next stage.
+
+Implementation approach:
+- SVG with fixed viewBox, e.g. 1280x640.
+- Nodes as rounded rectangles with labels.
+- Connectors as paths (lines).
+- Packets: small circles animated with JS using getPointAtLength along the path.
+- Stage indicator text.
+- Buttons: Play/Pause, Restart, Step.
+
+Stage progression: each stage has an "active" highlight. When stepping, advance the stage and animate a packet from the current node to the next node.
+
+Let me define the geometry (viewBox 1280x620):
+
+Main row y=200:
+- User: x=60, w=110
+- WebUI: x=210, w=130
+- rosbridge: x=380, w=130
+- telepathy_receptor: x=540, w=150
+- Interactive engine: x=720, w=160
+- llama.cpp router: x=910, w=150
+- Ministral: x=1090, w=150
+
+Hmm, 1280 width. Let me calculate: total width 1280, margin 40. 7 nodes.
+
+Actually, let me make the main row 6 nodes and put Ministral as a branch off the router (the router routes to Ministral and embeddings). The spec says the router routes by model name: Ministral 3 8B chat, voyage-4-nano embeddings. So the router has two branches: Ministral and embeddings.
+
+Stages (9):
+1. User
+2. Console WebUI
+3. rosbridge
+4. telepathy_receptor
+5. Interactive conversation engine
+6. llama.cpp router
+7. Ministral 3 8B chat
+8. Mind ConversationStore (SQLite memory)
+9. Sidecars (Canvas, Imaging, health/agi_logging)
+
+Layout:
+- Main row (y=180): User, WebUI, rosbridge, telepathy, engine, router.
+- Below the router: Ministral (y=380) and embeddings (y=380) as branches.
+- Below the engine: Memory (y=380)? The spec says the engine uses the persona + user profile, and the ConversationStore is stage 8. The side-branch animation goes to Memory and Canvas.
+
+Let me lay it out:
+- Row 1 (y=170): User (x=50), WebUI (x=190), rosbridge (x=350), telepathy (x=510), engine (x=690), router (x=880), Ministral (x=1060)?
+
+Hmm, that's 7 nodes in the main row. Then memory and sidecars below.
+
+Alternative:
+- Row 1: User, WebUI, rosbridge, telepathy, engine, router (6 nodes)
+- Row 2 (below router): Ministral, embeddings
+- Row 2 (below engine): Memory (ConversationStore)
+- Row 3 (below memory): Sidecars (Canvas, Imaging, health/agi_logging)
+
+Connectors:
+- User→WebUI→rosbridge→telepathy→engine→router (horizontal)
+- router→Ministral (down), router→embeddings (down)
+- engine→Memory (down)
+- Memory→Sidecars (down)
+- Response: back along the same path.
+
+Stage 7 = Ministral: packet goes router→Ministral.
+Stage 8 = Memory: packet goes engine→Memory (side branch).
+Stage 9 = Sidecars: packet goes Memory→Sidecars.
+Then the response path: back through the chain (Ministral→router→engine→telepathy→rosbridge→WebUI→User).
+
+This is a good flow. Let me define the coordinates (viewBox 1280x640):
+
+Row 1 y=160 (node height 70, so center y=195):
+- User: x=40, w=120 → center 100
+- WebUI: x=200, w=130 → center 265
+- rosbridge: x=370, w=130 → center 435
+- telepathy_receptor: x=530, w=150 → center 605
+- Interactive engine: x=710, w=160 → center 790
+- llama.cpp router: x=900, w=150 → center 975
+
+Row 2 y=380 (center 415):
+- Memory (ConversationStore): below engine, x=710, w=160 → center 790
+- Ministral: below router, x=900, w=150 → center 975
+- embeddings: x=1080, w=150 → center 1155
+
+Row 3 y=540 (center 575):
+- Sidecars: x=710, w=340 → center 880? Or below memory. Let me put sidecars at x=710, w=340, center 880, y=540.
+
+Hmm, but the response path goes back through the same chain. The sidecars are on the response path (they process the response).
+
+Connectors:
+- P1: User→WebUI: (160,195) to (200,195)
+- P2: WebUI→rosbridge: (330,195) to (370,195)
+- P3: rosbridge→telepathy: (500,195) to (530,195)
+- P4: telepathy→engine: (680,195) to (710,195)
+- P5: engine→router: (870,195) to (900,195)
+- P6: router→Ministral: (975,230) to (975,380)
+- P7: router→embeddings: (1050,230) to (1155,380)? Better: (1050,230) to (1050,380), then horizontal to embeddings? Or a straight diagonal. Let me do this: router bottom (1050,230) → down to (1050,380) → right to (1080,380). Use a path with a corner.
+- P8: engine→Memory: (790,230) to (790,380)
+- P9: Memory→Sidecars: (790,450) to (790,540)
+- Response path: reverse of the main chain: Ministral→router (up), router→engine (left), engine→telepathy, telepathy→rosbridge, rosbridge→WebUI, WebUI→User.
+
+Stage mapping (9 stages):
+1. User — packet at the start (or the user "speaks" — animate a packet from the user node to WebUI)
+2. WebUI
+3. rosbridge
+4. telepathy_receptor
+5. Interactive conversation engine
+6. llama.cpp router
+7. Ministral 3 8B chat
+8. Mind ConversationStore (memory)
+9. Sidecars (Canvas, Imaging, health/agi_logging)
+
+Then the response: after stage 9, animate the response back.
+
+Animation logic:
+- State: stage (0-8), playing, packet position.
+- Each stage has a "transition path" — the path the packet travels when entering that stage.
+- Stage 1: packet appears at the user node (or a short pulse).
+- Stage 2: packet travels P1 (User→WebUI).
+- Stage 3: P2.
+- Stage 4: P3.
+- Stage 5: P4.
+- Stage 6: P5.
+- Stage 7: P6 (router→Ministral).
+- Stage 8: P8 (engine→Memory).
+- Stage 9: P9 (Memory→Sidecars).
+- Then the response: a series of reverse paths: Ministral→router, router→engine, engine→telepathy, telepathy→rosbridge, rosbridge→WebUI, WebUI→User.
+
+When playing: advance the stage, animate the packet along the path over about 1.2 seconds, then move to the next stage. When the response is complete, stop (or loop? Let's stop and show "Complete" — or loop. Let's stop and show "Complete — press Play to run again").
+
+Step: advance one stage at a time (animate the packet to the next stage, or just jump? "Stepping must advance one stage at a time" — let's animate the packet along the path and mark the stage as active. Step triggers the transition animation and marks the stage as active.
+
+Stage indicator: "Stage 3/9: telepathy_receptor".
+
+Node tooltips: title attribute + a label line below the node. "Each stage node shows a one-line description tooltip/label" — let me show a small label below each node (one-line description) and also a title tooltip.
+
+Legend: a legend box showing packet types: request packet (cyan), response packet (green), side branch (amber).
+
+Caption: "Orchestrated by AIVA/launch.sh — builds the shell workspace, starts router + rosbridge + chat + telepathy. AuRoRA is a separate system."
+
+Let me write the code.
+
+Structure:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How Grace Works — AIVA PC Companion Runtime</title>
+<style>...</style>
+</head>
+<body>
+<header>...</header>
+<main>
+  <div class="diagram-wrap">
+    <svg id="diagram" viewBox="0 0 1280 640" ...>
+      <!-- connectors, nodes, packets -->
+    </svg>
+  </div>
+  <div class="controls">
+    buttons + stage indicator
+  </div>
+  <div class="legend">...</div>
+  <p class="caption">...</p>
+</main>
+<script>...</script>
+</body>
+</html>
+```
+
+CSS: dark theme (#0d1117-ish), system fonts, generous whitespace.
+
+Let me write the JS carefully to avoid console errors.
+
+Key JS parts:
+
+```js
+const stages = [
+  {id:'user', name:'User', desc:'Speaks or types in the browser', path:null},
+  {id:'webui', name:'Console WebUI', desc:'Browser-local appearance prefs; runtime config read-only', path:'p1'},
+  {id:'rosbridge', name:'rosbridge', desc:'WebSocket bridge at 127.0.0.1:9090', path:'p2'},
+  {id:'telepathy', name:'telepathy_receptor', desc:'ROS 2 adapter node', path:'p3'},
+  {id:'engine', name:'Interactive conversation engine', desc:'Persona (SOUL.md) + user profile (USER.md)', path:'p4'},
+  {id:'router', name:'llama.cpp router', desc:'One llama-server, models/llama-router.ini, port 8080', path:'p5'},
+  {id:'ministral', name:'Ministral 3 8B chat', desc:'Routed by model name; voyage-4-nano embeddings', path:'p6'},
+  {id:'memory', name:'Mind ConversationStore', desc:'SQLite memory — recent/add_exchange, 8-turn window', path:'p8'},
+  {id:'sidecars', name:'Sidecars', desc:'Vector Canvas + Imaging; health / agi_logging', path:'p9'},
+];
+```
+
+Response paths: r1 (Ministral→router), r2 (router→engine), r3 (engine→telepathy), r4 (telepathy→rosbridge), r5 (rosbridge→WebUI), r6 (WebUI→User).
+
+Animation: use requestAnimationFrame. For each transition, store the path element, its length, and the progress. The packet is a circle (or two: request is cyan, response is green).
+
+State machine:
+- `stage` = current stage index (0-based), starts at 0 (User active).
+- `phase`: 'idle' | 'transition' | 'done'
+- When playing: on each tick, if phase is idle, start the transition to the next stage (or the response path if past stage 9).
+
+Let me define the sequence of transitions:
+
+```js
+const transitions = [
+  {to:1, path:'p1', color:'req'},   // User→WebUI
+  {to:2, path:'p2', color:'req'},
+  {to:3, path:'p3', color:'req'},
+  {to:4, path:'p4', color:'req'},
+  {to:5, path:'p5', color:'req'},
+  {to:6, path:'p6', color:'req'},
+  {to:7, path:'p8', color:'req'},   // engine→memory side branch
+  {to:8, path:'p9', color:'req'},   // memory→sidecars
+  // response
+  {to:6, path:'r1', color:'resp'},
+  {to:5, path:'r2', color:'resp'},
+  {to:4, path:'r3', color:'resp'},
+  {to:3, path:'r4', color:'resp'},
+  {to:2, path:'r5', color:'resp'},
+  {to:1, path:'r6', color:'resp'},
+];
+```
+
+Wait — the response goes back through the same chain: sidecars → memory → engine → telepathy → rosbridge → WebUI → User. Hmm, the spec says "response packets flow back" and "response path back through the same chain to the WebUI". So the response: sidecars → memory → engine → router → Ministral? No — the response comes from the model: Ministral → router → engine → telepathy → rosbridge → WebUI → User.
+
+Let me do this: response starts at Ministral (the model generates the response), goes through router, engine, telepathy, rosbridge, WebUI, User. That's 6 response transitions. The stage indicator during the response: "Response: …" or keep showing the stage. Let me show "Response path: …" with the node name.
+
+Actually, to keep the stage indicator simple: during the response, show "Response: router → engine → …". Or "Stage 10/15"? The spec example is "Stage 3/9: telepathy_receptor". Let me show "Response: telepathy_receptor" etc. during the response.
+
+Simpler: the stage indicator shows the current stage during the request, and "Response → X" during the response.
+
+Transition animation: duration ~1100ms, ease-in-out. The packet moves along the path. When it completes, mark the target node as active, and if playing, start the next transition after a short delay (300ms).
+
+Step button: if idle, start the next transition (same as one step of play). If a transition is in progress, wait for it to complete? Or jump. Let me make Step trigger the next transition
