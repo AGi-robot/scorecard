@@ -1,7 +1,6 @@
 | Model | Quant | Speculation | Decode@512/2K/8K | Prefill@512/2K/8K | TTFT@512/2K/8K | VRAM |
 |---|---|---|---:|---:|---:|---:|
 | **Ornith-1.5-35B-A3B-Heretic-MTP-APEX-GSQ-RCO-IQ3_XXS** + mmproj BF16 | IQ3_XXS | MTP+ngram (vrm256) | 122.9/111.1/**121.8** | 882/1654/1896 | 601ms/1.25s/4.34s | ~11.3GB |
-| Ornith (same, baseline calibrated) | IQ3_XXS | MTP+ngram | 121.3/119.2/110.9 | 921/1646/1786 | 573ms/1.26s/4.61s | ~11.3GB |
 | Occamy 1.0 i1 abliterated | Q4_K_M | ngram, vrm512 (no MTP head) | 116.7/106.9/109.3 | 467/1041/1810 | 1.12s/1.98s/4.55s | ~11.0GB |
 | Occamy 1.0 apex abliterated | Q6_K | ngram, vrm512 (no MTP head) | 104.0/86.7/81.9 | 383/993/1474 | 1.37s/2.08s/5.58s | ~11.0GB |
 | JoyFox Qwen3.6 RP Aggressive | Q6_K | MTP+ngram | 33.2/70.5/82.6 | 36/696/1208 | 14.65s/2.98s/6.81s | ~11.2GB |
