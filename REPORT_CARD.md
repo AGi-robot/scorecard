@@ -94,8 +94,9 @@ minicpm5-2b is ~2.7× faster to decode and prefill than the 4B models and uses t
 
 ### Agentic models — inference perf (RustingStrata 1.4.2, ctx 16384, temp 0, 256 output, 2 reps)
 
-Best Ornith config (calibrated + sweep on IQ3_XXS; IQ3_S re-bench pending): `--gpu --spec-type ngram-map-k4v,ngram-cache --mtp 1 --vram-margin 256 --chunk 2048 --ctx 16384 --thinking-budget 2048`. Calibrate: `strata-Ornith-1.5-35B-A3B-Heretic-MTP-APEX-GSQ-RCO-IQ3_XXS.json`.  
-Occamy i1 calibrate: `chunk 2048, mtp 0, short 32` (`strata-occamy-1.0-abliterated-safetensors.i1-Q4_K_M.json`); vrm256 sweep best: 112.3/104.5/103.5 decode @512/2K/8K (known calibrated settings; replaces earlier uncalibrated run).
+**Calibrated settings (RustingStrata, ctx 16384, thinking-budget 2048):**
+- **Ornith IQ3_S** (perf measured on IQ3_XXS, re-bench pending): `MTP+ngram, vrm256, chunk2048, mtp1` — `strata-Ornith-1.5-35B-A3B-Heretic-MTP-APEX-GSQ-RCO-IQ3_XXS.json`
+- **Occamy i1 Q4_K_M**: `ngram, vrm256, chunk2048, mtp0, short32` — `strata-occamy-1.0-abliterated-safetensors.i1-Q4_K_M.json`
 
 | Model | Quant | Speculation | Decode@512/2K/8K | Prefill@512/2K/8K | TTFT@512/2K/8K | VRAM |
 |---|---|---|---:|---:|---:|---:|
